@@ -1,0 +1,10 @@
+/.venv/
+/build/
+/dist/
+__pycache__/
+__epspy__/
+*.pyc
+/BuildData_FanceDp/
+/reference/
+*.epmap
+*.epmap.prof

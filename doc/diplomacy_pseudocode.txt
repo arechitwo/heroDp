@@ -1,0 +1,444 @@
+// ============================================================
+//  중세 디플로메시 유즈맵 — EPScript 슈도코드
+//  엔진: EPScript (EUD Editor 기반)
+//  플레이어: 최대 7인 (P1~P7) + P8 중립(수비대)
+// ============================================================
+
+
+// ============================================================
+//  [0] 상수 정의
+// ============================================================
+
+const PLAYER_COUNT      = 7;
+const NEUTRAL           = P8;           // 수비대·중립 유닛 소유
+
+// 도시 등급
+const CITY_NORMAL       = 0;            // 일반 도시  +5 미네랄/틱
+const CITY_TRADE        = 1;            // 교역 도시  +10 미네랄/틱
+const CITY_CAPITAL      = 2;            // 거점 도시  +20 미네랄/틱
+
+// 병종 ID (유닛 타입 매핑은 EUD Editor에서 지정)
+const UNIT_INFANTRY     = 0;            // 보병   — 마린 계열
+const UNIT_ARCHER       = 1;            // 궁병   — 고스트 계열
+const UNIT_SPEARMAN     = 2;            // 창병   — 파이어뱃 계열
+const UNIT_CAVALRY      = 3;            // 기병   — 벌처 계열
+const UNIT_SIEGE        = 4;            // 공성병 — 시즈탱크 계열
+
+// 특수유닛 ID (일반 +10% 스탯, 도시별 1종 지정)
+const UNIT_SP_INFANTRY  = 10;
+const UNIT_SP_ARCHER    = 11;
+const UNIT_SP_SPEARMAN  = 12;
+const UNIT_SP_CAVALRY   = 13;
+const UNIT_SP_SIEGE     = 14;
+
+// 승리 조건
+const WIN_CITY_COUNT    = 60;           // 전체 100개 중 60개 점령
+
+// 가스 획득량
+const GAS_NORMAL_CAPTURE  = 10;
+const GAS_TRADE_CAPTURE   = 25;
+const GAS_CAPITAL_CAPTURE = 60;
+const GAS_FIELD_WIN       = 5;         // 야전 승리
+
+
+// ============================================================
+//  [1] 전역 변수
+// ============================================================
+
+var mineralIncome[8];       // 플레이어별 미네랄 수입 (틱당)
+var gasStock[8];            // 플레이어별 가스 보유량
+var cityOwner[100];         // 도시별 소유 플레이어 (0=중립)
+var cityTier[100];          // 도시별 등급
+var citySpecialUnit[100];   // 도시별 특수유닛 종류
+var cityOccupied[100];      // 점령 여부 플래그
+var playerCityCount[8];     // 플레이어별 점령 도시 수
+var tickCounter;            // 글로벌 틱 카운터 (미네랄 수입 주기)
+
+
+// ============================================================
+//  [2] 초기화 — 게임 시작 시 1회 실행
+// ============================================================
+
+function Init() {
+
+    // 2-1. 도시 데이터 초기화 (100개 도시 등급·특수유닛 지정)
+    //      실제 구현 시 도시별로 하드코딩 or 배열 일괄 설정
+    for (i = 0; i < 100; i++) {
+        cityOwner[i]      = 0;          // 전부 중립으로 시작
+        cityTier[i]       = CITY_NORMAL;
+        citySpecialUnit[i]= UNIT_INFANTRY; // 기본값
+        cityOccupied[i]   = false;
+    }
+
+    // 2-2. 거점 도시 7개 등급 설정 (도시 인덱스는 맵에서 확정 후 기입)
+    //      예: 0=파리, 1=칼레, 2=테르뉴젠, 3=퀴른하우트,
+    //          4=아헨, 5=룩셈부르크, 6=랭스
+    SetCapitalCities();
+
+    // 2-3. 교역 도시 20개 등급 설정
+    SetTradeCities();
+
+    // 2-4. 플레이어 시작 배치
+    //      거점 도시 1 + 인접 일반 도시 2 = 시작 3도시 자동 점령
+    for (p = 1; p <= PLAYER_COUNT; p++) {
+        AssignStartCities(p);           // 각 플레이어 시작 도시 점령 처리
+        GiveMinerals(p, 200);           // 시작 미네랄 지급
+        SpawnStartUnits(p);             // 보병4 + 궁병2 지급
+    }
+
+    // 2-5. 중립 수비대 배치 (모든 미점령 도시에 NEUTRAL 소속 수비대 생성)
+    for (i = 0; i < 100; i++) {
+        if (cityOwner[i] == 0) {
+            SpawnGarrison(NEUTRAL, i);
+        }
+    }
+
+    tickCounter = 0;
+}
+
+
+// ============================================================
+//  [3] 도시 등급 설정 함수
+// ============================================================
+
+function SetCapitalCities() {
+    // 거점 7개: 특수유닛은 지형 기반으로 지정
+    cityTier[0]        = CITY_CAPITAL;  citySpecialUnit[0]  = UNIT_SP_CAVALRY;   // 파리 (평야)
+    cityTier[1]        = CITY_CAPITAL;  citySpecialUnit[1]  = UNIT_SP_ARCHER;    // 칼레 (해안)
+    cityTier[2]        = CITY_CAPITAL;  citySpecialUnit[2]  = UNIT_SP_ARCHER;    // 테르뉴젠 (해안)
+    cityTier[3]        = CITY_CAPITAL;  citySpecialUnit[3]  = UNIT_SP_CAVALRY;   // 퀴른하우트 (평야)
+    cityTier[4]        = CITY_CAPITAL;  citySpecialUnit[4]  = UNIT_SP_SPEARMAN;  // 아헨 (구릉)
+    cityTier[5]        = CITY_CAPITAL;  citySpecialUnit[5]  = UNIT_SP_SIEGE;     // 룩셈부르크 (산악)
+    cityTier[6]        = CITY_CAPITAL;  citySpecialUnit[6]  = UNIT_SP_INFANTRY;  // 랭스 (평야·주력)
+}
+
+function SetTradeCities() {
+    // 교역 20개: 브뤼셀, 리에주, 아미앵, 캉브레, 뮈즈앙에노,
+    //            나뮈르, 디낭, 보베, 랑, 수아송, 발랑시엔, 뤼를라리,
+    //            바스토뉴, 스당, 몽메디, 부지에, 에파르네, 블랑코토,
+    //            베르캥, 뒤렌
+    // 인덱스는 맵 확정 후 기입 — 구조 예시:
+    cityTier[7]  = CITY_TRADE;  citySpecialUnit[7]  = UNIT_SP_INFANTRY;  // 브뤼셀
+    cityTier[8]  = CITY_TRADE;  citySpecialUnit[8]  = UNIT_SP_SPEARMAN;  // 리에주
+    // ... (나머지 18개 동일 패턴)
+}
+
+
+// ============================================================
+//  [4] 수비대 스폰 — 도시 등급별 구성
+// ============================================================
+
+function SpawnGarrison(owner, cityIndex) {
+    var tier = cityTier[cityIndex];
+    var loc  = GetCityLocation(cityIndex);  // 도시 위치(Location) 반환
+
+    if (tier == CITY_NORMAL) {
+        // 일반: 보병 3기, 구조물 없음
+        CreateUnit(owner, UNIT_INFANTRY, 3, loc);
+    }
+    else if (tier == CITY_TRADE) {
+        // 교역: 보병 4기 + 창병 2기 + 포탑 1기
+        CreateUnit(owner, UNIT_INFANTRY, 4, loc);
+        CreateUnit(owner, UNIT_SPEARMAN, 2, loc);
+        CreateBuilding(owner, TURRET, 1, loc);
+    }
+    else if (tier == CITY_CAPITAL) {
+        // 거점: 보병 6기 + 창병 3기 + 궁병 2기 + 포탑 2기
+        CreateUnit(owner, UNIT_INFANTRY, 6, loc);
+        CreateUnit(owner, UNIT_SPEARMAN, 3, loc);
+        CreateUnit(owner, UNIT_ARCHER,   2, loc);
+        CreateBuilding(owner, TURRET, 2, loc);
+    }
+}
+
+
+// ============================================================
+//  [5] 점령 감지 루프 — 매 틱 실행
+// ============================================================
+
+function CheckCityCapture() {
+    for (i = 0; i < 100; i++) {
+        var loc = GetCityLocation(i);
+
+        // 해당 도시 Location 내 NEUTRAL 또는 타 플레이어 유닛 수 확인
+        for (attacker = 1; attacker <= PLAYER_COUNT; attacker++) {
+            if (attacker == cityOwner[i]) continue;  // 현 소유자는 스킵
+
+            // 적 수비대(NEUTRAL or 기존 소유자)가 0이고
+            // 공격자 유닛이 해당 Location에 존재하면 점령
+            if (CountUnit(cityOwner[i], ALL_UNIT, loc) == 0
+                && CountUnit(attacker, ALL_UNIT, loc) > 0) {
+
+                CaptureCity(attacker, i);
+                break;
+            }
+        }
+    }
+}
+
+function CaptureCity(newOwner, cityIndex) {
+    var prevOwner = cityOwner[cityIndex];
+    var tier      = cityTier[cityIndex];
+    var loc       = GetCityLocation(cityIndex);
+
+    // 5-1. 소유권 변경
+    cityOwner[cityIndex] = newOwner;
+
+    // 5-2. 도시 카운트 갱신
+    if (prevOwner != 0) {
+        playerCityCount[prevOwner] -= 1;
+    }
+    playerCityCount[newOwner] += 1;
+
+    // 5-3. 가스 보상 지급 (즉시 소모성)
+    if (tier == CITY_NORMAL)   { GiveGas(newOwner, GAS_NORMAL_CAPTURE);   }
+    if (tier == CITY_TRADE)    { GiveGas(newOwner, GAS_TRADE_CAPTURE);    }
+    if (tier == CITY_CAPITAL)  { GiveGas(newOwner, GAS_CAPITAL_CAPTURE);  }
+
+    // 5-4. 기존 수비대·구조물 제거 (이미 전멸했지만 잔여 오브젝트 정리)
+    KillUnit(NEUTRAL, ALL_UNIT, loc);
+    RemoveBuilding(NEUTRAL, TURRET, loc);
+
+    // 5-5. 새 주인 수비대 자동 리스폰
+    SpawnGarrison(newOwner, cityIndex);
+
+    // 5-6. 미네랄 수입 갱신
+    RecalcIncome(prevOwner);
+    RecalcIncome(newOwner);
+
+    // 5-7. 승리 조건 체크
+    CheckWinCondition(newOwner);
+
+    // 5-8. 특수유닛 생산 해금 알림
+    //      해당 도시 점령 시 특수유닛 생산 가능 표시 (텍스트 출력)
+    var spUnit = citySpecialUnit[cityIndex];
+    DisplayText(newOwner, GetCityName(cityIndex) + " 점령! 특수유닛 생산 가능.");
+    UnlockSpecialUnit(newOwner, cityIndex, spUnit);
+}
+
+
+// ============================================================
+//  [6] 특수유닛 생산 해금
+// ============================================================
+
+var specialUnitUnlocked[8][100];  // [플레이어][도시] 해금 여부
+
+function UnlockSpecialUnit(player, cityIndex, unitType) {
+    specialUnitUnlocked[player][cityIndex] = true;
+    // 해당 도시 Location에서만 특수유닛 생산 가능
+    // 실제 생산은 플레이어가 커맨드로 요청 or 핫키 트리거로 처리
+}
+
+function ProduceSpecialUnit(player, cityIndex) {
+    // 생산 조건: 해금됨 + 소유 중 + 미네랄 충분
+    if (!specialUnitUnlocked[player][cityIndex]) return;
+    if (cityOwner[cityIndex] != player) return;
+
+    var cost    = 90;   // 기본 유닛 비용 + 약 10% 추가
+    var unitType = citySpecialUnit[cityIndex];
+    var loc      = GetCityLocation(cityIndex);
+
+    if (GetMinerals(player) >= cost) {
+        SpendMinerals(player, cost);
+        CreateUnit(player, unitType, 1, loc);
+    }
+}
+
+
+// ============================================================
+//  [7] 미네랄 수입 시스템 — 틱 주기 실행
+// ============================================================
+
+const INCOME_TICK = 20;  // 20틱마다 수입 지급 (EUD 타이머 기준 조정)
+
+function RecalcIncome(player) {
+    var total = 0;
+    for (i = 0; i < 100; i++) {
+        if (cityOwner[i] != player) continue;
+        if      (cityTier[i] == CITY_NORMAL)  { total += 5;  }
+        else if (cityTier[i] == CITY_TRADE)   { total += 10; }
+        else if (cityTier[i] == CITY_CAPITAL) { total += 20; }
+    }
+    mineralIncome[player] = total;
+}
+
+function DistributeIncome() {
+    // INCOME_TICK마다 각 플레이어에게 수입 지급
+    if (tickCounter % INCOME_TICK != 0) return;
+
+    for (p = 1; p <= PLAYER_COUNT; p++) {
+        GiveMinerals(p, mineralIncome[p]);
+    }
+}
+
+
+// ============================================================
+//  [8] 가스 소비 — 전투 보상 즉시 사용
+// ============================================================
+
+function SpendGas(player, amount, actionType) {
+    if (gasStock[player] < amount) {
+        DisplayText(player, "가스 부족!");
+        return false;
+    }
+    gasStock[player] -= amount;
+
+    // actionType별 효과 발동
+    if      (actionType == GAS_ACTION_RECRUIT)    { EmergencyRecruit(player);    }  // 긴급 징집  (15)
+    else if (actionType == GAS_ACTION_HEAL)       { HealUnits(player);           }  // 전열 정비  (30)
+    else if (actionType == GAS_ACTION_CAVALRY)    { CavalryCharge(player);       }  // 기병 돌격령(40)
+    else if (actionType == GAS_ACTION_SIEGE)      { SiegeReady(player);          }  // 공성 준비  (50)
+    else if (actionType == GAS_ACTION_FORTIFY)    { BuildFortification(player);  }  // 방어 진지  (20)
+    else if (actionType == GAS_ACTION_STABILIZE)  { StabilizeCity(player);       }  // 약탈 금지  (35)
+    else if (actionType == GAS_ACTION_UPGRADE)    { UpgradeCity(player);         }  // 요새화     (45)
+    else if (actionType == GAS_ACTION_WARDEC)     { WarDeclaration(player);      }  // 선전포고   (10)
+    else if (actionType == GAS_ACTION_MERCENARY)  { HireMercenary(player);       }  // 용병 고용  (25)
+    else if (actionType == GAS_ACTION_BLOCKADE)   { TradeBlockade(player);       }  // 통행세 봉쇄(50)
+
+    return true;
+}
+
+
+// ============================================================
+//  [9] 상성 보정 — EUD 데미지 테이블
+// ============================================================
+
+//  기병  vs 창병 → 기병 공격력 -50%   (EUD 무기 데미지 조정)
+//  창병  vs 기병 → 창병 공격력 +80%
+//  기병  vs 보병 → 기병 공격력 정상 (우위)
+//  기병  vs 궁병 → 기병 공격력 정상 (압도)
+//  보병  vs 창병 → 보병 우위
+//  공성  vs 구조물 → 데미지 +100% (건물 특화)
+//  공성  vs 유닛  → 데미지 -50%  (야전 취약)
+
+//  * 실제 적용: EUD의 WeaponDamage 테이블에서
+//    각 유닛타입 조합별로 직접 수치 입력
+//    → 코드 레벨에선 상수 정의만, 실행은 EUD 엔진이 처리
+
+const DMG_CAVALRY_VS_SPEAR  = 0.50;   // 기병이 창병 상대 시 50%만
+const DMG_SPEAR_VS_CAVALRY  = 1.80;   // 창병이 기병 상대 시 180%
+const DMG_SIEGE_VS_BUILDING = 2.00;   // 공성이 구조물 상대 시 200%
+const DMG_SIEGE_VS_UNIT     = 0.50;   // 공성이 유닛 상대 시 50%
+
+
+// ============================================================
+//  [10] 야전 승리 감지 — 가스 +5 지급
+// ============================================================
+
+//  야전 = 도시 Location 밖에서의 교전
+//  구현: 특정 Location(전장 구역) 내 적 유닛 전멸 시 감지
+
+function CheckFieldBattle() {
+    for (p = 1; p <= PLAYER_COUNT; p++) {
+        for (enemy = 1; enemy <= PLAYER_COUNT; enemy++) {
+            if (p == enemy) continue;
+            // 전장 구역 내 적 유닛이 0이 됐고 아군이 존재하면 야전 승리
+            if (FieldBattleWon(p, enemy)) {
+                GiveGas(p, GAS_FIELD_WIN);
+            }
+        }
+    }
+}
+
+
+// ============================================================
+//  [11] 외교 시스템 — 채팅 명령어 처리
+// ============================================================
+
+var allianceTable[8][8];    // [p1][p2] = true → 동맹 성립
+
+function OnChatCommand(player, msg) {
+    // -ally [색] : 동맹 제안
+    if (StartsWith(msg, "-ally")) {
+        var target = ParsePlayerColor(msg);
+        ProposeAlliance(player, target);
+    }
+    // -attack [색] : 선전포고 (가스 10 소모)
+    else if (StartsWith(msg, "-attack")) {
+        var target = ParsePlayerColor(msg);
+        if (SpendGas(player, 10, GAS_ACTION_WARDEC)) {
+            DeclareWar(player, target);
+        }
+    }
+    // -peace [색] : 휴전 제안
+    else if (StartsWith(msg, "-peace")) {
+        var target = ParsePlayerColor(msg);
+        ProposePeace(player, target);
+    }
+    // 가스 소비 커맨드
+    else if (msg == "-recruit")  { SpendGas(player, 15, GAS_ACTION_RECRUIT);   }
+    else if (msg == "-heal")     { SpendGas(player, 30, GAS_ACTION_HEAL);      }
+    else if (msg == "-charge")   { SpendGas(player, 40, GAS_ACTION_CAVALRY);   }
+    else if (msg == "-siege")    { SpendGas(player, 50, GAS_ACTION_SIEGE);     }
+    else if (msg == "-fort")     { SpendGas(player, 20, GAS_ACTION_FORTIFY);   }
+    else if (msg == "-stable")   { SpendGas(player, 35, GAS_ACTION_STABILIZE); }
+    else if (msg == "-upgrade")  { SpendGas(player, 45, GAS_ACTION_UPGRADE);   }
+    else if (msg == "-merc")     { SpendGas(player, 25, GAS_ACTION_MERCENARY); }
+    else if (msg == "-block")    { SpendGas(player, 50, GAS_ACTION_BLOCKADE);  }
+}
+
+function ProposeAlliance(p1, p2) {
+    // 상대가 수락 채팅(-ally [색])을 보내야 성립
+    // 일단 pending 상태로 저장
+    alliancePending[p1][p2] = true;
+    DisplayText(p2, GetPlayerName(p1) + " 이(가) 동맹을 제안했습니다. (-ally 로 수락)");
+}
+
+function DeclareWar(attacker, target) {
+    // 기존 동맹 파기
+    allianceTable[attacker][target] = false;
+    allianceTable[target][attacker] = false;
+    DisplayTextAll(GetPlayerName(attacker) + " → " + GetPlayerName(target) + " 선전포고!");
+    // 패널티 없음 (가스 10 이미 소모)
+}
+
+
+// ============================================================
+//  [12] 승리 조건 체크
+// ============================================================
+
+function CheckWinCondition(player) {
+    if (playerCityCount[player] >= WIN_CITY_COUNT) {
+        DisplayTextAll(GetPlayerName(player) + " 승리! (" + WIN_CITY_COUNT + "개 도시 점령)");
+        Victory(player);
+        for (p = 1; p <= PLAYER_COUNT; p++) {
+            if (p != player) Defeat(p);
+        }
+    }
+}
+
+
+// ============================================================
+//  [13] 메인 루프 — 매 틱 실행
+// ============================================================
+
+function MainLoop() {
+    tickCounter += 1;
+
+    DistributeIncome();     // 미네랄 수입 지급
+    CheckCityCapture();     // 점령 감지
+    CheckFieldBattle();     // 야전 승리 감지
+}
+
+
+// ============================================================
+//  [14] 이벤트 바인딩
+// ============================================================
+
+onGameStart  >> Init();
+onTick       >> MainLoop();
+onChat       >> OnChatCommand(triggerPlayer, chatMessage);
+
+
+// ============================================================
+//  [END]
+//  미구현 함수 목록 (EUD Editor에서 직접 구현 필요):
+//
+//  GetCityLocation(cityIndex)   → 도시별 Location 매핑 배열
+//  GetCityName(cityIndex)       → 도시 이름 문자열 배열
+//  CreateBuilding(...)          → EUD 건물 생성 트리거
+//  RemoveBuilding(...)          → EUD 건물 제거 트리거
+//  FieldBattleWon(p, enemy)     → 전장 구역 감지 로직
+//  ParsePlayerColor(msg)        → 채팅 파싱
+//  HealUnits / CavalryCharge 등 → 가스 효과 세부 구현
+// ============================================================

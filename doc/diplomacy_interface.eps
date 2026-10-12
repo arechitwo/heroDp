@@ -1,0 +1,270 @@
+// ============================================================
+//  중세 디플로메시 유즈맵 — EPScript 인터페이스 정의
+//  모듈 구성: 안 B (12개 모듈)
+//  알고리즘 제외 / 함수 시그니처 + 상수 + 변수 구조만 기술
+// ============================================================
+
+
+// ============================================================
+//  MODULE 01. CityData
+//  역할: 도시 속성 정의 및 조회
+// ============================================================
+
+const CITY_COUNT        = 100;
+const CITY_NORMAL       = 0;
+const CITY_TRADE        = 1;
+const CITY_CAPITAL      = 2;
+
+const cityOwner = EUDVArray(120)();         // 소유 플레이어 (0=중립)
+const cityTier = EUDArray(120);          // 도시 등급
+const citySpecialUnit = EUDVArray(20)();   // 점령 특수유닛 종류
+//const cityLocation = EUDVArray(120)();      // SC Location 인덱스 매핑 <- 파기. 도시에 로케이션은 수도, 주요도시에만 존재할 예정.
+//그 외 일반 도시는 파일런 공격 인식으로 주위에 적이 있는지 판단할 예정.
+
+function InitCityData();                            // 전체 도시 배열 초기화
+function SetCityTier(cityIndex, tier);              // 도시 등급 지정
+function SetCitySpecialUnit(cityIndex, unitType);   // 특수유닛 종류 지정
+function GetCityTier(cityIndex) -> int;             // 등급 반환
+function GetCityOwner(cityIndex) -> int;            // 소유자 반환
+function GetCityLocation(cityIndex) -> location;    // Location 반환
+function GetCityName(cityIndex) -> string;          // 도시 이름 반환
+
+
+// ============================================================
+//  MODULE 02. CityCapture
+//  역할: 점령 감지 및 소유권 이전 처리
+// ============================================================
+
+var playerCityCount[8];     // 플레이어별 점령 도시 수
+
+function CheckAllCityCapture();                     // 매 틱 전체 도시 점령 감지
+function IsCaptured(cityIndex, attacker) -> bool;   // 해당 도시가 점령됐는지
+function CaptureCity(newOwner, cityIndex);          // 소유권 이전 + 후속 처리 호출
+function OnCityCaptured(newOwner, cityIndex);       // 점령 이벤트 핸들러
+
+
+// ============================================================
+//  MODULE 03. Garrison
+//  역할: 수비대 생성·제거·리스폰
+// ============================================================
+
+function SpawnGarrison(owner, cityIndex);           // 등급별 수비대 + 구조물 생성
+function RemoveGarrison(cityIndex);                 // 수비대 + 구조물 전체 제거
+function GetGarrisonComposition(tier) -> unitList;  // 등급별 수비대 구성 반환
+
+
+// ============================================================
+//  MODULE 04. UnitProduction
+//  역할: 일반유닛·특수유닛 생산 관리
+// ============================================================
+
+const UNIT_INFANTRY     = 0;
+const UNIT_ARCHER       = 1;
+const UNIT_SPEARMAN     = 2;
+const UNIT_CAVALRY      = 3;
+const UNIT_SIEGE        = 4;
+
+const UNIT_SP_INFANTRY  = 10;   // 특수유닛 (일반 +10% 스탯)
+const UNIT_SP_ARCHER    = 11;
+const UNIT_SP_SPEARMAN  = 12;
+const UNIT_SP_CAVALRY   = 13;
+const UNIT_SP_SIEGE     = 14;
+
+var specialUnitUnlocked[8][100];    // [플레이어][도시] 특수유닛 해금 여부
+
+function UnlockSpecialUnit(player, cityIndex);          // 특수유닛 해금
+function IsSpecialUnitUnlocked(player, cityIndex) -> bool;
+function ProduceUnit(player, unitType, cityIndex);      // 일반유닛 생산
+function ProduceSpecialUnit(player, cityIndex);         // 특수유닛 생산 (해금 + 비용 확인)
+function GetUnitCost(unitType) -> int;                  // 유닛 생산 미네랄 비용
+function GetSpecialUnitCost(unitType) -> int;           // 특수유닛 비용 (일반 +약10%)
+
+
+// ============================================================
+//  MODULE 05. Combat
+//  역할: 상성 보정 상수 정의 + 야전 승리 감지
+//  * 데미지 수치 자체는 EUD WeaponDamage 테이블에서 처리
+// ============================================================
+
+// 상성 보정 배율 상수 (EUD 테이블 입력용 레퍼런스)
+const DMG_CAVALRY_VS_SPEAR      = 0.50;
+const DMG_SPEAR_VS_CAVALRY      = 1.80;
+const DMG_CAVALRY_VS_INFANTRY   = 1.20;
+const DMG_CAVALRY_VS_ARCHER     = 1.30;
+const DMG_INFANTRY_VS_SPEAR     = 1.15;
+const DMG_SIEGE_VS_BUILDING     = 2.00;
+const DMG_SIEGE_VS_UNIT         = 0.50;
+
+function CheckFieldBattles();                           // 매 틱 야전 승리 감지
+function IsFieldBattleWon(winner, loser) -> bool;       // 전장 구역 교전 결과 판단
+function OnFieldBattleWon(winner, cityIndex);           // 야전 승리 이벤트 → 가스 지급
+
+
+// ============================================================
+//  MODULE 06. Income
+//  역할: 미네랄 수입 계산 및 주기적 지급
+// ============================================================
+
+const INCOME_PER_NORMAL     = 5;
+const INCOME_PER_TRADE      = 10;
+const INCOME_PER_CAPITAL    = 20;
+const INCOME_TICK_INTERVAL  = 20;   // 수입 지급 주기 (틱)
+
+var mineralIncome[8];       // 플레이어별 현재 수입 합계
+var tickCounter;
+
+function RecalcIncome(player);              // 소유 도시 기반 수입 재계산
+function DistributeIncome();                // 틱 주기마다 수입 일괄 지급
+function GiveMinerals(player, amount);      // 미네랄 직접 지급
+function GetMinerals(player) -> int;        // 현재 미네랄 조회
+function SpendMinerals(player, amount);     // 미네랄 차감
+
+
+// ============================================================
+//  MODULE 07. GasAction
+//  역할: 가스 획득·보유·소비 및 10가지 액션 실행
+// ============================================================
+
+// 가스 획득량
+const GAS_CAPTURE_NORMAL    = 10;
+const GAS_CAPTURE_TRADE     = 25;
+const GAS_CAPTURE_CAPITAL   = 60;
+const GAS_FIELD_WIN         = 5;
+
+// 가스 소비량
+const GAS_COST_RECRUIT      = 15;
+const GAS_COST_HEAL         = 30;
+const GAS_COST_CHARGE       = 40;
+const GAS_COST_SIEGE        = 50;
+const GAS_COST_FORTIFY      = 20;
+const GAS_COST_STABILIZE    = 35;
+const GAS_COST_UPGRADE      = 45;
+const GAS_COST_WARDEC       = 10;
+const GAS_COST_MERCENARY    = 25;
+const GAS_COST_BLOCKADE     = 50;
+
+const gasStock = EUDArray(8);            // 플레이어별 가스 보유량
+
+function GiveGas(player, amount);              // 가스 지급
+function SpendGas(player, amount) -> bool;     // 가스 차감 (부족 시 false)
+function GetGas(player) -> int;                // 가스 잔량 조회
+
+// 가스 소비 액션 10종
+function ActionRecruit(player);       // 가스 미네랄 변환
+function ActionHeal(player);          // 전열 정비   — 현 위치 유닛 HP 100% 회복
+function ActionUpgradeCity(player);   // 요새화      — 도시 등급 1단계 상승
+function ActionFortify(player);       // 방어 진지   — 방어타워 건설.
+
+
+// ============================================================
+//  MODULE 08. Diplomacy
+//  역할: 동맹·선전포고·휴전 상태 관리
+// ============================================================
+
+var allianceTable[8][8];        // [p1][p2] 동맹 여부
+var alliancePending[8][8];      // 제안 대기 상태
+var warTable[8][8];             // 전쟁 상태
+
+function ProposeAlliance(from, to);             // 동맹 제안
+function AcceptAlliance(from, to);              // 동맹 수락 → allianceTable 갱신
+function BreakAlliance(p1, p2);                 // 동맹 파기
+function DeclareWar(attacker, target);          // 선전포고
+function ProposePeace(from, to);                // 휴전 제안
+function AcceptPeace(from, to);                 // 휴전 수락
+function IsAllied(p1, p2) -> bool;              // 동맹 여부 조회
+function IsAtWar(p1, p2) -> bool;               // 전쟁 여부 조회
+
+
+// ============================================================
+//  MODULE 09. Chat
+//  역할: 채팅 명령어 파싱 및 라우팅
+// ============================================================
+
+// 커맨드 목록
+// -ally [색]    → ProposeAlliance / AcceptAlliance
+// -attack [색]  → ActionWarDec (가스 10 소모)
+// -peace [색]   → ProposePeace / AcceptPeace
+// -recruit      → ActionRecruit      (가스 15)
+// -heal         → ActionHeal         (가스 30)
+// -charge       → ActionCharge       (가스 40)
+// -siege        → ActionSiegeReady   (가스 50)
+// -fort         → ActionFortify      (가스 20)
+// -stable       → ActionStabilize    (가스 35)
+// -upgrade      → ActionUpgradeCity  (가스 45)
+// -merc         → ActionMercenary    (가스 25)
+// -block [도시] → ActionBlockade     (가스 50)
+
+function OnChatCommand(player, message);            // 진입점 — 메시지 수신
+function ParseCommand(message) -> commandType;      // 커맨드 타입 파싱
+function ParseTargetPlayer(message) -> playerIndex; // 대상 플레이어 파싱
+function ParseTargetCity(message) -> cityIndex;     // 대상 도시 파싱
+function RouteCommand(player, commandType, args);   // 커맨드 → 함수 라우팅
+function DisplayChatError(player, reason);          // 오류 메시지 출력
+
+
+// ============================================================
+//  MODULE 10. Display
+//  역할: 텍스트 출력 및 상태 표시
+// ============================================================
+
+function DisplayText(text);               // 특정 플레이어에게 텍스트 출력
+function DisplayTextAll(text);            // 전체 출력
+function DisplayCityStatus();             // 도시 소유·등급 표시
+function DisplayIncomeStatus();           // 수입 현황 표시
+function DisplayWinProgress();            // 점령 도시 수 / 60 진행률
+
+
+// ============================================================
+//  MODULE 11. WinCondition
+//  역할: 승리 조건 체크 및 게임 종료
+// ============================================================
+
+const WIN_CITY_COUNT = 60;
+
+function CheckWinCondition(player);     // 점령 수 >= 60 확인
+function TriggerVictory(player);        // 승리 처리
+function TriggerDefeat(player);         // 패배 처리
+function IsGameOver() -> bool;          // 게임 종료 여부
+
+
+// ============================================================
+//  MODULE 12. GameLoop
+//  역할: 초기화 + 매 틱 실행 진입점
+// ============================================================
+
+function OnGameStart();     // Init 진입점
+function OnTick();          // 매 틱 진입점
+function OnChat(player, message); // 채팅 진입점
+
+// OnTick 실행 순서
+//  1. tickCounter++
+//  2. DistributeIncome()       — 수입 지급
+//  3. CheckAllCityCapture()    — 점령 감지
+//  4. CheckFieldBattles()      — 야전 감지
+//  5. CheckWinCondition(all)   — 승리 확인
+
+// 이벤트 바인딩
+// onGameStart >> OnGameStart()
+// onTick      >> OnTick()
+// onChat      >> OnChat(triggerPlayer, chatMessage)
+
+
+// ============================================================
+//  의존 관계 (모듈 간 호출 방향)
+//
+//  GameLoop
+//    ├─ Income.DistributeIncome
+//    ├─ CityCapture.CheckAllCityCapture
+//    │     ├─ CityData (조회)
+//    │     ├─ Garrison.RespawnGarrison
+//    │     ├─ GasAction.GiveGas
+//    │     ├─ UnitProduction.UnlockSpecialUnit
+//    │     ├─ Income.RecalcIncome
+//    │     ├─ Display.DisplayText
+//    │     └─ WinCondition.CheckWinCondition
+// ============================================================
+// 나중에 구현
+//    └─ Chat.OnChatCommand
+//          ├─ Diplomacy.*
+//          ├─ GasAction.ActionXxx
+//          └─ Display.DisplayChatError

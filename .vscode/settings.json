@@ -1,0 +1,29 @@
+{
+    "files.exclude": {
+        "**/backup/**": true,
+        "**/*.tmp": true,
+        "**/~$*": true,
+        "**/!*": true,
+        "build": true,
+        "dist": true,
+        "reference": true,
+        "BuildData_FanceDp": true,
+        "**/__pycache__":true,
+        "BuildData_FanceDp/eudplibData/*.eps":true,
+        "BuildData_FanceDp/eudplibData/*.eds":true,
+        "BuildData_FanceDp/eudplibData/*.py":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/TriggerEditor":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/*.eps":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/​​설정":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/*.py":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/__epspy__":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/__pycache__":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/*/__pycache__":true,
+        "BuildData_FanceDp/eudplibData/TriggerEditor/*/__epspy__":true,
+        "*.pdf":true,
+        "*.png":true,
+        "*.bmp":true,
+        
+    }
+}
+//!파일은 코드랑은 상관없는 파일

@@ -1,0 +1,6 @@
+{
+  "input": "maps/base.scx",
+  "output": "dist/NoE3s.scx",
+  "entry": "src/game/main.eps",
+  "euddraft": "C:/repo/programs/euddraft0.10.2.5/euddraft.exe"
+}
