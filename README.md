@@ -15,7 +15,7 @@ assets/sounds/            사운드 원본
 assets/images/            이미지 원본
 build/<실행시각>/         자동 생성 .eds 및 중간 결과
 build/logs/               빌드 로그
-dist/NoE3s.scx            최종 맵
+map_data.py의 map_version 최종 맵 파일명 (출력 폴더는 config/build.json의 output_dir)
 doc/                      기존 설계 문서 및 향후 신규 문서
 BuildData_FanceDp/        FranceDp 레퍼런스 (빌드에 포함하지 않음)
 reference/               이전 진입점과 설계 이미지 (로컬 참고용)
@@ -42,6 +42,9 @@ python build_map.py --output dist/NoE3s-dev.scx
 Python이 PATH에 없다면 설치된 `python.exe`의 전체 경로로 실행합니다.
 euddraft 선택 순서는 `--euddraft`, `EUDDRAFT_PATH` 환경변수, 설정 파일, PATH입니다.
 모든 상대 경로는 프로젝트 루트를 기준으로 해석하므로 다른 폴더에서도 실행할 수 있습니다.
+기본 출력 폴더는 `C:\Users\shigi\Documents\StarCraft\Maps`입니다.
+`src/game/modules/map_data.py`의 `map_version = "NoE3s0.01"`을 바꾸면 출력 파일명이 바뀝니다.
+현재 출력은 `NoE3s0.01.scx`이며, `.scx` 확장자는 생략해도 런처가 붙입니다.
 `--check`는 파일과 도구 경로만 검사하며 EPScript 컴파일 검사는 실제 빌드에서 수행합니다.
 
 런처는 실행마다 일회성 `.eds`를 만들고 euddraft를 실행합니다.

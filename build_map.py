@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import configparser
 import json
 import os
@@ -20,6 +21,24 @@ def project_path(value: str) -> Path:
     return (ROOT / path).resolve()
 
 
+def map_filename() -> str:
+    # map_data imports eudplib and resolves locations after loading the map.
+    # Read only its literal version string here, without importing that module.
+    path = ROOT / 'src/game/modules/map_data.py'
+    for node in ast.parse(path.read_text(encoding='utf-8-sig')).body:
+        if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == 'map_version'
+            for target in node.targets
+        ):
+            version = ast.literal_eval(node.value)
+            if not isinstance(version, str) or not version.strip() or any(
+                char in version for char in '/\\:*?"<>|\r\n'
+            ):
+                raise ValueError('map_version must be a literal map filename')
+            return version if version.lower().endswith('.scx') else version + '.scx'
+    raise ValueError('map_data.py requires a literal map_version string')
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="config/build.json")
@@ -32,11 +51,13 @@ def main() -> int:
     try:
         config = json.loads(project_path(args.config).read_text(encoding="utf-8-sig"))
         paths = {}
-        for key in ("input", "output", "entry"):
+        for key in ("input", "entry"):
             value = getattr(args, key, None) or config[key]
             if not isinstance(value, str) or not value.strip() or any(c in value for c in "\r\n[]"):
                 raise ValueError(f"Invalid {key} path")
             paths[key] = project_path(value)
+        output_dir = project_path(config['output_dir'])
+        paths['output'] = project_path(args.output) if args.output else output_dir / map_filename()
         source, output, entry = (paths[k] for k in ("input", "output", "entry"))
         if not source.is_file() or source.suffix.lower() != ".scx":
             raise ValueError(f"Base SCX not found: {source}")
@@ -44,8 +65,8 @@ def main() -> int:
             raise ValueError(f"EPScript/Python entry not found: {entry}")
         if output.suffix.lower() != ".scx" or output in (source, entry):
             raise ValueError("Output must be a separate .scx file")
-        if ROOT not in output.parents:
-            raise ValueError("Output must remain inside the project")
+        if ROOT not in output.parents and output_dir not in output.parents:
+            raise ValueError("Output must remain inside the project or configured output directory")
         template = configparser.ConfigParser(interpolation=None, delimiters=(":",), strict=True)
         template.optionxform = str
         recipe_path = project_path(config['recipe'])
@@ -70,8 +91,11 @@ def main() -> int:
             return 0
         if args.prepare:
             generate(project_path(config['custom_tbl']), project_path(config['require_data']), ROOT / 'build/generated')
-            (ROOT / 'dist').mkdir(parents=True, exist_ok=True)
-            print('Generated build/generated data. Run euddraft main.eds from the project root.')
+            template['main']['input'] = source.as_posix()
+            template['main']['output'] = output.as_posix()
+            with recipe_path.open('w', encoding='utf-8') as stream:
+                template.write(stream)
+            print(f'Generated data and recipe for {output}. Run euddraft main.eds from the project root.')
             return 0
 
         # A unique staging path prevents stale output from being reported as success.

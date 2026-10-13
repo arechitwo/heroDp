@@ -1,6 +1,8 @@
 """Named base-map locations, resolved from the loaded SCX at build time."""
 from eudplib import EncodeLocation
 
+map_version = "NoE3s0.01"
+
 
 class Loc:
     city_guard = EncodeLocation("city_guard")

@@ -1,6 +1,6 @@
 [main]
 input: maps/base.scx
-output: dist/NoE3s.scx
+output: C:/Users/shigi/Documents/StarCraft/Maps/NoE3s0.01.scx
 
 [src/plugins/data_loader.py]
 data_dir: build/generated

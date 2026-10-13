@@ -1,6 +1,6 @@
 {
   "input": "maps/base.scx",
-  "output": "dist/NoE3s.scx",
+  "output_dir": "C:/Users/shigi/Documents/StarCraft/Maps",
   "entry": "src/game/main.eps",
   "recipe": "main.eds",
   "custom_tbl": "src/data/custom_tbl.json",

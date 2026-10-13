@@ -32,7 +32,9 @@ python build_map.py
 
 `--check`는 레시피·플러그인 경로와 JSON의 실제 바이너리 생성 가능 여부를 확인합니다.
 정상 빌드는 `main.eds`를 읽고 실행별 `build/<시각>/data/`에 바이너리를 만든 뒤,
-경로를 해석한 `map.eds`로 일회성 컴파일합니다. 최종 결과는 `dist/NoE3s.scx`입니다.
+경로를 해석한 `map.eds`로 일회성 컴파일합니다. 최종 결과는 `config/build.json`의 `output_dir`에 저장합니다.
+기본 폴더는 `C:\Users\shigi\Documents\StarCraft\Maps`이며 파일명은 `map_data.py`의 `map_version`에서 읽습니다.
+`map_version = "NoE3s0.01"`이면 `NoE3s0.01.scx`로 저장합니다. 버전은 문자열 리터럴로 작성합니다.
 
 euddraft로 레시피를 직접 실행하려면 먼저 다음 순서로 실행합니다.
 
@@ -42,7 +44,7 @@ C:/repo/programs/euddraft0.10.2.5/euddraft.exe main.eds
 ```
 
 직접 실행은 프로젝트 루트에서 하며 입력·출력·진입점은 `main.eds` 값을 사용합니다.
-런처의 `config/build.json` 값과 CLI 오버라이드는 런처 빌드에만 적용됩니다.
+`--prepare`는 생성 데이터와 함께 `main.eds`의 입력·출력을 현재 설정과 `map_version`에 맞춥니다.
 JSON을 바꾼 뒤에는 `--prepare`를 다시 실행해야 직접 빌드에 반영됩니다.
 
 ## custom_tbl.json
