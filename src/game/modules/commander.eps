@@ -1,5 +1,9 @@
+import modules.unit_orders as orders;
+
 const ARMY = UnitGroup(1700);
 const COMMANDS = EUDVArray(8)();
+const TARGET_POSITIONS = EUDVArray(8)();
+const LOCATION_TABLE = EPD(0x58DC60);
 
 function trackNewUnits() {
     foreach (ptr, epd : EUDLoopNewUnit()) {
@@ -19,21 +23,29 @@ function tick() {
             COMMANDS[cp] = 0;
             if (Deaths(CurrentPlayer, Exactly, 1, 214)) { COMMANDS[cp] = 1; hasCommand = 1; }
             else if (Deaths(CurrentPlayer, Exactly, 2, 214)) { COMMANDS[cp] = 2; hasCommand = 1; }
+            if (COMMANDS[cp] != 0) {
+                // 플레이어당 목표 좌표를 한 번만 읽고 해당 군대 전체에서 재사용.
+                const loc = LOCATION_TABLE + (239 + cp) * 5;
+                const x = (dwread_epd(loc) + dwread_epd(loc + 2)) / 2;
+                const y = (dwread_epd(loc + 1) + dwread_epd(loc + 3)) / 2;
+                TARGET_POSITIONS[cp] = x + (y << 16);
+            }
             SetDeaths(CurrentPlayer, SetTo, 0, 214);
         }
     }
-    if (hasCommand) {
-        // One army traversal for all players' commands, never one global scan per player.
+        // 매 틱 수명 관리. 명령이 있을 때에만 저장된 유닛에 직접 명령을 기록.
         foreach (entry : ARMY.cploop) {
+            foreach (dead : entry.dying) {
+                // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.
+            }
+            if (!hasCommand) { continue; }
             const unit = CUnit.cast(entry.epd);
             const owner = unit.owner;
             if (owner >= 7) { continue; }
             const mode = COMMANDS[owner];
             if (mode == 0) { continue; }
-            unit.setloc(254);
-            if (mode == 2) { Order(unit.unitType, owner, 254, Attack, 240 + owner); }
-            else { Order(unit.unitType, owner, 254, Move, 240 + owner); }
+            if (mode == 2) { orders.issue(unit, orders.ORDER_ATTACK_MOVE, TARGET_POSITIONS[owner]); }
+            else { orders.issue(unit, orders.ORDER_MOVE, TARGET_POSITIONS[owner]); }
         }
-    }
     setcurpl(0);
 }

@@ -10,6 +10,7 @@
 | `start_ui.eps` | 오프닝, 방장 빠른/세부 설정, 채팅 거점 선택, 게임 시작 |
 | `rules.eps` | 개인전 동맹 규칙, 대기열/랜덤 팀 구성, 팀 동맹과 시야 |
 | `unit_dat.eps` | `TrgUnit`/`Weapon` 문법의 파일런·주둔군 외형, 스탯, 공격 AI |
+| `unit_orders.eps` | CUnit 직접 이동(6)·어택땅(14) 명령. 영웅별 UnitGroup에서도 재사용 |
 
 ## 초기 맵 설정
 
@@ -78,6 +79,10 @@ F를 누른 상태로 우클릭하면 전군 이동, 좌클릭하면 전군 공�
 일꾼·주둔군·건물은 전군 명령에서 제외하고, 전투 유닛 및 수송·지원 유닛에 적용합니다.
 MSQC가 마우스 위치와 입력을 동기화하므로 로컬 입력을 직접 게임 상태에 적용하지 않습니다.
 전군 명령은 `EUDLoopNewUnit()`으로 전투 유닛을 등록한 `UnitGroup.cploop`을 한 번만 순회합니다.
+`Order()` 트리거나 factories 그룹은 사용하지 않습니다. 마우스 로케이션 중심을 플레이어당 한 번 읽고,
+`unit_orders.issue`가 저장된 CUnit의 목표 좌표·명령 상태·명령 ID를 직접 설정합니다.
+`UnitGroup`은 명령이 없는 틱에도 `entry.dying`으로 죽은 항목을 제거합니다.
+이후 영웅별 부대에서도 각 그룹의 CUnit을 같은 `issue` 함수에 넘기면 됩니다.
 
 수치는 `src/data/diplomacy.json`에서 수정합니다. 주기는 트리거 틱이며 실제 시간은 게임 속도에 따라 달라집니다.
 파일런·주둔군의 DAT는 `src/game/modules/unit_dat.eps`에서 직접 편집합니다. 예:

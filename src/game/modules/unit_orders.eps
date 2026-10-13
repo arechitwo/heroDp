@@ -1,0 +1,16 @@
+// 영웅별 UnitGroup에서도 호출할 수 있는 CUnit 직접 명령 함수.
+const ORDER_MOVE = 6;
+const ORDER_ATTACK_MOVE = 14;
+const ORDER_TARGET_OFFSET = 0x5C / 4;
+const AUTO_TARGET_OFFSET = 0x7C / 4;
+
+function issue(unit : CUnit, order, targetPos) {
+    // 새 지점 명령: 이전 유닛 목표를 지우고 명령 상태/타이머를 초기화.
+    unit.orderTargetPos = targetPos;
+    dwwrite_epd(unit + ORDER_TARGET_OFFSET, 0);
+    dwwrite_epd(unit + AUTO_TARGET_OFFSET, 0);
+    unit.orderState = 0;
+    unit.orderTimer = 0;
+    unit.userActionFlags = 3;
+    unit.orderID = order;
+}
