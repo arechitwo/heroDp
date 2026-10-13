@@ -9,8 +9,8 @@ main.eds                  관리하는 빌드 레시피 (데이터 플러그인 
 maps/base.scx             지형·로케이션·배치의 베이스 맵
 src/game/main.eps         신규 게임 진입점
 src/game/modules/         게임 시스템 모듈
-src/data/                 밸런스 CSV 및 데이터
-resource/units/           기본 병종 전투·외형·속성 CSV
+src/data/                 밸런스 JSON 및 데이터
+resource/units/           기본 병종 전투·외형·속성 JSON
 src/plugins/              생성된 TBL·RequireData 적용 플러그인
 assets/sounds/            사운드 원본
 assets/images/            이미지 원본
@@ -29,8 +29,8 @@ reference/               이전 진입점과 설계 이미지 (로컬 참고용)
 진입점에는 주둔군·점령·세금·전군 명령·시작 UI가 연결되어 있습니다.
 동작과 설정은 `doc/BASIC_DIPLOMACY.md`를 참고합니다.
 파일런·마린 외형 주둔군 DAT는 `src/game/modules/unit_dat.eps`의 `TrgUnit` 문법으로 설정합니다.
-기본 병종 5종의 DAT 스탯은 `resource/units` CSV에서 관리합니다. 특수 유닛은 아직 설정하지 않습니다.
-CSV 항목과 단위는 `resource/units/README.md`를 참고합니다.
+기본 병종 5종의 DAT 스탯은 `resource/units` JSON에서 관리합니다. 특수 유닛은 아직 설정하지 않습니다.
+JSON 항목과 단위는 `resource/units/README.md`를 참고합니다.
 
 ## 실행
 

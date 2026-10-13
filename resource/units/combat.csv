@@ -1,6 +1,0 @@
-unit,hp,shield,armor,ground_damage,air_damage,ground_bonus,air_bonus,ground_range,air_range,ground_cooldown,air_cooldown,ground_upgrade,air_upgrade,kill_score
-spearman,1700,,18,55,,1,,15,,22,,7,,4
-light_infantry,1500,,14,35,35,1,1,128,128,15,15,7,7,4
-light_cavalry,1300,,12,75,,1,,96,,28,,7,,6
-siege_unit,1800,,16,85,,1,,320,,32,,7,,7
-knight,4200,,38,95,,1,,25,,20,,7,,10

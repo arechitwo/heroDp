@@ -18,7 +18,7 @@
 - 좌표는 `posread_epd`로 X/Y를 읽거나, 하나의 DWORD에 묶인 위치 값은 `maskread_epd(..., 0x1FFF1FFF)`로 읽는다. MRGN처럼 X/Y가 별도 DWORD이면 각 필드에 `0x1FFF`를 적용한다. 작은 입력 값도 필요한 비트만 마스크로 읽으며 전체 DWORD 읽기를 피한다.
 - 컴파일 타임 주소·EPD 상수 이름은 대문자로 작성한다.
 - 유닛은 `modules/unit_settings.py`의 class enum `UnitModel`에서 `TrgUnit("StarCraft 유닛 이름")`으로 선언하고 게임 코드에서 역할 이름으로 참조한다. 유닛 ID 숫자를 반복해서 직접 쓰지 않는다.
-- 기본 병종 데이터는 `resource/units/combat.csv`, `appearance.csv`, `properties.csv`로 나누고 `unit` 키는 UnitModel 속성 이름으로 쓴다. 빈 칸은 DAT 유지, 0은 0 적용이다. FranceDp는 병종·수치만 참고하고 로더나 특수 공격/방어 시스템을 복사하지 않는다. 특수 유닛 설정은 아직 추가하지 않는다.
+- 기본 병종 데이터는 `resource/units/combat.json`, `appearance.json`, `properties.json`로 나누고 최상위 키는 UnitModel 속성 이름으로 쓰고 항목을 하위 객체로 나눈다. 생략·빈 객체·null은 DAT 유지, 0과 false는 명시적으로 적용한다. FranceDp는 병종·수치만 참고하고 로더나 특수 공격/방어 시스템을 복사하지 않는다. 특수 유닛 설정은 아직 추가하지 않는다.
 - 유닛 종류를 여러 `||` 조건으로 나열하지 않는다. `epdswitch(epd + 0x64 / 4, 0xFF)`와 `case` 분기를 사용하며 하위 바이트 마스크를 명시한다.
 - 도시 CUnit은 생성 직후 `EUDVArray(..., CUnit)()`에 저장한다. 매 틱 전체 도시를 처리하며 분할 검사 또는 전체 유닛 순회 후 도시 번호 역검색을 하지 않는다.
 - 플레이어마다 전체 유닛을 다시 순회하지 않는다. 필요한 유닛을 등록하고 저장한 CUnit 또는 UnitGroup으로 순회한다.

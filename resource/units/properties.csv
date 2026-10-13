@@ -1,6 +1,0 @@
-unit,recruit_cost,recruit_count,mineral_cost,gas_cost,supply_used,time_cost,weapon_unit,base_property,is_hero,seek_range,sight_range,size_type,armor_upgrade,ground_weapon,air_weapon,computer_idle_order,human_idle_order,return_idle_order,attack_unit_order,attack_move_order,right_click_action,transport_space,max_ground_hits,max_air_hits,dont_become_guard,ignore_strategic_suicide,clear_buttons
-spearman,20,1,0,0,0,9999,,,0,,,,,,,,,,,,,,,,,,
-light_infantry,20,1,0,0,0,9999,,,0,,,,,,,,,,,,,,,,,,
-light_cavalry,35,1,0,0,0,9999,,,0,,,,,,,,,,,,,,,,,,
-siege_unit,45,1,0,0,0,9999,siege_unit_weapon,,0,,,,,,,,,,,,,,,,,,
-knight,70,1,0,0,0,9999,,,0,,,,,,,,,,,,,,,,,,

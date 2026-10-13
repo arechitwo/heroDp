@@ -14,7 +14,7 @@
 | `army_groups.py` | 플레이어별 기본 부대와 영웅 UnitGroup의 컴파일 타임 등록 목록 |
 | `debug.eps` | 동기화 채팅으로 유닛 생성·자원 설정·세금/주둔군/시작 타이머 변경 |
 | `player_settings.eps` | 유닛·미니맵 플레이어 색상 설정. P8은 검정(40) |
-| `unit_data.py` | UnitModel 키로 구분한 기본 5병종의 전투·외형·속성 CSV 적용 |
+| `unit_data.py` | UnitModel 키로 구분한 기본 5병종의 전투·외형·속성 JSON 적용 |
 
 디버그 명령과 설정은 `doc/DEBUG.md`를 참고합니다. `debug_enabled`로 켜고 끕니다.
 

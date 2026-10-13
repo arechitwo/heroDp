@@ -1,0 +1,62 @@
+{
+  "spearman": {
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "light_infantry": {
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "light_cavalry": {
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "siege_unit": {
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "knight": {
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  }
+}
