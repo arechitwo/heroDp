@@ -3,7 +3,7 @@ from eudplib import Flingy, TrgUnit
 
 
 class Looks:
-    nexus = Flingy("Protoss Nexus")
+    nexus = Flingy("Nexus")
 
 
 class UnitModel:

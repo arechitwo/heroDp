@@ -17,13 +17,10 @@ function init() {
     // 파일런 변환과 같은 onPluginStart 단계에서 초기 수도 마커를 변환.
     foreach (index : py_range(7)) {
         const startLoc = Loc.strasbourg + index;
-        if (!Bring(P8, AtLeast, 1, UnitModel.nexus_marker, startLoc)) { continue; }
-        if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { continue; }
         MoveLocation(Loc.city_spawn, UnitModel.nexus_marker, P8, startLoc);
         RemoveUnitAt(1, UnitModel.nexus_marker, Loc.city_spawn, P8);
         const unit = CUnit.from_next();
         CreateUnit(1, UnitModel.nexus_unit, Loc.city_spawn, P8);
-        if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00)) { continue; }
         unit.statusFlags.Invincible = true;
         INITIAL_NEXUS[index] = unit;
         INITIAL_GENERATION[index] = unit.uniquenessIdentifier;
