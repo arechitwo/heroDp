@@ -3,13 +3,21 @@ from eudplib import TrgUnit
 
 
 class UnitModel:
+    # 기본 병종. CSV의 unit 키는 이 속성 이름을 사용합니다.
+    spearman = TrgUnit("Protoss Zealot")
+    light_infantry = TrgUnit("Terran Marine")
+    light_cavalry = TrgUnit("Terran Vulture")
+    siege_unit = TrgUnit("Terran Siege Tank (Tank Mode)")
+    siege_unit_weapon = TrgUnit("Siege Tank Turret (Tank Mode)")
+    knight = TrgUnit("Zerg Ultralisk")
+
     # 도시 마커 → 인게임 도시
     city_marker = TrgUnit("Terran Beacon")
     small_city = TrgUnit("Protoss Pylon")
 
     # 마린 외형을 적용하는 주둔군. 실제 Marine과 다른 유닛입니다.
     defender = TrgUnit("Zerg Broodling")
-    marine = TrgUnit("Terran Marine")
+    marine = light_infantry
 
     # 전군 명령에서 제외하는 일꾼·맵 유닛
     scv = TrgUnit("Terran SCV")

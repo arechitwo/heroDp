@@ -8,9 +8,11 @@ import modules.rules as rules;
 import modules.unit_dat as unitDat;
 import modules.debug as debug;
 import modules.player_settings as playerSettings;
+import modules.unit_data as unitData;
 function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
+    unitData.init(); // 기본 병종 CSV 적용. 특수 유닛은 아직 설정하지 않음.
     cities.init();
     randomize();
     ui.init();
