@@ -11,6 +11,6 @@
 - P1–P7은 사람, P8은 컴퓨터이며 P1–P8 종족은 테란입니다.
 
 도시 정보 JSON은 사용하지 않습니다. 빌드 입력 맵의 UNIT·MRGN에서 도시 수와 영역을 읽습니다.
-수정 도구는 `tools/place_city_markers.py`이며, 원본 로케이션이 있는 SCX를 입력으로 사용합니다.
+최초 비콘 배치 도구는 작업 완료 후 삭제했습니다. SCX 접근용 공용 모듈은 `tools/scx_archive.py`입니다.
 루트 `Europe_Inland_v3.scx`는 수정본, `Europe_Inland_v3.original.scx`는 다운로드한 원본입니다.
 실제 게임 내 표시와 이동 가능 여부는 아직 확인하지 않았습니다.

@@ -2,7 +2,7 @@
 from pathlib import Path
 import struct
 import unittest
-from tools.prepare_base_map import Archive, DEFAULT_DLL, sections
+from tools.scx_archive import Archive, DEFAULT_DLL, sections
 
 
 class DiplomacyMapTests(unittest.TestCase):
