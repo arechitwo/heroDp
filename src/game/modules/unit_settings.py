@@ -1,5 +1,9 @@
 """유닛의 게임상 역할과 StarCraft 유닛 이름을 한곳에서 관리합니다."""
-from eudplib import TrgUnit
+from eudplib import Flingy, TrgUnit
+
+
+class Looks:
+    nexus = Flingy("Protoss Nexus")
 
 
 class UnitModel:
@@ -18,7 +22,6 @@ class UnitModel:
     barracks = TrgUnit("Protoss Gateway")
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")
-    nexus_appearance = TrgUnit("Protoss Nexus")  # 수도의 실제 맵 외형
     nexus_wireframe = TrgUnit("Terran Command Center")  # FranceDp 수도 선택창 외형
     nexus_signal = TrgUnit("Kakaru (Twilight Critter)")  # 일반 더미 유닛: 수도 소환 요청
     nexus_requirement = TrgUnit("Mineral Field (Type 1)")

@@ -1,7 +1,7 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
 from eudplib import Db, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
-from .unit_settings import UnitModel
+from .unit_settings import Looks, UnitModel
 
 BUTTON_TABLE = 0x5187E8
 STATUS_TABLE = 0x5193A0
@@ -31,7 +31,7 @@ InitialWireframe.wirefram(EncodeUnit(UnitModel.nexus_unit), EncodeUnit(UnitModel
 @EUDFunc
 def f_init():
     capital = UnitModel.nexus_unit
-    capital.flingy = UnitModel.nexus_appearance.flingy
+    capital.flingy = Looks.nexus
     capital.nameString = '\x04수도'
     capital.maxHp = 6500 * 256
     capital.hasShield = True
