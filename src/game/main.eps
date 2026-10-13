@@ -7,7 +7,9 @@ import modules.start_ui as ui;
 import modules.rules as rules;
 import modules.unit_dat as unitDat;
 import modules.debug as debug;
+import modules.player_settings as playerSettings;
 function onPluginStart() {
+    playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
     cities.init();
     randomize();

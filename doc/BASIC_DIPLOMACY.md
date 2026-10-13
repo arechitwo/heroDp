@@ -13,12 +13,14 @@
 | `unit_orders.eps` | CUnit 직접 이동(6)·어택땅(14) 명령. 영웅별 UnitGroup에서도 재사용 |
 | `army_groups.py` | 플레이어별 기본 부대와 영웅 UnitGroup의 컴파일 타임 등록 목록 |
 | `debug.eps` | 동기화 채팅으로 유닛 생성·자원 설정·세금/주둔군/시작 타이머 변경 |
+| `player_settings.eps` | 유닛·미니맵 플레이어 색상 설정. P8은 검정(40) |
 
 디버그 명령과 설정은 `doc/DEBUG.md`를 참고합니다. `debug_enabled`로 켜고 끕니다.
 
 ## 초기 맵 설정
 
 `maps/base.scx`에 P1–P7 사람, P8 컴퓨터, P1–P8 테란 설정을 직접 저장합니다.
+게임 초기화에서 `SetColor(P8, BLACK)`을 적용하며 빌드 레시피에서 `eudTurbo`를 사용합니다.
 P1–P7 시작 위치와 공용 엔진 로케이션을 원본에 저장하며 도시 마커 260개는 비콘 그대로 남깁니다.
 게임에 진입한 뒤 `onPluginStart()`에서 `unitDat.init()` → `cities.init()` 순서로 실행합니다.
 외형·공격 AI·버튼 제거 설정이 끝난 뒤 비콘을 지우고 같은 위치에 파일런을 생성해 무적으로 설정합니다.

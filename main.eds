@@ -70,3 +70,5 @@ debugPatternSend; val, debugPatternSend: debugPatternReceived
 debugPatternSend; val, debugValueSend: debugValueReceived
 
 [src/game/main.eps]
+
+[eudTurbo]
