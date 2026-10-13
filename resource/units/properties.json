@@ -1,0 +1,104 @@
+{
+  "spearman": {
+    "recruitment": {
+      "cost": 20,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {},
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "light_infantry": {
+    "recruitment": {
+      "cost": 20,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {},
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "light_cavalry": {
+    "recruitment": {
+      "cost": 35,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {},
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "siege_unit": {
+    "recruitment": {
+      "cost": 45,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {
+      "unit": "siege_unit_weapon"
+    },
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "knight": {
+    "recruitment": {
+      "cost": 70,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {},
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  }
+}

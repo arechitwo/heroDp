@@ -12,6 +12,7 @@ import subprocess
 import sys
 from datetime import datetime
 from tools.generate_game_data import generate
+from tools.scx_archive import synchronize_player_slots
 
 ROOT = Path(__file__).resolve().parent
 
@@ -90,6 +91,7 @@ def main() -> int:
             print(f"Configuration and JSON OK: TBL {data_manifest['tbl_bytes']} bytes; RequireData {data_manifest['require_bytes']} bytes (compilation not run).")
             return 0
         if args.prepare:
+            synchronize_player_slots(source)
             generate(project_path(config['custom_tbl']), project_path(config['require_data']), ROOT / 'build/generated')
             template['main']['input'] = source.as_posix()
             template['main']['output'] = output.as_posix()
@@ -99,6 +101,7 @@ def main() -> int:
             return 0
 
         # A unique staging path prevents stale output from being reported as success.
+        synchronize_player_slots(source)
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         work = ROOT / "build" / stamp
         work.mkdir(parents=True)

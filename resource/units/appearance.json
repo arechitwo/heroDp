@@ -1,0 +1,67 @@
+{
+  "spearman": {
+    "name": "\u0004창병",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "light_infantry": {
+    "name": "\u0004경보병",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "light_cavalry": {
+    "name": "\u0004경기병",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "siege_unit": {
+    "name": "\u0004공성병",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  },
+  "knight": {
+    "name": "\u0004기사",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "sounds": {
+      "what": {},
+      "pissed": {},
+      "yes": {}
+    }
+  }
+}

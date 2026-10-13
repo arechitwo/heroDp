@@ -25,6 +25,7 @@ class Loc:
     salzburg = EncodeLocation("salzburg")
     command = EncodeLocation("command")
     msqc = EncodeLocation("msqc")
+    settings_view = EncodeLocation("settings_view")
     anywhere = EncodeLocation("Anywhere")
 
 

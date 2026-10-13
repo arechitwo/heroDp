@@ -105,7 +105,7 @@ function tick() {
         MoveLocation(Loc.city_capture, UnitModel.map_revealer, P9, Loc.city_point);
         if (owner < 7 && !f_playerexist(owner)) {
             withdraw(index);
-            city.cgive(7);
+            GiveUnits(1, UnitModel.small_city, owner, Loc.city_point, P8);
             cityCount[owner]--;
             city.unknown0x8C = 0;
             ModifyUnitHitPoints(1, UnitModel.small_city, 7, Loc.city_point, 100);
@@ -130,7 +130,10 @@ function tick() {
             const winner = mostPlayerAt(Loc.city_capture);
             if (winner < 8 && winner != owner) {
                 withdraw(index);
-                city.cgive(winner);
+                // 점 로케이션으로 해당 파일런을 엔진 Give 처리해 색상도 갱신.
+                GiveUnits(1, UnitModel.small_city, owner, Loc.city_point, winner);
+                // 현재는 게이트웨이 병영만 점령 범위에서 함께 넘김.
+                GiveUnits(All, UnitModel.barracks, owner, Loc.city_capture, winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
                 ModifyUnitHitPoints(1, UnitModel.small_city, winner, Loc.city_point, 100);

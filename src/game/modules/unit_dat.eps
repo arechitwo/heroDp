@@ -4,7 +4,7 @@ import modules.unit_settings.UnitModel as UnitModel;
 function init() {
     // ---- 도시: 프로토스 파일런 ----
     UnitModel.small_city.flingy = 62;                    // 원본 파일런 외형
-    UnitModel.small_city.buildingDimensions = 32 + (32 << 16); // One-tile placement box
+    UnitModel.small_city.buildingDimensions = 1 + (1 << 16); // One-tile placement box
     UnitModel.small_city.unitBoundsL = 15;
     UnitModel.small_city.unitBoundsT = 15;
     UnitModel.small_city.unitBoundsR = 16;
@@ -23,7 +23,7 @@ function init() {
     UnitModel.small_city.groundWeapon = 117;
     UnitModel.small_city.airWeapon = 117;
     Weapon(117).minRange = 64;
-    Weapon(117).maxRange = 576;                 // FranceDp city range, 18 tiles
+    Weapon(117).maxRange = 0;                 // FranceDp city range, 18 tiles
     Weapon(117).cooldown = 18;
     Weapon(117).damage = 0;                     // 적 감지용. 도시 자체 피해는 없음
     Weapon(117).damageBonus = 0;
