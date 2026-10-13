@@ -14,7 +14,8 @@
 4. `src/game/main.eps`: 신규 게임 트리거
 
 플레이어·테란 종족·시작 위치·로케이션은 `maps/base.scx`에 직접 저장합니다.
-도시 수와 시작 거점 정보는 빌드 입력 SCX의 UNIT·MRGN에서 읽습니다.
+도시 수는 UNIT 비콘에서, 시작 거점 정보는 시작 위치 로케이션에서 읽습니다.
+도시별 고정 로케이션은 없으며 공용 로케이션은 `map_data.py`의 `Loc`에 `TrgLocation` 이름으로 선언합니다.
 
 게임에 진입하면 `onPluginStart()`에서 `unitDat.init()`으로 파일런·주둔군 DAT를 설정한 뒤
 `cities.init()`에서 비콘을 파일런으로 바꿉니다. 빌드된 SCX의 배치 유닛은 여전히 비콘입니다.

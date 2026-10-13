@@ -2,8 +2,9 @@
 import json
 from pathlib import Path
 import struct
-from eudplib import EUDArray, GetChkTokenized, unProxy
+from eudplib import EUDArray, GetChkTokenized, unProxy, EncodeLocation
 from .unit_settings import UnitModel
+from .map_data import START_LOCATIONS
 
 ROOT = Path(__file__).resolve().parents[3]
 config = json.loads((ROOT / 'src/data/diplomacy.json').read_text(encoding='utf-8'))
@@ -14,30 +15,23 @@ marker_positions = [struct.unpack_from('<HH', unit_data, offset + 4)
                     if struct.unpack_from('<H', unit_data, offset + 8)[0] == unProxy(UnitModel.city_marker)
                     and unit_data[offset + 16] == 7]
 location_data = chk.getsection('MRGN')
-cities = []
-for location in range(1, 232):
-    if location == 64:  # Anywhere
-        continue
+start_counts = []
+claimed_markers = set()
+for location in START_LOCATIONS:
+    location = EncodeLocation(location)
     left, top, right, bottom = struct.unpack_from('<4I', location_data, (location - 1) * 20)
-    if left == right or top == bottom:
-        continue
-    count = sum(left <= x <= right and top <= y <= bottom for x, y in marker_positions)
-    if not 1 <= count <= 3:
-        raise ValueError(f'City location {location} must contain 1..3 P8 city markers')
-    cities.append({'id': f'G{len(cities) + 1:03}', 'location': location, 'count': count})
+    contained = {i for i, (x, y) in enumerate(marker_positions)
+                 if left <= x <= right and top <= y <= bottom}
+    if not 1 <= len(contained) <= 3 or claimed_markers & contained:
+        raise ValueError(f'Start location {location} must contain 1..3 distinct P8 city markers')
+    claimed_markers.update(contained)
+    start_counts.append(len(contained))
 for key in ('tax_per_city', 'tax_period_frames', 'garrison_per_city', 'peace_timeout_frames',
             'starting_minerals', 'starting_marines', 'start_countdown_frames'):
     if type(config[key]) is not int or config[key] <= 0:
         raise ValueError(f'{key} must be a positive integer')
-if len(set(config['starting_groups'])) != 7:
-    raise ValueError('Seven distinct starting groups are required')
-REGION_COUNT = len(cities)
 CITY_COUNT = len(marker_positions)
-if sum(city['count'] for city in cities) != CITY_COUNT:
-    raise ValueError('City locations must cover each marker exactly once')
-locations = EUDArray([c['location'] for c in cities])
-weights = EUDArray([c['count'] for c in cities])
-starts = EUDArray([next(i for i, c in enumerate(cities) if c['id'] == name) for name in config['starting_groups']])
+START_CITY_COUNTS = EUDArray(start_counts)
 TAX = config['tax_per_city']
 TAX_PERIOD = config['tax_period_frames']
 GUARDS = config['garrison_per_city']

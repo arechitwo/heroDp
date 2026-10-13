@@ -2,6 +2,7 @@ import modules.settings as cfg;
 import modules.cities as cities;
 import modules.rules as rules;
 import modules.unit_settings.UnitModel as UnitModel;
+import modules.map_data.Loc as Loc;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
@@ -33,8 +34,8 @@ function start() {
     started = 1;
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp < 7) {
-            const index = cfg.starts[selection[cp]];
-            const loc = cfg.locations[index];
+            const index = selection[cp];
+            const loc = EncodeLocation(Loc.start_p1) + index;
             cities.grant(index, cp);
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
@@ -66,7 +67,7 @@ function claim(cp, option) {
     selection[cp] = option;
     taken[option] = cp;
     setcurpl(cp);
-    CenterView(cfg.locations[cfg.starts[option]]);
+    CenterView(EncodeLocation(Loc.start_p1) + option);
     if (rules.gameType == 1) { pickTeam = 3 - pickTeam; selectionTimer = cfg.SELECTION_TIMEOUT; }
     return true;
 }

@@ -1,11 +1,11 @@
 import modules.settings as cfg;
 import modules.unit_settings.UnitModel as UnitModel;
+import modules.map_data.Loc as Loc;
 
 const NEXT_UNIT = EPD(0x628438);
 const ORDER_OFFSET = 0x4C / 4;
 const ORDER_MASK = 0xFF00;
 const WAR_TIMER_OFFSET = 0x8C / 4;
-const CITY_HEALTH_LOCATION = 234;
 const CITY_UNITS = EUDVArray(cfg.CITY_COUNT, CUnit)();
 const DEFENDERS = EUDVArray(cfg.CITY_COUNT * cfg.GUARDS, CUnit)();
 const DEFENDER_GENERATION = EUDArray(cfg.CITY_COUNT * cfg.GUARDS);
@@ -16,12 +16,12 @@ var registeredCities = 0;
 function init() {
     foreach (marker : EUDLoopCUnit()) {
         if (marker.unitType == UnitModel.city_marker && marker.owner == 7) {
-            marker.setloc(254);
-            dilateloc(254, 16, 16);
+            marker.setloc(Loc.city_spawn);
+            dilateloc(Loc.city_spawn, 16, 16);
             marker.remove();
             if (!MemoryEPD(NEXT_UNIT, Exactly, 0)) {
                 const city = CUnit.from_next();
-                CreateUnit(1, UnitModel.small_city, 254, 7);
+                CreateUnit(1, UnitModel.small_city, Loc.city_spawn, 7);
                 if (!MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) {
                     city.statusFlags.Invincible = true;
                     city.orderID = 18;
@@ -36,20 +36,20 @@ function init() {
 
 function grant(index, player) {
     // Starting-region assignment only. Combat transfers the exact stored CUnit.
-    const loc = cfg.locations[index];
-    const count = cfg.weights[index];
+    const loc = EncodeLocation(Loc.start_p1) + index;
+    const count = cfg.START_CITY_COUNTS[index];
     GiveUnits(All, UnitModel.small_city, 7, loc, player);
     if (player < 7) { cityCount[player] += count; }
 }
 
 function defend(index, owner) {
-    // One city CUnit, six guards. Location 232 is positioned by tick().
+    // One city CUnit, six guards. Location Loc.city_guard is positioned by tick().
     const base = index * cfg.GUARDS;
     var created = 0;
     for (var i = 0; i < cfg.GUARDS; i++) {
             if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { break; }
             const guard = CUnit.from_next();
-            CreateUnit(1, UnitModel.defender, 232, owner);
+            CreateUnit(1, UnitModel.defender, Loc.city_guard, owner);
             if (!MemoryXEPD(guard + 0x4C / 4, Exactly, 0, 0xFF00)) {
                 guard.statusFlags.InAir = false;
                 guard.pathingFlags = 1;
@@ -59,7 +59,7 @@ function defend(index, owner) {
                 DEFENDER_GENERATION[base + created] = guard.uniquenessIdentifier;
                 created++;
             }
-            addloc(232, 16, 0);
+            addloc(Loc.city_guard, 16, 0);
     }
     DEFENDER_COUNT[index] = created;
 }
@@ -100,41 +100,41 @@ function tick() {
         const isAttacking = l2v(MemoryXEPD(city + ORDER_OFFSET, Exactly, 19 << 8, ORDER_MASK));
         const timer = city.unknown0x8C;
         const x, y = posread_epd(city + 0x28 / 4);
-        setloc(CITY_HEALTH_LOCATION, x, y);
+        setloc(Loc.city_point, x, y);
         // P9에는 Map Revealer가 없으므로 점 로케이션 중심으로 고정 영역을 이동.
-        MoveLocation(233, UnitModel.map_revealer, P9, CITY_HEALTH_LOCATION);
+        MoveLocation(Loc.city_capture, UnitModel.map_revealer, P9, Loc.city_point);
         if (owner < 7 && !f_playerexist(owner)) {
             withdraw(index);
             city.cgive(7);
             cityCount[owner]--;
             city.unknown0x8C = 0;
-            ModifyUnitHitPoints(1, UnitModel.small_city, 7, CITY_HEALTH_LOCATION, 100);
+            ModifyUnitHitPoints(1, UnitModel.small_city, 7, Loc.city_point, 100);
             continue;
         }
         if (isAttacking && timer == 0) {
-            setloc(232, x - 32, y + 32);
-            dilateloc(232, 32, 32);
+            setloc(Loc.city_guard, x - 32, y + 32);
+            dilateloc(Loc.city_guard, 32, 32);
             defend(index, owner);
-            ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 30);
+            ModifyUnitHitPoints(1, UnitModel.small_city, owner, Loc.city_point, 30);
             city.unknown0x8C = cfg.PEACE_TIMEOUT;
             continue;
         }
         if (!isAttacking && timer == 1) {
             withdraw(index);
-            ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 100);
+            ModifyUnitHitPoints(1, UnitModel.small_city, owner, Loc.city_point, 100);
             city.unknown0x8C = 0;
             continue;
         }
         // FranceDp checks capture throughout battle, including attack-order gaps.
-        if (timer != 0 && Bring(owner, AtMost, 0, "Men", 233)) {
-            const winner = mostPlayerAt(233);
+        if (timer != 0 && Bring(owner, AtMost, 0, "Men", Loc.city_capture)) {
+            const winner = mostPlayerAt(Loc.city_capture);
             if (winner < 8 && winner != owner) {
                 withdraw(index);
                 city.cgive(winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
-                ModifyUnitHitPoints(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
-                ModifyUnitShields(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
+                ModifyUnitHitPoints(1, UnitModel.small_city, winner, Loc.city_point, 100);
+                ModifyUnitShields(1, UnitModel.small_city, winner, Loc.city_point, 100);
                 city.unknown0x8C = 0;
                 setcurpl(winner);
                 println("\x04도시 점령! 보유 도시: {}", cityCount[winner]);

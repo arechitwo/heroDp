@@ -1,5 +1,7 @@
 """Verify player settings and city coverage persisted in the actual base map."""
 from pathlib import Path
+import ast
+import configparser
 import struct
 import unittest
 from tools.scx_archive import Archive, DEFAULT_DLL, sections
@@ -34,24 +36,43 @@ class DiplomacyMapTests(unittest.TestCase):
         self.assertEqual(len(markers), 260)
         self.assertEqual(sorted(starts), list(range(7)))
 
-    def test_each_city_marker_has_one_region(self):
-        left, top, right, bottom = struct.unpack_from('<4I', self.data[b'MRGN'], (233-1)*20)
+    def test_named_locations_and_start_regions(self):
+        root = Path(__file__).resolve().parents[1]
+        tag = b'STRx' if b'STRx' in self.data else b'STR '
+        word = 'I' if tag == b'STRx' else 'H'
+        strings = self.data[tag]
+        count = struct.unpack_from('<'+word, strings)[0]
+        offsets = struct.unpack_from('<'+str(count)+word, strings, struct.calcsize(word))
+        names = [strings[offset:].split(b'\0', 1)[0].decode('cp949') for offset in offsets]
+        named = {}
+        for location in range(1, 256):
+            record = self.data[b'MRGN'][(location-1)*20:location*20]
+            name_id = struct.unpack_from('<H', record, 16)[0]
+            if name_id:
+                named[names[name_id-1]] = location
+            else:
+                self.assertEqual(record, bytes(20), 'Unallocated locations must remain empty')
+        tree = ast.parse((root / 'src/game/modules/map_data.py').read_text())
+        enum = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == 'Loc')
+        declared = {node.value.args[0].value for node in enum.body if isinstance(node, ast.Assign)}
+        self.assertEqual(set(named), declared)
+        self.assertEqual(len(named), 21)
+        self.assertEqual([named[f'start_p{i}'] for i in range(1, 8)], list(range(12, 19)))
+        self.assertEqual([named[f'mouse_p{i}'] for i in range(1, 8)], list(range(5, 12)))
+        recipe = configparser.ConfigParser(delimiters=(':',), interpolation=None)
+        recipe.read(root / 'main.eds', encoding='utf-8')
+        self.assertEqual(recipe.getint('MSQC', 'QCLoc'), named['msqc'])
+        self.assertEqual(recipe.getint('MSQC', 'mouse'), named['mouse_p1'])
+        left, top, right, bottom = struct.unpack_from('<4I', self.data[b'MRGN'], (named['city_capture']-1)*20)
         self.assertEqual((right-left, bottom-top), (320, 320))
         units = self.data[b'UNIT']
         positions = [struct.unpack_from('<HH', units, i+4) for i in range(0, len(units), 36)
                      if struct.unpack_from('<H', units, i+8)[0] == 195 and units[i+16] == 7]
         hits = [0]*len(positions)
-        regions = 0
-        for location in range(1, 232):
-            if location == 64:
-                continue
+        for location in [named[f'start_p{i}'] for i in range(1, 8)]:
             left, top, right, bottom = struct.unpack_from('<4I', self.data[b'MRGN'], (location-1)*20)
-            if left == right or top == bottom:
-                continue
             contained = [i for i, (x, y) in enumerate(positions) if left <= x <= right and top <= y <= bottom]
             self.assertIn(len(contained), (1, 2, 3))
             for i in contained:
                 hits[i] += 1
-            regions += 1
-        self.assertEqual(regions, 230)
-        self.assertEqual(hits, [1]*260)
+        self.assertTrue(all(hit <= 1 for hit in hits), 'Start regions must not overlap')

@@ -17,10 +17,10 @@ __addr__: startChatInput
 랜덤: 18
 
 [MSQC]
-QCLoc: 255
+QCLoc: 20
 QCPlayer: P11
 QCDebug: false
-mouse: 240
+mouse: 5
 KeyPress(F); MouseDown(R); NotTyping: 214, 1
 KeyPress(F); MouseDown(L); NotTyping: 214, 2
 KeyDown(1); NotTyping: 216, 1

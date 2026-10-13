@@ -7,7 +7,8 @@
 
 ## EUD 코드 작성 규칙
 
-- 플레이어 슬롯·테란 종족·시작 위치·정적 로케이션은 `maps/base.scx`에 직접 저장한다. 도시 정보 JSON이나 빌드 플러그인으로 재생성하지 않으며 도시 수·영역 정보는 입력 SCX에서 읽는다.
+- 플레이어 슬롯·테란 종족·시작 위치·정적 로케이션은 `maps/base.scx`에 직접 저장한다. 도시별 고정 로케이션이나 도시 정보 JSON은 만들지 않는다. 도시 수는 UNIT 비콘에서 읽고 시작 거점만 시작 위치 로케이션을 사용한다.
+- 로케이션은 `modules/map_data.py`의 `class Loc`에서 `TrgLocation("맵에 저장한 이름")`으로 선언하고 EPScript에서도 역할 이름으로 참조한다. MSQC 마우스와 시작 위치는 플레이어 순서대로 연속 슬롯을 유지하며 `main.eds` 번호도 함께 맞춘다.
 
 - 알려진 메모리 주소의 0 여부는 읽어서 비교하지 말고 `Memory`/`MemoryEPD` 조건으로 직접 검사한다. 필요하면 `!`로 부정한다.
 - 컴파일 타임 주소·EPD 상수 이름은 대문자로 작성한다.
@@ -19,7 +20,7 @@
 - UnitGroup은 매 틱 `entry.dying`으로 죽은 항목을 제거한다. 영웅별 부대도 이 수명 관리 규칙을 적용한다.
 - 군대는 플레이어별·영웅별 UnitGroup으로 분리한다. 전군 명령은 해당 플레이어에 등록된 모든 그룹에 적용하고, 명령 유무와 관계없이 모든 그룹을 매 틱 순회해 죽은 유닛을 정리한다.
 - 인게임 도시 HP는 CUnit.hp에 직접 대입하지 않고 `ModifyUnitHitPoints`로 변경한다. 직접 대입은 불꽃/이미지 처리 누락으로 게임이 종료될 수 있다는 사용자 설명에 따른 규칙이다. DAT 최대 체력 설정은 별개다.
-- 도시 판정용 233번 로케이션은 원본 맵에서 320×320 크기로 고정한다. 도시 좌표에 점 로케이션 234를 `setloc`으로 옮긴 뒤 `MoveLocation(233, UnitModel.map_revealer, P9, 234)`로 이동한다. P9의 Map Revealer는 생성하지 않는다.
+- `Loc.city_capture`는 원본 맵에서 320×320 크기로 고정한다. 도시 좌표에 `Loc.city_point`를 `setloc`으로 옮긴 뒤 `MoveLocation(Loc.city_capture, UnitModel.map_revealer, P9, Loc.city_point)`로 이동한다. P9의 Map Revealer는 생성하지 않는다.
 - 자주 읽는 플레이어 ID 배열은 `EUDVArray(8, TrgPlayer)()`, 수치 배열은 `EUDVArray(...)()`를 사용한다. 플레이어 ID가 아닌 값에 TrgPlayer 타입을 붙이지 않는다.
 - 빌드가 실패하면 자동으로 후속 수정을 진행하지 말고 사용자에게 오류와 해결 방향을 질문한다.
 - Python의 런타임 함수는 `f_` 접두사를 붙이고, EPScript에서 호출할 때는 `f_`를 떼고 쓴다. `playerexist` 등 기존 호환성 예외를 일반 함수에 임의로 적용하지 않는다. 컴파일 타임 목록은 상수 데이터로 직접 순회한다.
