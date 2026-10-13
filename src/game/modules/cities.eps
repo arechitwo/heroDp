@@ -1,5 +1,7 @@
 import modules.settings as cfg;
 
+const NEXT_UNIT = EPD(0x628438);
+
 const owners = EUDArray(py_eval('[7] * cfg.CITY_COUNT'));
 const war = EUDArray(cfg.CITY_COUNT);
 const peaceAt = EUDArray(cfg.CITY_COUNT);
@@ -14,11 +16,10 @@ function init() {
             marker.setloc(254);
             dilateloc(254, 16, 16);
             marker.remove();
-            const free = dwread(0x628438);
-            if (free != 0) {
+            if (!MemoryEPD(NEXT_UNIT, Exactly, 0)) {
                 const city = CUnit.from_next();
                 CreateUnit(1, 156, 254, 7);
-                if (dwread(0x628438) != free) {
+                if (!MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) {
                     city.statusFlags.Invincible = true;
                     city.orderID = 18;
                 }
@@ -46,17 +47,16 @@ function defend(index, owner, loc) {
         setloc(232, cfg.markerX[offset + marker] - 32, cfg.markerY[offset + marker] + 32);
         dilateloc(232, 32, 32);
         for (var i = 0; i < cfg.GUARDS; i++) {
-        const free = dwread(0x628438);
-        if (free == 0) { break; }
-        const guard = CUnit.from_next();
-        CreateUnit(1, 40, 232, owner);
-        if (dwread(0x628438) != free) {
-            guard.statusFlags.InAir = false;
-            guard.pathingFlags = 1;
-            guard.movementState = 10;
-            guard.statusFlags.IsNormal = true;
-        }
-        addloc(232, 16, 0);
+            if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { break; }
+            const guard = CUnit.from_next();
+            CreateUnit(1, 40, 232, owner);
+            if (!MemoryXEPD(guard + 0x4C / 4, Exactly, 0, 0xFF00)) {
+                guard.statusFlags.InAir = false;
+                guard.pathingFlags = 1;
+                guard.movementState = 10;
+                guard.statusFlags.IsNormal = true;
+            }
+            addloc(232, 16, 0);
         }
     }
     ModifyUnitHitPoints(All, 156, owner, loc, 30);
