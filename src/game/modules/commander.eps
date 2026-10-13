@@ -37,8 +37,9 @@ function tick() {
             if (COMMANDS[cp] != 0) {
                 // 플레이어당 목표 좌표를 한 번만 읽고 해당 군대 전체에서 재사용.
                 const loc = LOCATION_TABLE + (Loc.mouse_p1 - 1 + cp) * 5;
-                const x = (dwread_epd(loc) + dwread_epd(loc + 2)) / 2;
-                const y = (dwread_epd(loc + 1) + dwread_epd(loc + 3)) / 2;
+                // MRGN은 X/Y가 별도 DWORD이므로 각 좌표의 하위 13비트만 읽음.
+                const x = (maskread_epd(loc, 0x1FFF) + maskread_epd(loc + 2, 0x1FFF)) / 2;
+                const y = (maskread_epd(loc + 1, 0x1FFF) + maskread_epd(loc + 3, 0x1FFF)) / 2;
                 TARGET_POSITIONS[cp] = x + (y << 16);
             }
             SetDeaths(CurrentPlayer, SetTo, 0, 214);

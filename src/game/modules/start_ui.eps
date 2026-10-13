@@ -222,8 +222,8 @@ function tick() {
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp >= 7) { continue; }
         setcurpl(cp);
-        const number = dwread_epd(12 * 216 + cp);
-        const key = dwread_epd(12 * 217 + cp);
+        const number = maskread_epd(12 * 216 + cp, 0xF);
+        const key = maskread_epd(12 * 217 + cp, 0x7);
         if (stage >= 1 && stage <= 4 && cp == host) { menuInput(number, key); }
         else if (stage == 5 && selection[cp] == 7 && (rules.gameType == 0 || cp == picker)) {
             var choice = chatReceived[cp];

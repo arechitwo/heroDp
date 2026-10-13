@@ -13,6 +13,7 @@
 - 로케이션은 `modules/map_data.py`의 `class Loc`에서 `EncodeLocation("맵에 저장한 이름")`으로 선언하고 EPScript에서도 역할 이름으로 참조한다. MSQC 마우스는 플레이어 순서, 선택 거점 영역은 선택지 순서대로 연속 슬롯을 유지한다. 선택 거점은 플레이어 번호가 아니라 지명을 사용하며 실제 Start Location 유닛과 구분한다. MSQC 변경 시 `main.eds` 번호도 함께 맞춘다.
 
 - 알려진 메모리 주소의 0 여부는 읽어서 비교하지 말고 `Memory`/`MemoryEPD` 조건으로 직접 검사한다. 필요하면 `!`로 부정한다.
+- 좌표는 `posread_epd`로 X/Y를 읽거나, 하나의 DWORD에 묶인 위치 값은 `maskread_epd(..., 0x1FFF1FFF)`로 읽는다. MRGN처럼 X/Y가 별도 DWORD이면 각 필드에 `0x1FFF`를 적용한다. 작은 입력 값도 필요한 비트만 마스크로 읽으며 전체 DWORD 읽기를 피한다.
 - 컴파일 타임 주소·EPD 상수 이름은 대문자로 작성한다.
 - 유닛은 `modules/unit_settings.py`의 class enum `UnitModel`에서 `TrgUnit("StarCraft 유닛 이름")`으로 선언하고 게임 코드에서 역할 이름으로 참조한다. 유닛 ID 숫자를 반복해서 직접 쓰지 않는다.
 - 유닛 종류를 여러 `||` 조건으로 나열하지 않는다. `epdswitch(epd + 0x64 / 4, 0xFF)`와 `case` 분기를 사용하며 하위 바이트 마스크를 명시한다.
