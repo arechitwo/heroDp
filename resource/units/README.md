@@ -33,7 +33,9 @@
 - defense에는 armor, size_type, armor_upgrade를 설정할 수 있습니다.
 - attack의 ground와 air에는 damage, bonus, range, cooldown, upgrade를 설정합니다.
 - graphics는 flingy, portrait를 설정합니다.
-- name은 표시 이름 문자열이며 TrgUnit.nameString으로 적용합니다. 초기 이름은 창병·보병·경기병·공성병·기사입니다.
+- name은 TrgUnit.nameString으로 적용하며 FranceDp UnitName의 이름·색상 제어문자를 사용합니다.
+  초기 이름은 창병·경보병·경기병·공성병·기사이며 모두 앞에 색상 문자 0x04가 있습니다.
+  JSON에서는 `\u0004`로 표기합니다. JSON을 읽으면 FranceDp의 `\x04`와 같은 문자가 됩니다.
 - size.placement는 width와 height를 함께 입력하며 size.bounds는 left/top/right/bottom입니다.
 - sounds.ready는 준비 사운드, sounds.what/pissed/yes는 각각 start와 end입니다.
 - 사거리·배치 크기·충돌 경계는 픽셀, 공격 주기·생산 시간은 원시 엔진 값입니다.
