@@ -91,8 +91,6 @@ def main() -> int:
         resolved['main']['input'] = source.as_posix()
         resolved['main']['output'] = staged.as_posix()
         resolved[project_path('src/plugins/data_loader.py').as_posix()]['data_dir'] = data_dir.as_posix()
-        if 'src/plugins/map_setup.py' in template:
-            resolved[project_path('src/plugins/map_setup.py').as_posix()]['project_root'] = ROOT.as_posix()
         with recipe.open('w', encoding='utf-8') as stream:
             resolved.write(stream)
         logs = ROOT / "build" / "logs"

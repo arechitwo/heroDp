@@ -1,7 +1,6 @@
 """Convert named city locations into P8 Terran Beacon markers, then clear MRGN."""
 import argparse
 from collections import Counter
-import json
 from pathlib import Path
 import re
 import shutil
@@ -29,7 +28,6 @@ def main():
     parser.add_argument('source', type=Path, help='Original SCX with named locations')
     parser.add_argument('output', type=Path)
     parser.add_argument('--dll', default=DEFAULT_DLL)
-    parser.add_argument('--manifest', type=Path, default=Path('src/data/city_markers.json'))
     args = parser.parse_args()
     if args.source.resolve() == args.output.resolve():
         raise ValueError('Source must remain separate from output')
@@ -91,9 +89,6 @@ def main():
     checked = read_map(args.output, args.dll)
     assert checked == modified, 'Saved map does not match intended CHK'
     assert not any(dict(checked)[b'MRGN'])
-    args.manifest.parent.mkdir(parents=True, exist_ok=True)
-    args.manifest.write_text(json.dumps({'marker_unit': 195, 'owner': 7, 'footprint_pixels': 32,
-                                       'cities': cities}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'Verified {len(cities)} groups, {len(markers)} markers; counts: {dict(sorted(distribution.items()))}')
     print(f'All locations cleared; 32px footprints do not overlap; all other CHK sections unchanged: {args.output}')
 

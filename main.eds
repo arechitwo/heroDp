@@ -2,9 +2,6 @@
 input: maps/base.scx
 output: dist/NoE3s.scx
 
-[src/plugins/map_setup.py]
-project_root: .
-
 [src/plugins/data_loader.py]
 data_dir: build/generated
 

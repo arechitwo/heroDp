@@ -8,11 +8,13 @@
 
 루트 `main.eds`는 Git으로 관리하는 실제 빌드 레시피입니다. 순서는 다음과 같습니다.
 
-1. `src/plugins/map_setup.py`: 컴파일 대상 맵의 슬롯·도시·엔진 로케이션 설정
-2. `src/plugins/data_loader.py`: 생성된 TBL·RequireData 적용
-3. `chatEvent`: 시작 거점 선택 채팅 감지
-4. `MSQC`: 채팅과 시작 UI·전군 명령의 키·마우스 동기화
-5. `src/game/main.eps`: 신규 게임 트리거
+1. `src/plugins/data_loader.py`: 생성된 TBL·RequireData 적용
+2. `chatEvent`: 시작 거점 선택 채팅 감지
+3. `MSQC`: 채팅과 시작 UI·전군 명령의 키·마우스 동기화
+4. `src/game/main.eps`: 신규 게임 트리거
+
+플레이어·테란 종족·시작 위치·로케이션은 `maps/base.scx`에 직접 저장합니다.
+도시 수와 시작 거점 정보는 빌드 입력 SCX의 UNIT·MRGN에서 읽습니다.
 
 게임에 진입하면 `onPluginStart()`에서 `unitDat.init()`으로 파일런·주둔군 DAT를 설정한 뒤
 `cities.init()`에서 비콘을 파일런으로 바꿉니다. 빌드된 SCX의 배치 유닛은 여전히 비콘입니다.
