@@ -31,7 +31,7 @@ def f_init():
     capital.hasShield = True
     capital.maxShield = 500
     capital.armor = 50
-    capital.baseProperty = 0x44000800  # FranceDp worker-style remote capital
+    capital.baseProperty = 0x44000800  # FranceDp single-entity remote capital
     capital.buildingDimensions = 1 + (1 << 16)
     capital.unitBoundsL = 15
     capital.unitBoundsT = 15
