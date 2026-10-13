@@ -31,6 +31,7 @@ InitialWireframe.wirefram(EncodeUnit(UnitModel.nexus_unit), EncodeUnit(UnitModel
 @EUDFunc
 def f_init():
     capital = UnitModel.nexus_unit
+    capital.flingy = UnitModel.nexus_appearance.flingy
     capital.nameString = '\x04수도'
     capital.maxHp = 6500 * 256
     capital.hasShield = True
