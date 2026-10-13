@@ -58,8 +58,6 @@ KeyDown(4); NotTyping: 216, 4
 KeyDown(5); NotTyping: 216, 5
 KeyDown(6); NotTyping: 216, 6
 KeyDown(7); NotTyping: 216, 7
-KeyDown(ENTER); NotTyping: 216, 8
-KeyDown(ESC); NotTyping: 216, 9
 KeyDown(UP); NotTyping: 217, 1
 KeyDown(DOWN); NotTyping: 217, 2
 KeyDown(LEFT); NotTyping: 217, 3
