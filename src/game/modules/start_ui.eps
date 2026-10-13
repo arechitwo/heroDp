@@ -155,6 +155,7 @@ function markRow(option) {
 function render() {
     // KoreaDp's centered fixed-row StringBuffer UI; rendering alone is local.
     setcurpl(getuserplayerid());
+    if (stage < 5) { CenterView(Loc.settings_view); }
     const textPtr = gettextptr();
     screen.insert(0);
     if (stage == 0) {
