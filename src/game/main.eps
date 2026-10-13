@@ -15,6 +15,7 @@ function onPluginStart() {
 }
 
 function beforeTriggerExec() {
+    debug.captureChat(); // Local pattern parsing only; MSQC sends it on its next pass.
     debug.tick(); // Consume synchronized debug commands before start UI clears chat.
     ui.tick();
     if (ui.started != 0) {

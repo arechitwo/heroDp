@@ -7,6 +7,8 @@ data_dir: build/generated
 
 [chatEvent]
 __addr__: startChatInput
+__ptrAddr__: debugChatPtr
+__patternAddr__: debugChatPattern
 거점1: 11
 거점2: 12
 거점3: 13
@@ -31,28 +33,16 @@ __addr__: startChatInput
 디버그 세금타이머: 106
 디버그 주둔군타이머: 107
 디버그 시작타이머: 108
-디버그 개수 1: 110
-디버그 개수 10: 111
-디버그 개수 100: 112
-디버그 값 초기화: 120
-디버그 값 0: 120
-디버그 값 1: 121
-디버그 값 24: 122
-디버그 값 120: 123
-디버그 값 400: 124
-디버그 값 720: 125
-디버그 값 10000: 126
-디버그 값 100000: 127
-디버그 숫자 0: 150
-디버그 숫자 1: 151
-디버그 숫자 2: 152
-디버그 숫자 3: 153
-디버그 숫자 4: 154
-디버그 숫자 5: 155
-디버그 숫자 6: 156
-디버그 숫자 7: 157
-디버그 숫자 8: 158
-디버그 숫자 9: 159
+^디버그 돈 .*.*$: 1
+^디버그 가스 .*.*$: 2
+^디버그 자원 .*.*$: 3
+^디버그 마린 .*.*$: 4
+^디버그 SCV .*.*$: 5
+^디버그 세금타이머 .*.*$: 6
+^디버그 주둔군타이머 .*.*$: 7
+^디버그 시작타이머 .*.*$: 8
+^디버그 값 .*.*$: 9
+^디버그 개수 .*.*$: 10
 
 [MSQC]
 QCLoc: 20
@@ -78,5 +68,7 @@ KeyDown(Y); NotTyping: 217, 5
 KeyDown(N); NotTyping: 217, 6
 KeyDown(0); NotTyping: 217, 7
 startChatInput; val, startChatInput: startChatReceived
+debugPatternSend; val, debugPatternSend: debugPatternReceived
+debugPatternSend; val, debugValueSend: debugValueReceived
 
 [src/game/main.eps]
