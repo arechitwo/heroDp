@@ -1,5 +1,6 @@
 {
   "spearman": {
+    "name": "창병",
     "graphics": {},
     "size": {
       "placement": {},
@@ -12,6 +13,7 @@
     }
   },
   "light_infantry": {
+    "name": "보병",
     "graphics": {},
     "size": {
       "placement": {},
@@ -24,6 +26,7 @@
     }
   },
   "light_cavalry": {
+    "name": "경기병",
     "graphics": {},
     "size": {
       "placement": {},
@@ -36,6 +39,7 @@
     }
   },
   "siege_unit": {
+    "name": "공성병",
     "graphics": {},
     "size": {
       "placement": {},
@@ -48,6 +52,7 @@
     }
   },
   "knight": {
+    "name": "기사",
     "graphics": {},
     "size": {
       "placement": {},

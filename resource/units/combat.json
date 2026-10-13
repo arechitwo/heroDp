@@ -1,9 +1,7 @@
 {
   "spearman": {
-    "health": {
-      "hp": 1700
-    },
     "defense": {
+      "hp": 1700,
       "armor": 18
     },
     "attack": {
@@ -21,10 +19,8 @@
     }
   },
   "light_infantry": {
-    "health": {
-      "hp": 1500
-    },
     "defense": {
+      "hp": 1500,
       "armor": 14
     },
     "attack": {
@@ -48,10 +44,8 @@
     }
   },
   "light_cavalry": {
-    "health": {
-      "hp": 1300
-    },
     "defense": {
+      "hp": 1300,
       "armor": 12
     },
     "attack": {
@@ -69,10 +63,8 @@
     }
   },
   "siege_unit": {
-    "health": {
-      "hp": 1800
-    },
     "defense": {
+      "hp": 1800,
       "armor": 16
     },
     "attack": {
@@ -90,10 +82,8 @@
     }
   },
   "knight": {
-    "health": {
-      "hp": 4200
-    },
     "defense": {
+      "hp": 4200,
       "armor": 38
     },
     "attack": {

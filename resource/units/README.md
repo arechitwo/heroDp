@@ -6,8 +6,8 @@
 
 | 파일 | 하위 항목 |
 |---|---|
-| combat.json | health, defense, attack.ground, attack.air, score |
-| appearance.json | graphics, size.placement, size.bounds, sounds |
+| combat.json | defense, attack.ground, attack.air, score |
+| appearance.json | name, graphics, size.placement, size.bounds, sounds |
 | properties.json | recruitment, production, weapons, flags, vision, orders, transport, buttons |
 
 예를 들어 창병의 전투 설정은 다음과 같습니다.
@@ -15,8 +15,7 @@
 ```json
 {
   "spearman": {
-    "health": { "hp": 1700 },
-    "defense": { "armor": 18 },
+    "defense": { "hp": 1700, "armor": 18 },
     "attack": {
       "ground": { "damage": 55, "bonus": 1, "range": 15, "cooldown": 22, "upgrade": 7 },
       "air": {}
@@ -30,10 +29,11 @@
 0과 false는 실제로 적용합니다. 파일은 UTF-8 JSON으로 저장하며 주석은 넣지 않습니다.
 초기 외형 항목은 비워 두어 원본 외형을 유지합니다.
 
-- health.hp는 표시 체력이며 적용할 때만 256을 곱합니다. health.shield는 실드 최대값입니다.
+- defense.hp는 표시 체력이며 적용할 때만 256을 곱합니다. defense.shield는 실드 최대값입니다.
 - defense에는 armor, size_type, armor_upgrade를 설정할 수 있습니다.
 - attack의 ground와 air에는 damage, bonus, range, cooldown, upgrade를 설정합니다.
 - graphics는 flingy, portrait를 설정합니다.
+- name은 표시 이름 문자열이며 TrgUnit.nameString으로 적용합니다. 초기 이름은 창병·보병·경기병·공성병·기사입니다.
 - size.placement는 width와 height를 함께 입력하며 size.bounds는 left/top/right/bottom입니다.
 - sounds.ready는 준비 사운드, sounds.what/pissed/yes는 각각 start와 end입니다.
 - 사거리·배치 크기·충돌 경계는 픽셀, 공격 주기·생산 시간은 원시 엔진 값입니다.

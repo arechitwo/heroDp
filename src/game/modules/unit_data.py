@@ -71,8 +71,8 @@ def f_init():
         properties = PROPERTIES[key]
 
         # TrgUnit syntax: this changes DAT maximum HP, not any live CUnit's HP.
-        hp = _value(combat, 'health.hp')
-        shield = _value(combat, 'health.shield')
+        hp = _value(combat, 'defense.hp')
+        shield = _value(combat, 'defense.shield')
         if hp is not None:
             unit.maxHp = hp * 256
         if shield is not None:
@@ -83,6 +83,9 @@ def f_init():
             if value is not None:
                 setattr(unit, attribute, value)
 
+        name = appearance.get('name')
+        if name is not None:
+            unit.nameString = name
         for field, attribute in APPEARANCE_FIELDS.items():
             value = _value(appearance, field)
             if value is not None:
