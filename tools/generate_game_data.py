@@ -68,6 +68,7 @@ def generate(tbl_path, require_path, destination=None):
     require_raw, tables = compile_require(req)
     manifest = {'custom_tbl_enabled': tbl['enabled'], 'require_data_enabled': req['enabled'],
                 'tbl_bytes': len(tbl_raw), 'require_bytes': len(require_raw), 'offset_tables': tables}
+    manifest['unit_overrides'] = req.get('unit_overrides', {'enabled': False})
     if destination is not None:
         destination = Path(destination)
         destination.mkdir(parents=True, exist_ok=True)

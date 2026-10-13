@@ -1,0 +1,121 @@
+import modules.unit_settings.UnitModel as UnitModel;
+import modules.map_data.Loc as Loc;
+import modules.nexus_data as data;
+
+const NEXT_UNIT = EPD(0x628438);
+const COMPLETED_UNITS = EPD(0x584DE4);
+const NEXUS = EUDVArray(8, CUnit)();
+const GENERATION = EUDVArray(8)();
+const ACTIVE = EUDVArray(8)();
+const PROXIES = UnitGroup(1700);
+
+function init() {
+    data.init(); // City summon and remote Gateway button sets, after unit_dat.
+}
+
+function createAt(player, loc : TrgLocation) {
+    if (ACTIVE[player] != 0 || MemoryEPD(NEXT_UNIT, Exactly, 0)) { return false; }
+    const unit = CUnit.from_next();
+    CreateUnit(1, UnitModel.nexus_unit, loc, player);
+    if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00)) { return false; }
+    NEXUS[player] = unit;
+    GENERATION[player] = unit.uniquenessIdentifier;
+    ACTIVE[player] = 1;
+    SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 0);
+    return true;
+}
+
+function grantInitial(index, player) {
+    const startLoc = Loc.strasbourg + index;
+    if (!Bring(P8, AtLeast, 1, UnitModel.nexus_marker, startLoc)) {
+        setcurpl(player);
+        println("\x08초기 수도 마커가 없습니다. 일반 도시에서 수도를 소환하세요.");
+        return;
+    }
+    MoveLocation(Loc.city_spawn, UnitModel.nexus_marker, P8, startLoc);
+    if (createAt(player, Loc.city_spawn)) {
+        RemoveUnitAt(1, UnitModel.nexus_marker, Loc.city_spawn, P8);
+    }
+}
+
+function resetCommand(unit : CUnit, order) {
+    unit.buildQueue1 = 228;
+    unit.orderID = order;
+    unit.orderState = 0;
+    unit.orderTimer = 0;
+}
+
+function summonFromCity(city : CUnit, player : TrgPlayer) {
+    if (!MemoryXEPD(city + 0x98 / 4, Exactly, UnitModel.nexus_signal, 0xFFFF)) { return; }
+    resetCommand(city, 18);
+    if (ACTIVE[player] != 0) { return; }
+    // 버튼을 누른 일반 도시만 재소환 지점으로 사용.
+    city.setloc(Loc.city_point);
+    if (createAt(player, Loc.city_point)) {
+        setcurpl(player);
+        println("\x04이 도시에 수도를 다시 소환했습니다.");
+    }
+}
+
+function buildRemote(unit : CUnit, player : TrgPlayer) {
+    epdswitch(unit + 0x4C / 4, 0xFF00) {
+        case 31 << 8:
+            break;
+        default:
+            return;
+    }
+    epdswitch(unit + 0x98 / 4, 0xFF) {
+        case unProxy(UnitModel.barracks):
+            break;
+        default:
+            resetCommand(unit, 3);
+            return;
+    }
+    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
+        resetCommand(unit, 3);
+        return;
+    }
+    const x, y = posread_epd(unit + 0x58 / 4);
+    setloc(Loc.city_spawn, x, y);
+    const probe = CUnit.from_next();
+    CreateUnit(1, UnitModel.probe, Loc.city_spawn, player);
+    if (!MemoryXEPD(probe + 0x4C / 4, Exactly, 0, 0xFF00)) {
+        probe.orderTargetPos = maskread_epd(unit + 0x58 / 4, 0x1FFF1FFF);
+        probe.buildQueue1 = UnitModel.barracks;
+        probe.orderState = 0;
+        probe.orderID = 31;
+        PROXIES.add(probe);
+    }
+    resetCommand(unit, 3);
+}
+
+function tick() {
+    foreach (player : py_range(7)) {
+        if (ACTIVE[player] != 0) {
+            const unit = NEXUS[player];
+            if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00) ||
+                !MemoryXEPD(unit + 0x64 / 4, Exactly, UnitModel.nexus_unit, 0xFF) ||
+                !MemoryXEPD(unit + 0x4C / 4, Exactly, player, 0xFF) ||
+                unit.uniquenessIdentifier != GENERATION[player]) {
+                ACTIVE[player] = 0;
+            } else {
+                buildRemote(unit, player);
+            }
+        }
+        SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 1 - ACTIVE[player]);
+    }
+    foreach (entry : PROXIES.cploop) {
+        foreach (dead : entry.dying) {}
+        const probe = CUnit.cast(entry.epd);
+        epdswitch(probe + 0x4C / 4, 0xFF00) {
+            case 31 << 8:
+            case 33 << 8:
+            case 34 << 8:
+                break;
+            default:
+                probe.remove();
+                break;
+        }
+    }
+    setcurpl(0);
+}

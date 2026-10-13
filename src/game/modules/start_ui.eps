@@ -4,6 +4,7 @@ import modules.rules as rules;
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.map_data as mapData;
+import modules.nexus as nexus;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
@@ -38,10 +39,10 @@ function start() {
             const index = selection[cp];
             const loc = Loc.strasbourg + index;
             cities.grant(index, cp);
+            nexus.grantInitial(index, cp);
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
             CreateUnit(cfg.START_MARINES, UnitModel.marine, loc, cp);
-            CreateUnit(1, UnitModel.scv, loc, cp);
             CenterView(loc);
             println("\x04시작! 도시 점령으로 세금을 확보하세요. F+우클릭: 전군 이동 / F+좌클릭: 전군 공격");
         }

@@ -1,6 +1,7 @@
 import modules.settings as cfg;
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
+import modules.nexus as nexus;
 
 const NEXT_UNIT = EPD(0x628438);
 const ORDER_OFFSET = 0x4C / 4;
@@ -97,6 +98,7 @@ function tick() {
         const city = CITY_UNITS[index];
         if (MemoryXEPD(city + ORDER_OFFSET, Exactly, 0, ORDER_MASK)) { continue; }
         const owner = city.owner;
+        if (owner < 7) { nexus.summonFromCity(city, owner); }
         const isAttacking = l2v(MemoryXEPD(city + ORDER_OFFSET, Exactly, 19 << 8, ORDER_MASK));
         const timer = city.unknown0x8C;
         const x, y = posread_epd(city + 0x28 / 4);
