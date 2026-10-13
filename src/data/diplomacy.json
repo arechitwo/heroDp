@@ -1,0 +1,12 @@
+{
+  "tax_per_city": 20,
+  "tax_period_frames": 720,
+  "garrison_per_city": 6,
+  "peace_timeout_frames": 400,
+  "starting_minerals": 500,
+  "starting_marines": 8,
+  "start_countdown_frames": 120,
+  "intro_frames": 120,
+  "selection_timeout_frames": 600,
+  "debug_enabled": true
+}

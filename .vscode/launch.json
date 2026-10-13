@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "맵 빌드 (F5)",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "${env:USERPROFILE}/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+            "program": "${workspaceFolder}/build_map.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

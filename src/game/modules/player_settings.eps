@@ -1,0 +1,9 @@
+const BLACK = 40;
+const PLAYER_COLOR_TABLE = 0x581DD6;
+const MINIMAP_COLOR_TABLE = EPD(0x581D76);
+
+function SetColor(player : TrgPlayer, color) {
+    // koreaDp SetPColor: 유닛 색상과 미니맵 색상을 함께 설정.
+    bwrite(PLAYER_COLOR_TABLE + player, color);
+    bwrite_epd(MINIMAP_COLOR_TABLE + 2 * player, 2, color);
+}

@@ -1,0 +1,153 @@
+import modules.settings as cfg;
+import modules.map_data.Loc as Loc;
+import modules.unit_settings.UnitModel as UnitModel;
+import modules.start_ui as ui;
+import modules.income as income;
+import modules.cities as cities;
+
+const NEXT_UNIT = EPD(0x628438);
+const LOCATION_TABLE = EPD(0x58DC60);
+const VALUES = EUDVArray(8)(py_eval('[10000] * 8'));
+const COUNTS = EUDVArray(8)(py_eval('[1] * 8'));
+
+// chatEvent가 제공하는 포인터·패턴은 로컬 값. 게임 상태 변경 전에 MSQC로 전송.
+var chatPtr = 0;
+var chatPattern = 0;
+var patternSend = 0;
+var valueSend = 0;
+const PATTERN_RECEIVED = PVariable();
+const VALUE_RECEIVED = PVariable();
+EUDRegisterObjectToNamespace("debugChatPtr", chatPtr);
+EUDRegisterObjectToNamespace("debugChatPattern", chatPattern);
+EUDRegisterObjectToNamespace("debugPatternSend", patternSend);
+EUDRegisterObjectToNamespace("debugValueSend", valueSend);
+EUDRegisterObjectToNamespace("debugPatternReceived", PATTERN_RECEIVED);
+EUDRegisterObjectToNamespace("debugValueReceived", VALUE_RECEIVED);
+
+function captureChat() {
+    patternSend = 0;
+    valueSend = 0;
+    if (!cfg.DEBUG_ENABLED) { return; }
+    foreach (command, prefixLength : cfg.DEBUG_PATTERNS) {
+        if (chatPattern == command) {
+            var value = parse(chatPtr + prefixLength)[[0]];
+            if (value > 2000000000) { value = 2000000000; }
+            // val 한 채널의 24비트 한도: 상위 바이트는 명령과 묶어서 전송.
+            valueSend = value & 0xFFFFFF;
+            patternSend = (command << 8) + (value >> 24);
+        }
+    }
+}
+
+function help() {
+    println("\x06[디버그] 디버그 돈 50000 / 디버그 가스 50000 / 디버그 자원 50000");
+    println("\x04생성: 디버그 마린 10 / 디버그 SCV 1");
+    println("\x04타이머: 디버그 세금타이머 720 / 디버그 주둔군타이머 120 / 디버그 시작타이머 120");
+    println("\x04기본값 변경: 디버그 값 10000 / 디버그 개수 10. 숫자 생략 시 기본값 적용.");
+    println("\x04유닛 생성·주둔군 타이머는 내 마우스 위치 기준. 타이머 단위는 트리거 틱.");
+}
+
+function setMinerals(player, amount) {
+    SetResources(player, SetTo, amount, Ore);
+}
+
+function setGas(player, amount) {
+    SetResources(player, SetTo, amount, Gas);
+}
+
+function spawn(player, unit : TrgUnit, count) {
+    if (count == 0) { return; }
+    if (count > 255) { count = 255; }
+    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
+        println("\x08[디버그] 생성 가능한 유닛 슬롯이 없습니다.");
+        return;
+    }
+    const mouse = LOCATION_TABLE + (Loc.mouse_p1 - 1 + player) * 5;
+    const x = maskread_epd(mouse, 0x1FFF);
+    const y = maskread_epd(mouse + 1, 0x1FFF);
+    setloc(Loc.city_spawn, x, y);
+    dilateloc(Loc.city_spawn, 16, 16);
+    CreateUnit(count, unit, Loc.city_spawn, player);
+}
+
+function setTaxTimer(ticks) {
+    income.elapsed = ticks;
+}
+
+function setGarrisonTimer(player, ticks) {
+    const mouse = LOCATION_TABLE + (Loc.mouse_p1 - 1 + player) * 5;
+    const targetX = maskread_epd(mouse, 0x1FFF);
+    const targetY = maskread_epd(mouse + 1, 0x1FFF);
+    // 0도 다음 도시 처리에서 정상 회수하도록 1로 설정.
+    if (ticks == 0) { ticks = 1; }
+    if (ticks > 65535) { ticks = 65535; }
+    var changed = 0;
+    for (var index = 0; index < cities.registeredCities; index++) {
+        const city = cities.CITY_UNITS[index];
+        if (MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) { continue; }
+        if (MemoryEPD(city + 0x8C / 4, Exactly, 0)) { continue; }
+        const x, y = posread_epd(city + 0x28 / 4);
+        if (x <= targetX + 160 && targetX <= x + 160 &&
+            y <= targetY + 160 && targetY <= y + 160) {
+            city.unknown0x8C = ticks;
+            changed++;
+        }
+    }
+    println("\x04[디버그] 전투 도시 {}곳의 주둔군 타이머를 {}틱으로 설정", changed, ticks);
+}
+
+function setStartTimer(ticks) {
+    if (ui.started != 0 || ui.stage != 6) {
+        println("\x08[디버그] 거점 선택 완료 후 시작 카운트다운 중에 사용하세요.");
+        return;
+    }
+    // 값은 시작 카운트다운의 경과 틱. START_COUNTDOWN 이상이면 시작.
+    ui.countdown = ticks;
+}
+
+function execute(player, command) {
+    switch (command) {
+        case 100: help(); break;
+        case 101: setMinerals(player, VALUES[player]); break;
+        case 102: setGas(player, VALUES[player]); break;
+        case 103:
+            setMinerals(player, VALUES[player]);
+            setGas(player, VALUES[player]);
+            break;
+        case 104: spawn(player, UnitModel.marine, COUNTS[player]); break;
+        case 105: spawn(player, UnitModel.scv, COUNTS[player]); break;
+        case 106: setTaxTimer(VALUES[player]); break;
+        case 107: setGarrisonTimer(player, VALUES[player]); break;
+        case 108: setStartTimer(VALUES[player]); break;
+    }
+}
+
+function tick() {
+    if (!cfg.DEBUG_ENABLED) { return; }
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp >= 7) { continue; }
+        setcurpl(cp);
+        const packet = PATTERN_RECEIVED[cp];
+        if (packet >= 256 && packet < 2816) {
+            const command = packet >> 8;
+            var value = VALUE_RECEIVED[cp] + ((packet & 0xFF) << 24);
+            PATTERN_RECEIVED[cp] = 0;
+            VALUE_RECEIVED[cp] = 0;
+            if (command == 4 || command == 5 || command == 10) {
+                if (value > 255) { value = 255; }
+                COUNTS[cp] = value;
+            } else {
+                VALUES[cp] = value;
+            }
+            if (command <= 8) { execute(cp, command + 100); }
+            println("\x04[디버그] 값 {} · 생성 개수 {}", VALUES[cp], COUNTS[cp]);
+        }
+        const command = ui.chatReceived[cp];
+        if (command >= 100 && command <= 108) {
+            ui.chatReceived[cp] = 0;
+            execute(cp, command);
+            println("\x04[디버그] 값 {} · 생성 개수 {}", VALUES[cp], COUNTS[cp]);
+        }
+    }
+    setcurpl(0);
+}

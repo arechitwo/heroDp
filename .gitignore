@@ -8,3 +8,4 @@ __epspy__/
 /reference/
 *.epmap
 *.epmap.prof
+*.tmp
