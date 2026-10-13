@@ -24,6 +24,8 @@ class DiplomacyMapTests(unittest.TestCase):
         markers, starts = [], []
         for i in range(0, len(units), 36):
             kind = struct.unpack_from('<H', units, i+8)[0]
+            self.assertFalse(kind == 101 and units[i+16] == 8,
+                             'MoveLocation fallback requires no P9 Map Revealer')
             if kind == 195:
                 self.assertEqual(units[i+16], 7)
                 markers.append(i)
@@ -33,6 +35,8 @@ class DiplomacyMapTests(unittest.TestCase):
         self.assertEqual(sorted(starts), list(range(7)))
 
     def test_each_city_marker_has_one_region(self):
+        left, top, right, bottom = struct.unpack_from('<4I', self.data[b'MRGN'], (233-1)*20)
+        self.assertEqual((right-left, bottom-top), (320, 320))
         units = self.data[b'UNIT']
         positions = [struct.unpack_from('<HH', units, i+4) for i in range(0, len(units), 36)
                      if struct.unpack_from('<H', units, i+8)[0] == 195 and units[i+16] == 7]

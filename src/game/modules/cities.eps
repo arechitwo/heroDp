@@ -100,14 +100,14 @@ function tick() {
         const isAttacking = l2v(MemoryXEPD(city + ORDER_OFFSET, Exactly, 19 << 8, ORDER_MASK));
         const timer = city.unknown0x8C;
         const x, y = posread_epd(city + 0x28 / 4);
-        setloc(233, x, y);
-        dilateloc(233, 160, 160);
+        setloc(CITY_HEALTH_LOCATION, x, y);
+        // P9에는 Map Revealer가 없으므로 점 로케이션 중심으로 고정 영역을 이동.
+        MoveLocation(233, UnitModel.map_revealer, P9, CITY_HEALTH_LOCATION);
         if (owner < 7 && !f_playerexist(owner)) {
             withdraw(index);
             city.cgive(7);
             cityCount[owner]--;
             city.unknown0x8C = 0;
-            city.setloc(CITY_HEALTH_LOCATION);
             ModifyUnitHitPoints(1, UnitModel.small_city, 7, CITY_HEALTH_LOCATION, 100);
             continue;
         }
@@ -115,14 +115,12 @@ function tick() {
             setloc(232, x - 32, y + 32);
             dilateloc(232, 32, 32);
             defend(index, owner);
-            city.setloc(CITY_HEALTH_LOCATION);
             ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 30);
             city.unknown0x8C = cfg.PEACE_TIMEOUT;
             continue;
         }
         if (!isAttacking && timer == 1) {
             withdraw(index);
-            city.setloc(CITY_HEALTH_LOCATION);
             ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 100);
             city.unknown0x8C = 0;
             continue;
@@ -135,7 +133,6 @@ function tick() {
                 city.cgive(winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
-                city.setloc(CITY_HEALTH_LOCATION);
                 ModifyUnitHitPoints(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
                 ModifyUnitShields(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
                 city.unknown0x8C = 0;
