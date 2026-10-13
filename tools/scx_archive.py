@@ -15,6 +15,8 @@ class Archive:
             'SFileReadFile': ([c.c_void_p, c.c_void_p, c.c_uint32, c.POINTER(c.c_uint32), c.c_void_p], c.c_bool),
             'SFileCloseFile': ([c.c_void_p], c.c_bool),
             'SFileCloseArchive': ([c.c_void_p], c.c_bool),
+            'SFileFlushArchive': ([c.c_void_p], c.c_bool),
+            'SFileCompactArchive': ([c.c_void_p, c.c_char_p, c.c_bool], c.c_bool),
             'SFileCreateFile': ([c.c_void_p, c.c_char_p, c.c_uint64, c.c_uint32, c.c_uint32, c.c_uint32, c.POINTER(c.c_void_p)], c.c_bool),
             'SFileWriteFile': ([c.c_void_p, c.c_void_p, c.c_uint32, c.c_uint32], c.c_bool),
             'SFileFinishFile': ([c.c_void_p], c.c_bool),
@@ -52,6 +54,12 @@ class Archive:
             self.check(self.lib.SFileWriteFile(handle, raw, len(raw), 2))
         finally:
             self.check(self.lib.SFileFinishFile(handle))
+        self.compact()
+
+    def compact(self):
+        """Flush MPQ tables and remove obsolete file blocks after replacement."""
+        self.check(self.lib.SFileFlushArchive(self.handle))
+        self.check(self.lib.SFileCompactArchive(self.handle, None, False))
 
     def close(self):
         self.check(self.lib.SFileCloseArchive(self.handle))
