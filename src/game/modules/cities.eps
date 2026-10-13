@@ -36,7 +36,7 @@ function init() {
 
 function grant(index, player) {
     // Starting-region assignment only. Combat transfers the exact stored CUnit.
-    const loc = Loc.start_p1 + index;
+    const loc = Loc.strasbourg + index;
     const count = cfg.START_CITY_COUNTS[index];
     GiveUnits(All, UnitModel.small_city, 7, loc, player);
     if (player < 7) { cityCount[player] += count; }

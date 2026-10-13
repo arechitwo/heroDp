@@ -14,17 +14,19 @@ class Loc:
     mouse_p5 = EncodeLocation("mouse_p5")
     mouse_p6 = EncodeLocation("mouse_p6")
     mouse_p7 = EncodeLocation("mouse_p7")
-    start_p1 = EncodeLocation("start_p1")
-    start_p2 = EncodeLocation("start_p2")
-    start_p3 = EncodeLocation("start_p3")
-    start_p4 = EncodeLocation("start_p4")
-    start_p5 = EncodeLocation("start_p5")
-    start_p6 = EncodeLocation("start_p6")
-    start_p7 = EncodeLocation("start_p7")
+    strasbourg = EncodeLocation("strasbourg")
+    ulm = EncodeLocation("ulm")
+    augsburg = EncodeLocation("augsburg")
+    munich = EncodeLocation("munich")
+    nuremberg = EncodeLocation("nuremberg")
+    regensburg = EncodeLocation("regensburg")
+    salzburg = EncodeLocation("salzburg")
     command = EncodeLocation("command")
     msqc = EncodeLocation("msqc")
     anywhere = EncodeLocation("Anywhere")
 
 
-START_LOCATIONS = (Loc.start_p1, Loc.start_p2, Loc.start_p3, Loc.start_p4,
-                   Loc.start_p5, Loc.start_p6, Loc.start_p7)
+START_LOCATIONS = (Loc.strasbourg, Loc.ulm, Loc.augsburg, Loc.munich,
+                   Loc.nuremberg, Loc.regensburg, Loc.salzburg)
+START_OPTIONS = tuple(enumerate(("스트라스부르", "울름", "아우크스부르크", "뮌헨",
+                                 "뉘른베르크", "레겐스부르크", "잘츠부르크")))

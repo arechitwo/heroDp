@@ -3,6 +3,7 @@ import modules.cities as cities;
 import modules.rules as rules;
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
+import modules.map_data as mapData;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
@@ -35,7 +36,7 @@ function start() {
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp < 7) {
             const index = selection[cp];
-            const loc = Loc.start_p1 + index;
+            const loc = Loc.strasbourg + index;
             cities.grant(index, cp);
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
@@ -67,7 +68,7 @@ function claim(cp, option) {
     selection[cp] = option;
     taken[option] = cp;
     setcurpl(cp);
-    CenterView(Loc.start_p1 + option);
+    CenterView(Loc.strasbourg + option);
     if (rules.gameType == 1) { pickTeam = 3 - pickTeam; selectionTimer = cfg.SELECTION_TIMEOUT; }
     return true;
 }
@@ -187,12 +188,12 @@ function render() {
         if (participants() < 2) { screen.append("\n\x13\x06참가자가 2명 이상 필요합니다."); }
     } else if (stage == 5) {
         screen.append("\x13\x1F시작 거점 선택\n\n");
-        for (var option = 0; option < 7; option++) {
-            if (taken[option] == 7) { screen.appendf("\x04거점{}　", option + 1); }
-            else { screen.appendf("\x08거점{}　", option + 1); }
+        foreach (option, name : mapData.START_OPTIONS) {
+            if (taken[option] == 7) { screen.appendf("\x04{}. {}　", option + 1, name); }
+            else { screen.appendf("\x08{}. {}　", option + 1, name); }
             if (option == 3) { screen.append("\n\x13"); }
         }
-        screen.append("\n\n\x13\x04채팅으로 거점1~거점7 또는 랜덤을 입력하세요.\n\x13\x04숫자 1~7로도 선택할 수 있습니다.\n");
+        screen.append("\n\n\x13\x04채팅으로 지명 또는 랜덤을 입력하세요.\n\x13\x04숫자 1~7로도 선택할 수 있습니다.\n");
         if (rules.gameType == 1) { screen.appendf("\x13\x1E{}팀 {:n} 차례 · {}초", pickTeam, currentPicker(), (selectionTimer + 23) / 24); }
         else { screen.appendf("\x13\x04시간 초과 시 랜덤 배정 · {}초", (selectionTimer + 23) / 24); }
     } else { screen.appendf("\x13\x07선택 완료! {}초 후 시작합니다.", (cfg.START_COUNTDOWN - countdown + 23) / 24); }
