@@ -1,6 +1,7 @@
 import modules.settings as cfg;
 import modules.cities as cities;
 import modules.rules as rules;
+import modules.unit_settings.UnitModel as UnitModel;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
@@ -38,8 +39,8 @@ function start() {
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
             RunAIScript("Turn OFF Shared Vision for Player 8");
-            CreateUnit(cfg.START_MARINES, 0, loc, cp);
-            CreateUnit(1, 7, loc, cp);
+            CreateUnit(cfg.START_MARINES, UnitModel.marine, loc, cp);
+            CreateUnit(1, UnitModel.scv, loc, cp);
             CenterView(loc);
             println("\x04시작! 도시 점령으로 세금을 확보하세요. F+우클릭: 전군 이동 / F+좌클릭: 전군 공격");
         }

@@ -1,5 +1,6 @@
 import modules.unit_orders as orders;
 import modules.army_groups as groups;
+import modules.unit_settings.UnitModel as UnitModel;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -10,11 +11,11 @@ function trackNewUnits() {
         if (MemoryXEPD(epd + 0x4C / 4, AtLeast, 7, 0xFF)) { continue; }
         if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
         epdswitch(epd + 0x64 / 4, 0xFF) {
-            case 7:   // SCV
-            case 40:  // 주둔군 Broodling
-            case 41:  // Drone
-            case 64:  // Probe
-            case 101: // Map Revealer
+            case unProxy(UnitModel.scv):
+            case unProxy(UnitModel.defender):
+            case unProxy(UnitModel.drone):
+            case unProxy(UnitModel.probe):
+            case unProxy(UnitModel.map_revealer):
                 break;
             default:
                 groups.add_default(epd);

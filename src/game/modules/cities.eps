@@ -1,4 +1,5 @@
 import modules.settings as cfg;
+import modules.unit_settings.UnitModel as UnitModel;
 
 const NEXT_UNIT = EPD(0x628438);
 const ORDER_OFFSET = 0x4C / 4;
@@ -14,13 +15,13 @@ var registeredCities = 0;
 
 function init() {
     foreach (marker : EUDLoopCUnit()) {
-        if (marker.unitType == 195 && marker.owner == 7) {
+        if (marker.unitType == UnitModel.city_marker && marker.owner == 7) {
             marker.setloc(254);
             dilateloc(254, 16, 16);
             marker.remove();
             if (!MemoryEPD(NEXT_UNIT, Exactly, 0)) {
                 const city = CUnit.from_next();
-                CreateUnit(1, 156, 254, 7);
+                CreateUnit(1, UnitModel.small_city, 254, 7);
                 if (!MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) {
                     city.statusFlags.Invincible = true;
                     city.orderID = 18;
@@ -37,7 +38,7 @@ function grant(index, player) {
     // Starting-region assignment only. Combat transfers the exact stored CUnit.
     const loc = cfg.locations[index];
     const count = cfg.weights[index];
-    GiveUnits(All, 156, 7, loc, player);
+    GiveUnits(All, UnitModel.small_city, 7, loc, player);
     if (player < 7) { cityCount[player] += count; }
 }
 
@@ -48,7 +49,7 @@ function defend(index, owner) {
     for (var i = 0; i < cfg.GUARDS; i++) {
             if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { break; }
             const guard = CUnit.from_next();
-            CreateUnit(1, 40, 232, owner);
+            CreateUnit(1, UnitModel.defender, 232, owner);
             if (!MemoryXEPD(guard + 0x4C / 4, Exactly, 0, 0xFF00)) {
                 guard.statusFlags.InAir = false;
                 guard.pathingFlags = 1;
@@ -70,7 +71,7 @@ function withdraw(index) {
     DEFENDER_COUNT[index] = 0;
     for (var i = 0; i < count; i++) {
         const guard = DEFENDERS[base + i];
-            if (MemoryXEPD(guard + 0x64 / 4, Exactly, 40, 0xFFFF) &&
+            if (MemoryXEPD(guard + 0x64 / 4, Exactly, UnitModel.defender, 0xFF) &&
                 !MemoryXEPD(guard + ORDER_OFFSET, Exactly, 0, ORDER_MASK) &&
                 guard.uniquenessIdentifier == DEFENDER_GENERATION[base + i]) {
                 guard.remove();
@@ -107,7 +108,7 @@ function tick() {
             cityCount[owner]--;
             city.unknown0x8C = 0;
             city.setloc(CITY_HEALTH_LOCATION);
-            ModifyUnitHitPoints(1, 156, 7, CITY_HEALTH_LOCATION, 100);
+            ModifyUnitHitPoints(1, UnitModel.small_city, 7, CITY_HEALTH_LOCATION, 100);
             continue;
         }
         if (isAttacking && timer == 0) {
@@ -115,14 +116,14 @@ function tick() {
             dilateloc(232, 32, 32);
             defend(index, owner);
             city.setloc(CITY_HEALTH_LOCATION);
-            ModifyUnitHitPoints(1, 156, owner, CITY_HEALTH_LOCATION, 30);
+            ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 30);
             city.unknown0x8C = cfg.PEACE_TIMEOUT;
             continue;
         }
         if (!isAttacking && timer == 1) {
             withdraw(index);
             city.setloc(CITY_HEALTH_LOCATION);
-            ModifyUnitHitPoints(1, 156, owner, CITY_HEALTH_LOCATION, 100);
+            ModifyUnitHitPoints(1, UnitModel.small_city, owner, CITY_HEALTH_LOCATION, 100);
             city.unknown0x8C = 0;
             continue;
         }
@@ -135,8 +136,8 @@ function tick() {
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
                 city.setloc(CITY_HEALTH_LOCATION);
-                ModifyUnitHitPoints(1, 156, winner, CITY_HEALTH_LOCATION, 100);
-                ModifyUnitShields(1, 156, winner, CITY_HEALTH_LOCATION, 100);
+                ModifyUnitHitPoints(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
+                ModifyUnitShields(1, UnitModel.small_city, winner, CITY_HEALTH_LOCATION, 100);
                 city.unknown0x8C = 0;
                 setcurpl(winner);
                 println("\x04도시 점령! 보유 도시: {}", cityCount[winner]);
