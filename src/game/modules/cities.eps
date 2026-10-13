@@ -132,7 +132,7 @@ function tick() {
                 withdraw(index);
                 // 점 로케이션으로 해당 파일런을 엔진 Give 처리해 색상도 갱신.
                 GiveUnits(1, UnitModel.small_city, owner, Loc.city_point, winner);
-                // 현재는 스타게이트 병영만 점령 범위에서 함께 넘김.
+                // 현재는 게이트웨이 병영만 점령 범위에서 함께 넘김.
                 GiveUnits(All, UnitModel.barracks, owner, Loc.city_capture, winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }

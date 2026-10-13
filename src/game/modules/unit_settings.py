@@ -14,8 +14,8 @@ class UnitModel:
     # 도시 마커 → 인게임 도시
     city_marker = TrgUnit("Terran Beacon")
     small_city = TrgUnit("Protoss Pylon")
-    # 현재 도시 점령 시 함께 넘기는 병영은 스타게이트.
-    barracks = TrgUnit("Protoss Stargate")
+    # 도시 점령 시 함께 넘기는 병영은 게이트웨이.
+    barracks = TrgUnit("Protoss Gateway")
 
     # 마린 외형을 적용하는 주둔군. 실제 Marine과 다른 유닛입니다.
     defender = TrgUnit("Zerg Broodling")
