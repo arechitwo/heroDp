@@ -76,3 +76,23 @@ def sections(raw):
         result.append((tag, raw[offset+8:end]))
         offset = end
     return result
+
+
+def synchronize_player_slots(path, dll=DEFAULT_DLL):
+    """Persist editor IOWN settings into game OWNR after an editor save."""
+    archive = Archive(path, dll)
+    try:
+        items = sections(archive.read())
+        data = dict(items)
+        owners = data[b'IOWN']
+        if data[b'OWNR'] == owners:
+            return
+        raw = b''.join(
+            struct.pack('<4sI', tag, len(owners if tag == b'OWNR' else payload))
+            + (owners if tag == b'OWNR' else payload)
+            for tag, payload in items
+        )
+        archive.write(raw)
+        print(f'Synchronized editor player slots into game settings: {path}')
+    finally:
+        archive.close()
