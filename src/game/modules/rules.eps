@@ -2,8 +2,8 @@ var gameType = 0; // 0 individual, 1 teams
 var randomStarts = 0;
 var allianceMode = 1; // 0 free, 1 vision only, 2 no alliance/vision
 var teamMethod = 0; // 0 lobby order, 1 shuffle
-const teams = EUDArray(8);
-const roster = EUDArray(7);
+const teams = EUDVArray(8)();
+const roster = EUDVArray(8, TrgPlayer)();
 
 function assignTeams() {
     var count = 0;

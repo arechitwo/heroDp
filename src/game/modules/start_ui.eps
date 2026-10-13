@@ -2,8 +2,8 @@ import modules.settings as cfg;
 import modules.cities as cities;
 import modules.rules as rules;
 
-const selection = EUDArray(py_eval('[7] * 8'));
-const taken = EUDArray(py_eval('[7] * 7'));
+const selection = EUDVArray(8)(py_eval('[7] * 8'));
+const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
 var started = 0;
 var countdown = 0;
 var stage = 0; // opening, quick, custom, alliance, team, nation, countdown
