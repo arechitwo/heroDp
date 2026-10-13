@@ -1,6 +1,6 @@
 import modules.unit_orders as orders;
+import modules.army_groups as groups;
 
-const ARMY = UnitGroup(1700);
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
 const LOCATION_TABLE = EPD(0x58DC60);
@@ -17,7 +17,7 @@ function trackNewUnits() {
             case 101: // Map Revealer
                 break;
             default:
-                ARMY.add(epd);
+                groups.add_default(epd);
                 break;
         }
     }
@@ -43,7 +43,9 @@ function tick() {
         }
     }
         // 매 틱 수명 관리. 명령이 있을 때에만 저장된 유닛에 직접 명령을 기록.
-        foreach (entry : ARMY.cploop) {
+    // Registry expands at compile time: each player's default/hero groups get one pass.
+    foreach (player, army : groups.REGISTERED_GROUPS) {
+        foreach (entry : army.cploop) {
             foreach (dead : entry.dying) {
                 // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.
             }
@@ -51,10 +53,12 @@ function tick() {
             const unit = CUnit.cast(entry.epd);
             const owner = unit.owner;
             if (owner >= 7) { continue; }
+            if (owner != player) { continue; }
             const mode = COMMANDS[owner];
             if (mode == 0) { continue; }
             if (mode == 2) { orders.issue(unit, orders.ORDER_ATTACK_MOVE, TARGET_POSITIONS[owner]); }
             else { orders.issue(unit, orders.ORDER_MOVE, TARGET_POSITIONS[owner]); }
         }
+    }
     setcurpl(0);
 }

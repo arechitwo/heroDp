@@ -4,18 +4,15 @@ const NEXT_UNIT = EPD(0x628438);
 const ORDER_OFFSET = 0x4C / 4;
 const ORDER_MASK = 0xFF00;
 const WAR_TIMER_OFFSET = 0x8C / 4;
+const CITY_HEALTH_LOCATION = 234;
 const CITY_UNITS = EUDVArray(cfg.CITY_COUNT, CUnit)();
 const DEFENDERS = EUDVArray(cfg.CITY_COUNT * cfg.GUARDS, CUnit)();
 const DEFENDER_GENERATION = EUDArray(cfg.CITY_COUNT * cfg.GUARDS);
 const DEFENDER_COUNT = EUDArray(cfg.CITY_COUNT);
 const cityCount = EUDVArray(8)();
 var registeredCities = 0;
-var cityMaxHp = 0;
-var cityMaxShield = 0;
 
 function init() {
-    cityMaxHp = TrgUnit(156).maxHp;
-    cityMaxShield = TrgUnit(156).maxShield * 256;
     foreach (marker : EUDLoopCUnit()) {
         if (marker.unitType == 195 && marker.owner == 7) {
             marker.setloc(254);
@@ -109,20 +106,23 @@ function tick() {
             city.cgive(7);
             cityCount[owner]--;
             city.unknown0x8C = 0;
-            city.hp = cityMaxHp;
+            city.setloc(CITY_HEALTH_LOCATION);
+            ModifyUnitHitPoints(1, 156, 7, CITY_HEALTH_LOCATION, 100);
             continue;
         }
         if (isAttacking && timer == 0) {
             setloc(232, x - 32, y + 32);
             dilateloc(232, 32, 32);
             defend(index, owner);
-            city.hp = cityMaxHp * 3 / 10;
+            city.setloc(CITY_HEALTH_LOCATION);
+            ModifyUnitHitPoints(1, 156, owner, CITY_HEALTH_LOCATION, 30);
             city.unknown0x8C = cfg.PEACE_TIMEOUT;
             continue;
         }
         if (!isAttacking && timer == 1) {
             withdraw(index);
-            city.hp = cityMaxHp;
+            city.setloc(CITY_HEALTH_LOCATION);
+            ModifyUnitHitPoints(1, 156, owner, CITY_HEALTH_LOCATION, 100);
             city.unknown0x8C = 0;
             continue;
         }
@@ -134,8 +134,9 @@ function tick() {
                 city.cgive(winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
-                city.hp = cityMaxHp;
-                city.shield = cityMaxShield;
+                city.setloc(CITY_HEALTH_LOCATION);
+                ModifyUnitHitPoints(1, 156, winner, CITY_HEALTH_LOCATION, 100);
+                ModifyUnitShields(1, 156, winner, CITY_HEALTH_LOCATION, 100);
                 city.unknown0x8C = 0;
                 setcurpl(winner);
                 println("\x04도시 점령! 보유 도시: {}", cityCount[winner]);
