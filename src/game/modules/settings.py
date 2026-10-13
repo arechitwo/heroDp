@@ -40,3 +40,4 @@ START_MARINES = config['starting_marines']
 START_COUNTDOWN = config['start_countdown_frames']
 INTRO_FRAMES = config['intro_frames']
 SELECTION_TIMEOUT = config['selection_timeout_frames']
+DEBUG_ENABLED = config.get('debug_enabled', False)

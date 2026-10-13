@@ -6,6 +6,7 @@ import modules.commander as commander;
 import modules.start_ui as ui;
 import modules.rules as rules;
 import modules.unit_dat as unitDat;
+import modules.debug as debug;
 function onPluginStart() {
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
     cities.init();
@@ -14,6 +15,7 @@ function onPluginStart() {
 }
 
 function beforeTriggerExec() {
+    debug.tick(); // Consume synchronized debug commands before start UI clears chat.
     ui.tick();
     if (ui.started != 0) {
         rules.tick();

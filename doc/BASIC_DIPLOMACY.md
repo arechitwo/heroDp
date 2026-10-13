@@ -12,6 +12,9 @@
 | `unit_dat.eps` | `TrgUnit`/`Weapon` 문법의 파일런·주둔군 외형, 스탯, 공격 AI |
 | `unit_orders.eps` | CUnit 직접 이동(6)·어택땅(14) 명령. 영웅별 UnitGroup에서도 재사용 |
 | `army_groups.py` | 플레이어별 기본 부대와 영웅 UnitGroup의 컴파일 타임 등록 목록 |
+| `debug.eps` | 동기화 채팅으로 유닛 생성·자원 설정·세금/주둔군/시작 타이머 변경 |
+
+디버그 명령과 설정은 `doc/DEBUG.md`를 참고합니다. `debug_enabled`로 켜고 끕니다.
 
 ## 초기 맵 설정
 

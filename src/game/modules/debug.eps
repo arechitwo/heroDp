@@ -1,0 +1,123 @@
+import modules.settings as cfg;
+import modules.map_data.Loc as Loc;
+import modules.unit_settings.UnitModel as UnitModel;
+import modules.start_ui as ui;
+import modules.income as income;
+import modules.cities as cities;
+
+const NEXT_UNIT = EPD(0x628438);
+const LOCATION_TABLE = EPD(0x58DC60);
+const VALUES = EUDVArray(8)(py_eval('[10000] * 8'));
+const COUNTS = EUDVArray(8)(py_eval('[1] * 8'));
+
+function help() {
+    println("\x06[디버그] 값: 디버그 값 0/1/24/120/400/720/10000/100000");
+    println("\x04임의 값: 디버그 값 초기화 → 디버그 숫자 0~9로 자릿수 추가");
+    println("\x04돈·가스·자원: 디버그 돈 / 디버그 가스 / 디버그 자원");
+    println("\x04생성: 디버그 마린 / 디버그 SCV · 개수: 디버그 개수 1/10/100");
+    println("\x04타이머: 디버그 세금타이머 / 디버그 주둔군타이머 / 디버그 시작타이머");
+    println("\x04유닛 생성·주둔군 타이머는 내 마우스 위치 기준. 타이머 단위는 트리거 틱.");
+}
+
+function setMinerals(player, amount) {
+    SetResources(player, SetTo, amount, Ore);
+}
+
+function setGas(player, amount) {
+    SetResources(player, SetTo, amount, Gas);
+}
+
+function spawn(player, unit : TrgUnit, count) {
+    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
+        println("\x08[디버그] 생성 가능한 유닛 슬롯이 없습니다.");
+        return;
+    }
+    const mouse = LOCATION_TABLE + (Loc.mouse_p1 - 1 + player) * 5;
+    const x = maskread_epd(mouse, 0x1FFF);
+    const y = maskread_epd(mouse + 1, 0x1FFF);
+    setloc(Loc.city_spawn, x, y);
+    dilateloc(Loc.city_spawn, 16, 16);
+    CreateUnit(count, unit, Loc.city_spawn, player);
+}
+
+function setTaxTimer(ticks) {
+    income.elapsed = ticks;
+}
+
+function setGarrisonTimer(player, ticks) {
+    const mouse = LOCATION_TABLE + (Loc.mouse_p1 - 1 + player) * 5;
+    const targetX = maskread_epd(mouse, 0x1FFF);
+    const targetY = maskread_epd(mouse + 1, 0x1FFF);
+    // 0도 다음 도시 처리에서 정상 회수하도록 1로 설정.
+    if (ticks == 0) { ticks = 1; }
+    if (ticks > 65535) { ticks = 65535; }
+    var changed = 0;
+    for (var index = 0; index < cities.registeredCities; index++) {
+        const city = cities.CITY_UNITS[index];
+        if (MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) { continue; }
+        if (MemoryEPD(city + 0x8C / 4, Exactly, 0)) { continue; }
+        const x, y = posread_epd(city + 0x28 / 4);
+        if (x <= targetX + 160 && targetX <= x + 160 &&
+            y <= targetY + 160 && targetY <= y + 160) {
+            city.unknown0x8C = ticks;
+            changed++;
+        }
+    }
+    println("\x04[디버그] 전투 도시 {}곳의 주둔군 타이머를 {}틱으로 설정", changed, ticks);
+}
+
+function setStartTimer(ticks) {
+    if (ui.started != 0 || ui.stage != 6) {
+        println("\x08[디버그] 거점 선택 완료 후 시작 카운트다운 중에 사용하세요.");
+        return;
+    }
+    // 값은 시작 카운트다운의 경과 틱. START_COUNTDOWN 이상이면 시작.
+    ui.countdown = ticks;
+}
+
+function tick() {
+    if (!cfg.DEBUG_ENABLED) { return; }
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp >= 7) { continue; }
+        const command = ui.chatReceived[cp];
+        if (command < 100) { continue; }
+        ui.chatReceived[cp] = 0;
+        setcurpl(cp);
+        if (command >= 150 && command <= 159) {
+            const digit = command - 150;
+            // 자원·타이머 입력을 최대 2,000,000,000으로 제한.
+            if (VALUES[cp] <= 199999999 || (VALUES[cp] == 200000000 && digit == 0)) {
+                VALUES[cp] = VALUES[cp] * 10 + digit;
+            }
+            println("\x04[디버그] 적용 값: {}", VALUES[cp]);
+            continue;
+        }
+        switch (command) {
+            case 100: help(); break;
+            case 101: setMinerals(cp, VALUES[cp]); break;
+            case 102: setGas(cp, VALUES[cp]); break;
+            case 103:
+                setMinerals(cp, VALUES[cp]);
+                setGas(cp, VALUES[cp]);
+                break;
+            case 104: spawn(cp, UnitModel.marine, COUNTS[cp]); break;
+            case 105: spawn(cp, UnitModel.scv, COUNTS[cp]); break;
+            case 106: setTaxTimer(VALUES[cp]); break;
+            case 107: setGarrisonTimer(cp, VALUES[cp]); break;
+            case 108: setStartTimer(VALUES[cp]); break;
+            case 110: COUNTS[cp] = 1; break;
+            case 111: COUNTS[cp] = 10; break;
+            case 112: COUNTS[cp] = 100; break;
+            case 120: VALUES[cp] = 0; break;
+            case 121: VALUES[cp] = 1; break;
+            case 122: VALUES[cp] = 24; break;
+            case 123: VALUES[cp] = 120; break;
+            case 124: VALUES[cp] = 400; break;
+            case 125: VALUES[cp] = 720; break;
+            case 126: VALUES[cp] = 10000; break;
+            case 127: VALUES[cp] = 100000; break;
+        }
+        println("\x04[디버그] 값 {} · 생성 개수 {}", VALUES[cp], COUNTS[cp]);
+    }
+    setcurpl(0);
+}

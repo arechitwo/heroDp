@@ -7,5 +7,6 @@
   "starting_marines": 8,
   "start_countdown_frames": 120,
   "intro_frames": 120,
-  "selection_timeout_frames": 600
+  "selection_timeout_frames": 600,
+  "debug_enabled": true
 }
