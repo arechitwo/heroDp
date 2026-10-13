@@ -7,10 +7,19 @@ const LOCATION_TABLE = EPD(0x58DC60);
 
 function trackNewUnits() {
     foreach (ptr, epd : EUDLoopNewUnit()) {
-        const unit = CUnit.cast(epd);
-        const kind = unit.unitType;
-        if (unit.owner >= 7 || kind == 7 || kind == 41 || kind == 64 || kind == 40 || kind >= 106 || kind == 101) { continue; }
-        ARMY.add(unit);
+        if (MemoryXEPD(epd + 0x4C / 4, AtLeast, 7, 0xFF)) { continue; }
+        if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
+        epdswitch(epd + 0x64 / 4, 0xFF) {
+            case 7:   // SCV
+            case 40:  // 주둔군 Broodling
+            case 41:  // Drone
+            case 64:  // Probe
+            case 101: // Map Revealer
+                break;
+            default:
+                ARMY.add(epd);
+                break;
+        }
     }
 }
 
