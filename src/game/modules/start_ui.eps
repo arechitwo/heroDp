@@ -35,7 +35,7 @@ function start() {
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp < 7) {
             const index = selection[cp];
-            const loc = EncodeLocation(Loc.start_p1) + index;
+            const loc = Loc.start_p1 + index;
             cities.grant(index, cp);
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
@@ -67,7 +67,7 @@ function claim(cp, option) {
     selection[cp] = option;
     taken[option] = cp;
     setcurpl(cp);
-    CenterView(EncodeLocation(Loc.start_p1) + option);
+    CenterView(Loc.start_p1 + option);
     if (rules.gameType == 1) { pickTeam = 3 - pickTeam; selectionTimer = cfg.SELECTION_TIMEOUT; }
     return true;
 }

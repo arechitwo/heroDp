@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 import struct
-from eudplib import EUDArray, GetChkTokenized, unProxy, EncodeLocation
+from eudplib import EUDArray, GetChkTokenized, unProxy
 from .unit_settings import UnitModel
 from .map_data import START_LOCATIONS
 
@@ -18,7 +18,6 @@ location_data = chk.getsection('MRGN')
 start_counts = []
 claimed_markers = set()
 for location in START_LOCATIONS:
-    location = EncodeLocation(location)
     left, top, right, bottom = struct.unpack_from('<4I', location_data, (location - 1) * 20)
     contained = {i for i, (x, y) in enumerate(marker_positions)
                  if left <= x <= right and top <= y <= bottom}
