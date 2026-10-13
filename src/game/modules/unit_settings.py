@@ -18,6 +18,7 @@ class UnitModel:
     barracks = TrgUnit("Protoss Gateway")
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")
+    nexus_wireframe = TrgUnit("Terran Command Center")  # FranceDp 수도 선택창 외형
     nexus_signal = TrgUnit("Kakaru (Twilight Critter)")  # 일반 더미 유닛: 수도 소환 요청
     nexus_requirement = TrgUnit("Mineral Field (Type 1)")
 

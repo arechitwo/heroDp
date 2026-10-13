@@ -1,9 +1,12 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
-from eudplib import Db, EUDFunc, EncodeUnit, SetMemory, SetTo
+from eudplib import Db, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import UnitModel
 
 BUTTON_TABLE = 0x5187E8
+STATUS_TABLE = 0x5193A0
+UNIT_STATUS_UPDATE = 4344192
+UNIT_STATUS_DRAW = 4353872
 BUTTON_ALWAYS = 0x4282D0
 BUTTON_CAN_TRAIN = 0x428E60
 BUTTON_TRAIN = 0x4234B0
@@ -21,6 +24,8 @@ CAPITAL_BUTTONS = Db(_button(5, EncodeUnit(UnitModel.barracks), BUTTON_ALWAYS,
 CITY_BUTTONS = Db(_button(7, 154, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                          EncodeUnit(UnitModel.nexus_signal),
                          EncodeUnit(UnitModel.nexus_signal), 1049))
+
+InitialWireframe.wirefram(EncodeUnit(UnitModel.nexus_unit), EncodeUnit(UnitModel.nexus_wireframe))
 
 
 @EUDFunc
@@ -46,6 +51,9 @@ def f_init():
     capital.mineralCost = 100
     capital.gasCost = 0
     capital.killScore = 25
+    # FranceDp의 수도(168) 상태 정보: 건물 생산창 대신 유닛 정보창.
+    SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, UNIT_STATUS_UPDATE)
+    SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 8, SetTo, UNIT_STATUS_DRAW)
 
     gate = UnitModel.barracks
     gate.nameString = '\x05훈련소'
