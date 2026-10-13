@@ -40,7 +40,6 @@ function start() {
             cities.grant(index, cp);
             setcurpl(cp);
             SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
-            RunAIScript("Turn OFF Shared Vision for Player 8");
             CreateUnit(cfg.START_MARINES, UnitModel.marine, loc, cp);
             CreateUnit(1, UnitModel.scv, loc, cp);
             CenterView(loc);
