@@ -1,0 +1,50 @@
+var gameType = 0; // 0 individual, 1 teams
+var randomStarts = 0;
+var allianceMode = 1; // 0 free, 1 vision only, 2 no alliance/vision
+var teamMethod = 0; // 0 lobby order, 1 shuffle
+const teams = EUDArray(8);
+const roster = EUDArray(7);
+
+function assignTeams() {
+    var count = 0;
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7) { roster[count] = cp; count++; }
+    }
+    if (teamMethod == 1 && count > 1) {
+        for (var i = count - 1; i > 0; i--) {
+            const j = dwrand() % (i + 1);
+            const old = roster[i];
+            roster[i] = roster[j];
+            roster[j] = old;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        if (i < count / 2) { teams[roster[i]] = 1; }
+        else { teams[roster[i]] = 2; }
+    }
+}
+
+function tick() {
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp >= 7) { continue; }
+        setcurpl(cp);
+        foreach (target : py_range(7)) {
+            if (cp == target) { continue; }
+            if (gameType == 1) {
+                if (teams[cp] == teams[target] && teams[target] != 0) {
+                    SetAllianceStatus(target, Ally);
+                    RunAIScript(py_eval('"Turn ON Shared Vision for Player " + str(target + 1)'));
+                } else {
+                    SetAllianceStatus(target, Enemy);
+                    RunAIScript(py_eval('"Turn OFF Shared Vision for Player " + str(target + 1)'));
+                }
+            } else if (allianceMode != 0) {
+                SetAllianceStatus(target, Enemy);
+                if (allianceMode == 2) {
+                    RunAIScript(py_eval('"Turn OFF Shared Vision for Player " + str(target + 1)'));
+                }
+            }
+        }
+    }
+    setcurpl(0);
+}

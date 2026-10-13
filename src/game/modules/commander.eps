@@ -1,0 +1,21 @@
+function tick() {
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7) {
+            setcurpl(cp);
+            if (Deaths(CurrentPlayer, AtLeast, 1, 214)) {
+                const attack = l2v(Deaths(CurrentPlayer, Exactly, 2, 214));
+                foreach (unit : EUDLoopCUnit()) {
+                    const kind = unit.unitType;
+                    // Workers, garrisons, buildings and non-army map units stay put.
+                    if (unit.owner != cp || kind == 7 || kind == 41 || kind == 64 || kind == 40 || kind >= 106) { continue; }
+                    if (kind == 101) { continue; }
+                    unit.setloc(254);
+                    if (attack) { Order(kind, cp, 254, Attack, 240 + cp); }
+                    else { Order(kind, cp, 254, Move, 240 + cp); }
+                }
+            }
+            SetDeaths(CurrentPlayer, SetTo, 0, 214);
+        }
+    }
+    setcurpl(0);
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import configparser
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,7 @@ import shutil
 import subprocess
 import sys
 from datetime import datetime
+from tools.generate_game_data import generate
 
 ROOT = Path(__file__).resolve().parent
 
@@ -25,6 +27,7 @@ def main() -> int:
     parser.add_argument("--output", help="Override output SCX path")
     parser.add_argument("--euddraft", help="Override euddraft executable")
     parser.add_argument("--check", action="store_true", help="Validate without compiling")
+    parser.add_argument("--prepare", action="store_true", help="Generate data for direct main.eds builds without compiling")
     args = parser.parse_args()
     try:
         config = json.loads(project_path(args.config).read_text(encoding="utf-8-sig"))
@@ -43,6 +46,16 @@ def main() -> int:
             raise ValueError("Output must be a separate .scx file")
         if ROOT not in output.parents:
             raise ValueError("Output must remain inside the project")
+        template = configparser.ConfigParser(interpolation=None, delimiters=(":",), strict=True)
+        template.optionxform = str
+        recipe_path = project_path(config['recipe'])
+        template.read_string(recipe_path.read_text(encoding='utf-8-sig'))
+        if 'main' not in template or 'src/plugins/data_loader.py' not in template or config['entry'] not in template:
+            raise ValueError('Recipe requires main, data_loader and configured game entry sections')
+        for section in template.sections():
+            if section.endswith(('.py', '.eps')) and not project_path(section).is_file():
+                raise ValueError(f'Plugin not found: {section}')
+        data_manifest = generate(project_path(config['custom_tbl']), project_path(config['require_data']))
         configured = args.euddraft or os.environ.get("EUDDRAFT_PATH") or config.get("euddraft") or "euddraft"
         executable = shutil.which(configured)
         if not executable:
@@ -53,7 +66,12 @@ def main() -> int:
             raise ValueError("euddraft not found; set --euddraft or EUDDRAFT_PATH")
         print(f"Input:  {source}\nEntry:  {entry}\nOutput: {output}\nTool:   {executable}", flush=True)
         if args.check:
-            print("Configuration OK (compilation not run).")
+            print(f"Configuration and JSON OK: TBL {data_manifest['tbl_bytes']} bytes; RequireData {data_manifest['require_bytes']} bytes (compilation not run).")
+            return 0
+        if args.prepare:
+            generate(project_path(config['custom_tbl']), project_path(config['require_data']), ROOT / 'build/generated')
+            (ROOT / 'dist').mkdir(parents=True, exist_ok=True)
+            print('Generated build/generated data. Run euddraft main.eds from the project root.')
             return 0
 
         # A unique staging path prevents stale output from being reported as success.
@@ -62,11 +80,21 @@ def main() -> int:
         work.mkdir(parents=True)
         staged = work / "map.scx"
         recipe = work / "map.eds"
-        recipe.write_text(
-            f"[main]\ninput: {source.as_posix()}\noutput: {staged.as_posix()}\n\n"
-            f"[{entry.as_posix()}]\n",
-            encoding="utf-8",
-        )
+        data_dir = work / 'data'
+        generate(project_path(config['custom_tbl']), project_path(config['require_data']), data_dir)
+        # main.eds is the tracked recipe; resolve project paths for the isolated build.
+        resolved = configparser.ConfigParser(interpolation=None, delimiters=(":",))
+        resolved.optionxform = str
+        for section in template.sections():
+            name = (entry.as_posix() if section == config['entry'] else project_path(section).as_posix()) if section.endswith(('.py', '.eps')) else section
+            resolved[name] = dict(template[section])
+        resolved['main']['input'] = source.as_posix()
+        resolved['main']['output'] = staged.as_posix()
+        resolved[project_path('src/plugins/data_loader.py').as_posix()]['data_dir'] = data_dir.as_posix()
+        if 'src/plugins/map_setup.py' in template:
+            resolved[project_path('src/plugins/map_setup.py').as_posix()]['project_root'] = ROOT.as_posix()
+        with recipe.open('w', encoding='utf-8') as stream:
+            resolved.write(stream)
         logs = ROOT / "build" / "logs"
         logs.mkdir(parents=True, exist_ok=True)
         log_path = logs / f"{stamp}.log"

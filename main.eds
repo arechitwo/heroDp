@@ -1,0 +1,47 @@
+[main]
+input: maps/base.scx
+output: dist/NoE3s.scx
+
+[src/plugins/map_setup.py]
+project_root: .
+
+[src/plugins/data_loader.py]
+data_dir: build/generated
+
+[chatEvent]
+__addr__: startChatInput
+거점1: 11
+거점2: 12
+거점3: 13
+거점4: 14
+거점5: 15
+거점6: 16
+거점7: 17
+랜덤: 18
+
+[MSQC]
+QCLoc: 255
+QCPlayer: P11
+QCDebug: false
+mouse: 240
+KeyPress(F); MouseDown(R); NotTyping: 214, 1
+KeyPress(F); MouseDown(L); NotTyping: 214, 2
+KeyDown(1); NotTyping: 216, 1
+KeyDown(2); NotTyping: 216, 2
+KeyDown(3); NotTyping: 216, 3
+KeyDown(4); NotTyping: 216, 4
+KeyDown(5); NotTyping: 216, 5
+KeyDown(6); NotTyping: 216, 6
+KeyDown(7); NotTyping: 216, 7
+KeyDown(ENTER); NotTyping: 216, 8
+KeyDown(ESC); NotTyping: 216, 9
+KeyDown(UP); NotTyping: 217, 1
+KeyDown(DOWN); NotTyping: 217, 2
+KeyDown(LEFT); NotTyping: 217, 3
+KeyDown(RIGHT); NotTyping: 217, 4
+KeyDown(Y); NotTyping: 217, 5
+KeyDown(N); NotTyping: 217, 6
+KeyDown(0); NotTyping: 217, 7
+startChatInput; val, startChatInput: startChatReceived
+
+[src/game/main.eps]

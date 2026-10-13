@@ -1,0 +1,82 @@
+// 도시 파일런(156)과 주둔군 브루들링(40)만 수정합니다.
+// 게임 시작 시 cities.init()보다 먼저 실행: 외형/공격 AI 설정 후 비콘을 파일런으로 변환.
+function init() {
+    // ---- 도시: 프로토스 파일런 ----
+    TrgUnit(156).flingy = 62;                    // 원본 파일런 외형
+    TrgUnit(156).buildingDimensions = 32 + (32 << 16); // One-tile placement box
+    TrgUnit(156).unitBoundsL = 15;
+    TrgUnit(156).unitBoundsT = 15;
+    TrgUnit(156).unitBoundsR = 16;
+    TrgUnit(156).unitBoundsB = 16;
+    TrgUnit(156).maxHp = 2000 * 256;             // 체력: 반드시 256을 곱함
+    TrgUnit(156).hasShield = true;
+    TrgUnit(156).maxShield = 300;
+    TrgUnit(156).armor = 25;
+    TrgUnit(156).seekRange = 7;                  // Acquisition range, tiles
+    TrgUnit(156).computerIdleOrder = 18;         // Tower Guard
+    TrgUnit(156).humanIdleOrder = 18;
+    TrgUnit(156).returnToIdleOrder = 18;
+    TrgUnit(156).attackUnitOrder = 19;           // 건물 공격 상태: 주둔군 생성 판정
+    TrgUnit(156).attackMoveOrder = 18;
+    TrgUnit(156).baseProperty = 0x54000001;      // FranceDp building + CanAttack
+    TrgUnit(156).groundWeapon = 117;
+    TrgUnit(156).airWeapon = 117;
+    Weapon(117).minRange = 64;
+    Weapon(117).maxRange = 576;                 // FranceDp city range, 18 tiles
+    Weapon(117).cooldown = 18;
+    Weapon(117).damage = 0;                     // 적 감지용. 도시 자체 피해는 없음
+    Weapon(117).damageBonus = 0;
+    Weapon(117).targetFlags = 2;                // Ground targets
+
+    // ---- 주둔군: 유닛 ID는 브루들링, 외형은 마린 ----
+    TrgUnit(40).flingy = 78;                    // 마린 외형 공유. 실제 마린 DAT는 수정하지 않음
+    TrgUnit(40).portrait = 0;                   // Marine portrait
+    TrgUnit(40).readySound = 275;
+    TrgUnit(40).whatSoundStart = 287;
+    TrgUnit(40).whatSoundEnd = 290;
+    TrgUnit(40).pissedSoundStart = 280;
+    TrgUnit(40).pissedSoundEnd = 283;
+    TrgUnit(40).yesSoundStart = 291;
+    TrgUnit(40).yesSoundEnd = 294;
+    TrgUnit(40).buildingDimensions = 17 + (20 << 16);
+    TrgUnit(40).unitBoundsL = 9;
+    TrgUnit(40).unitBoundsT = 9;
+    TrgUnit(40).unitBoundsR = 9;
+    TrgUnit(40).unitBoundsB = 10;
+    TrgUnit(40).baseProperty = 0x18010204;       // FranceDp guard flags
+    TrgUnit(40).computerIdleOrder = 107;         // Hold Position
+    TrgUnit(40).humanIdleOrder = 107;
+    TrgUnit(40).returnToIdleOrder = 107;
+    TrgUnit(40).attackUnitOrder = 19;            // Stationary tower attack
+    TrgUnit(40).attackMoveOrder = 23;            // Nothing; no attack-move
+    TrgUnit(40).dontBecomeGuard = true;
+    TrgUnit(40).ignoreStrategicSuicideMissions = true;
+    TrgUnit(40).rightClickAction = 3;            // FranceDp stationary attack
+    TrgUnit(40).seekRange = 9;
+    TrgUnit(40).sightRange = 9;
+    TrgUnit(40).maxHp = 2000 * 256;             // FranceDp 주둔군 CSV 기준 체력
+    TrgUnit(40).armor = 9;
+    TrgUnit(40).armorUpgrade = 0;
+    TrgUnit(40).groundWeapon = 119;
+    TrgUnit(40).airWeapon = 119;
+    TrgUnit(40).maxAirHits = 1;
+    TrgUnit(40).supplyUsed = 0;
+    TrgUnit(40).transportSpaceRequired = 255;    // Cannot load garrisons
+    TrgUnit(40).mineralCost = 100;
+    TrgUnit(40).gasCost = 0;
+    TrgUnit(40).timeCost = 9999;
+    TrgUnit(40).killScore = 2;
+    Weapon(119).damage = 80;
+    Weapon(119).damageBonus = 3;
+    Weapon(119).maxRange = 208;
+    Weapon(119).minRange = 0;
+    Weapon(119).cooldown = 15;
+    Weapon(119).targetFlags = 3;                // Ground and air targets
+    Weapon(119).upgrade = 8;
+
+    // 버튼셋은 TrgUnit 멤버가 없어 메모리로 제거: 버튼 개수와 포인터를 0으로.
+    SetMemory(0x5187E8 + 156 * 12, SetTo, 0);    // Pylon button count
+    SetMemory(0x5187E8 + 156 * 12 + 4, SetTo, 0);
+    SetMemory(0x5187E8 + 40 * 12, SetTo, 0);     // Garrison button count
+    SetMemory(0x5187E8 + 40 * 12 + 4, SetTo, 0);
+}

@@ -1,0 +1,253 @@
+import modules.settings as cfg;
+import modules.cities as cities;
+import modules.rules as rules;
+
+const selection = EUDArray(py_eval('[7] * 8'));
+const taken = EUDArray(py_eval('[7] * 7'));
+var started = 0;
+var countdown = 0;
+var stage = 0; // opening, quick, custom, alliance, team, nation, countdown
+var row = 0;
+var host = 7;
+var introTimer = 0;
+var selectionTimer = 0;
+var pickTeam = 1;
+const screen = StringBuffer(2048);
+var chatInput = 0;
+const chatReceived = PVariable();
+EUDRegisterObjectToNamespace("startChatInput", chatInput);
+EUDRegisterObjectToNamespace("startChatReceived", chatReceived);
+
+function init() {
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7) {
+            setcurpl(cp);
+            RunAIScript("Turn ON Shared Vision for Player 8");
+        }
+    }
+    setcurpl(0);
+}
+
+function start() {
+    started = 1;
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7) {
+            const index = cfg.starts[selection[cp]];
+            const loc = cfg.locations[index];
+            cities.grant(index, cp);
+            setcurpl(cp);
+            SetResources(CurrentPlayer, SetTo, cfg.START_MINERALS, Ore);
+            RunAIScript("Turn OFF Shared Vision for Player 8");
+            CreateUnit(cfg.START_MARINES, 0, loc, cp);
+            CreateUnit(1, 7, loc, cp);
+            CenterView(loc);
+            println("\x04시작! 도시 점령으로 세금을 확보하세요. F+우클릭: 전군 이동 / F+좌클릭: 전군 공격");
+        }
+    }
+    setcurpl(0);
+}
+
+function participants() {
+    var count = 0;
+    foreach (cp : EUDLoopPlayer("Human")) { if (cp < 7) { count++; } }
+    return count;
+}
+
+function changePage(page) { stage = page; row = 0; }
+
+function claim(cp, option) {
+    if (selection[cp] < 7 || option >= 7) { return false; }
+    if (taken[option] != 7) {
+        setcurpl(cp);
+        println("\x08이미 선택된 시작 거점입니다.");
+        return false;
+    }
+    selection[cp] = option;
+    taken[option] = cp;
+    setcurpl(cp);
+    CenterView(cfg.locations[cfg.starts[option]]);
+    if (rules.gameType == 1) { pickTeam = 3 - pickTeam; selectionTimer = cfg.SELECTION_TIMEOUT; }
+    return true;
+}
+
+function claimRandom(cp) {
+    const first = dwrand() % 7;
+    for (var i = 0; i < 7; i++) {
+        const option = (first + i) % 7;
+        if (taken[option] == 7) { claim(cp, option); return; }
+    }
+}
+
+function beginSelection() {
+    if (rules.gameType == 1 && participants() < 2) { return; }
+    if (rules.gameType == 1) { rules.assignTeams(); }
+    changePage(5);
+    selectionTimer = cfg.SELECTION_TIMEOUT;
+    pickTeam = 1;
+    if (rules.randomStarts != 0) {
+        foreach (cp : EUDLoopPlayer("Human")) { if (cp < 7) { claimRandom(cp); } }
+    }
+}
+
+function quickPreset(preset) {
+    if (preset >= 4) { changePage(2); return; }
+    if (preset >= 2 && participants() < 2) { return; }
+    rules.gameType = preset / 2;
+    rules.randomStarts = preset % 2;
+    rules.allianceMode = 1;
+    if (preset >= 2) { changePage(4); }
+    else { beginSelection(); }
+}
+
+function menuInput(number, key) {
+    if (stage == 1) {
+        if (number >= 1 && number <= 4) { quickPreset(number - 1); return; }
+        if (key == 7) { changePage(2); return; }
+        if (key == 1) { row = (row + 4) % 5; }
+        if (key == 2) { row = (row + 1) % 5; }
+        if (key == 4 || key == 5 || number == 8) { quickPreset(row); }
+    } else if (stage == 2) {
+        if (key == 1) { row = (row + 2) % 3; }
+        if (key == 2) { row = (row + 1) % 3; }
+        if (key == 3 || key == 4) {
+            if (row == 0) { rules.gameType = 1 - rules.gameType; }
+            else if (row == 1) { rules.randomStarts = 1 - rules.randomStarts; }
+            else if (key == 3) { changePage(1); }
+            else if (rules.gameType == 0) { changePage(3); }
+            else if (participants() >= 2) { changePage(4); }
+        }
+        if (key == 6) { rules.gameType = 0; rules.randomStarts = 0; row = 0; }
+    } else if (stage == 3) {
+        if (key == 1 || key == 2) { row = 1 - row; }
+        if (row == 0 && key == 4) { rules.allianceMode = (rules.allianceMode + 1) % 3; }
+        if (row == 0 && key == 3) { rules.allianceMode = (rules.allianceMode + 2) % 3; }
+        if (row == 1 && key == 3) { changePage(2); }
+        if (row == 1 && key == 4) { beginSelection(); }
+        if (key == 6) { rules.allianceMode = 0; row = 0; }
+    } else if (stage == 4) {
+        if (key == 1 || key == 2) { row = 1 - row; }
+        if (key == 3) { changePage(2); }
+        if (key == 4 || key == 5 || number == 8) { rules.teamMethod = row; beginSelection(); }
+    }
+}
+
+function currentPicker() {
+    var chosen = 7;
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7 && selection[cp] == 7 && rules.teams[cp] == pickTeam && cp < chosen) { chosen = cp; }
+    }
+    if (chosen == 7) {
+        foreach (cp : EUDLoopPlayer("Human")) {
+            if (cp < 7 && selection[cp] == 7 && rules.teams[cp] != pickTeam && cp < chosen) { chosen = cp; }
+        }
+    }
+    return chosen;
+}
+
+function markRow(option) {
+    if (option == row) { screen.append("\x13\x1F> "); }
+    else { screen.append("\x13\x04　 "); }
+}
+
+function render() {
+    // KoreaDp's centered fixed-row StringBuffer UI; rendering alone is local.
+    setcurpl(getuserplayerid());
+    const textPtr = gettextptr();
+    screen.insert(0);
+    if (stage == 0) {
+        screen.append("\x13\x07NoE3s\n\n\x13\x1F코드 기반 디플로메시\n\n\x13\x04주둔군 · 도시 점령 · 세금 · 전군 명령");
+    } else if (stage == 1) {
+        screen.appendf("\x13\x06{:n}\x04는 모드를 키보드로 선택하세요.\n\n", host);
+        markRow(0); screen.append("\x1F1 Key : \x03개인전 - 선택 - 시야만\n");
+        markRow(1); screen.append("\x1F2 Key : \x03개인전 - 랜덤 - 시야만\n");
+        markRow(2); screen.append("\x1F3 Key : \x03팀전 - 선택\n");
+        markRow(3); screen.append("\x1F4 Key : \x03팀전 - 랜덤\n");
+        markRow(4); screen.append("\x1F0 Key : \x03세부설정\n\n\x13\x04↑↓ 이동 · 선택 → / Y");
+    } else if (stage == 2) {
+        screen.appendf("\x13\x1F게임 설정\n\x13\x04{:n} 님이 설정합니다.\n\n", host);
+        markRow(0); screen.append("게임: < ");
+        if (rules.gameType == 0) { screen.append("개인전"); } else { screen.append("팀전"); }
+        screen.append(" >\n"); markRow(1); screen.append("거점 선택: < ");
+        if (rules.randomStarts == 0) { screen.append("선택"); } else { screen.append("랜덤"); }
+        screen.append(" >\n\n\x13\x04↑↓ 이동 · ←→ 변경 · N 기본값\n");
+        markRow(2); screen.append("이전 ← · 다음 →");
+    } else if (stage == 3) {
+        screen.append("\x13\x1F개인전 동맹 설정\n\n"); markRow(0); screen.append("동맹 설정: < ");
+        if (rules.allianceMode == 0) { screen.append("가능"); }
+        else if (rules.allianceMode == 1) { screen.append("시야만"); }
+        else { screen.append("불가능"); }
+        screen.append(" >\n\n\x13\x04↑↓ 이동 · ←→ 변경 · N 기본값\n");
+        markRow(1); screen.append("이전 ← · 다음 →");
+    } else if (stage == 4) {
+        screen.append("\x13\x1F팀전 팀원 구성\n\n");
+        markRow(0); screen.append("대기열에 따름.\n");
+        markRow(1); screen.append("무작위 랜덤.\n\n\x13\x04이전 ← · ↑↓ 이동 · 선택 →");
+        if (participants() < 2) { screen.append("\n\x13\x06참가자가 2명 이상 필요합니다."); }
+    } else if (stage == 5) {
+        screen.append("\x13\x1F시작 거점 선택\n\n");
+        for (var option = 0; option < 7; option++) {
+            if (taken[option] == 7) { screen.appendf("\x04거점{}　", option + 1); }
+            else { screen.appendf("\x08거점{}　", option + 1); }
+            if (option == 3) { screen.append("\n\x13"); }
+        }
+        screen.append("\n\n\x13\x04채팅으로 거점1~거점7 또는 랜덤을 입력하세요.\n\x13\x04숫자 1~7로도 선택할 수 있습니다.\n");
+        if (rules.gameType == 1) { screen.appendf("\x13\x1E{}팀 {:n} 차례 · {}초", pickTeam, currentPicker(), (selectionTimer + 23) / 24); }
+        else { screen.appendf("\x13\x04시간 초과 시 랜덤 배정 · {}초", (selectionTimer + 23) / 24); }
+    } else { screen.appendf("\x13\x07선택 완료! {}초 후 시작합니다.", (cfg.START_COUNTDOWN - countdown + 23) / 24); }
+    screen.DisplayAt(0);
+    dwwrite(0x640B58, textPtr);
+    setcurpl(0);
+}
+
+function tick() {
+    if (started != 0) { return; }
+    var nextHost = 7;
+    foreach (cp : EUDLoopPlayer("Human")) { if (cp < nextHost && cp < 7) { nextHost = cp; } }
+    host = nextHost;
+    for (var cp = 0; cp < 7; cp++) {
+        if (!f_playerexist(cp) && selection[cp] < 7) { taken[selection[cp]] = 7; selection[cp] = 7; }
+    }
+    if (stage == 0) {
+        introTimer++;
+        if (introTimer >= cfg.INTRO_FRAMES) { changePage(1); }
+    }
+    var picker = 7;
+    if (stage == 5 && rules.gameType == 1) {
+        picker = currentPicker();
+        if (picker < 7) { pickTeam = rules.teams[picker]; }
+    }
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp >= 7) { continue; }
+        setcurpl(cp);
+        const number = dwread_epd(12 * 216 + cp);
+        const key = dwread_epd(12 * 217 + cp);
+        if (stage >= 1 && stage <= 4 && cp == host) { menuInput(number, key); }
+        else if (stage == 5 && selection[cp] == 7 && (rules.gameType == 0 || cp == picker)) {
+            var choice = chatReceived[cp];
+            if (choice >= 11 && choice <= 18) { choice -= 10; }
+            else { choice = 0; }
+            if (choice == 0 && number >= 1 && number <= 7) { choice = number; }
+            if (choice >= 1 && choice <= 7) { claim(cp, choice - 1); }
+            else if (choice == 8) { claimRandom(cp); }
+        }
+        SetDeaths(CurrentPlayer, SetTo, 0, 214);
+        SetDeaths(CurrentPlayer, SetTo, 0, 216);
+        SetDeaths(CurrentPlayer, SetTo, 0, 217);
+        chatReceived[cp] = 0;
+    }
+    if (stage == 5) {
+        if (selectionTimer > 0) { selectionTimer--; }
+        if (selectionTimer == 0) {
+            if (rules.gameType == 1 && picker < 7) { claimRandom(picker); }
+            else { foreach (cp : EUDLoopPlayer("Human")) { if (cp < 7 && selection[cp] == 7) { claimRandom(cp); } } }
+        }
+        var remaining = 0;
+        foreach (cp : EUDLoopPlayer("Human")) { if (cp < 7 && selection[cp] == 7) { remaining++; } }
+        if (remaining == 0 && participants() > 0) { changePage(6); countdown = 0; }
+    } else if (stage == 6) {
+        countdown++;
+        if (countdown >= cfg.START_COUNTDOWN) { start(); return; }
+    }
+    render();
+    setcurpl(0);
+}

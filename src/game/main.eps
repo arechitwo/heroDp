@@ -1,8 +1,26 @@
-// Code-only project entry point. Add game modules here.
+// Game entry point. Data plugins run first, in main.eds section order.
+// Import gameplay modules from modules/ here.
+import modules.cities as cities;
+import modules.income as income;
+import modules.commander as commander;
+import modules.start_ui as ui;
+import modules.rules as rules;
+import modules.unit_dat as unitDat;
 function onPluginStart() {
+    unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
+    cities.init();
+    randomize();
+    ui.init();
 }
 
 function beforeTriggerExec() {
+    ui.tick();
+    if (ui.started != 0) {
+        rules.tick();
+        cities.tick();
+        income.tick();
+        commander.tick();
+    }
 }
 
 function afterTriggerExec() {

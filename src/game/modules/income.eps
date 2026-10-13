@@ -1,0 +1,18 @@
+import modules.settings as cfg;
+import modules.cities as cities;
+
+var elapsed = 0;
+function tick() {
+    elapsed++;
+    if (elapsed < cfg.TAX_PERIOD) { return; }
+    elapsed = 0;
+    foreach (cp : EUDLoopPlayer("Human")) {
+        if (cp < 7) {
+            const tax = cities.cityCount[cp] * cfg.TAX;
+            setcurpl(cp);
+            SetResources(CurrentPlayer, Add, tax, Ore);
+            println("\x04세금: {} 미네랄 | 도시: {}", tax, cities.cityCount[cp]);
+        }
+    }
+    setcurpl(0);
+}

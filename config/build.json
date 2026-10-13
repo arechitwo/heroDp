@@ -2,5 +2,8 @@
   "input": "maps/base.scx",
   "output": "dist/NoE3s.scx",
   "entry": "src/game/main.eps",
+  "recipe": "main.eds",
+  "custom_tbl": "src/data/custom_tbl.json",
+  "require_data": "src/data/require_data.json",
   "euddraft": "C:/repo/programs/euddraft0.10.2.5/euddraft.exe"
 }

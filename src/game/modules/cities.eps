@@ -1,0 +1,134 @@
+import modules.settings as cfg;
+
+const owners = EUDArray(py_eval('[7] * cfg.CITY_COUNT'));
+const war = EUDArray(cfg.CITY_COUNT);
+const peaceAt = EUDArray(cfg.CITY_COUNT);
+const cityCount = EUDArray(8);
+const attacking = EUDArray(cfg.CITY_COUNT);
+var clock = 0;
+var cursor = 0;
+
+function init() {
+    foreach (marker : EUDLoopCUnit()) {
+        if (marker.unitType == 195 && marker.owner == 7) {
+            marker.setloc(254);
+            dilateloc(254, 16, 16);
+            marker.remove();
+            const free = dwread(0x628438);
+            if (free != 0) {
+                const city = CUnit.from_next();
+                CreateUnit(1, 156, 254, 7);
+                if (dwread(0x628438) != free) {
+                    city.statusFlags.Invincible = true;
+                    city.orderID = 18;
+                }
+            }
+        }
+    }
+}
+
+function grant(index, player) {
+    const old = owners[index];
+    const loc = cfg.locations[index];
+    const count = cfg.weights[index];
+    RemoveUnitAt(All, 40, loc, old);
+    GiveUnits(All, 156, old, loc, player);
+    owners[index] = player;
+    war[index] = 0;
+    if (old < 7) { cityCount[old] -= count; }
+    if (player < 7) { cityCount[player] += count; }
+}
+
+function defend(index, owner, loc) {
+    const offset = cfg.markerOffsets[index];
+    for (var marker = 0; marker < cfg.weights[index]; marker++) {
+        // FranceDp's row placement: (-32,+32), then 16px steps.
+        setloc(232, cfg.markerX[offset + marker] - 32, cfg.markerY[offset + marker] + 32);
+        dilateloc(232, 32, 32);
+        for (var i = 0; i < cfg.GUARDS; i++) {
+        const free = dwread(0x628438);
+        if (free == 0) { break; }
+        const guard = CUnit.from_next();
+        CreateUnit(1, 40, 232, owner);
+        if (dwread(0x628438) != free) {
+            guard.statusFlags.InAir = false;
+            guard.pathingFlags = 1;
+            guard.movementState = 10;
+            guard.statusFlags.IsNormal = true;
+        }
+        addloc(232, 16, 0);
+        }
+    }
+    ModifyUnitHitPoints(All, 156, owner, loc, 30);
+    // A full unit pool must not make an undefended city permanently uncapturable.
+    war[index] = 1;
+}
+
+function mostPlayerAt(loc : TrgLocation) {
+    var result = 8;
+    foreach (cp : EUDLoopPlayer(None)) {
+        setcurpl(cp);
+        if (CommandMostAt("Men", loc) && Bring(CurrentPlayer, AtLeast, 1, "Men", loc)) {
+            result = cp;
+            break;
+        }
+    }
+    return result;
+}
+
+function readCombatOrders() {
+    for (var i = 0; i < cfg.CITY_COUNT; i++) { attacking[i] = 0; }
+    foreach (unit : EUDLoopCUnit()) {
+        // FranceDp's tower attack order (enabled when city DAT is configured).
+        if (unit.unitType == 156 && unit.orderID == 19) {
+            const x, y = posread_epd(unit + 0x28 / 4);
+            for (var i = 0; i < cfg.CITY_COUNT; i++) {
+                if (x + 32 >= cfg.centerX[i] && x <= cfg.centerX[i] + 32 &&
+                    y + 32 >= cfg.centerY[i] && y <= cfg.centerY[i] + 32) {
+                    attacking[i] = 1;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+function tick() {
+    clock++;
+    readCombatOrders();
+    for (var step = 0; step < cfg.CHECKS; step++) {
+        const index = cursor;
+        cursor++;
+        if (cursor >= cfg.CITY_COUNT) { cursor = 0; }
+        var owner = owners[index];
+        const loc = cfg.locations[index];
+        if (owner < 7 && !f_playerexist(owner)) {
+            grant(index, 7);
+            owner = 7;
+        }
+        // FranceDp: enter battle only while the city executes Tower Attack.
+        if (attacking[index] != 0) {
+            peaceAt[index] = clock + cfg.PEACE_TIMEOUT;
+            if (war[index] == 0) {
+                defend(index, owner, loc);
+                continue;
+            }
+            // Ownership changes only after the defending army is gone.
+            if (Bring(owner, AtMost, 0, "Men", loc)) {
+                const winner = mostPlayerAt(loc);
+                if (winner < 8 && winner != owner) {
+                    grant(index, winner);
+                    ModifyUnitHitPoints(All, 156, winner, loc, 100);
+                    ModifyUnitShields(All, 156, winner, loc, 100);
+                    setcurpl(winner);
+                    println("\x04도시 점령! 보유 도시: {}", cityCount[winner]);
+                }
+            }
+        } else if (war[index] != 0 && clock >= peaceAt[index]) {
+            RemoveUnitAt(All, 40, loc, owner);
+            ModifyUnitHitPoints(All, 156, owner, loc, 100);
+            war[index] = 0;
+        }
+    }
+    setcurpl(0);
+}

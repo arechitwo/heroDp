@@ -1,0 +1,6197 @@
+{
+  "version": 1,
+  "enabled": false,
+  "encoding": "cp949",
+  "source_note": "FranceDp snapshot; disabled until explicitly enabled. Embedded NULs are preserved.",
+  "copy_capacity_bytes": 42564,
+  "entries": [
+    {
+      "id": 1,
+      "text": "\u0001없음"
+    },
+    {
+      "id": 2,
+      "text": "\\\u0000\u0004자동 생산\r\n\u000f슬롯에 있는 유닛을 자동으로 생산합니다.\r\n\r\n\u0004어택\r\n\u000f우클릭한 위치로 생산된 유닛이 자동 공격합니다."
+    },
+    {
+      "id": 3,
+      "text": "요구사항:\r\n  - 소도시 \u00175\u0001개 이상 보유"
+    },
+    {
+      "id": 4,
+      "text": "x\u0000\u0003[X]\u0004해체\r\n\u0005건물을 파괴하고 자원을 회수합니다."
+    },
+    {
+      "id": 5,
+      "text": "Goliath Turret"
+    },
+    {
+      "id": 6,
+      "text": "Terran Siege Tank"
+    },
+    {
+      "id": 7,
+      "text": "Tank Turret"
+    },
+    {
+      "id": 8,
+      "text": "Terran SCV"
+    },
+    {
+      "id": 9,
+      "text": "Terran Wraith"
+    },
+    {
+      "id": 10,
+      "text": "Terran Science Vessel"
+    },
+    {
+      "id": 11,
+      "text": "Gui Montag"
+    },
+    {
+      "id": 12,
+      "text": "Terran Dropship"
+    },
+    {
+      "id": 13,
+      "text": "Terran Battlecruiser"
+    },
+    {
+      "id": 14,
+      "text": "Vulture Spider Mine"
+    },
+    {
+      "id": 15,
+      "text": "Nuclear Missile"
+    },
+    {
+      "id": 16,
+      "text": "Terran Civilian"
+    },
+    {
+      "id": 17,
+      "text": "Sarah Kerrigan"
+    },
+    {
+      "id": 18,
+      "text": "Alan Schezar"
+    },
+    {
+      "id": 19,
+      "text": "Alan Turret"
+    },
+    {
+      "id": 20,
+      "text": "Jim Raynor"
+    },
+    {
+      "id": 21,
+      "text": "Jim Raynor"
+    },
+    {
+      "id": 22,
+      "text": "Tom Kazansky"
+    },
+    {
+      "id": 23,
+      "text": "Magellan"
+    },
+    {
+      "id": 24,
+      "text": "Edmund Duke"
+    },
+    {
+      "id": 25,
+      "text": "Duke Turret"
+    },
+    {
+      "id": 26,
+      "text": "Edmund Duke"
+    },
+    {
+      "id": 27,
+      "text": "Duke Turret"
+    },
+    {
+      "id": 28,
+      "text": "Arcturus Mengsk"
+    },
+    {
+      "id": 29,
+      "text": "Hyperion"
+    },
+    {
+      "id": 30,
+      "text": "Norad II"
+    },
+    {
+      "id": 31,
+      "text": "Terran Siege Tank"
+    },
+    {
+      "id": 32,
+      "text": "Tank Turret"
+    },
+    {
+      "id": 33,
+      "text": "Terran Firebat"
+    },
+    {
+      "id": 34,
+      "text": "Scanner Sweep"
+    },
+    {
+      "id": 35,
+      "text": "Terran Medic"
+    },
+    {
+      "id": 36,
+      "text": "Zerg Larva"
+    },
+    {
+      "id": 37,
+      "text": "Zerg Egg"
+    },
+    {
+      "id": 38,
+      "text": "Zerg Zergling"
+    },
+    {
+      "id": 39,
+      "text": "Zerg Hydralisk"
+    },
+    {
+      "id": 40,
+      "text": "Zerg Ultralisk"
+    },
+    {
+      "id": 41,
+      "text": "Zerg Broodling"
+    },
+    {
+      "id": 42,
+      "text": "Zerg Drone"
+    },
+    {
+      "id": 43,
+      "text": "Zerg Overlord"
+    },
+    {
+      "id": 44,
+      "text": "Zerg Mutalisk"
+    },
+    {
+      "id": 45,
+      "text": "Zerg Guardian"
+    },
+    {
+      "id": 46,
+      "text": "Zerg Queen"
+    },
+    {
+      "id": 47,
+      "text": "Zerg Defiler"
+    },
+    {
+      "id": 48,
+      "text": "Zerg Scourge"
+    },
+    {
+      "id": 49,
+      "text": "Torrasque"
+    },
+    {
+      "id": 50,
+      "text": "Matriarch"
+    },
+    {
+      "id": 51,
+      "text": "Infested Terran"
+    },
+    {
+      "id": 52,
+      "text": "Infested Kerrigan"
+    },
+    {
+      "id": 53,
+      "text": "Unclean One"
+    },
+    {
+      "id": 54,
+      "text": "Hunter Killer"
+    },
+    {
+      "id": 55,
+      "text": "\u0018Devouring One"
+    },
+    {
+      "id": 56,
+      "text": "Kukulza"
+    },
+    {
+      "id": 57,
+      "text": "Kukulza"
+    },
+    {
+      "id": 58,
+      "text": "Yggdrasill"
+    },
+    {
+      "id": 59,
+      "text": "Terran Valkyrie"
+    },
+    {
+      "id": 60,
+      "text": "Cocoon"
+    },
+    {
+      "id": 61,
+      "text": "Protoss Corsair"
+    },
+    {
+      "id": 62,
+      "text": "Protoss Dark Templar"
+    },
+    {
+      "id": 63,
+      "text": "Zerg Devourer"
+    },
+    {
+      "id": 64,
+      "text": "Protoss Dark Archon"
+    },
+    {
+      "id": 65,
+      "text": "Protoss Probe"
+    },
+    {
+      "id": 66,
+      "text": "Protoss Zealot"
+    },
+    {
+      "id": 67,
+      "text": "Protoss Dragoon"
+    },
+    {
+      "id": 68,
+      "text": "Protoss High Templar"
+    },
+    {
+      "id": 69,
+      "text": "Protoss Archon"
+    },
+    {
+      "id": 70,
+      "text": "Protoss Shuttle"
+    },
+    {
+      "id": 71,
+      "text": "Protoss Scout"
+    },
+    {
+      "id": 72,
+      "text": "Protoss Arbiter"
+    },
+    {
+      "id": 73,
+      "text": "Protoss Carrier"
+    },
+    {
+      "id": 74,
+      "text": "Protoss Interceptor"
+    },
+    {
+      "id": 75,
+      "text": "Dark Templar"
+    },
+    {
+      "id": 76,
+      "text": "Zeratul"
+    },
+    {
+      "id": 77,
+      "text": "Tassadar/Zeratul"
+    },
+    {
+      "id": 78,
+      "text": "Fenix"
+    },
+    {
+      "id": 79,
+      "text": "Fenix"
+    },
+    {
+      "id": 80,
+      "text": "Tassadar"
+    },
+    {
+      "id": 81,
+      "text": "Mojo"
+    },
+    {
+      "id": 82,
+      "text": "Warbringer"
+    },
+    {
+      "id": 83,
+      "text": "Gantrithor"
+    },
+    {
+      "id": 84,
+      "text": "Protoss Reaver"
+    },
+    {
+      "id": 85,
+      "text": "Protoss Observer"
+    },
+    {
+      "id": 86,
+      "text": "Protoss Scarab"
+    },
+    {
+      "id": 87,
+      "text": "Danimoth"
+    },
+    {
+      "id": 88,
+      "text": "Aldaris"
+    },
+    {
+      "id": 89,
+      "text": "Artanis"
+    },
+    {
+      "id": 90,
+      "text": "Rhynadon"
+    },
+    {
+      "id": 91,
+      "text": "Bengalaas"
+    },
+    {
+      "id": 92,
+      "text": "Unused"
+    },
+    {
+      "id": 93,
+      "text": "Unused"
+    },
+    {
+      "id": 94,
+      "text": "Scantid"
+    },
+    {
+      "id": 95,
+      "text": "Kakaru"
+    },
+    {
+      "id": 96,
+      "text": "Ragnasaur"
+    },
+    {
+      "id": 97,
+      "text": "Ursadon"
+    },
+    {
+      "id": 98,
+      "text": "Zerg Lurker Egg"
+    },
+    {
+      "id": 99,
+      "text": "Raszagal"
+    },
+    {
+      "id": 100,
+      "text": "Samir Duran"
+    },
+    {
+      "id": 101,
+      "text": "Alexei Stukov"
+    },
+    {
+      "id": 102,
+      "text": "Map Revealer"
+    },
+    {
+      "id": 103,
+      "text": "이 유닛은 사용하지마시오. 버튼셋용으로 사용중"
+    },
+    {
+      "id": 104,
+      "text": "Zerg Lurker"
+    },
+    {
+      "id": 105,
+      "text": "Infested Duran"
+    },
+    {
+      "id": 106,
+      "text": "이 유닛은 사용하지마시오. 버튼셋용으로 사용중"
+    },
+    {
+      "id": 107,
+      "text": "Terran Command Center"
+    },
+    {
+      "id": 108,
+      "text": "Terran Comsat Station"
+    },
+    {
+      "id": 109,
+      "text": "Terran Nuclear Silo"
+    },
+    {
+      "id": 110,
+      "text": "Terran Supply Depot"
+    },
+    {
+      "id": 111,
+      "text": "Terran Refinery"
+    },
+    {
+      "id": 112,
+      "text": "Terran Barracks"
+    },
+    {
+      "id": 113,
+      "text": "Terran Academy"
+    },
+    {
+      "id": 114,
+      "text": "Terran Factory"
+    },
+    {
+      "id": 115,
+      "text": "Terran Starport"
+    },
+    {
+      "id": 116,
+      "text": "Terran Control Tower"
+    },
+    {
+      "id": 117,
+      "text": "Terran Science Facility"
+    },
+    {
+      "id": 118,
+      "text": "Terran Covert Ops"
+    },
+    {
+      "id": 119,
+      "text": "Terran Physics Lab"
+    },
+    {
+      "id": 120,
+      "text": "Unused Terran Bldg"
+    },
+    {
+      "id": 121,
+      "text": "Terran Machine Shop"
+    },
+    {
+      "id": 122,
+      "text": "Unused Terran Bldg"
+    },
+    {
+      "id": 123,
+      "text": "Terran Engineering Bay"
+    },
+    {
+      "id": 124,
+      "text": "Terran Armory"
+    },
+    {
+      "id": 125,
+      "text": "Terran Missile Turret"
+    },
+    {
+      "id": 126,
+      "text": "Terran Bunker"
+    },
+    {
+      "id": 127,
+      "text": "Norad II"
+    },
+    {
+      "id": 128,
+      "text": "Ion Cannon"
+    },
+    {
+      "id": 129,
+      "text": "행정도시 건설 조건"
+    },
+    {
+      "id": 130,
+      "text": "중도시 건설 조건"
+    },
+    {
+      "id": 131,
+      "text": "Infested Command Center"
+    },
+    {
+      "id": 132,
+      "text": "Zerg Hatchery"
+    },
+    {
+      "id": 133,
+      "text": "Zerg Lair"
+    },
+    {
+      "id": 134,
+      "text": "Zerg Hive"
+    },
+    {
+      "id": 135,
+      "text": "Zerg Nydus Canal"
+    },
+    {
+      "id": 136,
+      "text": "Zerg Hydralisk Den"
+    },
+    {
+      "id": 137,
+      "text": "Zerg Defiler Mound"
+    },
+    {
+      "id": 138,
+      "text": "Zerg Greater Spire"
+    },
+    {
+      "id": 139,
+      "text": "Zerg Queen's Nest"
+    },
+    {
+      "id": 140,
+      "text": "Zerg Evolution Chamber"
+    },
+    {
+      "id": 141,
+      "text": "Zerg Ultralisk Cavern"
+    },
+    {
+      "id": 142,
+      "text": "Zerg Spire"
+    },
+    {
+      "id": 143,
+      "text": "Zerg Spawning Pool"
+    },
+    {
+      "id": 144,
+      "text": "Zerg Creep Colony"
+    },
+    {
+      "id": 145,
+      "text": "Zerg Spore Colony"
+    },
+    {
+      "id": 146,
+      "text": "Unused Zerg Bldg"
+    },
+    {
+      "id": 147,
+      "text": "Zerg Sunken Colony"
+    },
+    {
+      "id": 148,
+      "text": "Zerg Overmind"
+    },
+    {
+      "id": 149,
+      "text": "Zerg Overmind"
+    },
+    {
+      "id": 150,
+      "text": "Zerg Extractor"
+    },
+    {
+      "id": 151,
+      "text": "Mature Crysalis"
+    },
+    {
+      "id": 152,
+      "text": "Zerg Cerebrate"
+    },
+    {
+      "id": 153,
+      "text": "Zerg Cerebrate Daggoth"
+    },
+    {
+      "id": 154,
+      "text": "Unused Zerg Bldg 5"
+    },
+    {
+      "id": 155,
+      "text": "Protoss Nexus"
+    },
+    {
+      "id": 156,
+      "text": "Protoss Robotics Facility"
+    },
+    {
+      "id": 157,
+      "text": "Protoss Pylon"
+    },
+    {
+      "id": 158,
+      "text": "Protoss Assimilator"
+    },
+    {
+      "id": 159,
+      "text": "Protoss Unused"
+    },
+    {
+      "id": 160,
+      "text": "Protoss Observatory"
+    },
+    {
+      "id": 161,
+      "text": "Protoss Gateway"
+    },
+    {
+      "id": 162,
+      "text": "Protoss Unused"
+    },
+    {
+      "id": 163,
+      "text": "Protoss Photon Cannon"
+    },
+    {
+      "id": 164,
+      "text": "Protoss Citadel of Adun"
+    },
+    {
+      "id": 165,
+      "text": "Protoss Cybernetics Core"
+    },
+    {
+      "id": 166,
+      "text": "Protoss Templar Archives"
+    },
+    {
+      "id": 167,
+      "text": "Protoss Forge"
+    },
+    {
+      "id": 168,
+      "text": "Protoss Stargate"
+    },
+    {
+      "id": 169,
+      "text": "Stasis Cell/Prison"
+    },
+    {
+      "id": 170,
+      "text": "Protoss Fleet Beacon"
+    },
+    {
+      "id": 171,
+      "text": "Protoss Arbiter Tribunal"
+    },
+    {
+      "id": 172,
+      "text": "Protoss Robotics Support Bay"
+    },
+    {
+      "id": 173,
+      "text": "Protoss Shield Battery"
+    },
+    {
+      "id": 174,
+      "text": "Khaydarin Crystal Formation"
+    },
+    {
+      "id": 175,
+      "text": "Protoss Temple"
+    },
+    {
+      "id": 176,
+      "text": "Xel'Naga Temple"
+    },
+    {
+      "id": 177,
+      "text": "넥서스 변환 조건"
+    },
+    {
+      "id": 178,
+      "text": "Mineral Field"
+    },
+    {
+      "id": 179,
+      "text": "Mineral Field"
+    },
+    {
+      "id": 180,
+      "text": "Cave"
+    },
+    {
+      "id": 181,
+      "text": "Cave-in"
+    },
+    {
+      "id": 182,
+      "text": "Cantina"
+    },
+    {
+      "id": 183,
+      "text": "Mining Platform"
+    },
+    {
+      "id": 184,
+      "text": "Independent Command Center"
+    },
+    {
+      "id": 185,
+      "text": "Independent Starport"
+    },
+    {
+      "id": 186,
+      "text": "Jump Gate"
+    },
+    {
+      "id": 187,
+      "text": "Ruins"
+    },
+    {
+      "id": 188,
+      "text": "Kyadarin Crystal Formation"
+    },
+    {
+      "id": 189,
+      "text": "Vespene Geyser"
+    },
+    {
+      "id": 190,
+      "text": "Warp Gate"
+    },
+    {
+      "id": 191,
+      "text": "Psi Disrupter"
+    },
+    {
+      "id": 192,
+      "text": "Zerg Marker"
+    },
+    {
+      "id": 193,
+      "text": "Terran Marker"
+    },
+    {
+      "id": 194,
+      "text": "Protoss Marker"
+    },
+    {
+      "id": 195,
+      "text": "Zerg Beacon"
+    },
+    {
+      "id": 196,
+      "text": "Terran Beacon"
+    },
+    {
+      "id": 197,
+      "text": "Protoss Beacon"
+    },
+    {
+      "id": 198,
+      "text": "Zerg Flag Beacon"
+    },
+    {
+      "id": 199,
+      "text": "Terran Flag Beacon"
+    },
+    {
+      "id": 200,
+      "text": "Protoss Flag Beacon"
+    },
+    {
+      "id": 201,
+      "text": "Power Generator"
+    },
+    {
+      "id": 202,
+      "text": "Overmind Cocoon"
+    },
+    {
+      "id": 203,
+      "text": "Dark Swarm"
+    },
+    {
+      "id": 204,
+      "text": "Floor Missile Trap"
+    },
+    {
+      "id": 205,
+      "text": "Floor Hatch (UNUSED)"
+    },
+    {
+      "id": 206,
+      "text": "Left Upper Level Door"
+    },
+    {
+      "id": 207,
+      "text": "Right Upper Level Door"
+    },
+    {
+      "id": 208,
+      "text": "Left Pit Door"
+    },
+    {
+      "id": 209,
+      "text": "Right Pit Door"
+    },
+    {
+      "id": 210,
+      "text": "Floor Gun Trap"
+    },
+    {
+      "id": 211,
+      "text": "Left Wall Missile Trap"
+    },
+    {
+      "id": 212,
+      "text": "Left Wall Flame Trap"
+    },
+    {
+      "id": 213,
+      "text": "Right Wall Missile Trap"
+    },
+    {
+      "id": 214,
+      "text": "Right Wall Flame Trap"
+    },
+    {
+      "id": 215,
+      "text": "Start Location"
+    },
+    {
+      "id": 216,
+      "text": "Flag"
+    },
+    {
+      "id": 217,
+      "text": "Young Chrysalis"
+    },
+    {
+      "id": 218,
+      "text": "Psi Emitter"
+    },
+    {
+      "id": 219,
+      "text": "왕국 건설 조건"
+    },
+    {
+      "id": 220,
+      "text": "제국 건설 조건"
+    },
+    {
+      "id": 221,
+      "text": "Mineral Chunk"
+    },
+    {
+      "id": 222,
+      "text": "Mineral Chunk"
+    },
+    {
+      "id": 223,
+      "text": "Vespene Orb"
+    },
+    {
+      "id": 224,
+      "text": "Vespene Orb"
+    },
+    {
+      "id": 225,
+      "text": "Vespene Sac"
+    },
+    {
+      "id": 226,
+      "text": "Vespene Sac"
+    },
+    {
+      "id": 227,
+      "text": "Vespene Tank"
+    },
+    {
+      "id": 228,
+      "text": "Vespene Tank"
+    },
+    {
+      "id": 229,
+      "text": "Gauss Rifle"
+    },
+    {
+      "id": 230,
+      "text": "###############################################################################################################################"
+    },
+    {
+      "id": 231,
+      "text": "###############################################################################################################################"
+    },
+    {
+      "id": 232,
+      "text": "###############################################################################################################################"
+    },
+    {
+      "id": 233,
+      "text": "###############################################################################################################################"
+    },
+    {
+      "id": 234,
+      "text": "Fragmentation Grenade"
+    },
+    {
+      "id": 235,
+      "text": "Twin Autocannons"
+    },
+    {
+      "id": 236,
+      "text": "\u0003[석궁]\r\n\u000f공중 공격"
+    },
+    {
+      "id": 237,
+      "text": "Twin Autocannons"
+    },
+    {
+      "id": 238,
+      "text": "Hellfire Missile Pack"
+    },
+    {
+      "id": 239,
+      "text": "Arclite Cannon"
+    },
+    {
+      "id": 240,
+      "text": "Arclite Cannon"
+    },
+    {
+      "id": 241,
+      "text": "Fusion Cutter"
+    },
+    {
+      "id": 242,
+      "text": "Fusion Cutter"
+    },
+    {
+      "id": 243,
+      "text": "Gemini Missiles"
+    },
+    {
+      "id": 244,
+      "text": "Burst Lasers"
+    },
+    {
+      "id": 245,
+      "text": "Gemini Missiles"
+    },
+    {
+      "id": 246,
+      "text": "Burst Lasers"
+    },
+    {
+      "id": 247,
+      "text": "ATS Laser Battery"
+    },
+    {
+      "id": 248,
+      "text": "ATA Laser Battery"
+    },
+    {
+      "id": 249,
+      "text": "ATS Laser Battery"
+    },
+    {
+      "id": 250,
+      "text": "ATA Laser Battery"
+    },
+    {
+      "id": 251,
+      "text": "ATS Laser Battery"
+    },
+    {
+      "id": 252,
+      "text": "ATA Laser Battery"
+    },
+    {
+      "id": 253,
+      "text": "Flame Thrower"
+    },
+    {
+      "id": 254,
+      "text": "Flame Thrower"
+    },
+    {
+      "id": 255,
+      "text": "Arclite Shock Cannon"
+    },
+    {
+      "id": 256,
+      "text": "Arclite Shock Cannon"
+    },
+    {
+      "id": 257,
+      "text": "Longbolt Missile"
+    },
+    {
+      "id": 258,
+      "text": "Nuclear Strike"
+    },
+    {
+      "id": 259,
+      "text": "EMP Shockwave"
+    },
+    {
+      "id": 260,
+      "text": "Claws"
+    },
+    {
+      "id": 261,
+      "text": "Claws"
+    },
+    {
+      "id": 262,
+      "text": "Claws"
+    },
+    {
+      "id": 263,
+      "text": "Needle Spines"
+    },
+    {
+      "id": 264,
+      "text": "Needle Spines"
+    },
+    {
+      "id": 265,
+      "text": "Kaiser Blades"
+    },
+    {
+      "id": 266,
+      "text": "Kaiser Blades"
+    },
+    {
+      "id": 267,
+      "text": "Toxic Spores"
+    },
+    {
+      "id": 268,
+      "text": "Spines"
+    },
+    {
+      "id": 269,
+      "text": "Acid Spray"
+    },
+    {
+      "id": 270,
+      "text": "Acid Spray"
+    },
+    {
+      "id": 271,
+      "text": "Acid Spore"
+    },
+    {
+      "id": 272,
+      "text": "Acid Spore"
+    },
+    {
+      "id": 273,
+      "text": "Glave Wurm"
+    },
+    {
+      "id": 274,
+      "text": "Glave Wurm"
+    },
+    {
+      "id": 275,
+      "text": "Venom"
+    },
+    {
+      "id": 276,
+      "text": "Venom"
+    },
+    {
+      "id": 277,
+      "text": "Suicide"
+    },
+    {
+      "id": 278,
+      "text": "Seeker Spores"
+    },
+    {
+      "id": 279,
+      "text": "Subterranean Tentacle"
+    },
+    {
+      "id": 280,
+      "text": "Suicide"
+    },
+    {
+      "id": 281,
+      "text": "Particle Beam"
+    },
+    {
+      "id": 282,
+      "text": "Psi Blades"
+    },
+    {
+      "id": 283,
+      "text": "Psi Blades"
+    },
+    {
+      "id": 284,
+      "text": "Warp Blades"
+    },
+    {
+      "id": 285,
+      "text": "Warp Blades"
+    },
+    {
+      "id": 286,
+      "text": "Phase Disruptor"
+    },
+    {
+      "id": 287,
+      "text": "Phase Disruptor"
+    },
+    {
+      "id": 288,
+      "text": "Psi Assault"
+    },
+    {
+      "id": 289,
+      "text": "Psi Assault"
+    },
+    {
+      "id": 290,
+      "text": "Psionic Shockwave"
+    },
+    {
+      "id": 291,
+      "text": "Psionic Shockwave"
+    },
+    {
+      "id": 292,
+      "text": "Unused"
+    },
+    {
+      "id": 293,
+      "text": "Dual Photon Blasters"
+    },
+    {
+      "id": 294,
+      "text": "Anti-matter Missiles"
+    },
+    {
+      "id": 295,
+      "text": "Dual Photon Blasters"
+    },
+    {
+      "id": 296,
+      "text": "Anti-matter Missiles"
+    },
+    {
+      "id": 297,
+      "text": "Phase Disruptor Cannon"
+    },
+    {
+      "id": 298,
+      "text": "Phase Disruptor Cannon"
+    },
+    {
+      "id": 299,
+      "text": "Pulse Cannon"
+    },
+    {
+      "id": 300,
+      "text": "STS Photon Cannon"
+    },
+    {
+      "id": 301,
+      "text": "STA Photon Cannon"
+    },
+    {
+      "id": 302,
+      "text": "Scarab"
+    },
+    {
+      "id": 303,
+      "text": "Missiles"
+    },
+    {
+      "id": 304,
+      "text": "Laser Battery"
+    },
+    {
+      "id": 305,
+      "text": "Tormentor Missiles"
+    },
+    {
+      "id": 306,
+      "text": "Bombs"
+    },
+    {
+      "id": 307,
+      "text": "Raider Gun"
+    },
+    {
+      "id": 308,
+      "text": "Flechette Grenade"
+    },
+    {
+      "id": 309,
+      "text": "Twin Autocannons"
+    },
+    {
+      "id": 310,
+      "text": "Hellfire Missile Pack"
+    },
+    {
+      "id": 311,
+      "text": "Flame Thrower"
+    },
+    {
+      "id": 312,
+      "text": "Undefined Weapon Name"
+    },
+    {
+      "id": 313,
+      "text": "Stim Packs"
+    },
+    {
+      "id": 314,
+      "text": "Lockdown"
+    },
+    {
+      "id": 315,
+      "text": "EMP Shockwave"
+    },
+    {
+      "id": 316,
+      "text": "Spider Mines"
+    },
+    {
+      "id": 317,
+      "text": "Scanner Sweep"
+    },
+    {
+      "id": 318,
+      "text": "Tank Siege Mode"
+    },
+    {
+      "id": 319,
+      "text": "Defensive Matrix"
+    },
+    {
+      "id": 320,
+      "text": "Irradiate"
+    },
+    {
+      "id": 321,
+      "text": "Yamato Gun"
+    },
+    {
+      "id": 322,
+      "text": "Cloaking Field"
+    },
+    {
+      "id": 323,
+      "text": "Personnel Cloaking"
+    },
+    {
+      "id": 324,
+      "text": "t\u0004Research S\u0003t\u0001im Pack Tech\n(Marine and Firebat ability)"
+    },
+    {
+      "id": 325,
+      "text": "l\u0004Research \u0003L\u0001ockdown\n(Ghost ability)"
+    },
+    {
+      "id": 326,
+      "text": "e\u0004Research \u0003E\u0001MP Shockwave\n(Science Vessel ability)"
+    },
+    {
+      "id": 327,
+      "text": "m\u0004Research Spider \u0003M\u0001ines\n(Vulture ability)"
+    },
+    {
+      "id": 328,
+      "text": "s\u0004Research \u0003S\u0001iege Tech\n(Siege Tank ability)"
+    },
+    {
+      "id": 329,
+      "text": "m\u0004Research Defensive \u0003M\u0001atrix\n(Science Vessel ability)"
+    },
+    {
+      "id": 330,
+      "text": "i\u0004Research \u0003I\u0001rradiate\n(Science Vessel ability)"
+    },
+    {
+      "id": 331,
+      "text": "y\u0004Research \u0003Y\u0001amato Gun\n(Battlecruiser ability)"
+    },
+    {
+      "id": 332,
+      "text": "c\u0004Research \u0003C\u0001loaking Field\n(Wraith ability)"
+    },
+    {
+      "id": 333,
+      "text": "c\u0004Research Personnel \u0003C\u0001loaking\n(Ghost ability)"
+    },
+    {
+      "id": 334,
+      "text": "t\u0003Use S\u0003t\u0001im Packs"
+    },
+    {
+      "id": 335,
+      "text": "l\u0003\u0003L\u0001ockdown"
+    },
+    {
+      "id": 336,
+      "text": "i\u0003Use Spider M\u0003i\u0001nes"
+    },
+    {
+      "id": 337,
+      "text": "s\u0003\u0003S\u0001canner Sweep (Detector)"
+    },
+    {
+      "id": 338,
+      "text": "o\u0003Siege M\u0003o\u0001de"
+    },
+    {
+      "id": 339,
+      "text": "o\u0000Tank M\u0003o\u0001de"
+    },
+    {
+      "id": 340,
+      "text": "d\u0003Activate \u0003D\u0001efensive Matrix"
+    },
+    {
+      "id": 341,
+      "text": "e\u0003Activate \u0003E\u0001MP Shockwave"
+    },
+    {
+      "id": 342,
+      "text": "i\u0003\u0003I\u0001rradiate"
+    },
+    {
+      "id": 343,
+      "text": "y\u0003\u0003Y\u0001amato Gun"
+    },
+    {
+      "id": 344,
+      "text": "c\u0003\u0003C\u0001loak"
+    },
+    {
+      "id": 345,
+      "text": "c\u0000De\u0003c\u0001loak"
+    },
+    {
+      "id": 346,
+      "text": "Stim Packs:\n   Research at Academy"
+    },
+    {
+      "id": 347,
+      "text": "Lockdown:\n   Research at Covert Ops"
+    },
+    {
+      "id": 348,
+      "text": "Spider Mines:\n   Research at Machine Shop"
+    },
+    {
+      "id": 349,
+      "text": "Siege Mode:\n   Research at Machine Shop"
+    },
+    {
+      "id": 350,
+      "text": "Defensive Matrix:\n   Research at Science Facility"
+    },
+    {
+      "id": 351,
+      "text": "EMP Shockwave:\n   Research at Science Facility"
+    },
+    {
+      "id": 352,
+      "text": "Irradiate:\n   Research at Science Facility"
+    },
+    {
+      "id": 353,
+      "text": "Yamato Gun:\n   Research at Physics Lab"
+    },
+    {
+      "id": 354,
+      "text": "Cloaking Field:\n   Research at Control Tower"
+    },
+    {
+      "id": 355,
+      "text": "Personnel Cloaking:\n   Research at Covert Ops"
+    },
+    {
+      "id": 356,
+      "text": "Burrowing"
+    },
+    {
+      "id": 357,
+      "text": "Infestation"
+    },
+    {
+      "id": 358,
+      "text": "Spawn Broodling"
+    },
+    {
+      "id": 359,
+      "text": "Dark Swarm"
+    },
+    {
+      "id": 360,
+      "text": "Parasite"
+    },
+    {
+      "id": 361,
+      "text": "Plague"
+    },
+    {
+      "id": 362,
+      "text": "Consume"
+    },
+    {
+      "id": 363,
+      "text": "Ensnare"
+    },
+    {
+      "id": 364,
+      "text": "b\u0004Evolve \u0003B\u0001urrow\n(Ground unit ability)"
+    },
+    {
+      "id": 365,
+      "text": "i\u0004Evolve \u0003I\u0001nfestation\n(Queen ability)"
+    },
+    {
+      "id": 366,
+      "text": "b\u0004Evolve Spawn \u0003B\u0001roodling\n(Queen ability)"
+    },
+    {
+      "id": 367,
+      "text": "s\u0004Evolve Dark \u0003S\u0001warm\n(Defiler ability)"
+    },
+    {
+      "id": 368,
+      "text": "r\u0004Evolve Pa\u0003r\u0001asite\n(Queen ability)"
+    },
+    {
+      "id": 369,
+      "text": "g\u0004Evolve Pla\u0003g\u0001ue\n(Defiler ability)"
+    },
+    {
+      "id": 370,
+      "text": "e\u0004Evolve \u0003E\u0001nsnare\n(Queen ability)"
+    },
+    {
+      "id": 371,
+      "text": "c\u0004Evolve \u0003C\u0001onsume\n(Defiler ability)"
+    },
+    {
+      "id": 372,
+      "text": "u\u0003B\u0003u\u0001rrow"
+    },
+    {
+      "id": 373,
+      "text": "u\u0000\u0003U\u0001nburrow"
+    },
+    {
+      "id": 374,
+      "text": "i\u0000\u0003I\u0001nfest Terran Command Center"
+    },
+    {
+      "id": 375,
+      "text": "b\u0003Spawn \u0003B\u0001roodlings"
+    },
+    {
+      "id": 376,
+      "text": "w\u0003\u0003[W]\u0001\u0004정찰명령(\u001530\u0004)\r\n\u000f일정 시간 동안 유지되는 스파이를 생성합니다. "
+    },
+    {
+      "id": 377,
+      "text": "r\u0003Pa\u0003r\u0001asite"
+    },
+    {
+      "id": 378,
+      "text": "g\u0003Pla\u0003g\u0001ue"
+    },
+    {
+      "id": 379,
+      "text": "c\u0003\u0003C\u0001onsume"
+    },
+    {
+      "id": 380,
+      "text": "u\u0003Cons\u0003u\u0001me"
+    },
+    {
+      "id": 381,
+      "text": "e\u0003\u0003E\u0001nsnare"
+    },
+    {
+      "id": 382,
+      "text": "Burrow:\n   Evolve at Hatchery"
+    },
+    {
+      "id": 383,
+      "text": "Infest:\n   Evolve at Queen's Nest"
+    },
+    {
+      "id": 384,
+      "text": "Spawn Broodlings:\n   Evolve at Queen's Nest"
+    },
+    {
+      "id": 385,
+      "text": "Dark Swarm:\n   Evolve at Defiler Mound"
+    },
+    {
+      "id": 386,
+      "text": "Parasite:\n   Evolve at Queen's Nest"
+    },
+    {
+      "id": 387,
+      "text": "Plague:\n   Evolve at Defiler Mound"
+    },
+    {
+      "id": 388,
+      "text": "Consume:\n       Evolve at Defiler Mound"
+    },
+    {
+      "id": 389,
+      "text": "Ensnare:\n   Evolve at Queen's Nest"
+    },
+    {
+      "id": 390,
+      "text": "Psionic Storm"
+    },
+    {
+      "id": 391,
+      "text": "Hallucination"
+    },
+    {
+      "id": 392,
+      "text": "Recall"
+    },
+    {
+      "id": 393,
+      "text": "Stasis Field"
+    },
+    {
+      "id": 394,
+      "text": "Archon Warp"
+    },
+    {
+      "id": 395,
+      "text": "p\u0004Develop \u0003P\u0001sionic Storm\n(Templar ability)"
+    },
+    {
+      "id": 396,
+      "text": "h\u0004Develop \u0003H\u0001allucination\n(Templar ability)"
+    },
+    {
+      "id": 397,
+      "text": "r\u0004Develop \u0003R\u0001ecall\n(Arbiter ability)"
+    },
+    {
+      "id": 398,
+      "text": "s\u0004Develop \u0003S\u0001tasis Field\n(Arbiter ability)"
+    },
+    {
+      "id": 399,
+      "text": "a\u0004Develop \u0003A\u0001rchon Warp\n(Templar ability)"
+    },
+    {
+      "id": 400,
+      "text": "t\u0003Psionic S\u0003t\u0001orm"
+    },
+    {
+      "id": 401,
+      "text": "l\u0003Ha\u0003l\u0001lucination"
+    },
+    {
+      "id": 402,
+      "text": "r\u0003\u0003R\u0001ecall"
+    },
+    {
+      "id": 403,
+      "text": "t\u0003S\u0003t\u0001asis Field"
+    },
+    {
+      "id": 404,
+      "text": "r\u0001A\u0003r\u0001chon Warp"
+    },
+    {
+      "id": 405,
+      "text": "Psionic Storm:\n   Develop at Templar Archives"
+    },
+    {
+      "id": 406,
+      "text": "Hallucination:\n   Develop at Templar Archives"
+    },
+    {
+      "id": 407,
+      "text": "Recall:\n   Develop at Arbiter Tribunal"
+    },
+    {
+      "id": 408,
+      "text": "Stasis Field:\n   Develop at Arbiter Tribunal"
+    },
+    {
+      "id": 409,
+      "text": "Archon Warp:\n   Research at Templar Archives"
+    },
+    {
+      "id": 410,
+      "text": "Archon Warp:\n   Select 2 or more Templars"
+    },
+    {
+      "id": 411,
+      "text": "##############################################################################################################"
+    },
+    {
+      "id": 412,
+      "text": "##############################################################################################################"
+    },
+    {
+      "id": 413,
+      "text": "##############################################################################################################"
+    },
+    {
+      "id": 414,
+      "text": "##############################################################################################################"
+    },
+    {
+      "id": 415,
+      "text": "##############################################################################################################"
+    },
+    {
+      "id": 416,
+      "text": "Protoss Armor"
+    },
+    {
+      "id": 417,
+      "text": "Protoss Plating"
+    },
+    {
+      "id": 418,
+      "text": "Terran Infantry Weapons"
+    },
+    {
+      "id": 419,
+      "text": "Terran Vehicle Weapons"
+    },
+    {
+      "id": 420,
+      "text": "Terran Ship Weapons"
+    },
+    {
+      "id": 421,
+      "text": "Zerg Melee Attacks"
+    },
+    {
+      "id": 422,
+      "text": "Zerg Missile Attacks"
+    },
+    {
+      "id": 423,
+      "text": "Zerg Flyer Attacks"
+    },
+    {
+      "id": 424,
+      "text": "Protoss Ground Weapons"
+    },
+    {
+      "id": 425,
+      "text": "Protoss Air Weapons"
+    },
+    {
+      "id": 426,
+      "text": "\u001f정예도\n\u0004전공레벨에 비례하여 증가합니다"
+    },
+    {
+      "id": 427,
+      "text": "U-238 Shells"
+    },
+    {
+      "id": 428,
+      "text": "Ion Thrusters"
+    },
+    {
+      "id": 429,
+      "text": "Burst Lasers"
+    },
+    {
+      "id": 430,
+      "text": "Titan Reactor"
+    },
+    {
+      "id": 431,
+      "text": "Ocular Implants"
+    },
+    {
+      "id": 432,
+      "text": "Moebius Reactor"
+    },
+    {
+      "id": 433,
+      "text": "Apollo Reactor"
+    },
+    {
+      "id": 434,
+      "text": "Colossus Reactor"
+    },
+    {
+      "id": 435,
+      "text": "Ventral Sacs"
+    },
+    {
+      "id": 436,
+      "text": "Antennae"
+    },
+    {
+      "id": 437,
+      "text": "Pneumatized Carapace"
+    },
+    {
+      "id": 438,
+      "text": "Metabolic Boost"
+    },
+    {
+      "id": 439,
+      "text": "Adrenal Glands"
+    },
+    {
+      "id": 440,
+      "text": "Muscular Augments"
+    },
+    {
+      "id": 441,
+      "text": "Grooved Spines"
+    },
+    {
+      "id": 442,
+      "text": "Gamete Meiosis"
+    },
+    {
+      "id": 443,
+      "text": "Metasynaptic Node"
+    },
+    {
+      "id": 444,
+      "text": "Singularity Charge"
+    },
+    {
+      "id": 445,
+      "text": "Leg Enhancements"
+    },
+    {
+      "id": 446,
+      "text": "Scarab Damage"
+    },
+    {
+      "id": 447,
+      "text": "Reaver Capacity"
+    },
+    {
+      "id": 448,
+      "text": "Gravitic Drive"
+    },
+    {
+      "id": 449,
+      "text": "Sensor Array"
+    },
+    {
+      "id": 450,
+      "text": "Gravitic Boosters"
+    },
+    {
+      "id": 451,
+      "text": "Khaydarin Amulet"
+    },
+    {
+      "id": 452,
+      "text": "Apial Sensors"
+    },
+    {
+      "id": 453,
+      "text": "Gravitic Thrusters"
+    },
+    {
+      "id": 454,
+      "text": "Carrier Capacity"
+    },
+    {
+      "id": 455,
+      "text": "Khaydarin Core"
+    },
+    {
+      "id": 456,
+      "text": "a\u0002Upgrade Infantry \u0003A\u0001rmor"
+    },
+    {
+      "id": 457,
+      "text": "p\u0002Upgrade Vehicle \u0003P\u0001lating"
+    },
+    {
+      "id": 458,
+      "text": "h\u0002Upgrade S\u0003h\u0001ip Plating"
+    },
+    {
+      "id": 459,
+      "text": "c\u0002Evolve \u0003C\u0001arapace"
+    },
+    {
+      "id": 460,
+      "text": "c\u0002Evolve Flyer \u0003C\u0001arapace"
+    },
+    {
+      "id": 461,
+      "text": "a\u0002\u0003[A]\u0004유닛 방어력 업그레이드(\u001550\u0004)"
+    },
+    {
+      "id": 462,
+      "text": "a\u0002Upgrade Air \u0003A\u0001rmor"
+    },
+    {
+      "id": 463,
+      "text": "w\u0002Upgrade Infantry \u0003W\u0001eapons"
+    },
+    {
+      "id": 464,
+      "text": "w\u0002Upgrade Vehicle \u0003W\u0001eapons"
+    },
+    {
+      "id": 465,
+      "text": "s\u0002Upgrade \u0003S\u0001hip Weapons"
+    },
+    {
+      "id": 466,
+      "text": "m\u0002Upgrade \u0003M\u0001elee Attacks"
+    },
+    {
+      "id": 467,
+      "text": "a\u0002Upgrade Missile \u0003A\u0001ttacks"
+    },
+    {
+      "id": 468,
+      "text": "a\u0002Upgrade Flyer \u0003A\u0001ttacks"
+    },
+    {
+      "id": 469,
+      "text": "q\u0002\u0003[Q]\u0004유닛 공격 업글레이드(\u001550\u0004)"
+    },
+    {
+      "id": 470,
+      "text": "w\u0002\u0003[W]\u0004주둔군 공격 업글레이드(\u001550\u0004)"
+    },
+    {
+      "id": 471,
+      "text": "s\u0002\u0003[X]\u0004전공 구매"
+    },
+    {
+      "id": 472,
+      "text": "s\u0002\u0003[S]\u0004주둔군 방어력 업글레이드(\u001550\u0004)"
+    },
+    {
+      "id": 473,
+      "text": "i\u0002Research \u0003I\u0001on Thrusters\n(Faster Vulture movement)"
+    },
+    {
+      "id": 474,
+      "text": "b\u0002Research \u0003B\u0001urst Lasers\n(Wraith Weapon)"
+    },
+    {
+      "id": 475,
+      "text": "t\u0002Research \u0003T\u0001itan Reactor\n(+50 Science Vessel energy)"
+    },
+    {
+      "id": 476,
+      "text": "o\u0002Research \u0003O\u0001cular Implants\n(Increase Ghost sight range)"
+    },
+    {
+      "id": 477,
+      "text": "m\u0002Research \u0003M\u0001oebius Reactor\n(+50 Ghost energy)"
+    },
+    {
+      "id": 478,
+      "text": "a\u0002Research \u0003A\u0001pollo Reactor\n(+50 Wraith energy)"
+    },
+    {
+      "id": 479,
+      "text": "c\u0002Research \u0003C\u0001olossus Reactor\n(+50 Battlecruiser energy)"
+    },
+    {
+      "id": 480,
+      "text": "v\u0002Evolve \u0003V\u0001entral Sacs\n(Transporting for Overlord)"
+    },
+    {
+      "id": 481,
+      "text": "a\u0002Evolve \u0003A\u0001ntennae\n(Increase Overlord sight range)"
+    },
+    {
+      "id": 482,
+      "text": "p\u0002Evolve \u0003P\u0001neumatized Carapace\n(Faster Overlord movement)"
+    },
+    {
+      "id": 483,
+      "text": "m\u0002Evolve \u0003M\u0001etabolic Boost\n(Faster Zergling movement)"
+    },
+    {
+      "id": 484,
+      "text": "a\u0002Evolve \u0003A\u0001drenal Glands\n(Faster Zergling Attack)"
+    },
+    {
+      "id": 485,
+      "text": "m\u0002Evolve \u0003M\u0001uscular Augments\n(Faster Hydralisk movement)"
+    },
+    {
+      "id": 486,
+      "text": "g\u0002Evolve \u0003G\u0001rooved Spines\n(Increase Hydralisk attack range)"
+    },
+    {
+      "id": 487,
+      "text": "g\u0002Evolve \u0003G\u0001amete Meiosis\n(+50 Queen energy)"
+    },
+    {
+      "id": 488,
+      "text": "m\u0002Evolve \u0003M\u0001etasynaptic Node\n(+50 Defiler energy)"
+    },
+    {
+      "id": 489,
+      "text": "s\u0002Develop \u0003S\u0001ingularity Charge\n(Increase Dragoon attack range)"
+    },
+    {
+      "id": 490,
+      "text": "l\u0002Develop \u0003L\u0001eg Enhancements\n(Faster Zealot movement)"
+    },
+    {
+      "id": 491,
+      "text": "s\u0002Upgrade \u0003S\u0001carab Damage"
+    },
+    {
+      "id": 492,
+      "text": "c\u0002Increase Reaver \u0003C\u0001apacity\n(+5 Max Scarabs)"
+    },
+    {
+      "id": 493,
+      "text": "g\u0002Develop \u0003G\u0001ravitic Drive\n(Faster Shuttle movement)"
+    },
+    {
+      "id": 494,
+      "text": "x\u0001\u0003[X]\u0004기술 흡수\r\n\u000f3턴 후 특수 유닛을 일반 훈련소에서도 생산할 수"
+    },
+    {
+      "id": 495,
+      "text": "q\u0001\u0003[Q]\u0004특수유닛 생성"
+    },
+    {
+      "id": 496,
+      "text": "k\u0002Develop \u0003K\u0001haydarin Amulet\n(+50 Templar energy)"
+    },
+    {
+      "id": 497,
+      "text": "q\u0002\u0003[Q]\u0004 공격력 업그레이드"
+    },
+    {
+      "id": 498,
+      "text": "g\u0002Develop \u0003G\u0001ravitic Thrusters\n(Faster Scout movement)"
+    },
+    {
+      "id": 499,
+      "text": "c\u0002Increase \u0003C\u0001arrier Capacity\n(+4 Max Interceptors)"
+    },
+    {
+      "id": 500,
+      "text": "\\\u0000\u0004세금\r\n\u000f - 추가 세금을 징수합니다. 벌어들이는 수입이 20% 상승합니다.\r\n\r\n\u0004예비군\r\n\u000f - 주둔군의 체력이 2배 상승합니다."
+    },
+    {
+      "id": 501,
+      "text": "Infantry Armor L1 Require:\n   Nothing"
+    },
+    {
+      "id": 502,
+      "text": "Infantry Armor L2 Require:\n   Science Facility"
+    },
+    {
+      "id": 503,
+      "text": "Infantry Armor L3 Require:\n   Science Facility"
+    },
+    {
+      "id": 504,
+      "text": "Infantry Weapons L1 Require:\n   Nothing"
+    },
+    {
+      "id": 505,
+      "text": "Infantry Weapons L2 Require:\n   Science Facility"
+    },
+    {
+      "id": 506,
+      "text": "Infantry Weapons L3 Require:\n   Science Facility"
+    },
+    {
+      "id": 507,
+      "text": "Vehicle Weapons L1 Require:\n   Nothing"
+    },
+    {
+      "id": 508,
+      "text": "Vehicle Weapons L2 Require:\n   Science Facility"
+    },
+    {
+      "id": 509,
+      "text": "Vehicle Weapons L3 Require:\n   Science Facility"
+    },
+    {
+      "id": 510,
+      "text": "Vehicle Plating L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 511,
+      "text": "Vehicle Plating L2 Requires:\n   Science Facility"
+    },
+    {
+      "id": 512,
+      "text": "Vehicle Plating L3 Requires:\n   Science Facility"
+    },
+    {
+      "id": 513,
+      "text": "Ship Weapons L1 Require:\n   Nothing"
+    },
+    {
+      "id": 514,
+      "text": "Ship Weapons L2 Require:\n   Science Facility"
+    },
+    {
+      "id": 515,
+      "text": "Ship Weapons L3 Require:\n   Science Facility"
+    },
+    {
+      "id": 516,
+      "text": "Ship Plating L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 517,
+      "text": "Ship Plating L2 Requires:\n   Science Facility"
+    },
+    {
+      "id": 518,
+      "text": "Ship Plating L3 Requires:\n   Science Facility"
+    },
+    {
+      "id": 519,
+      "text": "Melee Attacks L1 Require:\n   Nothing"
+    },
+    {
+      "id": 520,
+      "text": "Melee Attacks L2 Require:\n   Lair"
+    },
+    {
+      "id": 521,
+      "text": "Melee Attacks L3 Require:\n   Hive"
+    },
+    {
+      "id": 522,
+      "text": "Missile Attacks L1 Require:\n   Nothing"
+    },
+    {
+      "id": 523,
+      "text": "Missile Attacks L2 Require:\n   Lair"
+    },
+    {
+      "id": 524,
+      "text": "Missile Attacks L3 Require:\n   Hive"
+    },
+    {
+      "id": 525,
+      "text": "Carapace L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 526,
+      "text": "Carapace L2 Requires:\n   Lair"
+    },
+    {
+      "id": 527,
+      "text": "Carapace L3 Requires:\n   Hive"
+    },
+    {
+      "id": 528,
+      "text": "Flyer Attacks L1 Require:\n   Nothing"
+    },
+    {
+      "id": 529,
+      "text": "Flyer Attacks L2 Require:\n   Lair"
+    },
+    {
+      "id": 530,
+      "text": "Flyer Attacks L3 Require:\n   Hive"
+    },
+    {
+      "id": 531,
+      "text": "Flyer Carapace L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 532,
+      "text": "Flyer Carapace L2 Requires:\n   Lair"
+    },
+    {
+      "id": 533,
+      "text": "Flyer Carapace L3 Requires:\n   Hive"
+    },
+    {
+      "id": 534,
+      "text": "Adrenal Glands Require:\n   Hive"
+    },
+    {
+      "id": 535,
+      "text": "Ground Weapons L1 Require:\n   Nothing"
+    },
+    {
+      "id": 536,
+      "text": "Ground Weapons L2 Require:\n   Templar Archives"
+    },
+    {
+      "id": 537,
+      "text": "Ground Weapons L3 Require:\n   Templar Archives"
+    },
+    {
+      "id": 538,
+      "text": "Air Weapons L1 Require:\n   Nothing"
+    },
+    {
+      "id": 539,
+      "text": "Air Weapons L2 Require:\n   Fleet Beacon"
+    },
+    {
+      "id": 540,
+      "text": "Air Weapons L3 Require:\n   Fleet Beacon"
+    },
+    {
+      "id": 541,
+      "text": "Ground Armor L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 542,
+      "text": "Ground Armor L2 Requires:\n   Templar Archives"
+    },
+    {
+      "id": 543,
+      "text": "Ground Armor L3 Requires:\n   Templar Archives"
+    },
+    {
+      "id": 544,
+      "text": "Air Armor L1 Requires:\n   Nothing"
+    },
+    {
+      "id": 545,
+      "text": "Air Armor L2 Requires:\n   Fleet Beacon"
+    },
+    {
+      "id": 546,
+      "text": "Air Armor L3 Requires:\n   Fleet Beacon"
+    },
+    {
+      "id": 547,
+      "text": "Shields L1 Require:\n   Nothing"
+    },
+    {
+      "id": 548,
+      "text": "Shields L2 Require:\n   Cybernetics Core"
+    },
+    {
+      "id": 549,
+      "text": "Shields L3 Require:\n   Cybernetics Core"
+    },
+    {
+      "id": 550,
+      "text": "Recruit"
+    },
+    {
+      "id": 551,
+      "text": "Private"
+    },
+    {
+      "id": 552,
+      "text": "Private"
+    },
+    {
+      "id": 553,
+      "text": "Corporal"
+    },
+    {
+      "id": 554,
+      "text": "Specialist"
+    },
+    {
+      "id": 555,
+      "text": "Sergeant"
+    },
+    {
+      "id": 556,
+      "text": "First Sergeant"
+    },
+    {
+      "id": 557,
+      "text": "Master Sergeant"
+    },
+    {
+      "id": 558,
+      "text": "Warrant Officer"
+    },
+    {
+      "id": 559,
+      "text": "Captain"
+    },
+    {
+      "id": 560,
+      "text": "Major"
+    },
+    {
+      "id": 561,
+      "text": "Lt Commander"
+    },
+    {
+      "id": 562,
+      "text": "First Sergeant"
+    },
+    {
+      "id": 563,
+      "text": "Sergeant Major"
+    },
+    {
+      "id": 564,
+      "text": "Colonel"
+    },
+    {
+      "id": 565,
+      "text": "Commodore"
+    },
+    {
+      "id": 566,
+      "text": "Marshall"
+    },
+    {
+      "id": 567,
+      "text": "Lieutenant"
+    },
+    {
+      "id": 568,
+      "text": "General"
+    },
+    {
+      "id": 569,
+      "text": "Captain Raynor"
+    },
+    {
+      "id": 570,
+      "text": "General Duke"
+    },
+    {
+      "id": 571,
+      "text": "Admiral"
+    },
+    {
+      "id": 572,
+      "text": "Tassadar"
+    },
+    {
+      "id": 573,
+      "text": "Interceptors"
+    },
+    {
+      "id": 574,
+      "text": "ESC"
+    },
+    {
+      "id": 575,
+      "text": "z\u0001Morph to \u0003Z\u0001erglings"
+    },
+    {
+      "id": 576,
+      "text": "h\u0001Morph to \u0003H\u0001ydralisk"
+    },
+    {
+      "id": 577,
+      "text": "u\u0001Morph to \u0003U\u0001ltralisk"
+    },
+    {
+      "id": 578,
+      "text": "d\u0001Morph to \u0003D\u0001rone"
+    },
+    {
+      "id": 579,
+      "text": "o\u0001Morph to \u0003O\u0001verlord"
+    },
+    {
+      "id": 580,
+      "text": "m\u0001Morph to \u0003M\u0001utalisk"
+    },
+    {
+      "id": 581,
+      "text": "g\u0005\u0003G\u0001uardian Aspect"
+    },
+    {
+      "id": 582,
+      "text": "q\u0001Morph to \u0003Q\u0001ueen"
+    },
+    {
+      "id": 583,
+      "text": "f\u0001Morph to De\u0003f\u0001iler"
+    },
+    {
+      "id": 584,
+      "text": "q\u0000\u0003[Q]\u0004특수유닛 Off"
+    },
+    {
+      "id": 585,
+      "text": "q\u0000\u0003[Q]\u0004특수유닛 On"
+    },
+    {
+      "id": 586,
+      "text": "q\u0001\u0003[Q]\u0004경보병 생산(\u001516\u0004)"
+    },
+    {
+      "id": 587,
+      "text": "w\u0001\u0003[W]\u0004경보병 생산(\u001520\u0004)"
+    },
+    {
+      "id": 588,
+      "text": "q\u0001\u0003[Q]\u0004메딕 생산"
+    },
+    {
+      "id": 589,
+      "text": "v\u0001Build \u0003V\u0001ulture"
+    },
+    {
+      "id": 590,
+      "text": "g\u0001Build \u0003G\u0001oliath"
+    },
+    {
+      "id": 591,
+      "text": "t\u0001Build Siege \u0003T\u0001ank"
+    },
+    {
+      "id": 592,
+      "text": "s\u0001Build \u0003S\u0001CV"
+    },
+    {
+      "id": 593,
+      "text": "w\u0001\u0003[W]\u0001\u0004수송선 생산"
+    },
+    {
+      "id": 594,
+      "text": "v\u0001Build Science \u0003V\u0001essel"
+    },
+    {
+      "id": 595,
+      "text": "d\u0001Build \u0003D\u0001ropship"
+    },
+    {
+      "id": 596,
+      "text": "b\u0001Build \u0003B\u0001attlecruiser"
+    },
+    {
+      "id": 597,
+      "text": "w\u0001\u0003[W]\u0004삼단 노선"
+    },
+    {
+      "id": 598,
+      "text": "w\u0001\u0003[W]\u0004삼단 노선 생산(\u001540\u0004)"
+    },
+    {
+      "id": 599,
+      "text": "q\u0001\u0003[Q]\u0004근접 돌격선 생산(\u001520\u0004)"
+    },
+    {
+      "id": 600,
+      "text": "q\u0001\u0003[Q]\u0004창병 생산(\u001520\u0004)"
+    },
+    {
+      "id": 601,
+      "text": "e\u0001\u0003[E]\u0004방패선 생산(\u001520\u0004)"
+    },
+    {
+      "id": 602,
+      "text": "t\u0001Warp in High \u0003T\u0001emplar"
+    },
+    {
+      "id": 603,
+      "text": "s\u0001\u0003[S]\u0004공성전차 생산(\u001545\u0004)\r\n\u0005※주의: 일반 유닛에게 40% 피해만 입힘"
+    },
+    {
+      "id": 604,
+      "text": "a\u0001\u0003[A]\u0004기사 생산(\u001575\u0004)"
+    },
+    {
+      "id": 605,
+      "text": "q\u0001\u0003[Q]\u0004메딕 생산"
+    },
+    {
+      "id": 606,
+      "text": "q\u0001\u0003[Q]\u0004용병 모집\r\n\u000f- 랜덤 유닛을 생산합니다"
+    },
+    {
+      "id": 607,
+      "text": "i\u0001Build \u0003I\u0001nterceptor"
+    },
+    {
+      "id": 608,
+      "text": "v\u0001Build Rea\u0003v\u0001er"
+    },
+    {
+      "id": 609,
+      "text": "r\u0001Build Sca\u0003r\u0001ab"
+    },
+    {
+      "id": 610,
+      "text": "b\u0001Hire Merc \u0003B\u0001iker"
+    },
+    {
+      "id": 611,
+      "text": "g\u0001Hire Merc \u0003G\u0001unship"
+    },
+    {
+      "id": 612,
+      "text": "r\u0001Hire \u0003R\u0001aider"
+    },
+    {
+      "id": 613,
+      "text": "h\u0001Mutate into \u0003H\u0001atchery"
+    },
+    {
+      "id": 614,
+      "text": "c\u0001Mutate into \u0003C\u0001reep Colony"
+    },
+    {
+      "id": 615,
+      "text": "e\u0001Mutate into \u0003E\u0001xtractor"
+    },
+    {
+      "id": 616,
+      "text": "s\u0001Mutate into \u0003S\u0001pawning Pool"
+    },
+    {
+      "id": 617,
+      "text": "v\u0001Mutate into E\u0003v\u0001olution Chamber"
+    },
+    {
+      "id": 618,
+      "text": "d\u0001Mutate into Hydralisk \u0003D\u0001en"
+    },
+    {
+      "id": 619,
+      "text": "n\u0001Mutate into \u0003N\u0001ydus Canal"
+    },
+    {
+      "id": 620,
+      "text": "s\u0001Mutate into \u0003S\u0001pire"
+    },
+    {
+      "id": 621,
+      "text": "q\u0001Mutate into \u0003Q\u0001ueen's Nest"
+    },
+    {
+      "id": 622,
+      "text": "u\u0001Mutate into \u0003U\u0001ltralisk Cavern"
+    },
+    {
+      "id": 623,
+      "text": "d\u0001Mutate into \u0003D\u0001efiler Mound"
+    },
+    {
+      "id": 624,
+      "text": "l\u0001Mutate into \u0003L\u0001air"
+    },
+    {
+      "id": 625,
+      "text": "h\u0001Mutate into \u0003H\u0001ive"
+    },
+    {
+      "id": 626,
+      "text": "g\u0001Mutate into \u0003G\u0001reater Spire"
+    },
+    {
+      "id": 627,
+      "text": "s\u0001Mutate into \u0003S\u0001pore Colony"
+    },
+    {
+      "id": 628,
+      "text": "u\u0001Mutate into S\u0003u\u0001nken Colony"
+    },
+    {
+      "id": 629,
+      "text": "e\u0001\u0003[E]\u0004경기병(\u001535\u0004)"
+    },
+    {
+      "id": 630,
+      "text": "s\u0001\u0003[S]\u0004초기 위치를 선택해주세요\r\n\u000f※건설 중에만 취소 후 다시 건설 가능"
+    },
+    {
+      "id": 631,
+      "text": "q\u0001\u0003[Q]\u0004도시 건설\r\n- \u000f매턴 세금(+10)을 징수하는 기본 건물입니다.\r\n- 다른 도시가 \u000316\u000f칸 이상 \u000320\u000f칸 이하에 존재해야합니다."
+    },
+    {
+      "id": 632,
+      "text": "a\u0001Warp in \u0003A\u0001ssimilator"
+    },
+    {
+      "id": 633,
+      "text": "w\u0001\u0003[W]\u0004훈련소\r\n\u000f- 등록된 유닛을 매 턴 자동으로 생산합니다."
+    },
+    {
+      "id": 634,
+      "text": "a\u0001\u0003[A]\u0004선술집\r\n\u000f- 용병을 모집할 수 있는 시설을 건설합니다.\r\n- 생산되는 유닛은 랜덤입니다."
+    },
+    {
+      "id": 635,
+      "text": "c\u0001Warp in Photon \u0003C\u0001annon"
+    },
+    {
+      "id": 636,
+      "text": "s\u0001\u0003[S]\u0001\u0004유닛 강화소\r\n\u000f- 업그레이드"
+    },
+    {
+      "id": 637,
+      "text": "d\u0001\u0003[D]\u0004사절단 파견 (특수 지역 합병)\r\n\u000f- 특수 지역(코쿤) 주위에 건설할 수 있습니다.\r\n- 해당 지역을 합류 시킵니다."
+    },
+    {
+      "id": 638,
+      "text": "q\u0001\u0003[Q]\u0004 행정 관청 (공국 선포)\r\n\u000f- 부족 연합을 규합하여 \u0004공국(Duchy)\u000f을 선포합니다.\r\n\u000f- [해금] 기사단(Tier 2), 방어 타워, 중도시."
+    },
+    {
+      "id": 639,
+      "text": "w\u0001\u0003[W]\u0004 왕성 (왕국 선포)\r\n\u000f- 공작의 지위를 넘어 \u0004왕국(Kingdom)\u000f을 건국합니다.\r\n\u000f- [해금] 석궁병 고급 전술 명령."
+    },
+    {
+      "id": 640,
+      "text": "c\u0001Warp in \u0003C\u0001itadel of Adun"
+    },
+    {
+      "id": 641,
+      "text": "t\u0001Warp in \u0003T\u0001emplar Archives"
+    },
+    {
+      "id": 642,
+      "text": "e\u0001\u0003[E]\u0004지원 본부\r\n\u000f- 전투에 도움이 되는 보조 유닛을 생산합니다.\r\n\u000f- [생산] 메딕, 드랍쉽, 옵저버"
+    },
+    {
+      "id": 643,
+      "text": "f\u0001Warp in \u0003F\u0001leet Beacon"
+    },
+    {
+      "id": 644,
+      "text": "a\u0001Warp in \u0003A\u0001rbiter Tribunal"
+    },
+    {
+      "id": 645,
+      "text": "b\u0001Warp in Robotics Support \u0003B\u0001ay"
+    },
+    {
+      "id": 646,
+      "text": "a\u0001\u0003[A]\u0004중도시\r\n\u000f- 매 턴 세금(+60)를 징수합니다.\r\n- 근처에 도시가 없어도 건설 할 수 있습니다."
+    },
+    {
+      "id": 647,
+      "text": "s\u0001Build \u0003S\u0001upply Depot"
+    },
+    {
+      "id": 648,
+      "text": "r\u0001Build \u0003R\u0001efinery"
+    },
+    {
+      "id": 649,
+      "text": "b\u0001Build \u0003B\u0001arracks"
+    },
+    {
+      "id": 650,
+      "text": "e\u0001Build \u0003E\u0001ngineering Bay"
+    },
+    {
+      "id": 651,
+      "text": "d\u0001\u0003[D]\u0004방어타워 건설\r\n\u000f- 적을 공격하고 은신 유닛을 감지합니다.\n- 파일런 주변에 밀집 건설이 가능합니다."
+    },
+    {
+      "id": 652,
+      "text": "a\u0001Build \u0003A\u0001cademy"
+    },
+    {
+      "id": 653,
+      "text": "u\u0001Build B\u0003u\u0001nker"
+    },
+    {
+      "id": 654,
+      "text": "f\u0001Build \u0003F\u0001actory"
+    },
+    {
+      "id": 655,
+      "text": "s\u0001Build \u0003S\u0001tarport"
+    },
+    {
+      "id": 656,
+      "text": "i\u0001Build Sc\u0003i\u0001ence Facility"
+    },
+    {
+      "id": 657,
+      "text": "a\u0001\u0003[A]\u0004몰로할지 모르겠음"
+    },
+    {
+      "id": 658,
+      "text": "c\u0001Build \u0003C\u0001omsat Station"
+    },
+    {
+      "id": 659,
+      "text": "n\u0001Build \u0003N\u0001uclear Silo"
+    },
+    {
+      "id": 660,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 661,
+      "text": "c\u0001Build \u0003C\u0001overt Ops"
+    },
+    {
+      "id": 662,
+      "text": "p\u0001Build \u0003P\u0001hysics Lab"
+    },
+    {
+      "id": 663,
+      "text": "e\u0001\u0003[E]\u0004훈련소 증축\r\n\u000f- 훈련소의 생산 슬롯을 1개 추가합니다.\r\n- 훈련소 바로 옆에 건설 할 수 있습니다."
+    },
+    {
+      "id": 664,
+      "text": "m\u0000\u0003M\u0001ove"
+    },
+    {
+      "id": 665,
+      "text": "s\u0000\u0003S\u0001top"
+    },
+    {
+      "id": 666,
+      "text": "a\u0000\u0003A\u0001ttack"
+    },
+    {
+      "id": 667,
+      "text": "p\u0000\u0003P\u0001atrol"
+    },
+    {
+      "id": 668,
+      "text": "h\u0000\u0003H\u0001old Position"
+    },
+    {
+      "id": 669,
+      "text": "w\u0000\u0003W\u0001ay Points"
+    },
+    {
+      "id": 670,
+      "text": "e\u0001\u0003[C]\u0004 황궁 (제국 선포)\r\n\u000f- 대륙을 통일할 유일한 \u0004황제(Emperor)\u000f로 등극합니다.\r\n\u000f- 최대 2인까지 가능. \r\n\u000f- [효과] 도시 제한 해제"
+    },
+    {
+      "id": 671,
+      "text": "l\u0000\u0003L\u0001iftoff"
+    },
+    {
+      "id": 672,
+      "text": "r\u0000\u0003[R]\u0004랠리포인트 설정"
+    },
+    {
+      "id": 673,
+      "text": "r\u0000\u0003R\u0001echarge Shields"
+    },
+    {
+      "id": 674,
+      "text": "s\u0000\u0003S\u0001elect Larva"
+    },
+    {
+      "id": 675,
+      "text": "g\u0000\u0003G\u0001ather"
+    },
+    {
+      "id": 676,
+      "text": "c\u0000Return \u0003C\u0001argo"
+    },
+    {
+      "id": 677,
+      "text": "r\u0000\u0003[R]\u0004수리\r\n\u000f거리에 상관없이 SCV를 소환하여 수리합니다."
+    },
+    {
+      "id": 678,
+      "text": "q\u0000\u0003[Q]\u0001\u0004기본 건설"
+    },
+    {
+      "id": 679,
+      "text": "w\u0000\u0003[W]\u0004발전"
+    },
+    {
+      "id": 680,
+      "text": "b\u0000\u0003B\u0001asic Mutation"
+    },
+    {
+      "id": 681,
+      "text": "v\u0000Ad\u0003v\u0001anced Mutation"
+    },
+    {
+      "id": 682,
+      "text": "v\u0000Ad\u0003v\u0001anced Morph"
+    },
+    {
+      "id": 683,
+      "text": "l\u0000\u0003L\u0001oad"
+    },
+    {
+      "id": 684,
+      "text": "u\u0000\u0003U\u0001nload All"
+    },
+    {
+      "id": 685,
+      "text": "n\u0000\u0003N\u0001uclear Strike"
+    },
+    {
+      "id": 686,
+      "text": "p\u0000\u0003P\u0001lace COP"
+    },
+    {
+      "id": 687,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel"
+    },
+    {
+      "id": 688,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel"
+    },
+    {
+      "id": 689,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Construction"
+    },
+    {
+      "id": 690,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Unit Training"
+    },
+    {
+      "id": 691,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Upgrade"
+    },
+    {
+      "id": 692,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Research"
+    },
+    {
+      "id": 693,
+      "text": "\u001b\u0000\u0003[ESC]\u0004취소"
+    },
+    {
+      "id": 694,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Addon"
+    },
+    {
+      "id": 695,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Morph"
+    },
+    {
+      "id": 696,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Mutation"
+    },
+    {
+      "id": 697,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Infestation"
+    },
+    {
+      "id": 698,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Mutation"
+    },
+    {
+      "id": 699,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Cancel Nuclear Strike"
+    },
+    {
+      "id": 700,
+      "text": "\u001b\u0000\u0003ESC\u0001 - Halt Construction"
+    },
+    {
+      "id": 701,
+      "text": "c\u0000\u0003[C]\u0004취소"
+    },
+    {
+      "id": 702,
+      "text": "Firebat Requires:\n   Academy"
+    },
+    {
+      "id": 703,
+      "text": "Goliath Requires:\n   Armory"
+    },
+    {
+      "id": 704,
+      "text": "Siege Tank Requires:\n   Attached Machine Shop"
+    },
+    {
+      "id": 705,
+      "text": "Science Vessel Requires:\n   Attached Control Tower\n   Science Facility"
+    },
+    {
+      "id": 706,
+      "text": "Dropship Requires:\n   Attached Control Tower"
+    },
+    {
+      "id": 707,
+      "text": "Battlecruiser Requires:\n   Attached Control Tower\n   Science Facility with\n   attached Physics Lab"
+    },
+    {
+      "id": 708,
+      "text": "Comsat Station Requires:\n   Academy"
+    },
+    {
+      "id": 709,
+      "text": "Nuclear Silo Requires:\n   Science Facility with\n   attached Covert Ops"
+    },
+    {
+      "id": 710,
+      "text": "Barracks Requires:\n   Command Center"
+    },
+    {
+      "id": 711,
+      "text": "Academy Requires:\n   Barracks"
+    },
+    {
+      "id": 712,
+      "text": "Factory Requires:\n   Barracks"
+    },
+    {
+      "id": 713,
+      "text": "Starport Requires:\n   Factory"
+    },
+    {
+      "id": 714,
+      "text": "Science Facility Requires:\n   Starport"
+    },
+    {
+      "id": 715,
+      "text": "Engineering Bay Requires:\n   Command Center"
+    },
+    {
+      "id": 716,
+      "text": "Armory Requires:\n   Factory"
+    },
+    {
+      "id": 717,
+      "text": "Missile Turret Requires:\n   Engineering Bay"
+    },
+    {
+      "id": 718,
+      "text": "Bunker Requires:\n   Barracks"
+    },
+    {
+      "id": 719,
+      "text": "요구 사항\r\n- 행정관청"
+    },
+    {
+      "id": 720,
+      "text": "요구사항:\r\n- 소도시 \u001710\u0001개 보유"
+    },
+    {
+      "id": 721,
+      "text": "요구사항:\r\n- 소도시 \u001720\u0001개 보유\r\n- 행정 관청"
+    },
+    {
+      "id": 722,
+      "text": "요구사항:\r\n- 소도시 \u001730\u0001개 보유\r\n- 행정 관청\r\n- 왕성"
+    },
+    {
+      "id": 723,
+      "text": "Reaver Requires:\n   Robotics Support Bay"
+    },
+    {
+      "id": 724,
+      "text": "Observer Requires:\n   Observatory"
+    },
+    {
+      "id": 725,
+      "text": "Gateway Requires:\n   Nexus"
+    },
+    {
+      "id": 726,
+      "text": "요구사항:\r\n  - 수도\r\n  - 훈련소\r\n"
+    },
+    {
+      "id": 727,
+      "text": "Photon Cannon Requires:\n   Forge"
+    },
+    {
+      "id": 728,
+      "text": "Shield Battery Requires:\n   Gateway"
+    },
+    {
+      "id": 729,
+      "text": "다음을 보유해야합니다.\r\n  - 수도\r\n  - 훈련소\r\n"
+    },
+    {
+      "id": 730,
+      "text": "Robotics Facility Requires:\n   Cybernetics Core"
+    },
+    {
+      "id": 731,
+      "text": "요구사항:\n   - 행정관청"
+    },
+    {
+      "id": 732,
+      "text": "Citadel of Adun Requires:\n   Cybernetics Core"
+    },
+    {
+      "id": 733,
+      "text": "다음을 보유해야합니다.\r\n  - 수도\r\n  - 훈련소"
+    },
+    {
+      "id": 734,
+      "text": "Robotics Support Bay Requires:\n   Robotics Facility"
+    },
+    {
+      "id": 735,
+      "text": "Fleet Beacon Requires:\n   Stargate"
+    },
+    {
+      "id": 736,
+      "text": "Templar Archives Require:\n   Citadel of Adun"
+    },
+    {
+      "id": 737,
+      "text": "Arbiter Tribunal Requires:\n   Stargate\n   Templar Archives"
+    },
+    {
+      "id": 738,
+      "text": "Zerglings Require:\n   Spawning Pool"
+    },
+    {
+      "id": 739,
+      "text": "Hydralisk Requires:\n   Hydralisk Den"
+    },
+    {
+      "id": 740,
+      "text": "Ultralisk Requires:\n   Ultralisk Cavern"
+    },
+    {
+      "id": 741,
+      "text": "Mutalisk Requires:\n   Spire"
+    },
+    {
+      "id": 742,
+      "text": "Guardian Aspect Requires:\n   Greater Spire"
+    },
+    {
+      "id": 743,
+      "text": "Queen Requires:\n   Queen's Nest"
+    },
+    {
+      "id": 744,
+      "text": "Defiler Requires:\n   Defiler Mound"
+    },
+    {
+      "id": 745,
+      "text": "Scourge Require:\n   Spire"
+    },
+    {
+      "id": 746,
+      "text": "Lair Requires:\n   Spawning Pool"
+    },
+    {
+      "id": 747,
+      "text": "Hive Requires:\n   Queen's Nest"
+    },
+    {
+      "id": 748,
+      "text": "Nydus Canal Requires:\n   Hive"
+    },
+    {
+      "id": 749,
+      "text": "Hydralisk Den Requires:\n   Spawning Pool"
+    },
+    {
+      "id": 750,
+      "text": "Spire Requires:\n   Lair"
+    },
+    {
+      "id": 751,
+      "text": "Greater Spire Requires:\n   Hive"
+    },
+    {
+      "id": 752,
+      "text": "Queen's Nest Requires:\n   Lair"
+    },
+    {
+      "id": 753,
+      "text": "Evolution Chamber Requires:\n   Hatchery"
+    },
+    {
+      "id": 754,
+      "text": "Ultralisk Cavern Requires:\n   Hive"
+    },
+    {
+      "id": 755,
+      "text": "Defiler Mound Requires:\n   Hive"
+    },
+    {
+      "id": 756,
+      "text": "Spawning Pool Requires:\n   Hatchery"
+    },
+    {
+      "id": 757,
+      "text": "Spore Colony Requires:\n   Evolution Chamber"
+    },
+    {
+      "id": 758,
+      "text": "Sunken Colony Requires:\n   Spawning Pool"
+    },
+    {
+      "id": 759,
+      "text": "Carrier Attack:\n   Build Interceptors"
+    },
+    {
+      "id": 760,
+      "text": "Reaver Attack:\n   Build Scarabs"
+    },
+    {
+      "id": 761,
+      "text": "Nuclear Strike Requires:\n   Armed Nuclear Silo"
+    },
+    {
+      "id": 762,
+      "text": "Not Implemented"
+    },
+    {
+      "id": 763,
+      "text": "mk"
+    },
+    {
+      "id": 764,
+      "text": "Kills:"
+    },
+    {
+      "id": 765,
+      "text": "Evolving"
+    },
+    {
+      "id": 766,
+      "text": "Upgrading 1 "
+    },
+    {
+      "id": 767,
+      "text": "\u0017자동 업글 진행중..."
+    },
+    {
+      "id": 768,
+      "text": "Evolving"
+    },
+    {
+      "id": 769,
+      "text": "Researching"
+    },
+    {
+      "id": 770,
+      "text": "Developing"
+    },
+    {
+      "id": 771,
+      "text": "Morphing"
+    },
+    {
+      "id": 772,
+      "text": "Building 1"
+    },
+    {
+      "id": 773,
+      "text": "\u0017자동 생산 진행중..."
+    },
+    {
+      "id": 774,
+      "text": "Morphing"
+    },
+    {
+      "id": 775,
+      "text": "Building 2"
+    },
+    {
+      "id": 776,
+      "text": "지원 유닛 생산중..."
+    },
+    {
+      "id": 777,
+      "text": "Damage:"
+    },
+    {
+      "id": 778,
+      "text": "Armor:"
+    },
+    {
+      "id": 779,
+      "text": "\u0004사기:\u0001"
+    },
+    {
+      "id": 780,
+      "text": "Mining Delay:"
+    },
+    {
+      "id": 781,
+      "text": "Production "
+    },
+    {
+      "id": 782,
+      "text": "Unit Ptr:"
+    },
+    {
+      "id": 783,
+      "text": "Current Order:"
+    },
+    {
+      "id": 784,
+      "text": "Next Order:"
+    },
+    {
+      "id": 785,
+      "text": "% Complete"
+    },
+    {
+      "id": 786,
+      "text": "Order:"
+    },
+    {
+      "id": 787,
+      "text": "Mutating"
+    },
+    {
+      "id": 788,
+      "text": "Adding On"
+    },
+    {
+      "id": 789,
+      "text": "건설 중"
+    },
+    {
+      "id": 790,
+      "text": "Summoning"
+    },
+    {
+      "id": 791,
+      "text": "Interceptors"
+    },
+    {
+      "id": 792,
+      "text": "Scarabs"
+    },
+    {
+      "id": 793,
+      "text": "Nukes"
+    },
+    {
+      "id": 794,
+      "text": "Spider Mines"
+    },
+    {
+      "id": 795,
+      "text": "Next Level:"
+    },
+    {
+      "id": 796,
+      "text": "Minerals:"
+    },
+    {
+      "id": 797,
+      "text": "Vespene Gas:"
+    },
+    {
+      "id": 798,
+      "text": "Depleted"
+    },
+    {
+      "id": 799,
+      "text": "Mutating"
+    },
+    {
+      "id": 800,
+      "text": "Under Construction"
+    },
+    {
+      "id": 801,
+      "text": "건설 중"
+    },
+    {
+      "id": 802,
+      "text": "Cancel Morph (%s)"
+    },
+    {
+      "id": 803,
+      "text": "Cancel Construction (%s)"
+    },
+    {
+      "id": 804,
+      "text": "Cancel Warp (%s)"
+    },
+    {
+      "id": 805,
+      "text": "Cancel Upgrade"
+    },
+    {
+      "id": 806,
+      "text": "Cancel Research"
+    },
+    {
+      "id": 807,
+      "text": "Cancel Morph"
+    },
+    {
+      "id": 808,
+      "text": "Unload Unit (%s)"
+    },
+    {
+      "id": 809,
+      "text": "Click: Select Unit\nShift+Click: Deselect Unit\nCtrl+Click: Select Unit Type"
+    },
+    {
+      "id": 810,
+      "text": "Show Terrain in Minimap (\u0003Tab\u0001)"
+    },
+    {
+      "id": 811,
+      "text": "Hide Terrain in Minimap (\u0003Tab\u0001)"
+    },
+    {
+      "id": 812,
+      "text": "Diplomacy"
+    },
+    {
+      "id": 813,
+      "text": "Messaging"
+    },
+    {
+      "id": 814,
+      "text": "Game Menu (\u0003F10\u0001)"
+    },
+    {
+      "id": 815,
+      "text": "Control Provided:"
+    },
+    {
+      "id": 816,
+      "text": "Supplies Provided:"
+    },
+    {
+      "id": 817,
+      "text": "Psi Provided:"
+    },
+    {
+      "id": 818,
+      "text": "Total Control:"
+    },
+    {
+      "id": 819,
+      "text": "Total Supplies:"
+    },
+    {
+      "id": 820,
+      "text": "Total Psi:"
+    },
+    {
+      "id": 821,
+      "text": "Control Used:"
+    },
+    {
+      "id": 822,
+      "text": "Supplies Used:"
+    },
+    {
+      "id": 823,
+      "text": "Psi Used:"
+    },
+    {
+      "id": 824,
+      "text": "Control Max:"
+    },
+    {
+      "id": 825,
+      "text": "Supplies Max:"
+    },
+    {
+      "id": 826,
+      "text": "Psi Max:"
+    },
+    {
+      "id": 827,
+      "text": "\b########################################################################################################################"
+    },
+    {
+      "id": 828,
+      "text": "\u0006Disabled"
+    },
+    {
+      "id": 829,
+      "text": "\u0006Disabled"
+    },
+    {
+      "id": 830,
+      "text": "\u0006Unpowered"
+    },
+    {
+      "id": 831,
+      "text": "\u0003Detector"
+    },
+    {
+      "id": 832,
+      "text": "\u0004Hallucination"
+    },
+    {
+      "id": 833,
+      "text": "Units"
+    },
+    {
+      "id": 834,
+      "text": "Units"
+    },
+    {
+      "id": 835,
+      "text": "Resources"
+    },
+    {
+      "id": 836,
+      "text": "Kills"
+    },
+    {
+      "id": 837,
+      "text": "Score"
+    },
+    {
+      "id": 838,
+      "text": "Units to go"
+    },
+    {
+      "id": 839,
+      "text": "Units to go"
+    },
+    {
+      "id": 840,
+      "text": "Resources to go"
+    },
+    {
+      "id": 841,
+      "text": "Kills to go"
+    },
+    {
+      "id": 842,
+      "text": "Score to go"
+    },
+    {
+      "id": 843,
+      "text": "Nowhere to return to...can't return."
+    },
+    {
+      "id": 844,
+      "text": "Too many underlings...create more Overlords."
+    },
+    {
+      "id": 845,
+      "text": "Not enough supplies...build more Supply Depots."
+    },
+    {
+      "id": 846,
+      "text": "Not enough psi...build more Pylons."
+    },
+    {
+      "id": 847,
+      "text": "Underling limit exceeded."
+    },
+    {
+      "id": 848,
+      "text": "Supply limit exceeded."
+    },
+    {
+      "id": 849,
+      "text": "Psi limit exceeded."
+    },
+    {
+      "id": 850,
+      "text": "Not enough minerals...mine more minerals."
+    },
+    {
+      "id": 851,
+      "text": "Not enough Vespene gases....harvest more gas."
+    },
+    {
+      "id": 852,
+      "text": "You can't build next to minerals or geysers."
+    },
+    {
+      "id": 853,
+      "text": "An undetected unit is in the way."
+    },
+    {
+      "id": 854,
+      "text": "You can't build off the map."
+    },
+    {
+      "id": 855,
+      "text": "You can't build near the edge of the map."
+    },
+    {
+      "id": 856,
+      "text": "You can't build there."
+    },
+    {
+      "id": 857,
+      "text": "You must explore there first."
+    },
+    {
+      "id": 858,
+      "text": "You must currently be able to see the location."
+    },
+    {
+      "id": 859,
+      "text": "Could not build there, find a Vespene Geyser to build on."
+    },
+    {
+      "id": 860,
+      "text": "You must build on the Creep."
+    },
+    {
+      "id": 861,
+      "text": "You must build near a Pylon."
+    },
+    {
+      "id": 862,
+      "text": "Couldn't reach the building site."
+    },
+    {
+      "id": 863,
+      "text": "You can't land there."
+    },
+    {
+      "id": 864,
+      "text": "Not enough energy."
+    },
+    {
+      "id": 865,
+      "text": "Not enough energy."
+    },
+    {
+      "id": 866,
+      "text": "Not enough energy."
+    },
+    {
+      "id": 867,
+      "text": "Nothing to harvest. Find a Mine or a Vespene Geyser."
+    },
+    {
+      "id": 868,
+      "text": "Nothing to harvest. Find a Mine, or build a Refinery at a Vespene Geyser."
+    },
+    {
+      "id": 869,
+      "text": "Nothing to harvest. Find a Mine, or build an Assimilator at a Vespene Geyser."
+    },
+    {
+      "id": 870,
+      "text": "Must target severely damaged Terran Command Center."
+    },
+    {
+      "id": 871,
+      "text": "Unit's waypoint list is full."
+    },
+    {
+      "id": 872,
+      "text": "Unable to add order."
+    },
+    {
+      "id": 873,
+      "text": "Running low on orders, your last order was not processed."
+    },
+    {
+      "id": 874,
+      "text": "Not enough life remaining."
+    },
+    {
+      "id": 875,
+      "text": "Vespene Geyser depleted."
+    },
+    {
+      "id": 876,
+      "text": "Invalid target."
+    },
+    {
+      "id": 877,
+      "text": "Unable to target structure."
+    },
+    {
+      "id": 878,
+      "text": "Must target units."
+    },
+    {
+      "id": 879,
+      "text": "Unable to attack target."
+    },
+    {
+      "id": 880,
+      "text": "Invalid target."
+    },
+    {
+      "id": 881,
+      "text": "Must target mechanical units."
+    },
+    {
+      "id": 882,
+      "text": "Invalid target."
+    },
+    {
+      "id": 883,
+      "text": "Must target damaged mechanical units or damaged complete buildings."
+    },
+    {
+      "id": 884,
+      "text": "Must target Terran units."
+    },
+    {
+      "id": 885,
+      "text": "Invalid target."
+    },
+    {
+      "id": 886,
+      "text": "Must target non-robotic ground units."
+    },
+    {
+      "id": 887,
+      "text": "Must target ground."
+    },
+    {
+      "id": 888,
+      "text": "Target out of range."
+    },
+    {
+      "id": 889,
+      "text": "Target is too close."
+    },
+    {
+      "id": 890,
+      "text": "Can only pick up your own transportable units."
+    },
+    {
+      "id": 891,
+      "text": "Not enough room for unit."
+    },
+    {
+      "id": 892,
+      "text": "Must gather from a Mineral Field or Vespene Geyser."
+    },
+    {
+      "id": 893,
+      "text": "Morph an Extractor there first."
+    },
+    {
+      "id": 894,
+      "text": "Build a Refinery there first."
+    },
+    {
+      "id": 895,
+      "text": "Build an Assimilator there first."
+    },
+    {
+      "id": 896,
+      "text": "Must gather gases from your own geyser."
+    },
+    {
+      "id": 897,
+      "text": "Invalid target."
+    },
+    {
+      "id": 898,
+      "text": "Invalid target."
+    },
+    {
+      "id": 899,
+      "text": "Invalid target."
+    },
+    {
+      "id": 900,
+      "text": "Units in stasis can't be targeted."
+    },
+    {
+      "id": 901,
+      "text": "Must target non-hovering ground units."
+    },
+    {
+      "id": 902,
+      "text": "Must target passable terrain."
+    },
+    {
+      "id": 903,
+      "text": "Die"
+    },
+    {
+      "id": 904,
+      "text": "Fizzle"
+    },
+    {
+      "id": 905,
+      "text": "Stop"
+    },
+    {
+      "id": 906,
+      "text": "Guard"
+    },
+    {
+      "id": 907,
+      "text": "Player Guard"
+    },
+    {
+      "id": 908,
+      "text": "Turret Guard"
+    },
+    {
+      "id": 909,
+      "text": "Bunker Guard"
+    },
+    {
+      "id": 910,
+      "text": "Ignore"
+    },
+    {
+      "id": 911,
+      "text": "Carrier Ignore"
+    },
+    {
+      "id": 912,
+      "text": "Carrier Stop"
+    },
+    {
+      "id": 913,
+      "text": "Reaver Stop"
+    },
+    {
+      "id": 914,
+      "text": "Attack"
+    },
+    {
+      "id": 915,
+      "text": "Attack Unit"
+    },
+    {
+      "id": 916,
+      "text": "Attack Fixed Range"
+    },
+    {
+      "id": 917,
+      "text": "Move Attack Unit"
+    },
+    {
+      "id": 918,
+      "text": "Attack Tile"
+    },
+    {
+      "id": 919,
+      "text": "Hover"
+    },
+    {
+      "id": 920,
+      "text": "Attack Move"
+    },
+    {
+      "id": 921,
+      "text": "Atk Move EP"
+    },
+    {
+      "id": 922,
+      "text": "Harass Move"
+    },
+    {
+      "id": 923,
+      "text": "AI Patrol"
+    },
+    {
+      "id": 924,
+      "text": "Tower"
+    },
+    {
+      "id": 925,
+      "text": "Vulture Mine"
+    },
+    {
+      "id": 926,
+      "text": "Carrier Attack"
+    },
+    {
+      "id": 927,
+      "text": "Carrier Attack Move"
+    },
+    {
+      "id": 928,
+      "text": "Stay In Range"
+    },
+    {
+      "id": 929,
+      "text": "Turret Attack"
+    },
+    {
+      "id": 930,
+      "text": "Nothing"
+    },
+    {
+      "id": 931,
+      "text": "Drone Start Build"
+    },
+    {
+      "id": 932,
+      "text": "Drone Build"
+    },
+    {
+      "id": 933,
+      "text": "Drone Attack Unit"
+    },
+    {
+      "id": 934,
+      "text": "Infest Mine"
+    },
+    {
+      "id": 935,
+      "text": "Build"
+    },
+    {
+      "id": 936,
+      "text": "Build Protoss"
+    },
+    {
+      "id": 937,
+      "text": "Pylon Build"
+    },
+    {
+      "id": 938,
+      "text": "Construct Building"
+    },
+    {
+      "id": 939,
+      "text": "Repair"
+    },
+    {
+      "id": 940,
+      "text": "Place Add-On"
+    },
+    {
+      "id": 941,
+      "text": "Build Add-On"
+    },
+    {
+      "id": 942,
+      "text": "Train"
+    },
+    {
+      "id": 943,
+      "text": "Zerg Birth"
+    },
+    {
+      "id": 944,
+      "text": "Morph"
+    },
+    {
+      "id": 945,
+      "text": "Zerg Building Morph"
+    },
+    {
+      "id": 946,
+      "text": "Build Self"
+    },
+    {
+      "id": 947,
+      "text": "Zerg Build Self"
+    },
+    {
+      "id": 948,
+      "text": "Enter Nydus Canal"
+    },
+    {
+      "id": 949,
+      "text": "Protoss Build Self"
+    },
+    {
+      "id": 950,
+      "text": "Follow"
+    },
+    {
+      "id": 951,
+      "text": "Carrier"
+    },
+    {
+      "id": 952,
+      "text": "Carrier Fight"
+    },
+    {
+      "id": 953,
+      "text": "Reaver"
+    },
+    {
+      "id": 954,
+      "text": "Reaver Attack"
+    },
+    {
+      "id": 955,
+      "text": "Reaver Fight"
+    },
+    {
+      "id": 956,
+      "text": "Reaver Hold"
+    },
+    {
+      "id": 957,
+      "text": "Train Fighter"
+    },
+    {
+      "id": 958,
+      "text": "Strafe Unit"
+    },
+    {
+      "id": 959,
+      "text": "Scarab"
+    },
+    {
+      "id": 960,
+      "text": "Return"
+    },
+    {
+      "id": 961,
+      "text": "Drone Land"
+    },
+    {
+      "id": 962,
+      "text": "Building Land"
+    },
+    {
+      "id": 963,
+      "text": "Building Lift Off"
+    },
+    {
+      "id": 964,
+      "text": "Drone Lift Off"
+    },
+    {
+      "id": 965,
+      "text": "Lift Off"
+    },
+    {
+      "id": 966,
+      "text": "Reasearch Tech"
+    },
+    {
+      "id": 967,
+      "text": "Upgrade"
+    },
+    {
+      "id": 968,
+      "text": "Larva"
+    },
+    {
+      "id": 969,
+      "text": "Spawning Larva"
+    },
+    {
+      "id": 970,
+      "text": "Harvest"
+    },
+    {
+      "id": 971,
+      "text": "Harvest Gas"
+    },
+    {
+      "id": 972,
+      "text": "Return Gas"
+    },
+    {
+      "id": 973,
+      "text": "Harvest Minerals"
+    },
+    {
+      "id": 974,
+      "text": "Return Minerals"
+    },
+    {
+      "id": 975,
+      "text": "Enter Transport"
+    },
+    {
+      "id": 976,
+      "text": "Pick Up"
+    },
+    {
+      "id": 977,
+      "text": "Powerup"
+    },
+    {
+      "id": 978,
+      "text": "Siege Mode"
+    },
+    {
+      "id": 979,
+      "text": "Tank Mode"
+    },
+    {
+      "id": 980,
+      "text": "Watch Target"
+    },
+    {
+      "id": 981,
+      "text": "Initing Creep Growth"
+    },
+    {
+      "id": 982,
+      "text": "Stopping Creep Growth"
+    },
+    {
+      "id": 983,
+      "text": "Spread Creep"
+    },
+    {
+      "id": 984,
+      "text": "Guardian Aspect"
+    },
+    {
+      "id": 985,
+      "text": "Warping Archon"
+    },
+    {
+      "id": 986,
+      "text": "Completing Archon Summon"
+    },
+    {
+      "id": 987,
+      "text": "Hold Position"
+    },
+    {
+      "id": 988,
+      "text": "Cloak"
+    },
+    {
+      "id": 989,
+      "text": "Decloak"
+    },
+    {
+      "id": 990,
+      "text": "Unload"
+    },
+    {
+      "id": 991,
+      "text": "Move Unload"
+    },
+    {
+      "id": 992,
+      "text": "Fire Yamato Gun"
+    },
+    {
+      "id": 993,
+      "text": "Magna Pulse"
+    },
+    {
+      "id": 994,
+      "text": "Burrow"
+    },
+    {
+      "id": 995,
+      "text": "Burrowed"
+    },
+    {
+      "id": 996,
+      "text": "Unburrow"
+    },
+    {
+      "id": 997,
+      "text": "Cast Parasite"
+    },
+    {
+      "id": 998,
+      "text": "Summon Broodlings"
+    },
+    {
+      "id": 999,
+      "text": "EMP Shockwave"
+    },
+    {
+      "id": 1000,
+      "text": "Lockdown"
+    },
+    {
+      "id": 1001,
+      "text": "Nuke Wait"
+    },
+    {
+      "id": 1002,
+      "text": "Nuke Train"
+    },
+    {
+      "id": 1003,
+      "text": "Nuke Launch"
+    },
+    {
+      "id": 1004,
+      "text": "Nuke Paint"
+    },
+    {
+      "id": 1005,
+      "text": "Nuke Unit"
+    },
+    {
+      "id": 1006,
+      "text": "Nuke Ground"
+    },
+    {
+      "id": 1007,
+      "text": "Nuke Track"
+    },
+    {
+      "id": 1008,
+      "text": "Initializing Arbiter"
+    },
+    {
+      "id": 1009,
+      "text": "Cloaking nearby units"
+    },
+    {
+      "id": 1010,
+      "text": "Place Mine"
+    },
+    {
+      "id": 1011,
+      "text": "Right Click Action"
+    },
+    {
+      "id": 1012,
+      "text": "Left Click Action"
+    },
+    {
+      "id": 1013,
+      "text": "Sap Unit"
+    },
+    {
+      "id": 1014,
+      "text": "Sap Location"
+    },
+    {
+      "id": 1015,
+      "text": "Teleport"
+    },
+    {
+      "id": 1016,
+      "text": "Teleport to Location"
+    },
+    {
+      "id": 1017,
+      "text": "Place Scanner"
+    },
+    {
+      "id": 1018,
+      "text": "Scanner"
+    },
+    {
+      "id": 1019,
+      "text": "Defensive Matrix"
+    },
+    {
+      "id": 1020,
+      "text": "Reset Collision"
+    },
+    {
+      "id": 1021,
+      "text": "Reset Collision"
+    },
+    {
+      "id": 1022,
+      "text": "Patrol"
+    },
+    {
+      "id": 1023,
+      "text": "Computer AI"
+    },
+    {
+      "id": 1024,
+      "text": "Guard Post"
+    },
+    {
+      "id": 1025,
+      "text": "Rescue Passive"
+    },
+    {
+      "id": 1026,
+      "text": "Neutral"
+    },
+    {
+      "id": 1027,
+      "text": "Computer Return"
+    },
+    {
+      "id": 1028,
+      "text": "Initing Psi Provider"
+    },
+    {
+      "id": 1029,
+      "text": "Self Destructing"
+    },
+    {
+      "id": 1030,
+      "text": "Decaying creep"
+    },
+    {
+      "id": 1031,
+      "text": "Recharge Shields"
+    },
+    {
+      "id": 1032,
+      "text": "Shield Battery"
+    },
+    {
+      "id": 1033,
+      "text": "Rally Point"
+    },
+    {
+      "id": 1034,
+      "text": "CTF COP Init"
+    },
+    {
+      "id": 1035,
+      "text": "CTF COP"
+    },
+    {
+      "id": 1036,
+      "text": "Critter"
+    },
+    {
+      "id": 1037,
+      "text": "Hidden Gun"
+    },
+    {
+      "id": 1038,
+      "text": "Open Door"
+    },
+    {
+      "id": 1039,
+      "text": "Close Door"
+    },
+    {
+      "id": 1040,
+      "text": "Hide Trap"
+    },
+    {
+      "id": 1041,
+      "text": "Reveal Trap"
+    },
+    {
+      "id": 1042,
+      "text": "Enable Doodad"
+    },
+    {
+      "id": 1043,
+      "text": "Disable Doodad"
+    },
+    {
+      "id": 1044,
+      "text": "Warp In"
+    },
+    {
+      "id": 1045,
+      "text": "Hide and Suicide"
+    },
+    {
+      "id": 1046,
+      "text": "Fatal"
+    },
+    {
+      "id": 1047,
+      "text": "Nuclear launch detected."
+    },
+    {
+      "id": 1048,
+      "text": "c\u0000\u0003[C] \u0004지원 시설"
+    },
+    {
+      "id": 1049,
+      "text": "z\u0001\u0003[Z]\u0004수도 지정\r\n\u000f- 이 도시를 새로운 수도로 설정합니다."
+    },
+    {
+      "id": 1050,
+      "text": "수도 지정\r\n- 수도가 없을 때 이 도시를 수도로 만듭니다."
+    },
+    {
+      "id": 1051,
+      "text": "Terran Campaign Difficult"
+    },
+    {
+      "id": 1052,
+      "text": "Terran Campaign Area Town"
+    },
+    {
+      "id": 1053,
+      "text": "Terran 3 - Zerg Town"
+    },
+    {
+      "id": 1054,
+      "text": "Terran 5 - Terran Main Town"
+    },
+    {
+      "id": 1055,
+      "text": "Terran 5 - Terran Harvest Town"
+    },
+    {
+      "id": 1056,
+      "text": "Terran 6 - Air Attack Zerg"
+    },
+    {
+      "id": 1057,
+      "text": "Terran 6 - Ground Attack Zerg"
+    },
+    {
+      "id": 1058,
+      "text": "Terran 6 - Zerg Support Town"
+    },
+    {
+      "id": 1059,
+      "text": "Terran 7 - Bottom Zerg Town"
+    },
+    {
+      "id": 1060,
+      "text": "Terran 7 - Right Zerg Town"
+    },
+    {
+      "id": 1061,
+      "text": "Terran 7 - Middle Zerg Town"
+    },
+    {
+      "id": 1062,
+      "text": "Terran 8 - Confederate Town"
+    },
+    {
+      "id": 1063,
+      "text": "Terran 9 - Light Attack"
+    },
+    {
+      "id": 1064,
+      "text": "Terran 9 - Heavy Attack"
+    },
+    {
+      "id": 1065,
+      "text": "Terran 10 - Confederate Towns"
+    },
+    {
+      "id": 1066,
+      "text": "Terran 11 - Zerg Town"
+    },
+    {
+      "id": 1067,
+      "text": "Terran 11 - Lower Protoss Town"
+    },
+    {
+      "id": 1068,
+      "text": "Terran 11 - Upper Protoss Town"
+    },
+    {
+      "id": 1069,
+      "text": "Terran 12 - Nuke Town"
+    },
+    {
+      "id": 1070,
+      "text": "Terran 12 - Phoenix Town"
+    },
+    {
+      "id": 1071,
+      "text": "Terran 12 - Tank Town"
+    },
+    {
+      "id": 1072,
+      "text": "Protoss Custom Level"
+    },
+    {
+      "id": 1073,
+      "text": "Protoss Campaign Easy"
+    },
+    {
+      "id": 1074,
+      "text": "Protoss Campaign Medium"
+    },
+    {
+      "id": 1075,
+      "text": "Protoss Campaign Difficult"
+    },
+    {
+      "id": 1076,
+      "text": "Protoss Campaign Area Town"
+    },
+    {
+      "id": 1077,
+      "text": "Protoss 1 - Zerg Town"
+    },
+    {
+      "id": 1078,
+      "text": "Protoss 2 - Zerg Town"
+    },
+    {
+      "id": 1079,
+      "text": "Protoss 3 - Unused"
+    },
+    {
+      "id": 1080,
+      "text": "Protoss 3 - Air Zerg Town"
+    },
+    {
+      "id": 1081,
+      "text": "Protoss 3 - Ground Zerg Town"
+    },
+    {
+      "id": 1082,
+      "text": "Protoss 4 - Zerg Town"
+    },
+    {
+      "id": 1083,
+      "text": "Protoss 4 - Zerg Town (unused?)"
+    },
+    {
+      "id": 1084,
+      "text": "Protoss 5 - Zerg Town Island"
+    },
+    {
+      "id": 1085,
+      "text": "Protoss 5 - Zerg Town Base"
+    },
+    {
+      "id": 1086,
+      "text": "Protoss 6 - incomplete"
+    },
+    {
+      "id": 1087,
+      "text": "Protoss 7 - Left Protoss Town"
+    },
+    {
+      "id": 1088,
+      "text": "Protoss 7 - Right Protoss Town"
+    },
+    {
+      "id": 1089,
+      "text": "Protoss 7 - Shrine Protoss"
+    },
+    {
+      "id": 1090,
+      "text": "Protoss 8 - Left Protoss Town"
+    },
+    {
+      "id": 1091,
+      "text": "Protoss 8 - Right Protoss Town"
+    },
+    {
+      "id": 1092,
+      "text": "Protoss 8 - Protoss Defenders"
+    },
+    {
+      "id": 1093,
+      "text": "Protoss 9 - Ground Zerg"
+    },
+    {
+      "id": 1094,
+      "text": "Protoss 9 - Air Zerg"
+    },
+    {
+      "id": 1095,
+      "text": "Protoss 9 - Spell Zerg"
+    },
+    {
+      "id": 1096,
+      "text": "Protoss 10 - Mini-Towns"
+    },
+    {
+      "id": 1097,
+      "text": "Protoss 10 - Mini-Town Master"
+    },
+    {
+      "id": 1098,
+      "text": "Protoss 10 - Overmind Defenders"
+    },
+    {
+      "id": 1099,
+      "text": "Zerg Custom Level"
+    },
+    {
+      "id": 1100,
+      "text": "Zerg Campaign Easy"
+    },
+    {
+      "id": 1101,
+      "text": "Zerg Campaign Medium"
+    },
+    {
+      "id": 1102,
+      "text": "Zerg Campaign Difficult"
+    },
+    {
+      "id": 1103,
+      "text": "Zerg Campaign Area Town"
+    },
+    {
+      "id": 1104,
+      "text": "Zerg 1 - Terran Town"
+    },
+    {
+      "id": 1105,
+      "text": "Zerg 2 - Protoss Town"
+    },
+    {
+      "id": 1106,
+      "text": "Zerg 3 - Terran Town"
+    },
+    {
+      "id": 1107,
+      "text": "Zerg 4 - Right Terran Town"
+    },
+    {
+      "id": 1108,
+      "text": "Zerg 4 - Lower Terran Town"
+    },
+    {
+      "id": 1109,
+      "text": "Zerg 5 - incomplete"
+    },
+    {
+      "id": 1110,
+      "text": "Zerg 6 - Protoss Town"
+    },
+    {
+      "id": 1111,
+      "text": "Zerg 7 - Ground Town"
+    },
+    {
+      "id": 1112,
+      "text": "Zerg 7 - Air Town"
+    },
+    {
+      "id": 1113,
+      "text": "Zerg 7 - Support Town"
+    },
+    {
+      "id": 1114,
+      "text": "Zerg 8 - Scout Town"
+    },
+    {
+      "id": 1115,
+      "text": "Zerg 8 - Templar Town"
+    },
+    {
+      "id": 1116,
+      "text": "Zerg 9 - Teal Protoss"
+    },
+    {
+      "id": 1117,
+      "text": "Zerg 9 - Left Yellow Protoss"
+    },
+    {
+      "id": 1118,
+      "text": "Zerg 9 - Right Yellow Protoss"
+    },
+    {
+      "id": 1119,
+      "text": "Zerg 9 - Left Orange Protoss"
+    },
+    {
+      "id": 1120,
+      "text": "Zerg 9 - Right Orange Protoss"
+    },
+    {
+      "id": 1121,
+      "text": "Zerg 10 - Left Teal (Attack)"
+    },
+    {
+      "id": 1122,
+      "text": "Zerg 10 - Right Teal (Support)"
+    },
+    {
+      "id": 1123,
+      "text": "Zerg 10 - Left Yellow (Support)"
+    },
+    {
+      "id": 1124,
+      "text": "Zerg 10 - Right Yellow (Attack)"
+    },
+    {
+      "id": 1125,
+      "text": "Zerg 10 - Red Protoss"
+    },
+    {
+      "id": 1126,
+      "text": "Set a Default Staging Area"
+    },
+    {
+      "id": 1127,
+      "text": "Send All Units on Strategic Suicide Missions"
+    },
+    {
+      "id": 1128,
+      "text": "Send All Units on Random Suicide Missions"
+    },
+    {
+      "id": 1129,
+      "text": "Set Player to Enemy"
+    },
+    {
+      "id": 1130,
+      "text": "Set Player to Ally"
+    },
+    {
+      "id": 1131,
+      "text": "Move Dark Templars to Region"
+    },
+    {
+      "id": 1132,
+      "text": "Switch Computer Player to Rescue Passive"
+    },
+    {
+      "id": 1133,
+      "text": "Enter Closest Bunker"
+    },
+    {
+      "id": 1134,
+      "text": "Value This Area Higher"
+    },
+    {
+      "id": 1135,
+      "text": "Clear Previous Combat Data"
+    },
+    {
+      "id": 1136,
+      "text": "Debug Script 1 (general)"
+    },
+    {
+      "id": 1137,
+      "text": "Debug Script 2 (general)"
+    },
+    {
+      "id": 1138,
+      "text": "Debug Script 3 (general)"
+    },
+    {
+      "id": 1139,
+      "text": "Debug Script 4 (general)"
+    },
+    {
+      "id": 1140,
+      "text": "Debug Script 5 (general)"
+    },
+    {
+      "id": 1141,
+      "text": "Debug Script 1 (location)"
+    },
+    {
+      "id": 1142,
+      "text": "Debug Script 2 (location)"
+    },
+    {
+      "id": 1143,
+      "text": "Debug Script 3 (location)"
+    },
+    {
+      "id": 1144,
+      "text": "Debug Script 4 (location)"
+    },
+    {
+      "id": 1145,
+      "text": "Debug Script 5 (location)"
+    },
+    {
+      "id": 1146,
+      "text": "Structure"
+    },
+    {
+      "id": 1147,
+      "text": "Structure Wall"
+    },
+    {
+      "id": 1148,
+      "text": "Cliff"
+    },
+    {
+      "id": 1149,
+      "text": "High Dirt"
+    },
+    {
+      "id": 1150,
+      "text": "Grass"
+    },
+    {
+      "id": 1151,
+      "text": "High Grass"
+    },
+    {
+      "id": 1152,
+      "text": "Dirt"
+    },
+    {
+      "id": 1153,
+      "text": "Rocky Ground"
+    },
+    {
+      "id": 1154,
+      "text": "Asphalt"
+    },
+    {
+      "id": 1155,
+      "text": "Water"
+    },
+    {
+      "id": 1156,
+      "text": "Coastal Cliff"
+    },
+    {
+      "id": 1157,
+      "text": "Jungle"
+    },
+    {
+      "id": 1158,
+      "text": "High Jungle"
+    },
+    {
+      "id": 1159,
+      "text": "Ruins"
+    },
+    {
+      "id": 1160,
+      "text": "High Ruins"
+    },
+    {
+      "id": 1161,
+      "text": "Temple Wall"
+    },
+    {
+      "id": 1162,
+      "text": "High Temple Wall"
+    },
+    {
+      "id": 1163,
+      "text": "Dark Platform"
+    },
+    {
+      "id": 1164,
+      "text": "High Plating"
+    },
+    {
+      "id": 1165,
+      "text": "Plating"
+    },
+    {
+      "id": 1166,
+      "text": "Platform"
+    },
+    {
+      "id": 1167,
+      "text": "Platform Wall"
+    },
+    {
+      "id": 1168,
+      "text": "Low Platform"
+    },
+    {
+      "id": 1169,
+      "text": "Low Platform Wall"
+    },
+    {
+      "id": 1170,
+      "text": "Rusty Pit Wall"
+    },
+    {
+      "id": 1171,
+      "text": "Rusty Pit"
+    },
+    {
+      "id": 1172,
+      "text": "Solar Array"
+    },
+    {
+      "id": 1173,
+      "text": "Dirt"
+    },
+    {
+      "id": 1174,
+      "text": "High Dirt"
+    },
+    {
+      "id": 1175,
+      "text": "Shale"
+    },
+    {
+      "id": 1176,
+      "text": "Cliff"
+    },
+    {
+      "id": 1177,
+      "text": "Floor"
+    },
+    {
+      "id": 1178,
+      "text": "Wall"
+    },
+    {
+      "id": 1179,
+      "text": "Substructure"
+    },
+    {
+      "id": 1180,
+      "text": "Substructure Wall"
+    },
+    {
+      "id": 1181,
+      "text": "Plating"
+    },
+    {
+      "id": 1182,
+      "text": "Bridges"
+    },
+    {
+      "id": 1183,
+      "text": "Bridges"
+    },
+    {
+      "id": 1184,
+      "text": "Elevated Catwalk Ramps"
+    },
+    {
+      "id": 1185,
+      "text": "Bridges"
+    },
+    {
+      "id": 1186,
+      "text": "Tar"
+    },
+    {
+      "id": 1187,
+      "text": "Tar Cliff"
+    },
+    {
+      "id": 1188,
+      "text": "Dirt"
+    },
+    {
+      "id": 1189,
+      "text": "Dried Mud"
+    },
+    {
+      "id": 1190,
+      "text": "Sand Dunes"
+    },
+    {
+      "id": 1191,
+      "text": "Rocky Ground"
+    },
+    {
+      "id": 1192,
+      "text": "Crags"
+    },
+    {
+      "id": 1193,
+      "text": "Sandy Sunken Pit"
+    },
+    {
+      "id": 1194,
+      "text": "Compound"
+    },
+    {
+      "id": 1195,
+      "text": "High Dirt"
+    },
+    {
+      "id": 1196,
+      "text": "High Sand Dunes"
+    },
+    {
+      "id": 1197,
+      "text": "High Crags"
+    },
+    {
+      "id": 1198,
+      "text": "High Sandy Sunken Pit"
+    },
+    {
+      "id": 1199,
+      "text": "High Compound"
+    },
+    {
+      "id": 1200,
+      "text": "Water"
+    },
+    {
+      "id": 1201,
+      "text": "Snow"
+    },
+    {
+      "id": 1202,
+      "text": "Moguls"
+    },
+    {
+      "id": 1203,
+      "text": "Dirt"
+    },
+    {
+      "id": 1204,
+      "text": "Rocky Snow"
+    },
+    {
+      "id": 1205,
+      "text": "Grass"
+    },
+    {
+      "id": 1206,
+      "text": "Ice"
+    },
+    {
+      "id": 1207,
+      "text": "Outpost"
+    },
+    {
+      "id": 1208,
+      "text": "High Snow"
+    },
+    {
+      "id": 1209,
+      "text": "High Dirt"
+    },
+    {
+      "id": 1210,
+      "text": "High Grass"
+    },
+    {
+      "id": 1211,
+      "text": "High Ice"
+    },
+    {
+      "id": 1212,
+      "text": "High Outpost"
+    },
+    {
+      "id": 1213,
+      "text": "Water"
+    },
+    {
+      "id": 1214,
+      "text": "Dirt"
+    },
+    {
+      "id": 1215,
+      "text": "Mud"
+    },
+    {
+      "id": 1216,
+      "text": "Crushed Rock"
+    },
+    {
+      "id": 1217,
+      "text": "Crevices"
+    },
+    {
+      "id": 1218,
+      "text": "Flagstones"
+    },
+    {
+      "id": 1219,
+      "text": "Sunken Ground"
+    },
+    {
+      "id": 1220,
+      "text": "Basilica"
+    },
+    {
+      "id": 1221,
+      "text": "High Dirt"
+    },
+    {
+      "id": 1222,
+      "text": "High Crushed Rock"
+    },
+    {
+      "id": 1223,
+      "text": "High Flagstones"
+    },
+    {
+      "id": 1224,
+      "text": "High Sunken Ground"
+    },
+    {
+      "id": 1225,
+      "text": "High Basilica"
+    },
+    {
+      "id": 1226,
+      "text": "Terran Campaign Insane"
+    },
+    {
+      "id": 1227,
+      "text": "Protoss Campaign Insane"
+    },
+    {
+      "id": 1228,
+      "text": "Zerg Campaign Insane"
+    },
+    {
+      "id": 1229,
+      "text": "Terran 1 - Electronic Distribution"
+    },
+    {
+      "id": 1230,
+      "text": "Terran 2 - Electronic Distribution"
+    },
+    {
+      "id": 1231,
+      "text": "Terran 3 - Electronic Distribution"
+    },
+    {
+      "id": 1232,
+      "text": "Terran 1 - Shareware"
+    },
+    {
+      "id": 1233,
+      "text": "Terran 2 - Shareware"
+    },
+    {
+      "id": 1234,
+      "text": "Terran 3 - Shareware"
+    },
+    {
+      "id": 1235,
+      "text": "Terran 4 - Shareware"
+    },
+    {
+      "id": 1236,
+      "text": "Terran 5 - Shareware"
+    },
+    {
+      "id": 1237,
+      "text": "Halo Rockets"
+    },
+    {
+      "id": 1238,
+      "text": "Corrosive Acid"
+    },
+    {
+      "id": 1239,
+      "text": "Subterranean Spines"
+    },
+    {
+      "id": 1240,
+      "text": "Neutron Flare"
+    },
+    {
+      "id": 1241,
+      "text": "Mind Control"
+    },
+    {
+      "id": 1242,
+      "text": "Healing"
+    },
+    {
+      "id": 1243,
+      "text": "Restoration"
+    },
+    {
+      "id": 1244,
+      "text": "Optical Flare"
+    },
+    {
+      "id": 1245,
+      "text": "r\u0004Research \u0003R\u0001estoration\n(Medic ability)"
+    },
+    {
+      "id": 1246,
+      "text": "f\u0004Research Optical \u0003F\u0001lare\n(Medic ability)"
+    },
+    {
+      "id": 1247,
+      "text": "a\u0003He\u0003a\u0001l"
+    },
+    {
+      "id": 1248,
+      "text": "r\u0003\u0003R\u0001estoration"
+    },
+    {
+      "id": 1249,
+      "text": "f\u0003Optical \u0003F\u0001lare"
+    },
+    {
+      "id": 1250,
+      "text": "Restoration:\n   Research at Academy"
+    },
+    {
+      "id": 1251,
+      "text": "Optical Flare:\n   Research at Academy"
+    },
+    {
+      "id": 1252,
+      "text": "Lurker Aspect"
+    },
+    {
+      "id": 1253,
+      "text": "l\u0004Evolve \u0003L\u0001urker Aspect\n(Hydralisk ability)"
+    },
+    {
+      "id": 1254,
+      "text": "Lurker Aspect:\n   Requires Lair"
+    },
+    {
+      "id": 1255,
+      "text": "Disruption Web"
+    },
+    {
+      "id": 1256,
+      "text": "Mind Control"
+    },
+    {
+      "id": 1257,
+      "text": "Dark Archon Meld"
+    },
+    {
+      "id": 1258,
+      "text": "Feedback"
+    },
+    {
+      "id": 1259,
+      "text": "Maelstrom "
+    },
+    {
+      "id": 1260,
+      "text": "d\u0004Develop \u0003D\u0001isruption Web\n(Corsair ability)"
+    },
+    {
+      "id": 1261,
+      "text": "m\u0004Develop \u0003M\u0001ind Control\n(Dark Archon ability)"
+    },
+    {
+      "id": 1262,
+      "text": "f\u0004Develop \u0003F\u0001eedback\n(Dark Archon ability)"
+    },
+    {
+      "id": 1263,
+      "text": "e\u0004Develop Ma\u0003e\u0001lstrom\n(Dark Archon ability)"
+    },
+    {
+      "id": 1264,
+      "text": "r\u0001Da\u0003r\u0001k Archon Meld"
+    },
+    {
+      "id": 1265,
+      "text": "d\u0003\u0003D\u0001isruption Web"
+    },
+    {
+      "id": 1266,
+      "text": "c\u0003Mind \u0003C\u0001ontrol"
+    },
+    {
+      "id": 1267,
+      "text": "f\u0003\u0003F\u0001eedback"
+    },
+    {
+      "id": 1268,
+      "text": "e\u0003Ma\u0003e\u0001lstrom"
+    },
+    {
+      "id": 1269,
+      "text": "Disruption Web:\n   Develop at Fleet Beacon"
+    },
+    {
+      "id": 1270,
+      "text": "Mind Control:\n   Research at Templar Archives"
+    },
+    {
+      "id": 1271,
+      "text": "Dark Archon Meld:\n   Research at Templar Archives"
+    },
+    {
+      "id": 1272,
+      "text": "Dark Archon Warp:\n   Select 2 or more Dark Templars"
+    },
+    {
+      "id": 1273,
+      "text": "Feedback:\n   No requirement"
+    },
+    {
+      "id": 1274,
+      "text": "Maelstrom:\n   Develop at Templar Archives"
+    },
+    {
+      "id": 1275,
+      "text": "Caduceus Reactor"
+    },
+    {
+      "id": 1276,
+      "text": "Charon Booster"
+    },
+    {
+      "id": 1277,
+      "text": "Anabolic Synthesis"
+    },
+    {
+      "id": 1278,
+      "text": "Chitinous Plating"
+    },
+    {
+      "id": 1279,
+      "text": "Argus Jewel"
+    },
+    {
+      "id": 1280,
+      "text": "Argus Talisman"
+    },
+    {
+      "id": 1281,
+      "text": "d\u0002Research Ca\u0003d\u0001uceus Reactor\n(+50 Medic energy)"
+    },
+    {
+      "id": 1282,
+      "text": "c\u0002Research \u0003C\u0001haron Boosters\n(Increased Goliath Missile Range)"
+    },
+    {
+      "id": 1283,
+      "text": "a\u0002Evolve \u0003A\u0001nabolic Synthesis\n(Faster Ultralisk Movement)"
+    },
+    {
+      "id": 1284,
+      "text": "c\u0002Evolve \u0003C\u0001hitinous Plating\n(Improved Ultralisk Armor)"
+    },
+    {
+      "id": 1285,
+      "text": "j\u0002Develop Argus \u0003J\u0001ewel\n(+50 Corsair energy)"
+    },
+    {
+      "id": 1286,
+      "text": "t\u0002Develop Argus \u0003T\u0001alisman\n(+50 Dark Archon energy)"
+    },
+    {
+      "id": 1287,
+      "text": "Research Charon Booster:\n   Requires Armory"
+    },
+    {
+      "id": 1288,
+      "text": "d\u0005\u0003D\u0001evourer Aspect"
+    },
+    {
+      "id": 1289,
+      "text": "l\u0001Morph to \u0003L\u0001urker"
+    },
+    {
+      "id": 1290,
+      "text": "c\u0001Train Medi\u0003c\u0001"
+    },
+    {
+      "id": 1291,
+      "text": "y\u0001Build Valk\u0003y\u0001rie"
+    },
+    {
+      "id": 1292,
+      "text": "o\u0001Warp in C\u0003o\u0001rsair"
+    },
+    {
+      "id": 1293,
+      "text": "k\u0001Warp in Dar\u0003k\u0001 Templar"
+    },
+    {
+      "id": 1294,
+      "text": "Medic Requires:\n   Academy"
+    },
+    {
+      "id": 1295,
+      "text": "Valkyrie Requires:\n   Attached Control Tower\n   Armory"
+    },
+    {
+      "id": 1296,
+      "text": "Dark Templar Requires:\n   Templar Archives"
+    },
+    {
+      "id": 1297,
+      "text": "Devourer Aspect Requires:\n   Greater Spire"
+    },
+    {
+      "id": 1298,
+      "text": "Lurker Aspect:\n   Evolve at Hydralisk Den"
+    },
+    {
+      "id": 1299,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1300,
+      "text": "\u0007Acid Spores"
+    },
+    {
+      "id": 1301,
+      "text": "per rocket"
+    },
+    {
+      "id": 1302,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1303,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1304,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1305,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1306,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1307,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1308,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1309,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1310,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1311,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1312,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1313,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1314,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1315,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1316,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1317,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1318,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1319,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1320,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1321,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1322,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1323,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1324,
+      "text": "\\\u0000########################################################################################################################"
+    },
+    {
+      "id": 1325,
+      "text": "Must target injured non-mechanical ground units"
+    },
+    {
+      "id": 1326,
+      "text": "Invalid target."
+    },
+    {
+      "id": 1327,
+      "text": "Must target enemy units"
+    },
+    {
+      "id": 1328,
+      "text": "Must target non-mechanical units."
+    },
+    {
+      "id": 1329,
+      "text": "Unable to target structure."
+    },
+    {
+      "id": 1330,
+      "text": "Must target units with energy."
+    },
+    {
+      "id": 1331,
+      "text": "Medic"
+    },
+    {
+      "id": 1332,
+      "text": "Medic Heal"
+    },
+    {
+      "id": 1333,
+      "text": "Restoration"
+    },
+    {
+      "id": 1334,
+      "text": "Cast Disruption Web"
+    },
+    {
+      "id": 1335,
+      "text": "Cast Mind Control"
+    },
+    {
+      "id": 1336,
+      "text": "Warping Dark Archon"
+    },
+    {
+      "id": 1337,
+      "text": "Cast Feedback"
+    },
+    {
+      "id": 1338,
+      "text": "Cast Optical Flare"
+    },
+    {
+      "id": 1339,
+      "text": "Cast Shockwave"
+    },
+    {
+      "id": 1340,
+      "text": "Heal Move"
+    },
+    {
+      "id": 1341,
+      "text": "Medic Hold Position"
+    },
+    {
+      "id": 1342,
+      "text": "Junk Yard Dog"
+    },
+    {
+      "id": 1343,
+      "text": "Terran Expansion Custom Level"
+    },
+    {
+      "id": 1344,
+      "text": "Protoss Expansion Custom Level"
+    },
+    {
+      "id": 1345,
+      "text": "\u0004마을"
+    },
+    {
+      "id": 1346,
+      "text": "Brood Wars Protoss 1 - Town A"
+    },
+    {
+      "id": 1347,
+      "text": "Brood Wars Protoss 1 - Town B"
+    },
+    {
+      "id": 1348,
+      "text": "Brood Wars Protoss 1 - Town C"
+    },
+    {
+      "id": 1349,
+      "text": "Brood Wars Protoss 1 - Town D"
+    },
+    {
+      "id": 1350,
+      "text": "Brood Wars Protoss 1 - Town E"
+    },
+    {
+      "id": 1351,
+      "text": "Brood Wars Protoss 1 - Town F"
+    },
+    {
+      "id": 1352,
+      "text": "Brood Wars Protoss 2 - Town A"
+    },
+    {
+      "id": 1353,
+      "text": "Brood Wars Protoss 2 - Town B"
+    },
+    {
+      "id": 1354,
+      "text": "Brood Wars Protoss 2 - Town C"
+    },
+    {
+      "id": 1355,
+      "text": "Brood Wars Protoss 2 - Town D"
+    },
+    {
+      "id": 1356,
+      "text": "Brood Wars Protoss 2 - Town E"
+    },
+    {
+      "id": 1357,
+      "text": "Brood Wars Protoss 2 - Town F"
+    },
+    {
+      "id": 1358,
+      "text": "Brood Wars Protoss 3 - Town A"
+    },
+    {
+      "id": 1359,
+      "text": "Brood Wars Protoss 3 - Town B"
+    },
+    {
+      "id": 1360,
+      "text": "Brood Wars Protoss 3 - Town C"
+    },
+    {
+      "id": 1361,
+      "text": "Brood Wars Protoss 3 - Town D"
+    },
+    {
+      "id": 1362,
+      "text": "Brood Wars Protoss 3 - Town E"
+    },
+    {
+      "id": 1363,
+      "text": "Brood Wars Protoss 3 - Town F"
+    },
+    {
+      "id": 1364,
+      "text": "Brood Wars Protoss 4 - Town A"
+    },
+    {
+      "id": 1365,
+      "text": "Brood Wars Protoss 4 - Town B"
+    },
+    {
+      "id": 1366,
+      "text": "Brood Wars Protoss 4 - Town C"
+    },
+    {
+      "id": 1367,
+      "text": "Brood Wars Protoss 4 - Town D"
+    },
+    {
+      "id": 1368,
+      "text": "Brood Wars Protoss 4 - Town E"
+    },
+    {
+      "id": 1369,
+      "text": "Brood Wars Protoss 4 - Town F"
+    },
+    {
+      "id": 1370,
+      "text": "Brood Wars Protoss 5 - Town A"
+    },
+    {
+      "id": 1371,
+      "text": "Brood Wars Protoss 5 - Town B"
+    },
+    {
+      "id": 1372,
+      "text": "Brood Wars Protoss 5 - Town C"
+    },
+    {
+      "id": 1373,
+      "text": "Brood Wars Protoss 5 - Town D"
+    },
+    {
+      "id": 1374,
+      "text": "Brood Wars Protoss 5 - Town E"
+    },
+    {
+      "id": 1375,
+      "text": "Brood Wars Protoss 5 - Town F"
+    },
+    {
+      "id": 1376,
+      "text": "Brood Wars Protoss 6 - Town A"
+    },
+    {
+      "id": 1377,
+      "text": "Brood Wars Protoss 6 - Town B"
+    },
+    {
+      "id": 1378,
+      "text": "Brood Wars Protoss 6 - Town C"
+    },
+    {
+      "id": 1379,
+      "text": "Brood Wars Protoss 6 - Town D"
+    },
+    {
+      "id": 1380,
+      "text": "Brood Wars Protoss 6 - Town E"
+    },
+    {
+      "id": 1381,
+      "text": "Brood Wars Protoss 6 - Town F"
+    },
+    {
+      "id": 1382,
+      "text": "Brood Wars Protoss 7 - Town A"
+    },
+    {
+      "id": 1383,
+      "text": "Brood Wars Protoss 7 - Town B"
+    },
+    {
+      "id": 1384,
+      "text": "Brood Wars Protoss 7 - Town C"
+    },
+    {
+      "id": 1385,
+      "text": "Brood Wars Protoss 7 - Town D"
+    },
+    {
+      "id": 1386,
+      "text": "Brood Wars Protoss 7 - Town E"
+    },
+    {
+      "id": 1387,
+      "text": "Brood Wars Protoss 7 - Town F"
+    },
+    {
+      "id": 1388,
+      "text": "Brood Wars Protoss 8 - Town A"
+    },
+    {
+      "id": 1389,
+      "text": "Brood Wars Protoss 8 - Town B"
+    },
+    {
+      "id": 1390,
+      "text": "Brood Wars Protoss 8 - Town C"
+    },
+    {
+      "id": 1391,
+      "text": "Brood Wars Protoss 8 - Town D"
+    },
+    {
+      "id": 1392,
+      "text": "Brood Wars Protoss 8 - Town E"
+    },
+    {
+      "id": 1393,
+      "text": "Brood Wars Protoss 8 - Town F"
+    },
+    {
+      "id": 1394,
+      "text": "Brood Wars Terran 1 - Town A"
+    },
+    {
+      "id": 1395,
+      "text": "Brood Wars Terran 1 - Town B"
+    },
+    {
+      "id": 1396,
+      "text": "Brood Wars Terran 1 - Town C"
+    },
+    {
+      "id": 1397,
+      "text": "Brood Wars Terran 1 - Town D"
+    },
+    {
+      "id": 1398,
+      "text": "Brood Wars Terran 1 - Town E"
+    },
+    {
+      "id": 1399,
+      "text": "Brood Wars Terran 1 - Town F"
+    },
+    {
+      "id": 1400,
+      "text": "Brood Wars Terran 2 - Town A"
+    },
+    {
+      "id": 1401,
+      "text": "Brood Wars Terran 2 - Town B"
+    },
+    {
+      "id": 1402,
+      "text": "Brood Wars Terran 2 - Town C"
+    },
+    {
+      "id": 1403,
+      "text": "Brood Wars Terran 2 - Town D"
+    },
+    {
+      "id": 1404,
+      "text": "Brood Wars Terran 2 - Town E"
+    },
+    {
+      "id": 1405,
+      "text": "Brood Wars Terran 2 - Town F"
+    },
+    {
+      "id": 1406,
+      "text": "Brood Wars Terran 3 - Town A"
+    },
+    {
+      "id": 1407,
+      "text": "Brood Wars Terran 3 - Town B"
+    },
+    {
+      "id": 1408,
+      "text": "Brood Wars Terran 3 - Town C"
+    },
+    {
+      "id": 1409,
+      "text": "Brood Wars Terran 3 - Town D"
+    },
+    {
+      "id": 1410,
+      "text": "Brood Wars Terran 3 - Town E"
+    },
+    {
+      "id": 1411,
+      "text": "Brood Wars Terran 3 - Town F"
+    },
+    {
+      "id": 1412,
+      "text": "Brood Wars Terran 4 - Town A"
+    },
+    {
+      "id": 1413,
+      "text": "Brood Wars Terran 4 - Town B"
+    },
+    {
+      "id": 1414,
+      "text": "Brood Wars Terran 4 - Town C"
+    },
+    {
+      "id": 1415,
+      "text": "Brood Wars Terran 4 - Town D"
+    },
+    {
+      "id": 1416,
+      "text": "Brood Wars Terran 4 - Town E"
+    },
+    {
+      "id": 1417,
+      "text": "Brood Wars Terran 4 - Town F"
+    },
+    {
+      "id": 1418,
+      "text": "Brood Wars Terran 5 - Town A"
+    },
+    {
+      "id": 1419,
+      "text": "Brood Wars Terran 5 - Town B"
+    },
+    {
+      "id": 1420,
+      "text": "Brood Wars Terran 5 - Town C"
+    },
+    {
+      "id": 1421,
+      "text": "Brood Wars Terran 5 - Town D"
+    },
+    {
+      "id": 1422,
+      "text": "Brood Wars Terran 5 - Town E"
+    },
+    {
+      "id": 1423,
+      "text": "Brood Wars Terran 5 - Town F"
+    },
+    {
+      "id": 1424,
+      "text": "Brood Wars Terran 6 - Town A"
+    },
+    {
+      "id": 1425,
+      "text": "Brood Wars Terran 6 - Town B"
+    },
+    {
+      "id": 1426,
+      "text": "Brood Wars Terran 6 - Town C"
+    },
+    {
+      "id": 1427,
+      "text": "Brood Wars Terran 6 - Town D"
+    },
+    {
+      "id": 1428,
+      "text": "Brood Wars Terran 6 - Town E"
+    },
+    {
+      "id": 1429,
+      "text": "Brood Wars Terran 6 - Town F"
+    },
+    {
+      "id": 1430,
+      "text": "Brood Wars Terran 7 - Town A"
+    },
+    {
+      "id": 1431,
+      "text": "Brood Wars Terran 7 - Town B"
+    },
+    {
+      "id": 1432,
+      "text": "Brood Wars Terran 7 - Town C"
+    },
+    {
+      "id": 1433,
+      "text": "Brood Wars Terran 7 - Town D"
+    },
+    {
+      "id": 1434,
+      "text": "Brood Wars Terran 7 - Town E"
+    },
+    {
+      "id": 1435,
+      "text": "Brood Wars Terran 7 - Town F"
+    },
+    {
+      "id": 1436,
+      "text": "Brood Wars Terran 8 - Town A"
+    },
+    {
+      "id": 1437,
+      "text": "Brood Wars Terran 8 - Town B"
+    },
+    {
+      "id": 1438,
+      "text": "Brood Wars Terran 8 - Town C"
+    },
+    {
+      "id": 1439,
+      "text": "Brood Wars Terran 8 - Town D"
+    },
+    {
+      "id": 1440,
+      "text": "Brood Wars Terran 8 - Town E"
+    },
+    {
+      "id": 1441,
+      "text": "Brood Wars Terran 8 - Town F"
+    },
+    {
+      "id": 1442,
+      "text": "Brood Wars Zerg 1 - Town A"
+    },
+    {
+      "id": 1443,
+      "text": "Brood Wars Zerg 1 - Town B"
+    },
+    {
+      "id": 1444,
+      "text": "Brood Wars Zerg 1 - Town C"
+    },
+    {
+      "id": 1445,
+      "text": "Brood Wars Zerg 1 - Town D"
+    },
+    {
+      "id": 1446,
+      "text": "Brood Wars Zerg 1 - Town E"
+    },
+    {
+      "id": 1447,
+      "text": "Brood Wars Zerg 1 - Town F"
+    },
+    {
+      "id": 1448,
+      "text": "Brood Wars Zerg 2 - Town A"
+    },
+    {
+      "id": 1449,
+      "text": "Brood Wars Zerg 2 - Town B"
+    },
+    {
+      "id": 1450,
+      "text": "Brood Wars Zerg 2 - Town C"
+    },
+    {
+      "id": 1451,
+      "text": "Brood Wars Zerg 2 - Town D"
+    },
+    {
+      "id": 1452,
+      "text": "Brood Wars Zerg 2 - Town E"
+    },
+    {
+      "id": 1453,
+      "text": "Brood Wars Zerg 2 - Town F"
+    },
+    {
+      "id": 1454,
+      "text": "Brood Wars Zerg 3 - Town A"
+    },
+    {
+      "id": 1455,
+      "text": "Brood Wars Zerg 3 - Town B"
+    },
+    {
+      "id": 1456,
+      "text": "Brood Wars Zerg 3 - Town C"
+    },
+    {
+      "id": 1457,
+      "text": "Brood Wars Zerg 3 - Town D"
+    },
+    {
+      "id": 1458,
+      "text": "Brood Wars Zerg 3 - Town E"
+    },
+    {
+      "id": 1459,
+      "text": "Brood Wars Zerg 3 - Town F"
+    },
+    {
+      "id": 1460,
+      "text": "Brood Wars Zerg 4 - Town A"
+    },
+    {
+      "id": 1461,
+      "text": "Brood Wars Zerg 4 - Town B"
+    },
+    {
+      "id": 1462,
+      "text": "Brood Wars Zerg 4 - Town C"
+    },
+    {
+      "id": 1463,
+      "text": "Brood Wars Zerg 4 - Town D"
+    },
+    {
+      "id": 1464,
+      "text": "Brood Wars Zerg 4 - Town E"
+    },
+    {
+      "id": 1465,
+      "text": "Brood Wars Zerg 4 - Town F"
+    },
+    {
+      "id": 1466,
+      "text": "Brood Wars Zerg 5 - Town A"
+    },
+    {
+      "id": 1467,
+      "text": "Brood Wars Zerg 5 - Town B"
+    },
+    {
+      "id": 1468,
+      "text": "Brood Wars Zerg 5 - Town C"
+    },
+    {
+      "id": 1469,
+      "text": "Brood Wars Zerg 5 - Town D"
+    },
+    {
+      "id": 1470,
+      "text": "Brood Wars Zerg 5 - Town E"
+    },
+    {
+      "id": 1471,
+      "text": "Brood Wars Zerg 5 - Town F"
+    },
+    {
+      "id": 1472,
+      "text": "Brood Wars Zerg 6 - Town A"
+    },
+    {
+      "id": 1473,
+      "text": "Brood Wars Zerg 6 - Town B"
+    },
+    {
+      "id": 1474,
+      "text": "Brood Wars Zerg 6 - Town C"
+    },
+    {
+      "id": 1475,
+      "text": "Brood Wars Zerg 6 - Town D"
+    },
+    {
+      "id": 1476,
+      "text": "Brood Wars Zerg 6 - Town E"
+    },
+    {
+      "id": 1477,
+      "text": "Brood Wars Zerg 6 - Town F"
+    },
+    {
+      "id": 1478,
+      "text": "Brood Wars Zerg 7 - Town A"
+    },
+    {
+      "id": 1479,
+      "text": "Brood Wars Zerg 7 - Town B"
+    },
+    {
+      "id": 1480,
+      "text": "Brood Wars Zerg 7 - Town C"
+    },
+    {
+      "id": 1481,
+      "text": "Brood Wars Zerg 7 - Town D"
+    },
+    {
+      "id": 1482,
+      "text": "Brood Wars Zerg 7 - Town E"
+    },
+    {
+      "id": 1483,
+      "text": "Brood Wars Zerg 7 - Town F"
+    },
+    {
+      "id": 1484,
+      "text": "Brood Wars Zerg 8 - Town A"
+    },
+    {
+      "id": 1485,
+      "text": "Brood Wars Zerg 8 - Town B"
+    },
+    {
+      "id": 1486,
+      "text": "Brood Wars Zerg 8 - Town C"
+    },
+    {
+      "id": 1487,
+      "text": "Brood Wars Zerg 8 - Town D"
+    },
+    {
+      "id": 1488,
+      "text": "Brood Wars Zerg 8 - Town E"
+    },
+    {
+      "id": 1489,
+      "text": "Brood Wars Zerg 8 - Town F"
+    },
+    {
+      "id": 1490,
+      "text": "Brood Wars Zerg 9 - Town A"
+    },
+    {
+      "id": 1491,
+      "text": "Brood Wars Zerg 9 - Town B"
+    },
+    {
+      "id": 1492,
+      "text": "Brood Wars Zerg 9 - Town C"
+    },
+    {
+      "id": 1493,
+      "text": "Brood Wars Zerg 9 - Town D"
+    },
+    {
+      "id": 1494,
+      "text": "Brood Wars Zerg 9 - Town E"
+    },
+    {
+      "id": 1495,
+      "text": "Brood Wars Zerg 9 - Town F"
+    },
+    {
+      "id": 1496,
+      "text": "Brood Wars Zerg 10 - Town A"
+    },
+    {
+      "id": 1497,
+      "text": "Brood Wars Zerg 10 - Town B"
+    },
+    {
+      "id": 1498,
+      "text": "Brood Wars Zerg 10 - Town C"
+    },
+    {
+      "id": 1499,
+      "text": "Brood Wars Zerg 10 - Town D"
+    },
+    {
+      "id": 1500,
+      "text": "Brood Wars Zerg 10 - Town E"
+    },
+    {
+      "id": 1501,
+      "text": "Brood Wars Zerg 10 - Town F"
+    },
+    {
+      "id": 1502,
+      "text": "Expansion Zerg Campaign Easy"
+    },
+    {
+      "id": 1503,
+      "text": "Expansion Zerg Campaign Medium"
+    },
+    {
+      "id": 1504,
+      "text": "Expansion Zerg Campaign Difficult"
+    },
+    {
+      "id": 1505,
+      "text": "Expansion Zerg Campaign Area Town"
+    },
+    {
+      "id": 1506,
+      "text": "Expansion Protoss Campaign Easy"
+    },
+    {
+      "id": 1507,
+      "text": "Expansion Protoss Campaign Medium"
+    },
+    {
+      "id": 1508,
+      "text": "Expansion Protoss Campaign Difficult"
+    },
+    {
+      "id": 1509,
+      "text": "Expansion Protoss Campaign Area Town"
+    },
+    {
+      "id": 1510,
+      "text": "Expansion Terran Campaign Easy"
+    },
+    {
+      "id": 1511,
+      "text": "Expansion Terran Campaign Medium"
+    },
+    {
+      "id": 1512,
+      "text": "Expansion Terran Campaign Difficult"
+    },
+    {
+      "id": 1513,
+      "text": "Expansion Terran Campaign Area Town"
+    },
+    {
+      "id": 1514,
+      "text": "Expansion Terran Campaign Insane"
+    },
+    {
+      "id": 1515,
+      "text": "Expansion Protoss Campaign Insane"
+    },
+    {
+      "id": 1516,
+      "text": "Expansion Zerg Campaign Insane"
+    },
+    {
+      "id": 1517,
+      "text": "Set Generic Command Target"
+    },
+    {
+      "id": 1518,
+      "text": "Make These Units Patrol"
+    },
+    {
+      "id": 1519,
+      "text": "Enter Transport"
+    },
+    {
+      "id": 1520,
+      "text": "Exit Transport"
+    },
+    {
+      "id": 1521,
+      "text": "Turn ON Shared Vision for Player 1"
+    },
+    {
+      "id": 1522,
+      "text": "Turn ON Shared Vision for Player 2"
+    },
+    {
+      "id": 1523,
+      "text": "Turn ON Shared Vision for Player 3"
+    },
+    {
+      "id": 1524,
+      "text": "Turn ON Shared Vision for Player 4"
+    },
+    {
+      "id": 1525,
+      "text": "Turn ON Shared Vision for Player 5"
+    },
+    {
+      "id": 1526,
+      "text": "Turn ON Shared Vision for Player 6"
+    },
+    {
+      "id": 1527,
+      "text": "Turn ON Shared Vision for Player 7"
+    },
+    {
+      "id": 1528,
+      "text": "Turn ON Shared Vision for Player 8"
+    },
+    {
+      "id": 1529,
+      "text": "Turn OFF Shared Vision for Player 1"
+    },
+    {
+      "id": 1530,
+      "text": "Turn OFF Shared Vision for Player 2"
+    },
+    {
+      "id": 1531,
+      "text": "Turn OFF Shared Vision for Player 3"
+    },
+    {
+      "id": 1532,
+      "text": "Turn OFF Shared Vision for Player 4"
+    },
+    {
+      "id": 1533,
+      "text": "Turn OFF Shared Vision for Player 5"
+    },
+    {
+      "id": 1534,
+      "text": "Turn OFF Shared Vision for Player 6"
+    },
+    {
+      "id": 1535,
+      "text": "Turn OFF Shared Vision for Player 7"
+    },
+    {
+      "id": 1536,
+      "text": "Turn OFF Shared Vision for Player 8"
+    },
+    {
+      "id": 1537,
+      "text": "AI Nuke Here"
+    },
+    {
+      "id": 1538,
+      "text": "AI Harass Here"
+    },
+    {
+      "id": 1539,
+      "text": "Set Unit Order To: Junk Yard Dog"
+    },
+    {
+      "id": 1540,
+      "text": "View Players"
+    },
+    {
+      "id": 1541,
+      "text": "u\u0000Speed \u0003U\u0001p"
+    },
+    {
+      "id": 1542,
+      "text": "p\u0000\u0003P\u0001lay"
+    },
+    {
+      "id": 1543,
+      "text": "p\u0000\u0003P\u0001ause"
+    },
+    {
+      "id": 1544,
+      "text": "d\u0000Slow \u0003D\u0001own"
+    },
+    {
+      "id": 1545,
+      "text": "Replay Progress"
+    },
+    {
+      "id": 1546,
+      "text": "Paused"
+    },
+    {
+      "id": 1547,
+      "text": "Unlimited"
+    }
+  ]
+}
