@@ -48,7 +48,7 @@ __patternAddr__: debugChatPattern
 [MSQC]
 QCLoc: 20
 QCPlayer: P11
-QCDebug: false
+QCDebug: true
 mouse: 5
 KeyPress(F); MouseDown(R); NotTyping: 214, 1
 KeyPress(F); MouseDown(L); NotTyping: 214, 2
