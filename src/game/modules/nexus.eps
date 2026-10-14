@@ -93,17 +93,17 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
         case unProxy(UnitModel.barracks):
             break;
         default:
-            resetCommand(unit, 3);
+            resetCommand(unit, 23);
             return;
     }
     if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
-        resetCommand(unit, 3);
+        resetCommand(unit, 23);
         return;
     }
     const x, y = posread_epd(unit + 0x58 / 4);
     setloc(Loc.city_spawn, x, y);
     const order = maskread_epd(unit + 0x4C / 4, 0xFF00) >> 8;
-    if (order != 30 && order != 31) { resetCommand(unit, 3); return; }
+    if (order != 30 && order != 31) { resetCommand(unit, 23); return; }
     const probe = CUnit.from_next();
     if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
     else { CreateUnit(1, UnitModel.scv, Loc.city_spawn, player); }
@@ -113,7 +113,7 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
         probe.orderID = order;
         PROXIES.add(probe);
     }
-    resetCommand(unit, 3);
+    resetCommand(unit, 23);
 }
 
 function tick() {

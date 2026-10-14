@@ -44,8 +44,16 @@ def f_init():
     capital.unitBoundsT = 48
     capital.unitBoundsR = 48
     capital.unitBoundsB = 48
-    # FranceDp처럼 기본/복귀 명령은 원본 Khaydarin DAT를 유지.
+    capital.computerIdleOrder = 156
+    capital.humanIdleOrder = 23  # Nothing
+    capital.returnToIdleOrder = 23
+    capital.attackUnitOrder = 23
+    capital.attackMoveOrder = 23
     capital.rightClickAction = 5
+    capital.ignoreStrategicSuicideMissions = True
+    capital.dontBecomeGuard = True  # 내부 AI 플래그 3
+    capital.groupFlags = 0x14  # Protoss + Building
+    capital.availabilityFlags = 0x1CF
     capital.sightRange = 11
     capital.portrait = 60
     capital.groundWeapon = 130
