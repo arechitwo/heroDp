@@ -1,6 +1,6 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
-from eudplib import Db, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
+from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel
 
 BUTTON_TABLE = 0x5187E8
@@ -54,8 +54,10 @@ def f_init():
     capital.gasCost = 0
     capital.killScore = 25
     # FranceDp의 수도(168) 상태 정보: 건물 생산창 대신 유닛 정보창.
-    SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, UNIT_STATUS_UPDATE)
-    SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 8, SetTo, UNIT_STATUS_DRAW)
+    DoActions([
+        SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, UNIT_STATUS_UPDATE),
+        SetMemory(STATUS_TABLE + EncodeUnit(capital) * 12 + 8, SetTo, UNIT_STATUS_DRAW),
+    ])
 
     gate = UnitModel.barracks
     gate.nameString = '\x05훈련소'
@@ -75,7 +77,9 @@ def f_init():
     signal.supplyUsed = 0
     signal.timeCost = 9999  # Queue is consumed by summonFromCity before completion.
 
-    SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 1)
-    SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS)
-    SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12, SetTo, 1)
-    SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12 + 4, SetTo, CITY_BUTTONS)
+    DoActions([
+        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 1),
+        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS),
+        SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12, SetTo, 1),
+        SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12 + 4, SetTo, CITY_BUTTONS),
+    ])
