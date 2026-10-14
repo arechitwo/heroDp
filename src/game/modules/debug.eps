@@ -30,6 +30,15 @@ EUDRegisterObjectToNamespace("debugValueSend", valueSend);
 EUDRegisterObjectToNamespace("debugPatternReceived", PATTERN_RECEIVED);
 EUDRegisterObjectToNamespace("debugValueReceived", VALUE_RECEIVED);
 
+function init() {
+    if (!cfg.DEBUG_ENABLED) { return; }
+    UnitModel.debug_marine.nameString = "\x04디버그 마린";
+    UnitModel.debug_marine.groundWeapon.damage = 2000;
+    UnitModel.debug_marine.groundWeapon.damageBonus = 0;
+    UnitModel.debug_marine.airWeapon.damage = 2000;
+    UnitModel.debug_marine.airWeapon.damageBonus = 0;
+}
+
 function captureChat() {
     patternSend = 0;
     valueSend = 0;
@@ -48,7 +57,7 @@ function captureChat() {
 function help() {
     println("\x04선택 유닛 확인: 디버그 유닛 (표시 켜기/끄기)");
     println("\x06[디버그] 디버그 돈 50000 / 디버그 가스 50000 / 디버그 자원 50000");
-    println("\x04생성: 디버그 마린 10 / 디버그 SCV 1");
+    println("\x04생성: 디버그 마린 10 (짐 레이너, 공격력 2000) / 디버그 창병 10 / 디버그 SCV 1");
     println("\x04타이머: 디버그 세금타이머 720 / 디버그 주둔군타이머 120 / 디버그 시작타이머 120");
     println("\x04기본값 변경: 디버그 값 10000 / 디버그 개수 10. 숫자 생략 시 기본값 적용.");
     println("\x04유닛 생성·주둔군 타이머는 내 마우스 위치 기준. 타이머 단위는 트리거 틱.");
@@ -156,12 +165,13 @@ function execute(player, command) {
             setMinerals(player, VALUES[player]);
             setGas(player, VALUES[player]);
             break;
-        case 104: spawn(player, UnitModel.marine, COUNTS[player]); break;
+        case 104: spawn(player, UnitModel.debug_marine, COUNTS[player]); break;
         case 105: spawn(player, UnitModel.scv, COUNTS[player]); break;
         case 106: setTaxTimer(VALUES[player]); break;
         case 107: setGarrisonTimer(player, VALUES[player]); break;
         case 108: setStartTimer(VALUES[player]); break;
         case 109: UNIT_INSPECT[player] = 1 - UNIT_INSPECT[player]; break;
+        case 111: spawn(player, UnitModel.spearman, COUNTS[player]); break;
     }
 }
 
@@ -171,22 +181,22 @@ function tick() {
         if (cp >= 7) { continue; }
         setcurpl(cp);
         const packet = PATTERN_RECEIVED[cp];
-        if (packet >= 256 && packet < 2816) {
+        if (packet >= 256 && packet < 3072) {
             const command = packet >> 8;
             var value = VALUE_RECEIVED[cp] + ((packet & 0xFF) << 24);
             PATTERN_RECEIVED[cp] = 0;
             VALUE_RECEIVED[cp] = 0;
-            if (command == 4 || command == 5 || command == 10) {
+            if (command == 4 || command == 5 || command == 10 || command == 11) {
                 if (value > 255) { value = 255; }
                 COUNTS[cp] = value;
             } else {
                 VALUES[cp] = value;
             }
-            if (command <= 8) { execute(cp, command + 100); }
+            if (command <= 8 || command == 11) { execute(cp, command + 100); }
             println("\x04[디버그] 값 {} · 생성 개수 {}", VALUES[cp], COUNTS[cp]);
         }
         const command = ui.chatReceived[cp];
-        if (command >= 100 && command <= 109) {
+        if (command >= 100 && command <= 111) {
             ui.chatReceived[cp] = 0;
             execute(cp, command);
             println("\x04[디버그] 값 {} · 생성 개수 {}", VALUES[cp], COUNTS[cp]);

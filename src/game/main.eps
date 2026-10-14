@@ -14,6 +14,7 @@ function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
     unitData.init(); // 기본 병종 JSON 적용. 특수 유닛은 아직 설정하지 않음.
+    debug.init();
     cities.init();
     nexus.init();
     randomize();

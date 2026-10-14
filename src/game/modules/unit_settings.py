@@ -29,6 +29,7 @@ class UnitModel:
     # 마린 외형을 적용하는 주둔군. 실제 Marine과 다른 유닛입니다.
     defender = TrgUnit("Zerg Broodling")
     marine = light_infantry
+    debug_marine = TrgUnit("Jim Raynor (Marine)")
 
     # 전군 명령에서 제외하는 일꾼·맵 유닛
     scv = TrgUnit("Terran SCV")
