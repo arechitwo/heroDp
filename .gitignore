@@ -9,3 +9,5 @@ __epspy__/
 *.epmap
 *.epmap.prof
 *.tmp
+maps/BuildData_제목 없음/*
+maps/제목 없음.e3s

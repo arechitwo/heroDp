@@ -25,7 +25,6 @@ function init() {
                 CreateUnit(1, UnitModel.small_city, Loc.city_spawn, 7);
                 if (!MemoryXEPD(city + 0x4C / 4, Exactly, 0, 0xFF00)) {
                     city.statusFlags.Invincible = true;
-                    city.orderID = 18;
                     city.unknown0x8C = 0;
                     CITY_UNITS[registeredCities] = city;
                     registeredCities++;
