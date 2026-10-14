@@ -6,6 +6,8 @@ from eudplib import Db, DoActions, EPD, EncodeUnit, SetMemory, SetMemoryX, SetTo
 DATA = Path(settings.get('data_dir', 'build/generated'))
 UNIT_REQUIRE_DATA = 0x514178
 ORDER_REQUIRE_DATA = 0x514CF8
+UNIT_REQUIRE_WORDS = (0x5145C0 - UNIT_REQUIRE_DATA) // 2
+ORDER_REQUIRE_WORDS = (0x5151C2 - ORDER_REQUIRE_DATA) // 2
 # euddraft resolves relative paths from the recipe directory and does not set __file__.
 manifest = json.loads((DATA / 'manifest.json').read_text(encoding='utf-8'))
 
@@ -29,25 +31,22 @@ def f_apply_unit_overrides():
     def append_word(address, value):
         shift = (address & 2) * 8
         actions.append(SetMemoryX(address & ~3, SetTo, value << shift, 0xFFFF << shift))
-    offset = overrides['data_word_offset']
     for model, words in overrides['units'].items():
-        unit_offset = overrides.get('unit_word_offsets', {}).get(model, offset)
+        unit_offset = overrides['unit_word_offsets'][model]
+        if not 0 < unit_offset or unit_offset + len(words) > UNIT_REQUIRE_WORDS:
+            raise ValueError(f'Unit requirement exceeds its data region: {model}')
         append_word(0x660A70 + EncodeUnit(getattr(UnitModel, model)) * 2, unit_offset)
         for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
             append_word(UNIT_REQUIRE_DATA + (unit_offset + index) * 2, value)
-        if model not in overrides.get('unit_word_offsets', {}):
-            offset += len(words)
     for order, words in overrides.get('orders', {}).items():
-        # 배치 위치는 전체 RequireData 기준, 명령 오프셋은 명령 영역 기준.
-        order_offset = (UNIT_REQUIRE_DATA + offset * 2 - ORDER_REQUIRE_DATA) // 2
-        order_offset = overrides.get('order_word_offsets', {}).get(order, order_offset)
+        order_offset = overrides['order_word_offsets'][order]
+        if not 0 < order_offset or order_offset + len(words) > ORDER_REQUIRE_WORDS:
+            raise ValueError(f'Order requirement exceeds its data region: {order}')
         append_word(0x665580 + int(order) * 2, order_offset)
         for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
             append_word(ORDER_REQUIRE_DATA + (order_offset + index) * 2, value)
-        if order not in overrides.get('order_word_offsets', {}):
-            offset += len(words)
     DoActions(actions)
 
 

@@ -34,7 +34,7 @@ src/data/require_data.json의 unit_overrides에서 소환·게이트웨이 요�
 unit_overrides.orders는 FranceDp의 실제 30·31·32·33·34·70번 조건 프로그램을 사용합니다. 게이트웨이는 수도 보유를 요구합니다. 31번은 프로브, 30번은 SCV에 같은 명령 ID·목표 좌표·buildQueue1을 전달하며 70번은 FranceDp처럼 건설 대리 유닛을 생성하지 않습니다.
 유닛 오프셋은 0x514178, 명령 오프셋은 0x514CF8을 기준으로 계산합니다. 전체 데이터 내 배치 위치를 명령 테이블에 그대로 쓰지 않습니다.
 enabled는 기존 FranceDp 전체 스냅샷 적용 여부이며 unit_overrides.enabled는 두 유닛의 개별 적용 여부입니다.
-수도 소환 프로그램은 word offset 2085부터 예약합니다. 게이트웨이는 unit_word_offsets의 361, 건설 명령은 order_word_offsets에 기록한 FranceDp 실제 위치를 사용합니다.
+수도 소환은 FranceDp의 기존 소환 조건 위치인 유닛 WORD 오프셋 183을 재사용합니다. 게이트웨이는 361, 건설 명령은 order_word_offsets에 기록한 실제 위치를 사용합니다. 유닛 영역은 548 WORD, 명령 영역은 613 WORD이며 각 프로그램의 끝이 해당 영역을 넘으면 빌드를 중단합니다.
 도시의 조건 함수는 CanTrain, 동작 함수는 Train이며 수도의 버튼은 FranceDp WarpBuilding 동작을 사용합니다.
 버튼 데이터는 FranceDp와 같은 20바이트 구조로 가능·불가능 설명 ID를 모두 지정합니다.
 수도에는 게이트웨이 건설 버튼 하나만, 파일런에는 수도 소환 버튼 하나만 등록합니다.
