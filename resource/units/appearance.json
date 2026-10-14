@@ -1,7 +1,7 @@
 {
   "spearman": {
     "name": "\u0004창병",
-    "graphics": {},
+    "graphics": {"look": "broodling"},
     "size": {
       "placement": {},
       "bounds": {}

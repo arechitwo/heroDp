@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo
-from .unit_settings import UnitModel
+from .unit_settings import Looks, UnitModel
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
@@ -90,6 +90,9 @@ def f_init():
             value = _value(appearance, field)
             if value is not None:
                 setattr(unit, attribute, value)
+        look = (appearance.get('graphics') or {}).get('look')
+        if look is not None:
+            unit.flingy = getattr(Looks, look)
         width = _value(appearance, 'size.placement.width')
         height = _value(appearance, 'size.placement.height')
         if width is not None and height is not None:

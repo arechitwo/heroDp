@@ -4,6 +4,7 @@ from eudplib import Flingy, TrgUnit
 
 class Looks:
     nexus = Flingy("Nexus")
+    broodling = Flingy("Broodling")
 
 
 class UnitModel:
