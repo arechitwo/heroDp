@@ -31,7 +31,7 @@ nexus_requirement(Mineral Field Type 1)의 완료 유닛 카운터를 1, 있으�
 이 조건 유닛은 맵에 실제로 생성하거나 배치하지 않는 예약 슬롯입니다.
 
 src/data/require_data.json의 unit_overrides에서 소환·게이트웨이 요구사항을 관리합니다.
-unit_overrides.orders의 31번 명령은 FranceDp처럼 [65535]로 연결해 수도에서도 프로토스 건설 명령을 사용할 수 있게 합니다.
+unit_overrides.orders의 31·32번 명령은 [65535]로 연결해 수도에서도 프로토스 건설 명령을 사용할 수 있게 합니다. 수도의 두 명령을 받아 임시 프로브에 31번 건설 명령으로 전달합니다.
 유닛 오프셋은 0x514178, 명령 오프셋은 0x514CF8을 기준으로 계산합니다. 전체 데이터 내 배치 위치를 명령 테이블에 그대로 쓰지 않습니다.
 enabled는 기존 FranceDp 전체 스냅샷 적용 여부이며 unit_overrides.enabled는 두 유닛의 개별 적용 여부입니다.
 개별 프로그램은 기존 스냅샷 뒤 word offset 2085부터 예약합니다.

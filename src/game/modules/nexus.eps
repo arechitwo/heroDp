@@ -83,6 +83,7 @@ function summonFromCity(city : CUnit, player : TrgPlayer) {
 function buildRemote(unit : CUnit, player : TrgPlayer) {
     epdswitch(unit + 0x4C / 4, 0xFF00) {
         case 31 << 8:
+        case 32 << 8:
             break;
         default:
             return;

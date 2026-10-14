@@ -67,6 +67,7 @@ function inspectSelected(player : TrgPlayer) {
     epdswitch(unit + 0x4C / 4, 0xFF00) {
         case 30 << 8:
         case 31 << 8:
+        case 32 << 8:
         case 70 << 8:
             LAST_BUILD_ORDER[player] = order;
             LAST_BUILD_UNIT[player] = build;
@@ -81,7 +82,7 @@ function inspectSelected(player : TrgPlayer) {
         unit, kind, owner, order, state, build);
     unitScreen.appendf("\x04저장 수도 EPD={} 일치={} 활성={} 세대={} 선택 세대={}\n",
         nexus.NEXUS[player], sameCapital, nexus.ACTIVE[player], nexus.GENERATION[player], unit.uniquenessIdentifier);
-    unitScreen.appendf("\x04최근 건설 명령={} 대상={} (테란30 / 프로토스31 / 저그70)",
+    unitScreen.appendf("\x04최근 건설 명령={} 대상={} (테란30 / 프로토스31,32 / 저그70)",
         LAST_BUILD_ORDER[player], LAST_BUILD_UNIT[player]);
     setcurpl(player);
     unitScreen.Display();
