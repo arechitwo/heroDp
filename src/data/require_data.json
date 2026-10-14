@@ -9,6 +9,9 @@
     "units": {
       "nexus_signal": ["nexus_requirement", 65535],
       "barracks": [65535]
+    },
+    "orders": {
+      "31": [65535]
     }
   },
   "data_words": [

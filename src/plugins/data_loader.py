@@ -30,6 +30,12 @@ def f_apply_unit_overrides():
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
             f_wwrite(0x514178 + offset * 2, value)
             offset += 1
+    for order, words in overrides.get('orders', {}).items():
+        f_wwrite(0x665580 + int(order) * 2, offset)
+        for word in words:
+            value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
+            f_wwrite(0x514178 + offset * 2, value)
+            offset += 1
 
 
 def beforeTriggerExec():
@@ -37,4 +43,4 @@ def beforeTriggerExec():
         for table in manifest['offset_tables']:
             DoActions([SetMemory(table['address'] + i * 4, SetTo, value)
                        for i, value in enumerate(table['dwords'])])
-        f_apply_unit_overrides()
+    f_apply_unit_overrides()
