@@ -4,7 +4,7 @@
   "source_note": "FranceDp complete requirement bytecode and offset tables; disabled until enabled.",
   "copy_capacity_bytes": 4170,
   "unit_overrides": {
-    "enabled": true,
+    "enabled": false,
     "unit_word_offsets": {"nexus_signal": 183, "barracks": 361},
     "order_word_offsets": {"30": 116, "31": 119, "32": 122, "33": 126, "34": 128, "70": 290},
     "units": {

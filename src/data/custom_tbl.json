@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "enabled": true,
+  "enabled": false,
   "encoding": "cp949",
   "source_note": "FranceDp TBL base with capital Gateway construction and city capital summon tooltips. Embedded NULs are preserved.",
   "copy_capacity_bytes": 42564,
