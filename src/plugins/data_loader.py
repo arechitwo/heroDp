@@ -1,7 +1,7 @@
 """Load generated game data before the EPScript game entry point."""
 import json
 from pathlib import Path
-from eudplib import Db, DoActions, EPD, EncodeUnit, SetMemory, SetTo, f_epdread_epd, f_repmovsd_epd, f_wwrite
+from eudplib import Db, DoActions, EPD, EncodeUnit, SetMemory, SetMemoryX, SetTo, f_epdread_epd, f_repmovsd_epd
 
 DATA = Path(settings.get('data_dir', 'build/generated'))
 UNIT_REQUIRE_DATA = 0x514178
@@ -25,25 +25,30 @@ def f_apply_unit_overrides():
     if not overrides.get('enabled', False):
         return
     from modules.unit_settings import UnitModel
+    actions = []
+    def append_word(address, value):
+        shift = (address & 2) * 8
+        actions.append(SetMemoryX(address & ~3, SetTo, value << shift, 0xFFFF << shift))
     offset = overrides['data_word_offset']
     for model, words in overrides['units'].items():
         unit_offset = overrides.get('unit_word_offsets', {}).get(model, offset)
-        f_wwrite(0x660A70 + EncodeUnit(getattr(UnitModel, model)) * 2, unit_offset)
+        append_word(0x660A70 + EncodeUnit(getattr(UnitModel, model)) * 2, unit_offset)
         for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
-            f_wwrite(UNIT_REQUIRE_DATA + (unit_offset + index) * 2, value)
+            append_word(UNIT_REQUIRE_DATA + (unit_offset + index) * 2, value)
         if model not in overrides.get('unit_word_offsets', {}):
             offset += len(words)
     for order, words in overrides.get('orders', {}).items():
         # 배치 위치는 전체 RequireData 기준, 명령 오프셋은 명령 영역 기준.
         order_offset = (UNIT_REQUIRE_DATA + offset * 2 - ORDER_REQUIRE_DATA) // 2
         order_offset = overrides.get('order_word_offsets', {}).get(order, order_offset)
-        f_wwrite(0x665580 + int(order) * 2, order_offset)
+        append_word(0x665580 + int(order) * 2, order_offset)
         for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
-            f_wwrite(ORDER_REQUIRE_DATA + (order_offset + index) * 2, value)
+            append_word(ORDER_REQUIRE_DATA + (order_offset + index) * 2, value)
         if order not in overrides.get('order_word_offsets', {}):
             offset += len(words)
+    DoActions(actions)
 
 
 def beforeTriggerExec():

@@ -8,6 +8,8 @@ import modules.nexus as nexus;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
+const LAST_MENU_NUMBER = EUDVArray(8)();
+const LAST_MENU_KEY = EUDVArray(8)();
 var started = 0;
 var countdown = 0;
 var stage = 0; // opening, quick, custom, alliance, team, nation, countdown
@@ -167,6 +169,18 @@ function render() {
         markRow(2); screen.append("\x1F3 Key : \x03팀전 - 선택\n");
         markRow(3); screen.append("\x1F4 Key : \x03팀전 - 랜덤\n");
         markRow(4); screen.append("\x1F0 Key : \x03세부설정\n\n\x13\x04↑↓ 이동 · 선택 → / Y");
+        if (cfg.DEBUG_ENABLED) {
+            const localPlayer = getuserplayerid();
+            var pressed = 0;
+            if (MemoryX(0x596A48, Exactly, 0x100, 0x100)) { pressed += 1; }
+            if (MemoryX(0x596A48, Exactly, 0x10000, 0x10000)) { pressed += 2; }
+            if (MemoryX(0x596A48, Exactly, 0x1000000, 0x1000000)) { pressed += 4; }
+            if (MemoryX(0x596A4C, Exactly, 1, 1)) { pressed += 8; }
+            var typing = 0;
+            if (!Memory(0x68C144, Exactly, 0)) { typing = 1; }
+            screen.appendf("\n\x13\x06입력: 로컬={} 호스트={} 키비트={} 채팅={} 수신숫자={} 수신키={}",
+                localPlayer + 1, host + 1, pressed, typing, LAST_MENU_NUMBER[localPlayer], LAST_MENU_KEY[localPlayer]);
+        }
     } else if (stage == 2) {
         screen.appendf("\x13\x1F게임 설정\n\x13\x04{:n} 님이 설정합니다.\n\n", host);
         markRow(0); screen.append("게임: < ");
@@ -223,6 +237,12 @@ function tick() {
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp >= 7) { continue; }
         setcurpl(cp);
+        if (stage == 1) {
+            const receivedNumber = maskread_epd(12 * 216 + cp, 0x7);
+            const receivedKey = maskread_epd(12 * 217 + cp, 0x7);
+            if (receivedNumber != 0) { LAST_MENU_NUMBER[cp] = receivedNumber; }
+            if (receivedKey != 0) { LAST_MENU_KEY[cp] = receivedKey; }
+        }
         if (stage >= 1 && stage <= 4 && cp == host) {
             const number = maskread_epd(12 * 216 + cp, 0x7);
             const key = maskread_epd(12 * 217 + cp, 0x7);
