@@ -39,14 +39,15 @@ def f_init():
     capital.maxShield = 500
     capital.armor = 50
     capital.baseProperty = 0x44000800  # FranceDp single-entity remote capital
-    capital.buildingDimensions = 1 + (1 << 16)
-    capital.unitBoundsL = 15
-    capital.unitBoundsT = 15
-    capital.unitBoundsR = 16
-    capital.unitBoundsB = 16
-    capital.computerIdleOrder = 3
-    capital.humanIdleOrder = 3
-    capital.returnToIdleOrder = 3
+    capital.buildingDimensions = 16 + (16 << 16)
+    capital.unitBoundsL = 48
+    capital.unitBoundsT = 48
+    capital.unitBoundsR = 48
+    capital.unitBoundsB = 48
+    # FranceDp처럼 기본/복귀 명령은 원본 Khaydarin DAT를 유지.
+    capital.rightClickAction = 5
+    capital.sightRange = 11
+    capital.portrait = 60
     capital.groundWeapon = 130
     capital.airWeapon = 130
     capital.supplyUsed = 0
@@ -69,6 +70,7 @@ def f_init():
     gate.gasCost = 0
     gate.timeCost = 280
     gate.supplyUsed = 0
+    gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
 
     signal = UnitModel.nexus_signal
     signal.nameString = '\x04수도 소환'

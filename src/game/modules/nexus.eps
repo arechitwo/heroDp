@@ -83,7 +83,8 @@ function summonFromCity(city : CUnit, player : TrgPlayer) {
 function buildRemote(unit : CUnit, player : TrgPlayer) {
     epdswitch(unit + 0x4C / 4, 0xFF00) {
         case 31 << 8:
-        case 32 << 8:
+        case 30 << 8:
+        case 70 << 8:
             break;
         default:
             return;
@@ -101,13 +102,15 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
     }
     const x, y = posread_epd(unit + 0x58 / 4);
     setloc(Loc.city_spawn, x, y);
+    const order = maskread_epd(unit + 0x4C / 4, 0xFF00) >> 8;
+    if (order != 30 && order != 31) { resetCommand(unit, 3); return; }
     const probe = CUnit.from_next();
-    CreateUnit(1, UnitModel.probe, Loc.city_spawn, player);
+    if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
+    else { CreateUnit(1, UnitModel.scv, Loc.city_spawn, player); }
     if (!MemoryXEPD(probe + 0x4C / 4, Exactly, 0, 0xFF00)) {
         probe.orderTargetPos = maskread_epd(unit + 0x58 / 4, 0x1FFF1FFF);
-        probe.buildQueue1 = UnitModel.barracks;
-        probe.orderState = 0;
-        probe.orderID = 31;
+        probe.buildQueue1 = unit.buildQueue1;
+        probe.orderID = order;
         PROXIES.add(probe);
     }
     resetCommand(unit, 3);
@@ -133,6 +136,7 @@ function tick() {
         const probe = CUnit.cast(entry.epd);
         epdswitch(probe + 0x4C / 4, 0xFF00) {
             case 31 << 8:
+            case 30 << 8:
             case 33 << 8:
             case 34 << 8:
                 break;
