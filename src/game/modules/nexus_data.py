@@ -13,17 +13,18 @@ BUTTON_TRAIN = 0x4234B0
 BUTTON_WARP_BUILDING = 0x423DD0
 
 
-def _button(position, icon, condition, action, condition_unit, action_unit, tooltip):
+def _button(position, icon, condition, action, condition_unit, action_unit,
+            enabled_tooltip, disabled_tooltip):
     return struct.pack('<HHIIHHHH', position, icon, condition, action,
-                       condition_unit, action_unit, tooltip, 0)
+                       condition_unit, action_unit, enabled_tooltip, disabled_tooltip)
 
 
 CAPITAL_BUTTONS = Db(_button(5, EncodeUnit(UnitModel.barracks), BUTTON_ALWAYS,
                             BUTTON_WARP_BUILDING, EncodeUnit(UnitModel.barracks),
-                            EncodeUnit(UnitModel.barracks), 630))
+                            EncodeUnit(UnitModel.barracks), 630, 631))
 CITY_BUTTONS = Db(_button(7, 154, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                          EncodeUnit(UnitModel.nexus_signal),
-                         EncodeUnit(UnitModel.nexus_signal), 1049))
+                         EncodeUnit(UnitModel.nexus_signal), 1049, 1050))
 
 InitialWireframe.wirefram(EncodeUnit(UnitModel.nexus_unit), EncodeUnit(UnitModel.nexus_wireframe))
 

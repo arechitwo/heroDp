@@ -34,6 +34,10 @@ src/data/require_data.json의 unit_overrides에서 소환·게이트웨이 요�
 enabled는 기존 FranceDp 전체 스냅샷 적용 여부이며 unit_overrides.enabled는 두 유닛의 개별 적용 여부입니다.
 개별 프로그램은 기존 스냅샷 뒤 word offset 2085부터 예약합니다.
 도시의 조건 함수는 CanTrain, 동작 함수는 Train이며 수도의 버튼은 FranceDp WarpBuilding 동작을 사용합니다.
+버튼 데이터는 FranceDp와 같은 20바이트 구조로 가능·불가능 설명 ID를 모두 지정합니다.
+수도에는 게이트웨이 건설 버튼 하나만, 파일런에는 수도 소환 버튼 하나만 등록합니다.
+src/data/custom_tbl.json의 630/631은 건설 가능·불가능 설명, 1049/1050은 소환 가능·불가능 설명입니다.
+TBL은 활성화되어 있으며 건설은 G, 소환은 N 단축키를 사용합니다.
 
 ## 원격 게이트웨이 건설
 
