@@ -27,19 +27,23 @@ def f_apply_unit_overrides():
     from modules.unit_settings import UnitModel
     offset = overrides['data_word_offset']
     for model, words in overrides['units'].items():
-        f_wwrite(0x660A70 + EncodeUnit(getattr(UnitModel, model)) * 2, offset)
-        for word in words:
+        unit_offset = overrides.get('unit_word_offsets', {}).get(model, offset)
+        f_wwrite(0x660A70 + EncodeUnit(getattr(UnitModel, model)) * 2, unit_offset)
+        for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
-            f_wwrite(0x514178 + offset * 2, value)
-            offset += 1
+            f_wwrite(UNIT_REQUIRE_DATA + (unit_offset + index) * 2, value)
+        if model not in overrides.get('unit_word_offsets', {}):
+            offset += len(words)
     for order, words in overrides.get('orders', {}).items():
         # 배치 위치는 전체 RequireData 기준, 명령 오프셋은 명령 영역 기준.
         order_offset = (UNIT_REQUIRE_DATA + offset * 2 - ORDER_REQUIRE_DATA) // 2
+        order_offset = overrides.get('order_word_offsets', {}).get(order, order_offset)
         f_wwrite(0x665580 + int(order) * 2, order_offset)
-        for word in words:
+        for index, word in enumerate(words):
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
-            f_wwrite(0x514178 + offset * 2, value)
-            offset += 1
+            f_wwrite(ORDER_REQUIRE_DATA + (order_offset + index) * 2, value)
+        if order not in overrides.get('order_word_offsets', {}):
+            offset += len(words)
 
 
 def beforeTriggerExec():
