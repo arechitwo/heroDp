@@ -1,6 +1,7 @@
 // 도시 파일런(156)과 주둔군 브루들링(40)만 수정합니다.
 // 게임 시작 시 cities.init()보다 먼저 실행: 외형/공격 AI 설정 후 비콘을 파일런으로 변환.
 import modules.unit_settings.UnitModel as UnitModel;
+import modules.damage_types.DefenseType as DefenseType;
 function init() {
     // ---- 도시: 프로토스 파일런 ----
     UnitModel.small_city.flingy = 62;                    // 원본 파일런 외형
@@ -13,6 +14,7 @@ function init() {
     UnitModel.small_city.hasShield = true;
     UnitModel.small_city.maxShield = 300;
     UnitModel.small_city.armor = 25;
+    UnitModel.small_city.sizeType = DefenseType.armored;
     UnitModel.small_city.seekRange = 7;                  // Acquisition range, tiles
     UnitModel.small_city.computerIdleOrder = 164;        // Init Psi Provider: 역장 초기화
     UnitModel.small_city.humanIdleOrder = 164;
@@ -60,6 +62,7 @@ function init() {
     UnitModel.defender.sightRange = 9;
     UnitModel.defender.maxHp = 2000 * 256;             // FranceDp 주둔군 CSV 기준 체력
     UnitModel.defender.armor = 9;
+    UnitModel.defender.sizeType = DefenseType.infantry;
     UnitModel.defender.armorUpgrade = 0;
     UnitModel.defender.groundWeapon = 119;
     UnitModel.defender.airWeapon = 119;

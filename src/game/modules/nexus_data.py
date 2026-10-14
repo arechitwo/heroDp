@@ -2,6 +2,7 @@
 import struct
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel
+from .damage_types import DefenseType
 
 BUTTON_TABLE = 0x5187E8
 STATUS_TABLE = 0x5193A0
@@ -38,8 +39,9 @@ def f_init():
     capital.hasShield = True
     capital.maxShield = 500
     capital.armor = 50
+    capital.sizeType = DefenseType.armored
     capital.baseProperty = 0x44000800  # FranceDp single-entity remote capital
-    capital.buildingDimensions = 16 + (16 << 16)
+    capital.buildingDimensions = 1 + (1 << 16)
     capital.unitBoundsL = 48
     capital.unitBoundsT = 48
     capital.unitBoundsR = 48
@@ -72,6 +74,7 @@ def f_init():
     gate.nameString = '\x05훈련소'
     gate.maxHp = 4800 * 256
     gate.armor = 50
+    gate.sizeType = DefenseType.armored
     gate.hasShield = False
     gate.maxShield = 0
     gate.mineralCost = 100

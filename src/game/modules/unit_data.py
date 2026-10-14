@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel
+from .damage_types import AttackType, DefenseType
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
@@ -78,6 +79,9 @@ def f_init():
         if shield is not None:
             unit.hasShield = shield > 0
             unit.maxShield = shield
+        defense_type = combat['defense'].get('type')
+        if defense_type is not None:
+            unit.sizeType = getattr(DefenseType, defense_type)
         for field, attribute in COMBAT_FIELDS.items():
             value = _value(combat, field)
             if value is not None:
@@ -110,6 +114,9 @@ def f_init():
         weapons = properties.get('weapons') or {}
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)
         for channel, attribute in (('ground', 'groundWeapon'), ('air', 'airWeapon')):
+            attack_type = (combat['attack'].get(channel) or {}).get('type')
+            if attack_type is not None:
+                getattr(weapon_unit, attribute).damageType = getattr(AttackType, attack_type)
             fields = [(target, _value(combat, f'attack.{channel}.{field}'))
                       for field, target in WEAPON_FIELDS.items()
                       if _value(combat, f'attack.{channel}.{field}') is not None]

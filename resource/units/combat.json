@@ -1,11 +1,13 @@
 {
   "spearman": {
     "defense": {
+      "type": "infantry",
       "hp": 1700,
       "armor": 18
     },
     "attack": {
       "ground": {
+        "type": "piercing",
         "damage": 55,
         "bonus": 1,
         "range": 15,
@@ -20,11 +22,13 @@
   },
   "light_infantry": {
     "defense": {
+      "type": "infantry",
       "hp": 1500,
       "armor": 14
     },
     "attack": {
       "ground": {
+        "type": "general",
         "damage": 35,
         "bonus": 1,
         "range": 128,
@@ -32,6 +36,7 @@
         "upgrade": 7
       },
       "air": {
+        "type": "general",
         "damage": 35,
         "bonus": 1,
         "range": 128,
@@ -45,11 +50,13 @@
   },
   "light_cavalry": {
     "defense": {
+      "type": "armored",
       "hp": 1300,
       "armor": 12
     },
     "attack": {
       "ground": {
+        "type": "general",
         "damage": 75,
         "bonus": 1,
         "range": 96,
@@ -64,11 +71,13 @@
   },
   "siege_unit": {
     "defense": {
+      "type": "armored",
       "hp": 1800,
       "armor": 16
     },
     "attack": {
       "ground": {
+        "type": "siege",
         "damage": 85,
         "bonus": 1,
         "range": 320,
@@ -83,11 +92,13 @@
   },
   "knight": {
     "defense": {
+      "type": "armored",
       "hp": 4200,
       "armor": 38
     },
     "attack": {
       "ground": {
+        "type": "general",
         "damage": 95,
         "bonus": 1,
         "range": 25,
