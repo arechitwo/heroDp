@@ -4,6 +4,8 @@ from pathlib import Path
 from eudplib import Db, DoActions, EPD, EncodeUnit, SetMemory, SetTo, f_epdread_epd, f_repmovsd_epd, f_wwrite
 
 DATA = Path(settings.get('data_dir', 'build/generated'))
+UNIT_REQUIRE_DATA = 0x514178
+ORDER_REQUIRE_DATA = 0x514CF8
 # euddraft resolves relative paths from the recipe directory and does not set __file__.
 manifest = json.loads((DATA / 'manifest.json').read_text(encoding='utf-8'))
 
@@ -31,7 +33,9 @@ def f_apply_unit_overrides():
             f_wwrite(0x514178 + offset * 2, value)
             offset += 1
     for order, words in overrides.get('orders', {}).items():
-        f_wwrite(0x665580 + int(order) * 2, offset)
+        # 배치 위치는 전체 RequireData 기준, 명령 오프셋은 명령 영역 기준.
+        order_offset = (UNIT_REQUIRE_DATA + offset * 2 - ORDER_REQUIRE_DATA) // 2
+        f_wwrite(0x665580 + int(order) * 2, order_offset)
         for word in words:
             value = EncodeUnit(getattr(UnitModel, word)) if isinstance(word, str) else word
             f_wwrite(0x514178 + offset * 2, value)
