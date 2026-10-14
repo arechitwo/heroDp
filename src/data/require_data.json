@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "enabled": false,
+  "enabled": true,
   "source_note": "FranceDp complete requirement bytecode and offset tables; disabled until enabled.",
   "copy_capacity_bytes": 4170,
   "unit_overrides": {
