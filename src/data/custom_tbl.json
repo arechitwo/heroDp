@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "enabled": false,
+  "enabled": true,
   "encoding": "cp949",
-  "source_note": "FranceDp snapshot; disabled until explicitly enabled. Embedded NULs are preserved.",
+  "source_note": "FranceDp TBL base with capital Gateway construction and city capital summon tooltips. Embedded NULs are preserved.",
   "copy_capacity_bytes": 42564,
   "entries": [
     {
@@ -2523,11 +2523,11 @@
     },
     {
       "id": 630,
-      "text": "s\u0001\u0003[S]\u0004초기 위치를 선택해주세요\r\n\u000f※건설 중에만 취소 후 다시 건설 가능"
+      "text": "g\u0001\u0003[G]\u0004훈련소 건설\r\n\u000f선택한 위치에 게이트웨이를 원격 건설합니다."
     },
     {
       "id": 631,
-      "text": "q\u0001\u0003[Q]\u0004도시 건설\r\n- \u000f매턴 세금(+10)을 징수하는 기본 건물입니다.\r\n- 다른 도시가 \u000316\u000f칸 이상 \u000320\u000f칸 이하에 존재해야합니다."
+      "text": "\u0004훈련소 건설\r\n\u000f게이트웨이를 원격 건설합니다.\r\n\u0008건설에 필요한 자원과 조건을 충족해야 합니다."
     },
     {
       "id": 632,
@@ -4199,11 +4199,11 @@
     },
     {
       "id": 1049,
-      "text": "z\u0001\u0003[Z]\u0004수도 지정\r\n\u000f- 이 도시를 새로운 수도로 설정합니다."
+      "text": "n\u0001\u0003[N]\u0004수도 소환\r\n\u000f이 도시에 수도를 소환합니다."
     },
     {
       "id": 1050,
-      "text": "수도 지정\r\n- 수도가 없을 때 이 도시를 수도로 만듭니다."
+      "text": "\u0004수도 소환\r\n\u0008기존 수도가 없어야 합니다."
     },
     {
       "id": 1051,

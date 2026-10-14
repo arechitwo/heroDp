@@ -62,4 +62,4 @@ DAT 설정, MSQC, 채팅, 사운드 등은 신규 구현에 필요한 시점에 
 
 트리거 개발 환경과 JSON 데이터 편집 방법은 `doc/TRIGGER_WORKFLOW.md`를 참고합니다.
 `src/data/custom_tbl.json`, `src/data/require_data.json`에서 데이터를 편집하면 빌드 때 자동 생성됩니다.
-두 파일의 FranceDp 스냅샷은 기본적으로 비활성화되어 있습니다.
+TBL은 수도·도시 버튼 설명을 적용하기 위해 활성화되어 있습니다. RequireData 전체 스냅샷은 비활성화하고 개별 유닛 요구사항만 적용합니다.

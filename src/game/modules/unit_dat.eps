@@ -14,11 +14,14 @@ function init() {
     UnitModel.small_city.maxShield = 300;
     UnitModel.small_city.armor = 25;
     UnitModel.small_city.seekRange = 7;                  // Acquisition range, tiles
-    UnitModel.small_city.computerIdleOrder = 18;         // Tower Guard
-    UnitModel.small_city.humanIdleOrder = 18;
+    UnitModel.small_city.computerIdleOrder = 164;        // Init Psi Provider: 역장 초기화
+    UnitModel.small_city.humanIdleOrder = 164;
     UnitModel.small_city.returnToIdleOrder = 18;
     UnitModel.small_city.attackUnitOrder = 19;           // 건물 공격 상태: 주둔군 생성 판정
     UnitModel.small_city.attackMoveOrder = 18;
+    UnitModel.small_city.rightClickAction = 0;          // 명령 없음 / 자동 Attack
+    UnitModel.small_city.ignoreStrategicSuicideMissions = true;
+    UnitModel.small_city.dontBecomeGuard = true;        // 두 내부 AI 플래그 합계: 3
     UnitModel.small_city.baseProperty = 0x54000001;      // FranceDp building + CanAttack
     UnitModel.small_city.groundWeapon = 117;
     UnitModel.small_city.airWeapon = 117;

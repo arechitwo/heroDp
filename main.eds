@@ -33,6 +33,9 @@ __patternAddr__: debugChatPattern
 디버그 세금타이머: 106
 디버그 주둔군타이머: 107
 디버그 시작타이머: 108
+디버그 유닛: 109
+디버그 창병: 111
+디버그 질럿: 111
 ^디버그 돈 .*.*$: 1
 ^디버그 가스 .*.*$: 2
 ^디버그 자원 .*.*$: 3
@@ -43,11 +46,13 @@ __patternAddr__: debugChatPattern
 ^디버그 시작타이머 .*.*$: 8
 ^디버그 값 .*.*$: 9
 ^디버그 개수 .*.*$: 10
+^디버그 창병 .*.*$: 11
+^디버그 질럿 .*.*$: 11
 
 [MSQC]
 QCLoc: 20
 QCPlayer: P11
-QCDebug: false
+QCDebug: true
 mouse: 5
 KeyPress(F); MouseDown(R); NotTyping: 214, 1
 KeyPress(F); MouseDown(L); NotTyping: 214, 2
