@@ -2,17 +2,21 @@
   "spearman": {
     "defense": {
       "type": "infantry",
-      "hp": 1700,
-      "armor": 18
+      "hp": 2400,
+      "shield": 0,
+      "armor": 10
     },
     "attack": {
       "ground": {
-        "type": "piercing",
-        "damage": 55,
+        "type": "general",
+        "damage": 160,
         "bonus": 1,
-        "range": 15,
-        "cooldown": 22,
-        "upgrade": 7
+        "range": 16,
+        "min_range": 0,
+        "cooldown": 24,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 2
       },
       "air": {}
     },
@@ -23,66 +27,91 @@
   "light_infantry": {
     "defense": {
       "type": "infantry",
-      "hp": 1500,
-      "armor": 14
+      "hp": 1600,
+      "shield": 0,
+      "armor": 5
     },
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 35,
+        "damage": 80,
         "bonus": 1,
         "range": 128,
-        "cooldown": 15,
-        "upgrade": 7
+        "min_range": 0,
+        "cooldown": 12,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 3
       },
       "air": {
         "type": "general",
-        "damage": 35,
+        "damage": 80,
         "bonus": 1,
         "range": 128,
-        "cooldown": 15,
-        "upgrade": 7
+        "min_range": 0,
+        "cooldown": 12,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 3
       }
     },
     "score": {
-      "kill": 4
+      "kill": 5
     }
   },
-  "light_cavalry": {
+  "longbowman": {
     "defense": {
-      "type": "armored",
-      "hp": 1300,
-      "armor": 12
+      "type": "infantry",
+      "hp": 1400,
+      "shield": 0,
+      "armor": 5
     },
     "attack": {
       "ground": {
-        "type": "general",
-        "damage": 75,
+        "type": "piercing",
+        "damage": 280,
         "bonus": 1,
-        "range": 96,
-        "cooldown": 28,
-        "upgrade": 7
+        "range": 224,
+        "min_range": 0,
+        "cooldown": 48,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 3
       },
-      "air": {}
+      "air": {
+        "type": "piercing",
+        "damage": 280,
+        "bonus": 1,
+        "range": 224,
+        "min_range": 0,
+        "cooldown": 48,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 3
+      }
     },
     "score": {
       "kill": 6
     }
   },
-  "siege_unit": {
+  "light_cavalry": {
     "defense": {
-      "type": "armored",
+      "type": "infantry",
       "hp": 1800,
-      "armor": 16
+      "shield": 0,
+      "armor": 5
     },
     "attack": {
       "ground": {
-        "type": "siege",
-        "damage": 85,
+        "type": "piercing",
+        "damage": 150,
         "bonus": 1,
-        "range": 320,
-        "cooldown": 32,
-        "upgrade": 7
+        "range": 128,
+        "min_range": 0,
+        "cooldown": 30,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 2
       },
       "air": {}
     },
@@ -90,25 +119,91 @@
       "kill": 7
     }
   },
-  "knight": {
+  "engineer": {
     "defense": {
-      "type": "armored",
-      "hp": 4200,
-      "armor": 38
+      "type": "infantry",
+      "hp": 1400,
+      "shield": 0,
+      "armor": 5
     },
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 95,
+        "damage": 60,
         "bonus": 1,
-        "range": 25,
-        "cooldown": 20,
-        "upgrade": 7
+        "range": 16,
+        "min_range": 0,
+        "cooldown": 30,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 2
       },
       "air": {}
     },
     "score": {
-      "kill": 10
+      "kill": 3
+    }
+  },
+  "knight": {
+    "defense": {
+      "type": "armored",
+      "hp": 5600,
+      "shield": 0,
+      "armor": 35
+    },
+    "attack": {
+      "ground": {
+        "type": "general",
+        "damage": 280,
+        "bonus": 1,
+        "range": 24,
+        "min_range": 0,
+        "cooldown": 36,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 2,
+        "splash": {
+          "explosion": 3,
+          "inner": 16,
+          "middle": 32,
+          "outer": 48
+        }
+      },
+      "air": {}
+    },
+    "score": {
+      "kill": 14
+    }
+  },
+  "siege_turret": {
+    "defense": {
+      "type": "armored",
+      "hp": 8000,
+      "shield": 0,
+      "armor": 25
+    },
+    "attack": {
+      "ground": {
+        "type": "general",
+        "damage": 1000,
+        "bonus": 1,
+        "range": 320,
+        "min_range": 64,
+        "cooldown": 120,
+        "upgrade": 7,
+        "hits": 1,
+        "targets": 2,
+        "splash": {
+          "explosion": 3,
+          "inner": 24,
+          "middle": 48,
+          "outer": 80
+        }
+      },
+      "air": {}
+    },
+    "score": {
+      "kill": 16
     }
   }
 }

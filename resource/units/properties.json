@@ -1,16 +1,20 @@
 {
   "spearman": {
     "recruitment": {
-      "cost": 20,
+      "cost": 100,
       "count": 1
     },
     "production": {
-      "minerals": 0,
+      "minerals": 100,
       "gas": 0,
       "supply": 0,
       "time": 9999
     },
-    "weapons": {},
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1,
+      "air": 130
+    },
     "flags": {
       "hero": false
     },
@@ -21,16 +25,42 @@
   },
   "light_infantry": {
     "recruitment": {
-      "cost": 20,
+      "cost": 120,
       "count": 1
     },
     "production": {
-      "minerals": 0,
+      "minerals": 120,
       "gas": 0,
       "supply": 0,
       "time": 9999
     },
-    "weapons": {},
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1
+    },
+    "flags": {
+      "hero": false
+    },
+    "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "longbowman": {
+    "recruitment": {
+      "cost": 160,
+      "count": 1
+    },
+    "production": {
+      "minerals": 160,
+      "gas": 0,
+      "supply": 0,
+      "time": 9999
+    },
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1
+    },
     "flags": {
       "hero": false
     },
@@ -41,16 +71,19 @@
   },
   "light_cavalry": {
     "recruitment": {
-      "cost": 35,
+      "cost": 180,
       "count": 1
     },
     "production": {
-      "minerals": 0,
+      "minerals": 180,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 432
     },
-    "weapons": {},
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1
+    },
     "flags": {
       "hero": false
     },
@@ -59,19 +92,20 @@
     "transport": {},
     "buttons": {}
   },
-  "siege_unit": {
+  "engineer": {
     "recruitment": {
-      "cost": 45,
+      "cost": 80,
       "count": 1
     },
     "production": {
-      "minerals": 0,
+      "minerals": 80,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 288
     },
     "weapons": {
-      "unit": "siege_unit_weapon"
+      "max_ground_hits": 1,
+      "max_air_hits": 1
     },
     "flags": {
       "hero": false
@@ -83,20 +117,52 @@
   },
   "knight": {
     "recruitment": {
-      "cost": 70,
+      "cost": 360,
       "count": 1
     },
     "production": {
-      "minerals": 0,
+      "minerals": 360,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 720
     },
-    "weapons": {},
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1
+    },
     "flags": {
       "hero": false
     },
     "vision": {},
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "siege_turret": {
+    "recruitment": {
+      "cost": 400,
+      "count": 1
+    },
+    "production": {
+      "minerals": 400,
+      "gas": 0,
+      "supply": 0,
+      "time": 1200
+    },
+    "weapons": {
+      "ground": 29,
+      "air": 29,
+      "max_ground_hits": 1,
+      "max_air_hits": 1
+    },
+    "flags": {
+      "hero": false
+    },
+    "vision": {
+      "seek_range": 10,
+      "sight_range": 11,
+      "detector": false
+    },
     "orders": {},
     "transport": {},
     "buttons": {}

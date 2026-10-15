@@ -5,6 +5,10 @@ from eudplib import Flingy, TrgUnit
 class Looks:
     nexus = Flingy("Nexus")
     broodling = Flingy("Broodling")
+    marine = Flingy("Marine")
+    ghost = Flingy("Ghost")
+    ultralisk = Flingy("Ultralisk")
+    scv = Flingy("SCV")
 
 
 class UnitModel:
@@ -12,8 +16,9 @@ class UnitModel:
     spearman = TrgUnit("Protoss Zealot")
     light_infantry = TrgUnit("Terran Marine")
     light_cavalry = TrgUnit("Terran Vulture")
-    siege_unit = TrgUnit("Terran Siege Tank (Tank Mode)")
-    siege_unit_weapon = TrgUnit("Siege Tank Turret (Tank Mode)")
+    longbowman = TrgUnit("Terran Ghost")
+    engineer = TrgUnit("Terran SCV")
+    siege_turret = TrgUnit("Terran Missile Turret")
     knight = TrgUnit("Zerg Ultralisk")
 
     # 도시 마커 → 인게임 도시
@@ -41,7 +46,7 @@ class UnitModel:
     debug_marine = TrgUnit("Jim Raynor (Marine)")
 
     # 전군 명령에서 제외하는 일꾼·맵 유닛
-    scv = TrgUnit("Terran SCV")
+    scv = engineer
     drone = TrgUnit("Zerg Drone")
     probe = TrgUnit("Protoss Probe")
     map_revealer = TrgUnit("Map Revealer")

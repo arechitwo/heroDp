@@ -7,7 +7,7 @@ from eudplib import DoActions, EUDFunc, SetMemory, SetTo
 class AttackType:
     general = 3
     piercing = 2
-    siege = 1
+    duel = 1
 
 
 class DefenseType:
@@ -26,7 +26,7 @@ def f_init():
     actions = []
     for attack, defenses in RATIOS.items():
         for defense, percent in defenses.items():
-            if type(percent) is not int or not 0 <= percent <= 100 or percent * 256 % 100:
+            if type(percent) is not int or not 0 <= percent <= 200 or percent * 256 % 100:
                 raise ValueError(f'Invalid exact damage ratio: {attack}/{defense}: {percent}')
             address = DAMAGE_TABLE + getattr(AttackType, attack) * 20 + 4 + getattr(DefenseType, defense) * 4
             actions.append(SetMemory(address, SetTo, percent * 256 // 100))

@@ -51,6 +51,15 @@ PROPERTY_FIELDS = {
 WEAPON_FIELDS = {
     'damage': 'damage', 'bonus': 'damageBonus', 'range': 'maxRange',
     'cooldown': 'cooldown', 'upgrade': 'upgrade',
+    'min_range': 'minRange', 'hits': 'damageFactor', 'targets': 'targetFlags',
+    'splash.explosion': 'explosionType',
+    'splash.inner': 'splashInnerRadius', 'splash.middle': 'splashMiddleRadius',
+    'splash.outer': 'splashOuterRadius',
+}
+MOVEMENT_FIELDS = {
+    'top_speed': 'topSpeed', 'acceleration': 'acceleration',
+    'halt_distance': 'haltDistance', 'turn_speed': 'turnSpeed',
+    'control': 'movementControl',
 }
 
 
@@ -97,6 +106,14 @@ def f_init():
         look = (appearance.get('graphics') or {}).get('look')
         if look is not None:
             unit.flingy = getattr(Looks, look)
+        movement = appearance.get('movement') or {}
+        movement_look = movement.get('look')
+        if movement_look is not None:
+            flingy = getattr(Looks, movement_look)
+            for field, attribute in MOVEMENT_FIELDS.items():
+                value = _value(movement, field)
+                if value is not None:
+                    setattr(flingy, attribute, value)
         width = _value(appearance, 'size.placement.width')
         height = _value(appearance, 'size.placement.height')
         if width is not None and height is not None:
@@ -105,10 +122,17 @@ def f_init():
         for field, attribute in PROPERTY_FIELDS.items():
             value = _value(properties, field)
             if value is not None:
-                setattr(unit, attribute, value)
+                if '.' in attribute:
+                    parent, member = attribute.split('.')
+                    setattr(getattr(unit, parent), member, value)
+                else:
+                    setattr(unit, attribute, value)
         hero = _value(properties, 'flags.hero')
         if hero is not None:
             unit.baseProperty.Hero = hero
+        detector = _value(properties, 'vision.detector')
+        if detector is not None:
+            unit.baseProperty.Detector = detector
 
         # A tank's attack fields belong to its turret, while HP belongs to its body.
         weapons = properties.get('weapons') or {}

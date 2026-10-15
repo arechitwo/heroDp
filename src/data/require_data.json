@@ -3,7 +3,7 @@
   "enabled": true,
   "source_note": "FranceDp complete requirement bytecode and offset tables; disabled until enabled.",
   "copy_capacity_bytes": 4170,
-  "unit_links": {"nexus_signal": 183},
+  "unit_links": {"nexus_signal": 183, "engineer": 6, "siege_turret": 6},
   "unit_overrides": {
     "enabled": false,
     "unit_word_offsets": {"nexus_signal": 183, "barracks": 361},

@@ -1,15 +1,17 @@
 {
   "spearman": {
     "name": "\u0004창병",
-    "graphics": {"look": "broodling"},
+    "graphics": {
+      "look": "broodling"
+    },
     "size": {
       "placement": {},
-      "bounds": {}
-    },
-    "sounds": {
-      "what": {},
-      "pissed": {},
-      "yes": {}
+      "bounds": {
+        "left": 7,
+        "top": 7,
+        "right": 7,
+        "bottom": 7
+      }
     }
   },
   "light_infantry": {
@@ -19,10 +21,31 @@
       "placement": {},
       "bounds": {}
     },
-    "sounds": {
-      "what": {},
-      "pissed": {},
-      "yes": {}
+    "movement": {
+      "look": "marine",
+      "control": 0,
+      "top_speed": 1245,
+      "acceleration": 1245,
+      "halt_distance": 0,
+      "turn_speed": 40
+    }
+  },
+  "longbowman": {
+    "name": "\u0004장궁병",
+    "graphics": {
+      "look": "ghost"
+    },
+    "size": {
+      "placement": {},
+      "bounds": {}
+    },
+    "movement": {
+      "look": "ghost",
+      "control": 0,
+      "top_speed": 852,
+      "acceleration": 852,
+      "halt_distance": 0,
+      "turn_speed": 40
     }
   },
   "light_cavalry": {
@@ -31,24 +54,22 @@
     "size": {
       "placement": {},
       "bounds": {}
-    },
-    "sounds": {
-      "what": {},
-      "pissed": {},
-      "yes": {}
     }
   },
-  "siege_unit": {
-    "name": "\u0004공성병",
+  "engineer": {
+    "name": "\u0004공병",
     "graphics": {},
     "size": {
       "placement": {},
       "bounds": {}
     },
-    "sounds": {
-      "what": {},
-      "pissed": {},
-      "yes": {}
+    "movement": {
+      "look": "scv",
+      "control": 0,
+      "top_speed": 1049,
+      "acceleration": 1049,
+      "halt_distance": 0,
+      "turn_speed": 40
     }
   },
   "knight": {
@@ -58,10 +79,21 @@
       "placement": {},
       "bounds": {}
     },
-    "sounds": {
-      "what": {},
-      "pissed": {},
-      "yes": {}
+    "movement": {
+      "look": "ultralisk",
+      "control": 0,
+      "top_speed": 1114,
+      "acceleration": 1114,
+      "halt_distance": 0,
+      "turn_speed": 40
+    }
+  },
+  "siege_turret": {
+    "name": "\u0004공성 터렛",
+    "graphics": {},
+    "size": {
+      "placement": {},
+      "bounds": {}
     }
   }
 }
