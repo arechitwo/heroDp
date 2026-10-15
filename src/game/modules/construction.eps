@@ -5,7 +5,7 @@ import modules.settings as cfg;
 import modules.unit_settings.UnitModel as UnitModel;
 
 const TOTAL_UNITS = EPD(0x582324);
-// 대도시가 수도로 승계되어도 한도와 추가 수입에 포함합니다.
+// 대도시가 수도로 승계되어도 건설 한도에는 포함합니다. 수입은 수도 5금만 지급.
 const INHERITED_METROPOLIS = EUDVArray(8)();
 
 function metropolisLimit(player : TrgPlayer) {
@@ -20,7 +20,7 @@ function acceptNewMetropolis(city : CUnit) {
     if (owner >= 7) { return true; }
     const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0x7FF);
     const limit = metropolisLimit(owner);
-    if (total + INHERITED_METROPOLIS[owner] > limit) {
+    if ((total + INHERITED_METROPOLIS[owner]) > limit) {
         city.remove();
         SetResources(owner, Add, cfg.METROPOLIS_COST, Ore);
         setcurpl(owner);
@@ -37,7 +37,7 @@ function canBuildAt(unit : CUnit) {
             const limit = metropolisLimit(player);
             // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
             const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0x7FF);
-            if (built + INHERITED_METROPOLIS[player] >= limit) {
+            if ((built + INHERITED_METROPOLIS[player]) >= limit) {
                 setcurpl(player);
                 println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
                 return false;

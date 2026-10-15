@@ -1,7 +1,6 @@
 import modules.settings as cfg;
 import modules.cities as cities;
 import modules.nexus as nexus;
-import modules.construction as construction;
 var elapsed = 0;
 var incomeElapsed = 0;
 function tick() {
@@ -18,8 +17,8 @@ function tick() {
             if (payIncome) {
                 // 저장한 대도시 그룹에서 갱신한 완성 수. 건설 중에는 수입 없음.
                 const completed = nexus.COMPLETED_METROPOLISES[cp];
-                const metropolis = completed + construction.INHERITED_METROPOLIS[cp];
-                const amount = nexus.ACTIVE[cp] * cfg.CAPITAL_INCOME + metropolis * cfg.METROPOLIS_INCOME;
+                // 승계한 대도시는 수도 수입만 받습니다. 대도시 수입을 중복 가산하지 않음.
+                const amount = nexus.ACTIVE[cp] * cfg.CAPITAL_INCOME + completed * cfg.METROPOLIS_INCOME;
                 SetResources(CurrentPlayer, Add, amount, Ore);
             }
             if (payTax) {
