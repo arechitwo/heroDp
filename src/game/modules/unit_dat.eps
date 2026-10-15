@@ -61,7 +61,7 @@ function init() {
     UnitModel.defender.ignoreStrategicSuicideMissions = true;
     UnitModel.defender.rightClickAction = 3;            // FranceDp stationary attack
     UnitModel.defender.nameString = "\x04주둔군";
-    UnitModel.defender.seekRange = 5;
+    UnitModel.defender.seekRange = 8;           // 인지 8타일 = 무기 사거리 256픽셀
     UnitModel.defender.sightRange = 9;
     UnitModel.defender.maxHp = 1800 * 256;
     UnitModel.defender.hasShield = false;
@@ -84,11 +84,11 @@ function init() {
     UnitModel.defender.gasCost = 0;
     UnitModel.defender.timeCost = 9999;
     UnitModel.defender.killScore = 2;
-    Weapon(119).damage = 90;
+    Weapon(119).damage = 75;
     Weapon(119).damageBonus = 0;                // 공격 성장량은 추후 별도 설계
     Weapon(119).damageType = AttackType.general;
     Weapon(119).damageFactor = 1;
-    Weapon(119).maxRange = 160;
+    Weapon(119).maxRange = 256;
     Weapon(119).minRange = 0;
     Weapon(119).cooldown = 24;
     Weapon(119).targetFlags = 3;                // Ground and air targets
