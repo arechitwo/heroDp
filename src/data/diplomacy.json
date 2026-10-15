@@ -10,7 +10,7 @@
   "cities_per_metropolis": 3,
   "garrison_per_city": 6,
   "peace_timeout_frames": 400,
-  "starting_minerals": 1000,
+  "starting_minerals": 500,
   "starting_marines": 8,
   "start_countdown_frames": 120,
   "intro_frames": 120,

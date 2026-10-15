@@ -21,8 +21,8 @@ for location in START_LOCATIONS:
     left, top, right, bottom = struct.unpack_from('<4I', location_data, (location - 1) * 20)
     contained = {i for i, (x, y) in enumerate(marker_positions)
                  if left <= x <= right and top <= y <= bottom}
-    if not 1 <= len(contained) <= 3 or claimed_markers & contained:
-        raise ValueError(f'Start location {location} must contain 1..3 distinct P8 city markers')
+    if not contained or claimed_markers & contained:
+        raise ValueError(f'Start location {location} must contain distinct P8 city markers')
     claimed_markers.update(contained)
     start_counts.append(len(contained))
 for key in ('tax_per_city', 'tax_period_frames', 'garrison_per_city', 'peace_timeout_frames',
