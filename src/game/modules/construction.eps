@@ -1,23 +1,6 @@
-import modules.nexus_menu as menu;
-
-// 플레이어별 가장 최근 건설 요청. PENDING이 1이면 후속 처리기가 소비할 수 있습니다.
-// 요청 저장은 자원 차감·건물 생성·요구사항 판정을 수행하지 않습니다.
-const PENDING = EUDVArray(8)();
-const BUILDING = EUDVArray(8)();
-const POSITION = EUDVArray(8)(); // X/Y가 묶인 0x1FFF1FFF 위치 값.
-
-function request(unit : CUnit, player : TrgPlayer) {
-    epdswitch(unit + 0x98 / 4, 0xFF) {
-        foreach (item : menu.BUILDINGS) {
-            case unProxy(item.unit):
-                BUILDING[player] = item.unit;
-                POSITION[player] = maskread_epd(unit + 0x58 / 4, 0x1FFF1FFF);
-                PENDING[player] = 1;
-                return;
-        }
-    }
-}
-
-function clear(player : TrgPlayer) {
-    PENDING[player] = 0;
+// 넥서스 명령을 감지한 뒤, 대리 건설 일꾼 생성 전에 호출합니다.
+// 영토·거리·건설 한도 등 좌표 기반 거부 조건을 이곳에 추가합니다.
+// false를 반환하면 넥서스 명령만 초기화하고 프로브를 만들지 않습니다.
+function canBuildAt(player : TrgPlayer, building, x, y) {
+    return true;
 }
