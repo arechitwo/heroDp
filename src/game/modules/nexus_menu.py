@@ -13,7 +13,7 @@ class BuildingButton(NamedTuple):
     tooltip: int
 
 
-BUILDINGS = (
+BUILDINGS = [
     BuildingButton('metropolis', 1, 1, UnitModel.metropolis, '대도시', 1548),
     BuildingButton('army_camp', 1, 4, UnitModel.army_camp, '군영', 1550),
     BuildingButton('drill_hall', 1, 5, UnitModel.drill_hall, '연무관', 1552),
@@ -22,7 +22,7 @@ BUILDINGS = (
     BuildingButton('tactics_school', 2, 1, UnitModel.tactics_school, '병법원', 1558),
     BuildingButton('knight_hall', 2, 2, UnitModel.knight_hall, '기사단 회관', 1560),
     BuildingButton('magic_laboratory', 2, 3, UnitModel.magic_laboratory, '마법 연구소', 1562),
-)
+]
 
 # 시작 시 제거하는 수도 비콘의 버튼셋을 두 번째 페이지 전용으로 예약합니다.
 # 유닛을 생성하거나 선택한 수도의 종류를 바꾸지 않고 표시할 버튼셋만 전환합니다.

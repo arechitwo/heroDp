@@ -2,7 +2,6 @@ import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.nexus_data as data;
 import modules.construction as construction;
-import modules.nexus_menu as menu;
 
 const NEXT_UNIT = EPD(0x628438);
 const COMPLETED_UNITS = EPD(0x584DE4);
@@ -92,10 +91,15 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
             return;
     }
     epdswitch(unit + 0x98 / 4, 0xFF) {
-        foreach (item : menu.BUILDINGS) {
-            case unProxy(item.unit):
-                break;
-        }
+        case unProxy(UnitModel.metropolis):
+        case unProxy(UnitModel.army_camp):
+        case unProxy(UnitModel.drill_hall):
+        case unProxy(UnitModel.military_workshop):
+        case unProxy(UnitModel.recovery_camp):
+        case unProxy(UnitModel.tactics_school):
+        case unProxy(UnitModel.knight_hall):
+        case unProxy(UnitModel.magic_laboratory):
+            break;
         default:
             resetCommand(unit, 23);
             return;
