@@ -1,8 +1,8 @@
 {
-  "tax_per_city": 100,
+  "tax_per_city": 50,
   "tax_period_frames": 720,
   "army_period_frames": 720,
-  "income_period_frames": 24,
+  "income_period_frames": 48,
   "capital_income": 5,
   "metropolis_income": 5,
   "metropolis_cost": 600,
