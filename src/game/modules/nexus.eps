@@ -16,6 +16,8 @@ const METROPOLISES = UnitGroup(1700);
 const SUCCESSORS = EUDVArray(8, CUnit)();
 const SUCCESSOR_READY = EUDVArray(8)();
 const COMPLETED_METROPOLISES = EUDVArray(8)();
+const INHERIT_PENDING = EUDVArray(8)();
+const INHERIT_POSITIONS = EUDVArray(8)();
 
 function trackMetropolis(epd) {
     METROPOLISES.add(CUnit.cast(epd));
@@ -99,13 +101,22 @@ function resetCommand(unit : CUnit, order) {
 }
 
 function inheritCapital(player) {
-    if (SUCCESSOR_READY[player] == 0 || MemoryEPD(NEXT_UNIT, Exactly, 0)) { return; }
+    if (SUCCESSOR_READY[player] == 0) { return; }
     const city = SUCCESSORS[player];
-    city.setloc(Loc.city_point);
-    // 후보의 실제 좌표에 수도를 만듭니다. 건물 충돌로 밀리지 않도록 먼저 제거.
+    INHERIT_POSITIONS[player] = maskread_epd(city + 0x28 / 4, 0x1FFF1FFF);
+    INHERIT_PENDING[player] = 1;
+    // 제거한 건물의 충돌 영역은 다음 틱에 비워집니다. 이 틱에는 생성하지 않음.
     city.remove();
     COMPLETED_METROPOLISES[player] -= 1;
+    construction.INHERITED_METROPOLIS[player] = 1;
+}
+
+function finishInheritance(player) {
+    if (INHERIT_PENDING[player] == 0) { return; }
+    const position = INHERIT_POSITIONS[player];
+    setloc(Loc.city_point, position & 0x1FFF, position >> 16);
     if (createAt(player, Loc.city_point)) {
+        INHERIT_PENDING[player] = 0;
         construction.INHERITED_METROPOLIS[player] = 1;
         setcurpl(player);
         println("\x04대도시가 새 수도로 승계되었습니다. 대도시 추가 수입을 유지합니다.");
@@ -115,7 +126,7 @@ function inheritCapital(player) {
 function summonFromCity(city : CUnit, player : TrgPlayer) {
     if (!MemoryXEPD(city + 0x98 / 4, Exactly, UnitModel.nexus_signal, 0xFFFF)) { return; }
     resetCommand(city, 18);
-    if (ACTIVE[player] != 0) { return; }
+    if (ACTIVE[player] != 0 || INHERIT_PENDING[player] != 0) { return; }
     // 버튼을 누른 일반 도시만 재소환 지점으로 사용.
     city.setloc(Loc.city_point);
     if (createAt(player, Loc.city_point)) {
@@ -176,6 +187,8 @@ function tickProxies() {
 }
 
 function tick() {
+    // 이전 틱에 제거한 대도시 자리에서만 승계 생성을 완료합니다.
+    foreach (player : py_range(7)) { finishInheritance(player); }
     tickProxies();
     findSuccessors();
     foreach (player : py_range(7)) {
@@ -191,8 +204,9 @@ function tick() {
                 buildRemote(unit, player);
             }
         }
-        if (ACTIVE[player] == 0) { inheritCapital(player); }
-        SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 1 - ACTIVE[player]);
+        if (ACTIVE[player] == 0 && INHERIT_PENDING[player] == 0) { inheritCapital(player); }
+        SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo,
+            1 - ACTIVE[player] - INHERIT_PENDING[player]);
     }
     setcurpl(0);
 }
