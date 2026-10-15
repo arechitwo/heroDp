@@ -1,7 +1,7 @@
 """Nested JSON resources and runtime DAT initialization for normal troops."""
 import json
 from pathlib import Path
-from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo
+from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo, Weapon
 from .unit_settings import Looks, UnitModel
 from .damage_types import AttackType, DefenseType
 
@@ -138,6 +138,18 @@ def f_init():
         weapons = properties.get('weapons') or {}
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)
         for channel, attribute in (('ground', 'groundWeapon'), ('air', 'airWeapon')):
+            weapon_appearance = (appearance.get('weapons') or {}).get(channel) or {}
+            projectile_look = weapon_appearance.get('look')
+            if projectile_look is not None:
+                getattr(weapon_unit, attribute).flingy = getattr(Looks, projectile_look)
+            delivery_from = weapon_appearance.get('delivery_from')
+            if delivery_from is not None:
+                # 초기화 때만 발사·명중 설정을 복사. 무기 번호와 전투 수치는 유지.
+                source = Weapon(delivery_from)
+                target = getattr(weapon_unit, attribute)
+                for member in ('behavior', 'removeAfter', 'attackAngle',
+                               'launchSpin', 'forwardOffset', 'verticalOffset'):
+                    setattr(target, member, getattr(source, member))
             attack_type = (combat['attack'].get(channel) or {}).get('type')
             if attack_type is not None:
                 getattr(weapon_unit, attribute).damageType = getattr(AttackType, attack_type)

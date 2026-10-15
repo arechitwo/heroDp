@@ -91,6 +91,12 @@
   "siege_turret": {
     "name": "\u0004공성 터렛",
     "graphics": {},
+    "weapons": {
+      "ground": {
+        "look": "siege_hit",
+        "delivery_from": "Arclite Shock Cannon"
+      }
+    },
     "size": {
       "placement": {},
       "bounds": {}

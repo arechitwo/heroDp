@@ -9,6 +9,7 @@ class Looks:
     ghost = Flingy("Ghost")
     ultralisk = Flingy("Ultralisk")
     scv = Flingy("SCV")
+    siege_hit = Flingy("Arclite Shock Cannon Hit")
 
 
 class UnitModel:
