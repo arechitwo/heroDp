@@ -133,8 +133,9 @@ function tick() {
                 withdraw(index);
                 // 점 로케이션으로 해당 파일런을 엔진 Give 처리해 색상도 갱신.
                 GiveUnits(1, UnitModel.small_city, owner, Loc.city_point, winner);
-                // 현재는 게이트웨이 병영만 점령 범위에서 함께 넘김.
+                // 병법원과 자동 생산 군영을 같은 범위에서 함께 넘김.
                 GiveUnits(All, UnitModel.barracks, owner, Loc.city_capture, winner);
+                GiveUnits(All, UnitModel.army_camp, owner, Loc.city_capture, winner);
                 if (owner < 7) { cityCount[owner]--; }
                 if (winner < 7) { cityCount[winner]++; }
                 ModifyUnitHitPoints(1, UnitModel.small_city, winner, Loc.city_point, 100);

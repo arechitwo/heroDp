@@ -4,6 +4,7 @@ import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.nexus as nexus;
 import modules.construction as construction;
+import modules.army_camp as armyCamp;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -12,6 +13,9 @@ const LOCATION_TABLE = EPD(0x58DC60);
 function trackNewUnits() {
     foreach (ptr, epd : EUDLoopNewUnit()) {
         epdswitch(epd + 0x64 / 4, 0xFF) {
+            case unProxy(UnitModel.army_camp):
+                armyCamp.track(epd);
+                continue;
             case unProxy(UnitModel.metropolis):
                 if (!construction.acceptNewMetropolis(CUnit.cast(epd))) { continue; }
                 nexus.trackMetropolis(epd);

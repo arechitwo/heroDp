@@ -28,13 +28,15 @@ for location in START_LOCATIONS:
 for key in ('tax_per_city', 'tax_period_frames', 'garrison_per_city', 'peace_timeout_frames',
             'starting_minerals', 'starting_marines', 'start_countdown_frames',
             'income_period_frames', 'capital_income', 'metropolis_income',
-            'metropolis_cost', 'metropolis_build_frames', 'cities_per_metropolis'):
+            'metropolis_cost', 'metropolis_build_frames', 'cities_per_metropolis',
+            'army_period_frames'):
     if type(config[key]) is not int or config[key] <= 0:
         raise ValueError(f'{key} must be a positive integer')
 CITY_COUNT = len(marker_positions)
 START_CITY_COUNTS = EUDArray(start_counts)
 TAX = config['tax_per_city']
 TAX_PERIOD = config['tax_period_frames']
+ARMY_PERIOD = config['army_period_frames']
 INCOME_PERIOD = config['income_period_frames']
 CAPITAL_INCOME = config['capital_income']
 METROPOLIS_INCOME = config['metropolis_income']

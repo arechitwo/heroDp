@@ -7,6 +7,9 @@
     "nexus_signal": 183,
     "engineer": 6,
     "siege_turret": 6,
+    "spearman": 6,
+    "light_infantry": 6,
+    "longbowman": 6,
     "military_workshop": 361,
     "magic_laboratory": 361
   },

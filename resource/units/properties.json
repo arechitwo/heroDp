@@ -5,10 +5,10 @@
       "count": 1
     },
     "production": {
-      "minerals": 100,
+      "minerals": 0,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 720
     },
     "weapons": {
       "max_ground_hits": 1,
@@ -29,10 +29,10 @@
       "count": 1
     },
     "production": {
-      "minerals": 120,
+      "minerals": 0,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 720
     },
     "weapons": {
       "max_ground_hits": 1,
@@ -52,10 +52,10 @@
       "count": 1
     },
     "production": {
-      "minerals": 160,
+      "minerals": 0,
       "gas": 0,
       "supply": 0,
-      "time": 9999
+      "time": 720
     },
     "weapons": {
       "max_ground_hits": 1,

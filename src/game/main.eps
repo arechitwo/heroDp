@@ -12,6 +12,7 @@ import modules.unit_data as unitData;
 import modules.nexus as nexus;
 import modules.damage_types as damageTypes;
 import modules.engineer_data as engineerData;
+import modules.army_camp as armyCamp;
 function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
@@ -21,6 +22,7 @@ function onPluginStart() {
     debug.init();
     cities.init();
     nexus.init();
+    armyCamp.init();
     randomize();
     ui.init();
 }
@@ -35,6 +37,7 @@ function beforeTriggerExec() {
         rules.tick();
         cities.tick();
         income.tick();
+        armyCamp.tick();
         commander.tick();
     }
 }

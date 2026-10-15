@@ -6,6 +6,7 @@
 |---|---|
 | `cities.eps` | 도시 소유권, 주둔군 생성·회수, 점령, 도시 수 캐시 |
 | `income.eps` | 도시 세금과 수도·대도시의 주기 수입 지급 |
+| `army_camp.eps` | 공용 군영 UnitGroup, 훈련 목록 반복 생산, 랠리 공격 이동 |
 | `commander.eps` | MSQC로 동기화한 F+좌·우클릭 전군 명령 |
 | `start_ui.eps` | 오프닝, 방장 빠른/세부 설정, 채팅 거점 선택, 게임 시작 |
 | `rules.eps` | 개인전 동맹 규칙, 대기열/랜덤 팀 구성, 팀 동맹과 시야 |
@@ -14,7 +15,7 @@
 | `army_groups.py` | 플레이어별 기본 부대와 영웅 UnitGroup의 컴파일 타임 등록 목록 |
 | `debug.eps` | 동기화 채팅으로 유닛 생성·자원 설정·세금/주둔군/시작 타이머 변경 |
 | `player_settings.eps` | 유닛·미니맵 플레이어 색상 설정. P8은 검정(40) |
-| `unit_data.py` | UnitModel 키로 구분한 기본 5병종의 전투·외형·속성 JSON 적용 |
+| `unit_data.py` | UnitModel 키로 구분한 기본 병종·공성 터렛의 전투·외형·속성 JSON 적용 |
 
 디버그 명령과 설정은 `doc/DEBUG.md`를 참고합니다. `debug_enabled`로 켜고 끕니다.
 
@@ -78,7 +79,7 @@ Broodling은 마린 외형·초상화·음성, 정지 공격 AI를 사용하는 
 주둔군을 포함한 도시 소유자의 Men이 사라지면 FranceDp처럼 `CommandMostAt`으로
 주변 병력이 가장 많은 플레이어에게 거점의 파일런을 넘깁니다. 동률은 원본처럼 낮은 슬롯 우선입니다.
 파일런은 `Loc.city_point`에서 `GiveUnits(1, ...)`로 넘깁니다. `Loc.city_capture` 범위에서는
-같은 소유자의 게이트웨이(`UnitModel.barracks`)를 `GiveUnits(All, ...)`로 함께 넘깁니다.
+같은 소유자의 병법원(`UnitModel.barracks`)과 군영(`UnitModel.army_camp`)을 `GiveUnits(All, ...)`로 함께 넘깁니다.
 주변 포지의 양도는 아직 추가하지 않습니다.
 점령 시 HP·쉴드를 100% 복구합니다. 공격 상태가 끊긴 뒤 400틱이 지나면 주둔군을 회수하고 HP를 복구합니다.
 HP는 직접 대입하지 않고 저장한 CUnit 중심의 점 로케이션에서 `ModifyUnitHitPoints(1, ...)`로 변경합니다.
