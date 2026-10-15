@@ -1,5 +1,9 @@
 """유닛의 게임상 역할과 StarCraft 유닛 이름을 한곳에서 관리합니다."""
-from eudplib import Flingy, TrgUnit
+from eudplib import Flingy, TrgUnit, Upgrade
+
+
+class UpgradeModel:
+    garrison_armor = Upgrade("Unused60")
 
 
 class Looks:

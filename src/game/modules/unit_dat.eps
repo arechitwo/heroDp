@@ -1,7 +1,9 @@
 // 도시 파일런(156)과 주둔군 브루들링(40)만 수정합니다.
 // 게임 시작 시 cities.init()보다 먼저 실행: 외형/공격 AI 설정 후 비콘을 파일런으로 변환.
 import modules.unit_settings.UnitModel as UnitModel;
+import modules.unit_settings.UpgradeModel as UpgradeModel;
 import modules.damage_types.DefenseType as DefenseType;
+import modules.damage_types.AttackType as AttackType;
 function init() {
     // ---- 도시: 프로토스 파일런 ----
     UnitModel.small_city.flingy = 62;                    // 원본 파일런 외형
@@ -58,26 +60,37 @@ function init() {
     UnitModel.defender.dontBecomeGuard = true;
     UnitModel.defender.ignoreStrategicSuicideMissions = true;
     UnitModel.defender.rightClickAction = 3;            // FranceDp stationary attack
-    UnitModel.defender.seekRange = 9;
+    UnitModel.defender.nameString = "\x04주둔군";
+    UnitModel.defender.seekRange = 5;
     UnitModel.defender.sightRange = 9;
-    UnitModel.defender.maxHp = 2000 * 256;             // FranceDp 주둔군 CSV 기준 체력
+    UnitModel.defender.maxHp = 1800 * 256;
+    UnitModel.defender.hasShield = false;
+    UnitModel.defender.maxShield = 0;
     UnitModel.defender.armor = 9;
     UnitModel.defender.sizeType = DefenseType.infantry;
-    UnitModel.defender.armorUpgrade = 0;
+    UnitModel.defender.armorUpgrade = UpgradeModel.garrison_armor;
+    // P1~P7: 9 + 10 = 19, P8 컴퓨터: 9. 기본 병종의 방어 업그레이드와 분리.
+    foreach (player : py_range(7)) {
+        (UpgradeModel.garrison_armor)[player] = 10;
+    }
+    (UpgradeModel.garrison_armor)[P8] = 0;
     UnitModel.defender.groundWeapon = 119;
     UnitModel.defender.airWeapon = 119;
     UnitModel.defender.maxAirHits = 1;
+    UnitModel.defender.maxGroundHits = 1;
     UnitModel.defender.supplyUsed = 0;
     UnitModel.defender.transportSpaceRequired = 255;    // Cannot load garrisons
     UnitModel.defender.mineralCost = 100;
     UnitModel.defender.gasCost = 0;
     UnitModel.defender.timeCost = 9999;
     UnitModel.defender.killScore = 2;
-    Weapon(119).damage = 80;
-    Weapon(119).damageBonus = 3;
-    Weapon(119).maxRange = 208;
+    Weapon(119).damage = 90;
+    Weapon(119).damageBonus = 0;                // 공격 성장량은 추후 별도 설계
+    Weapon(119).damageType = AttackType.general;
+    Weapon(119).damageFactor = 1;
+    Weapon(119).maxRange = 160;
     Weapon(119).minRange = 0;
-    Weapon(119).cooldown = 15;
+    Weapon(119).cooldown = 24;
     Weapon(119).targetFlags = 3;                // Ground and air targets
     Weapon(119).upgrade = 8;
 
