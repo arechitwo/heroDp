@@ -11,14 +11,15 @@ TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
                           for key in ('spearman', 'light_infantry', 'longbowman'))
 
 
-def _train_button(position, unit, tooltip):
+def _train_button(position, unit, tooltip, *, icon=None):
     kind = EncodeUnit(unit)
-    return _button(position, kind, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
+    image = kind if icon is None else EncodeUnit(icon)
+    return _button(position, image, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                    kind, kind, tooltip, tooltip + 1)
 
 
 ARMY_BUTTONS = Db(b''.join([
-    _train_button(1, UnitModel.spearman, 1574),
+    _train_button(1, UnitModel.spearman, 1574, icon=UnitModel.spearman_icon),
     _train_button(2, UnitModel.light_infantry, 1576),
     _train_button(3, UnitModel.longbowman, 1578),
     # 안내 버튼: 현재 군영 버튼셋으로 돌아가므로 게임 명령은 내리지 않습니다.
