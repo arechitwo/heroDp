@@ -64,8 +64,8 @@ function init() {
     UnitModel.defender.seekRange = 8;           // 인지 8타일 = 무기 사거리 256픽셀
     UnitModel.defender.sightRange = 9;
     UnitModel.defender.maxHp = 1800 * 256;
-    UnitModel.defender.hasShield = false;
-    UnitModel.defender.maxShield = 0;
+    UnitModel.defender.hasShield = true;
+    UnitModel.defender.maxShield = 1;           // 레벨별 실드 업그레이드를 위한 기본 실드
     UnitModel.defender.armor = 9;
     UnitModel.defender.sizeType = DefenseType.infantry;
     UnitModel.defender.armorUpgrade = UpgradeModel.garrison_armor;

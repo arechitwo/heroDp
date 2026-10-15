@@ -3,7 +3,7 @@
     "defense": {
       "type": "infantry",
       "hp": 2400,
-      "shield": 0,
+      "shield": 1,
       "armor": 10
     },
     "attack": {
@@ -28,7 +28,7 @@
     "defense": {
       "type": "infantry",
       "hp": 1600,
-      "shield": 0,
+      "shield": 1,
       "armor": 5
     },
     "attack": {
@@ -63,7 +63,7 @@
     "defense": {
       "type": "infantry",
       "hp": 1400,
-      "shield": 0,
+      "shield": 1,
       "armor": 5
     },
     "attack": {
@@ -98,7 +98,7 @@
     "defense": {
       "type": "infantry",
       "hp": 1800,
-      "shield": 0,
+      "shield": 1,
       "armor": 5
     },
     "attack": {
@@ -123,7 +123,7 @@
     "defense": {
       "type": "infantry",
       "hp": 1400,
-      "shield": 0,
+      "shield": 1,
       "armor": 5
     },
     "attack": {
@@ -148,7 +148,7 @@
     "defense": {
       "type": "armored",
       "hp": 5600,
-      "shield": 0,
+      "shield": 1,
       "armor": 35
     },
     "attack": {
@@ -179,7 +179,7 @@
     "defense": {
       "type": "armored",
       "hp": 8000,
-      "shield": 0,
+      "shield": 1,
       "armor": 25
     },
     "attack": {
