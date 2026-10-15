@@ -5,9 +5,6 @@ import modules.settings as cfg;
 import modules.unit_settings.UnitModel as UnitModel;
 
 const TOTAL_UNITS = EPD(0x582324);
-// 신규 유닛 순회 한 번 동안만 사용하는 초과분 스냅샷. 건설 예약 수가 아닙니다.
-const EXCESS_READY = EUDVArray(8)();
-const EXCESS_METROPOLIS = EUDVArray(8)();
 // 대도시가 수도로 승계되어도 한도와 추가 수입에 포함합니다.
 const INHERITED_METROPOLIS = EUDVArray(8)();
 
@@ -18,25 +15,12 @@ function metropolisLimit(player : TrgPlayer) {
     return limit;
 }
 
-function beginTracking() {
-    foreach (player : py_range(7)) { EXCESS_READY[player] = 0; }
-}
-
 function acceptNewMetropolis(city : CUnit) {
     const owner = city.owner;
     if (owner >= 7) { return true; }
-    if (MemoryXEPD(city + 0xDC / 4, Exactly, 1, 1)) { return true; }
-    if (EXCESS_READY[owner] == 0) {
-        const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0xFFFF);
-        const used = total + INHERITED_METROPOLIS[owner];
-        const limit = metropolisLimit(owner);
-        EXCESS_METROPOLIS[owner] = 0;
-        if (used > limit) { EXCESS_METROPOLIS[owner] = used - limit; }
-        EXCESS_READY[owner] = 1;
-    }
-    if (EXCESS_METROPOLIS[owner] != 0) {
-        // 같은 틱의 제거가 엔진 카운터에 반영되는 시점과 무관하게 초과분만 제거.
-        EXCESS_METROPOLIS[owner] -= 1;
+    const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0xFFFF);
+    const limit = metropolisLimit(owner);
+    if (total + INHERITED_METROPOLIS[owner] > limit) {
         city.remove();
         SetResources(owner, Add, cfg.METROPOLIS_COST, Ore);
         setcurpl(owner);
