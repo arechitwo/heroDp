@@ -46,16 +46,29 @@ function acceptNewMetropolis(city : CUnit) {
     return true;
 }
 
-function canBuildAt(player : TrgPlayer, building, x, y) {
-    if (building == UnitModel.metropolis) {
-        const limit = metropolisLimit(player);
-        // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
-        const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0xFFFF);
-        if (built + INHERITED_METROPOLIS[player] >= limit) {
-            setcurpl(player);
-            println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
+function canBuildAt(unit : CUnit) {
+    epdswitch(unit + 0x98 / 4, 0xFF) {
+        case unProxy(UnitModel.metropolis):
+            const player = unit.owner;
+            const limit = metropolisLimit(player);
+            // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
+            const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0xFFFF);
+            if (built + INHERITED_METROPOLIS[player] >= limit) {
+                setcurpl(player);
+                println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
+                return false;
+            }
+            break;
+        case unProxy(UnitModel.army_camp):
+        case unProxy(UnitModel.drill_hall):
+        case unProxy(UnitModel.military_workshop):
+        case unProxy(UnitModel.recovery_camp):
+        case unProxy(UnitModel.tactics_school):
+        case unProxy(UnitModel.knight_hall):
+        case unProxy(UnitModel.magic_laboratory):
+            break;
+        default:
             return false;
-        }
     }
     return true;
 }

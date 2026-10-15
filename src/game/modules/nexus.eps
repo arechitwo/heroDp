@@ -133,23 +133,7 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
         default:
             return;
     }
-    epdswitch(unit + 0x98 / 4, 0xFF) {
-        case unProxy(UnitModel.metropolis):
-        case unProxy(UnitModel.army_camp):
-        case unProxy(UnitModel.drill_hall):
-        case unProxy(UnitModel.military_workshop):
-        case unProxy(UnitModel.recovery_camp):
-        case unProxy(UnitModel.tactics_school):
-        case unProxy(UnitModel.knight_hall):
-        case unProxy(UnitModel.magic_laboratory):
-            break;
-        default:
-            resetCommand(unit, 23);
-            return;
-    }
-    const x, y = posread_epd(unit + 0x58 / 4);
-    const building = maskread_epd(unit + 0x98 / 4, 0xFF);
-    if (!construction.canBuildAt(player, building, x, y)) {
+    if (!construction.canBuildAt(unit)) {
         resetCommand(unit, 23);
         return;
     }
@@ -159,6 +143,7 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
     }
     const order = maskread_epd(unit + 0x4C / 4, 0xFF00) >> 8;
     if (order != 30 && order != 31) { resetCommand(unit, 23); return; }
+    const x, y = posread_epd(unit + 0x58 / 4);
     setloc(Loc.city_spawn, x, y);
     const probe = CUnit.from_next();
     if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
