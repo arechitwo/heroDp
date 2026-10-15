@@ -5,18 +5,53 @@ import modules.settings as cfg;
 import modules.unit_settings.UnitModel as UnitModel;
 
 const TOTAL_UNITS = EPD(0x582324);
-const PENDING_METROPOLIS = EUDVArray(8)();
+// 신규 유닛 순회 한 번 동안만 사용하는 초과분 스냅샷. 건설 예약 수가 아닙니다.
+const EXCESS_READY = EUDVArray(8)();
+const EXCESS_METROPOLIS = EUDVArray(8)();
 // 대도시가 수도로 승계되어도 한도와 추가 수입에 포함합니다.
 const INHERITED_METROPOLIS = EUDVArray(8)();
 
+function metropolisLimit(player : TrgPlayer) {
+    const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0xFFFF);
+    var limit = cities / cfg.CITIES_PER_METROPOLIS;
+    if (limit == 0) { limit = 1; }
+    return limit;
+}
+
+function beginTracking() {
+    foreach (player : py_range(7)) { EXCESS_READY[player] = 0; }
+}
+
+function acceptNewMetropolis(city : CUnit) {
+    const owner = city.owner;
+    if (owner >= 7) { return true; }
+    if (MemoryXEPD(city + 0xDC / 4, Exactly, 1, 1)) { return true; }
+    if (EXCESS_READY[owner] == 0) {
+        const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0xFFFF);
+        const used = total + INHERITED_METROPOLIS[owner];
+        const limit = metropolisLimit(owner);
+        EXCESS_METROPOLIS[owner] = 0;
+        if (used > limit) { EXCESS_METROPOLIS[owner] = used - limit; }
+        EXCESS_READY[owner] = 1;
+    }
+    if (EXCESS_METROPOLIS[owner] != 0) {
+        // 같은 틱의 제거가 엔진 카운터에 반영되는 시점과 무관하게 초과분만 제거.
+        EXCESS_METROPOLIS[owner] -= 1;
+        city.remove();
+        SetResources(owner, Add, cfg.METROPOLIS_COST, Ore);
+        setcurpl(owner);
+        println("\x08대도시 한도를 초과한 건설을 취소하고 {}금을 반환했습니다.", cfg.METROPOLIS_COST);
+        return false;
+    }
+    return true;
+}
+
 function canBuildAt(player : TrgPlayer, building, x, y) {
     if (building == UnitModel.metropolis) {
-        const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0xFFFF);
-        var limit = cities / cfg.CITIES_PER_METROPOLIS;
-        if (limit == 0) { limit = 1; }
-        // 미완성 건물도 포함. 아직 워프를 시작하지 않은 대리 프로브는 예약 수로 포함.
+        const limit = metropolisLimit(player);
+        // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
         const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0xFFFF);
-        if (built + PENDING_METROPOLIS[player] + INHERITED_METROPOLIS[player] >= limit) {
+        if (built + INHERITED_METROPOLIS[player] >= limit) {
             setcurpl(player);
             println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
             return false;

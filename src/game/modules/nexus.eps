@@ -112,13 +112,6 @@ function inheritCapital(player) {
     }
 }
 
-function releaseMetropolisReservation(probe : CUnit) {
-    if (MemoryEPD(probe + 0x8C / 4, Exactly, 1)) {
-        construction.PENDING_METROPOLIS[probe.owner] -= 1;
-        probe.unknown0x8C = 0;
-    }
-}
-
 function summonFromCity(city : CUnit, player : TrgPlayer) {
     if (!MemoryXEPD(city + 0x98 / 4, Exactly, UnitModel.nexus_signal, 0xFFFF)) { return; }
     resetCommand(city, 18);
@@ -171,11 +164,6 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
     if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
     else { CreateUnit(1, UnitModel.scv, Loc.city_spawn, player); }
     if (!MemoryXEPD(probe + 0x4C / 4, Exactly, 0, 0xFF00)) {
-        probe.unknown0x8C = 0;
-        if (building == UnitModel.metropolis) {
-            probe.unknown0x8C = 1;
-            construction.PENDING_METROPOLIS[player] += 1;
-        }
         probe.orderTargetPos = maskread_epd(unit + 0x58 / 4, 0x1FFF1FFF);
         probe.buildQueue1 = unit.buildQueue1;
         probe.orderID = order;
@@ -186,21 +174,15 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
 
 function tickProxies() {
     foreach (entry : PROXIES.cploop) {
-        foreach (dead : entry.dying) {
-            releaseMetropolisReservation(CUnit.cast(entry.epd));
-        }
+        foreach (dead : entry.dying) {}
         const probe = CUnit.cast(entry.epd);
         epdswitch(probe + 0x4C / 4, 0xFF00) {
             case 31 << 8:
             case 30 << 8:
-                break;
             case 33 << 8:
             case 34 << 8:
-                // 건물이 생겼으므로 엔진의 전체 유닛 수로 한도를 계산합니다.
-                releaseMetropolisReservation(probe);
                 break;
             default:
-                releaseMetropolisReservation(probe);
                 probe.remove();
                 break;
         }
@@ -209,7 +191,6 @@ function tickProxies() {
 }
 
 function tick() {
-    // 실제 건물로 전환된 예약을 먼저 해제해 한도에서 중복 계산하지 않습니다.
     tickProxies();
     findSuccessors();
     foreach (player : py_range(7)) {
