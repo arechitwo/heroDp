@@ -1,6 +1,26 @@
 // 넥서스 명령을 감지한 뒤, 대리 건설 일꾼 생성 전에 호출합니다.
 // 영토·거리·건설 한도 등 좌표 기반 거부 조건을 이곳에 추가합니다.
 // false를 반환하면 넥서스 명령만 초기화하고 프로브를 만들지 않습니다.
+import modules.settings as cfg;
+import modules.unit_settings.UnitModel as UnitModel;
+
+const TOTAL_UNITS = EPD(0x582324);
+const PENDING_METROPOLIS = EUDVArray(8)();
+// 대도시가 수도로 승계되어도 한도와 추가 수입에 포함합니다.
+const INHERITED_METROPOLIS = EUDVArray(8)();
+
 function canBuildAt(player : TrgPlayer, building, x, y) {
+    if (building == UnitModel.metropolis) {
+        const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0xFFFF);
+        var limit = cities / cfg.CITIES_PER_METROPOLIS;
+        if (limit == 0) { limit = 1; }
+        // 미완성 건물도 포함. 아직 워프를 시작하지 않은 대리 프로브는 예약 수로 포함.
+        const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0xFFFF);
+        if (built + PENDING_METROPOLIS[player] + INHERITED_METROPOLIS[player] >= limit) {
+            setcurpl(player);
+            println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
+            return false;
+        }
+    }
     return true;
 }

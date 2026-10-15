@@ -2,6 +2,7 @@ import modules.unit_orders as orders;
 import modules.army_groups as groups;
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
+import modules.nexus as nexus;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -9,6 +10,11 @@ const LOCATION_TABLE = EPD(0x58DC60);
 
 function trackNewUnits() {
     foreach (ptr, epd : EUDLoopNewUnit()) {
+        epdswitch(epd + 0x64 / 4, 0xFF) {
+            case unProxy(UnitModel.metropolis):
+                nexus.trackMetropolis(epd);
+                continue;
+        }
         if (MemoryXEPD(epd + 0x4C / 4, AtLeast, 7, 0xFF)) { continue; }
         if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
         epdswitch(epd + 0x64 / 4, 0xFF) {
@@ -26,7 +32,6 @@ function trackNewUnits() {
 }
 
 function tick() {
-    trackNewUnits();
     var hasCommand = 0;
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp < 7) {

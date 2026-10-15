@@ -3,6 +3,7 @@ import struct
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel
 from .damage_types import DefenseType
+from . import settings as cfg
 from .nexus_menu import BUILDINGS, PAGE_TWO_UNIT, NEXT_PAGE_TOOLTIP, PREVIOUS_PAGE_TOOLTIP
 
 BUTTON_TABLE = 0x5187E8
@@ -101,6 +102,12 @@ def f_init():
         # 메뉴 틀 단계의 값입니다. 실제 건설비·조건은 요청 처리 쪽에서 결정합니다.
         item.unit.mineralCost = 0
         item.unit.gasCost = 0
+
+    metropolis = UnitModel.metropolis
+    metropolis.mineralCost = cfg.METROPOLIS_COST
+    metropolis.timeCost = cfg.METROPOLIS_BUILD_FRAMES
+    metropolis.supplyProvided = 0
+    metropolis.sizeType = DefenseType.armored
 
     signal = UnitModel.nexus_signal
     signal.nameString = '\x04수도 소환'
