@@ -1,12 +1,14 @@
 """Native training queue as a persistent, free-to-edit automatic recruitment list."""
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
-from .unit_data import RECRUITMENT
+from .unit_data import RECRUITMENT, PROPERTIES
 from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN
 
 SPEARMAN_COST = RECRUITMENT['spearman'][0]
 INFANTRY_COST = RECRUITMENT['light_infantry'][0]
 LONGBOW_COST = RECRUITMENT['longbowman'][0]
+TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
+                          for key in ('spearman', 'light_infantry', 'longbowman'))
 
 
 def _train_button(position, unit, tooltip):

@@ -34,10 +34,12 @@ function tick() {
     foreach (entry : CAMPS.cploop) {
         foreach (dead : entry.dying) {}
         const camp = CUnit.cast(entry.epd);
-        // 엔진이 실제 생산을 완료하지 못하도록 현재 생산 유닛의 시간만 하한 보정.
+        // 생산 주기에 게이지를 다시 진행시키고, 그 외에는 자연 완료만 방지.
         if (!MemoryEPD(camp + 0xEC / 4, Exactly, 0)) {
             const training = CUnit.cast(cunitepdread_epd(camp + 0xEC / 4)[[1]]);
-            if (MemoryXEPD(training + 0xAC / 4, AtMost, 9, 0xFFFF)) {
+            if (produce) {
+                training.remainingBuildTime = data.TRAINING_RESET_TIME;
+            } else if (MemoryXEPD(training + 0xAC / 4, AtMost, 9, 0xFFFF)) {
                 training.remainingBuildTime = 10;
             }
         }
