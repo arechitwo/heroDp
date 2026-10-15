@@ -1,6 +1,7 @@
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.nexus_data as data;
+import modules.construction as construction;
 
 const NEXT_UNIT = EPD(0x628438);
 const COMPLETED_UNITS = EPD(0x584DE4);
@@ -10,10 +11,9 @@ const ACTIVE = EUDVArray(8)();
 const INITIAL_NEXUS = EUDVArray(7, CUnit)();
 const INITIAL_GENERATION = EUDVArray(7)();
 const INITIAL_READY = EUDVArray(7)();
-const PROXIES = UnitGroup(1700);
 
 function init() {
-    data.init(); // City summon and remote Gateway button sets, after unit_dat.
+    data.init(); // 수도의 두 페이지 건설 메뉴와 일반 도시의 수도 소환 버튼.
     // 파일런 변환과 같은 onPluginStart 단계에서 초기 수도 마커를 변환.
     foreach (index : py_range(7)) {
         const startLoc = Loc.strasbourg + index;
@@ -89,30 +89,7 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
         default:
             return;
     }
-    epdswitch(unit + 0x98 / 4, 0xFF) {
-        case unProxy(UnitModel.barracks):
-            break;
-        default:
-            resetCommand(unit, 23);
-            return;
-    }
-    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
-        resetCommand(unit, 23);
-        return;
-    }
-    const x, y = posread_epd(unit + 0x58 / 4);
-    setloc(Loc.city_spawn, x, y);
-    const order = maskread_epd(unit + 0x4C / 4, 0xFF00) >> 8;
-    if (order != 30 && order != 31) { resetCommand(unit, 23); return; }
-    const probe = CUnit.from_next();
-    if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
-    else { CreateUnit(1, UnitModel.scv, Loc.city_spawn, player); }
-    if (!MemoryXEPD(probe + 0x4C / 4, Exactly, 0, 0xFF00)) {
-        probe.orderTargetPos = maskread_epd(unit + 0x58 / 4, 0x1FFF1FFF);
-        probe.buildQueue1 = unit.buildQueue1;
-        probe.orderID = order;
-        PROXIES.add(probe);
-    }
+    construction.request(unit, player);
     resetCommand(unit, 23);
 }
 
@@ -130,20 +107,6 @@ function tick() {
             }
         }
         SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 1 - ACTIVE[player]);
-    }
-    foreach (entry : PROXIES.cploop) {
-        foreach (dead : entry.dying) {}
-        const probe = CUnit.cast(entry.epd);
-        epdswitch(probe + 0x4C / 4, 0xFF00) {
-            case 31 << 8:
-            case 30 << 8:
-            case 33 << 8:
-            case 34 << 8:
-                break;
-            default:
-                probe.remove();
-                break;
-        }
     }
     setcurpl(0);
 }

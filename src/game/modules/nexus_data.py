@@ -3,6 +3,7 @@ import struct
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel
 from .damage_types import DefenseType
+from .nexus_menu import BUILDINGS, PAGE_TWO_UNIT, NEXT_PAGE_TOOLTIP, PREVIOUS_PAGE_TOOLTIP
 
 BUTTON_TABLE = 0x5187E8
 STATUS_TABLE = 0x5193A0
@@ -12,6 +13,7 @@ BUTTON_ALWAYS = 0x4282D0
 BUTTON_CAN_TRAIN = 0x428E60
 BUTTON_TRAIN = 0x4234B0
 BUTTON_WARP_BUILDING = 0x423DD0
+BUTTON_CHANGE_PAGE = 0x459AF0
 
 
 def _button(position, icon, condition, action, condition_unit, action_unit,
@@ -20,9 +22,21 @@ def _button(position, icon, condition, action, condition_unit, action_unit,
                        condition_unit, action_unit, enabled_tooltip, disabled_tooltip)
 
 
-CAPITAL_BUTTONS = Db(_button(5, EncodeUnit(UnitModel.barracks), BUTTON_ALWAYS,
-                            BUTTON_WARP_BUILDING, EncodeUnit(UnitModel.barracks),
-                            EncodeUnit(UnitModel.barracks), 630, 631))
+def _building_buttons(page):
+    return b''.join(
+        _button(item.position, EncodeUnit(item.unit), BUTTON_ALWAYS,
+                BUTTON_WARP_BUILDING, EncodeUnit(item.unit), EncodeUnit(item.unit),
+                item.tooltip, item.tooltip + 1)
+        for item in BUILDINGS if item.page == page
+    )
+
+
+CAPITAL_BUTTONS = Db(_building_buttons(1) + _button(
+    9, 370, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(PAGE_TWO_UNIT),
+    NEXT_PAGE_TOOLTIP, 0))
+CAPITAL_PAGE_TWO_BUTTONS = Db(_building_buttons(2) + _button(
+    9, 236, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(UnitModel.nexus_unit),
+    PREVIOUS_PAGE_TOOLTIP, 0))
 CITY_BUTTONS = Db(_button(7, 154, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                          EncodeUnit(UnitModel.nexus_signal),
                          EncodeUnit(UnitModel.nexus_signal), 1049, 1050))
@@ -71,7 +85,6 @@ def f_init():
     ])
 
     gate = UnitModel.barracks
-    gate.nameString = '\x05훈련소'
     gate.maxHp = 4800 * 256
     gate.armor = 50
     gate.sizeType = DefenseType.armored
@@ -83,6 +96,12 @@ def f_init():
     gate.supplyUsed = 0
     gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
 
+    for item in BUILDINGS:
+        item.unit.nameString = '\x04' + item.name
+        # 메뉴 틀 단계의 값입니다. 실제 건설비·조건은 요청 처리 쪽에서 결정합니다.
+        item.unit.mineralCost = 0
+        item.unit.gasCost = 0
+
     signal = UnitModel.nexus_signal
     signal.nameString = '\x04수도 소환'
     signal.mineralCost = 0
@@ -91,8 +110,10 @@ def f_init():
     signal.timeCost = 9999  # Queue is consumed by summonFromCity before completion.
 
     DoActions([
-        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 1),
+        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 6),
         SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12, SetTo, 4),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12 + 4, SetTo, CAPITAL_PAGE_TWO_BUTTONS),
         SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12, SetTo, 1),
         SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12 + 4, SetTo, CITY_BUTTONS),
     ])

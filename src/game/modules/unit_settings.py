@@ -19,8 +19,16 @@ class UnitModel:
     # 도시 마커 → 인게임 도시
     city_marker = TrgUnit("Terran Beacon")
     small_city = TrgUnit("Protoss Pylon")
-    # 도시 점령 시 함께 넘기는 병영은 게이트웨이.
-    barracks = TrgUnit("Protoss Gateway")
+    # 수도 건설 메뉴. 병법원은 기존 게이트웨이 역할을 이어받습니다.
+    metropolis = TrgUnit("Protoss Nexus")
+    army_camp = TrgUnit("Protoss Robotics Facility")
+    drill_hall = TrgUnit("Protoss Forge")
+    military_workshop = TrgUnit("Protoss Cybernetics Core")
+    recovery_camp = TrgUnit("Protoss Shield Battery")
+    tactics_school = TrgUnit("Protoss Gateway")
+    knight_hall = TrgUnit("Protoss Citadel of Adun")
+    magic_laboratory = TrgUnit("Protoss Templar Archives")
+    barracks = tactics_school  # 도시 점령 시 함께 넘기는 기존 역할 이름.
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")
     nexus_wireframe = TrgUnit("Terran Command Center")  # FranceDp 수도 선택창 외형
