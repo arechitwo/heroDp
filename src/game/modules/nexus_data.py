@@ -108,6 +108,13 @@ def f_init():
     metropolis.timeCost = cfg.METROPOLIS_BUILD_FRAMES
     metropolis.supplyProvided = 0
     metropolis.sizeType = DefenseType.armored
+    metropolis.baseProperty.RequiresPsi = True
+    # 승계 수도의 충돌 크기(좌우·상하 48픽셀)보다 넓게 자리를 확보합니다.
+    metropolis.buildingDimensions = 128 + (128 << 16)
+    metropolis.unitBoundsL = 63
+    metropolis.unitBoundsT = 63
+    metropolis.unitBoundsR = 64
+    metropolis.unitBoundsB = 64
 
     signal = UnitModel.nexus_signal
     signal.nameString = '\x04수도 소환'

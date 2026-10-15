@@ -30,7 +30,7 @@ class UnitModel:
     city_marker = TrgUnit("Terran Beacon")
     small_city = TrgUnit("Protoss Pylon")
     # 수도 건설 메뉴. 병법원은 기존 게이트웨이 역할을 이어받습니다.
-    metropolis = TrgUnit("Protoss Nexus")
+    metropolis = TrgUnit("Protoss Arbiter Tribunal")
     army_camp = TrgUnit("Protoss Robotics Facility")
     drill_hall = TrgUnit("Protoss Forge")
     military_workshop = TrgUnit("Protoss Cybernetics Core")
