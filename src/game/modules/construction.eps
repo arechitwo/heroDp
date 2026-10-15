@@ -9,7 +9,7 @@ const TOTAL_UNITS = EPD(0x582324);
 const INHERITED_METROPOLIS = EUDVArray(8)();
 
 function metropolisLimit(player : TrgPlayer) {
-    const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0xFFFF);
+    const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0x7FF);
     var limit = cities / cfg.CITIES_PER_METROPOLIS;
     if (limit == 0) { limit = 1; }
     return limit;
@@ -18,7 +18,7 @@ function metropolisLimit(player : TrgPlayer) {
 function acceptNewMetropolis(city : CUnit) {
     const owner = city.owner;
     if (owner >= 7) { return true; }
-    const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0xFFFF);
+    const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0x7FF);
     const limit = metropolisLimit(owner);
     if (total + INHERITED_METROPOLIS[owner] > limit) {
         city.remove();
@@ -36,7 +36,7 @@ function canBuildAt(unit : CUnit) {
             const player = unit.owner;
             const limit = metropolisLimit(player);
             // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
-            const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0xFFFF);
+            const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0x7FF);
             if (built + INHERITED_METROPOLIS[player] >= limit) {
                 setcurpl(player);
                 println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
