@@ -117,6 +117,8 @@ def f_init():
     signal.timeCost = 9999  # Queue is consumed by summonFromCity before completion.
 
     DoActions([
+        SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12, SetTo, 0),
+        SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12 + 4, SetTo, 0),
         SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 6),
         SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS),
         SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12, SetTo, 4),
