@@ -14,6 +14,9 @@ def _read_json(filename):
 
 
 COMBAT = _read_json('combat.json')
+# 건물을 먼저 생성할 수 있도록 빌드 타임에만 순서를 정합니다.
+DEBUG_ROSTER = tuple(getattr(UnitModel, key)
+                     for key in sorted(COMBAT, key=lambda key: key != 'siege_turret'))
 APPEARANCE = _read_json('appearance.json')
 PROPERTIES = _read_json('properties.json')
 
