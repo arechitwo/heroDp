@@ -3,6 +3,9 @@ from eudplib import Flingy, TrgUnit, Upgrade
 
 
 class UpgradeModel:
+    infantry_armor = Upgrade("Terran Infantry Armor")
+    armored_armor = Upgrade("Terran Vehicle Plating")
+    hero_armor = Upgrade("Protoss Armor")
     garrison_armor = Upgrade("Unused60")
 
 

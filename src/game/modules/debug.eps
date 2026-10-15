@@ -2,6 +2,9 @@ import modules.settings as cfg;
 import modules.map_data.Loc as Loc;
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.unit_data as unitData;
+import modules.damage_types.AttackType as AttackType;
+import modules.damage_types.AttackLabel as AttackLabel;
+import modules.damage_types.AttackIcon as AttackIcon;
 import modules.start_ui as ui;
 import modules.income as income;
 import modules.cities as cities;
@@ -36,6 +39,9 @@ function init() {
     UnitModel.debug_marine.nameString = "\x04디버그 마린";
     UnitModel.debug_marine.groundWeapon.damage = 2000;
     UnitModel.debug_marine.groundWeapon.damageBonus = 0;
+    UnitModel.debug_marine.groundWeapon.damageType = AttackType.general;
+    UnitModel.debug_marine.groundWeapon.label = AttackLabel.general;
+    UnitModel.debug_marine.groundWeapon.icon = AttackIcon.general;
     UnitModel.debug_marine.airWeapon.damage = 2000;
     UnitModel.debug_marine.airWeapon.damageBonus = 0;
 }

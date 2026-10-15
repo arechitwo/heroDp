@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo, Weapon
 from .unit_settings import Looks, UnitModel
-from .damage_types import AttackType, DefenseType
+from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
@@ -94,6 +94,7 @@ def f_init():
         defense_type = combat['defense'].get('type')
         if defense_type is not None:
             unit.sizeType = getattr(DefenseType, defense_type)
+            unit.armorUpgrade = DEFENSE_UPGRADES[defense_type]
         for field, attribute in COMBAT_FIELDS.items():
             value = _value(combat, field)
             if value is not None:
@@ -155,7 +156,10 @@ def f_init():
                     setattr(target, member, getattr(source, member))
             attack_type = (combat['attack'].get(channel) or {}).get('type')
             if attack_type is not None:
-                getattr(weapon_unit, attribute).damageType = getattr(AttackType, attack_type)
+                weapon = getattr(weapon_unit, attribute)
+                weapon.damageType = getattr(AttackType, attack_type)
+                weapon.label = getattr(AttackLabel, attack_type)
+                weapon.icon = getattr(AttackIcon, attack_type)
             fields = [(target, _value(combat, f'attack.{channel}.{field}'))
                       for field, target in WEAPON_FIELDS.items()
                       if _value(combat, f'attack.{channel}.{field}') is not None]

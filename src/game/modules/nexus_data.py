@@ -1,7 +1,7 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
-from .unit_settings import Looks, UnitModel
+from .unit_settings import Looks, UnitModel, UpgradeModel
 from .damage_types import DefenseType
 from . import settings as cfg
 from .nexus_menu import BUILDINGS, PAGE_TWO_UNIT, NEXT_PAGE_TOOLTIP, PREVIOUS_PAGE_TOOLTIP
@@ -55,6 +55,7 @@ def f_init():
     capital.maxShield = 500
     capital.armor = 50
     capital.sizeType = DefenseType.armored
+    capital.armorUpgrade = UpgradeModel.armored_armor
     capital.baseProperty = 0x44000800  # FranceDp single-entity remote capital
     capital.buildingDimensions = 1 + (1 << 16)
     capital.unitBoundsL = 48
@@ -99,6 +100,8 @@ def f_init():
 
     for item in BUILDINGS:
         item.unit.nameString = '\x04' + item.name
+        item.unit.sizeType = DefenseType.armored
+        item.unit.armorUpgrade = UpgradeModel.armored_armor
         # 메뉴 틀 단계의 값입니다. 실제 건설비·조건은 요청 처리 쪽에서 결정합니다.
         item.unit.mineralCost = 0
         item.unit.gasCost = 0
