@@ -1,7 +1,7 @@
 """Native training queue as a persistent, free-to-edit automatic recruitment list."""
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
-from .unit_data import RECRUITMENT, PROPERTIES
+from .unit_data import APPEARANCE, RECRUITMENT, PROPERTIES
 from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN
 
 SPEARMAN_COST = RECRUITMENT['spearman'][0]
@@ -33,8 +33,10 @@ ARMY_BUTTONS = Db(b''.join([
 @EUDFunc
 def f_init():
     # 대기열에는 외형 ID를 기록하고, 실제 병종은 army_camp.recruit에서 생성합니다.
-    for marker in (UnitModel.spearman_icon, UnitModel.light_infantry_icon,
-                   UnitModel.longbowman_icon):
+    for role, marker in (('spearman', UnitModel.spearman_icon),
+                         ('light_infantry', UnitModel.light_infantry_icon),
+                         ('longbowman', UnitModel.longbowman_icon)):
+        marker.nameString = APPEARANCE[role]['name']
         marker.mineralCost = 0
         marker.gasCost = 0
         marker.supplyUsed = 0

@@ -61,7 +61,7 @@ class UnitModel:
     nexus_requirement = TrgUnit("Mineral Field (Type 1)")
 
     # 마린 외형을 적용하는 주둔군. 실제 Marine과 다른 유닛입니다.
-    defender = TrgUnit("Zerg Broodling")
+    defender = TrgUnit("Terran Civilian")
     marine = light_infantry
     debug_marine = TrgUnit("Jim Raynor (Marine)")
 

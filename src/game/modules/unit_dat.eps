@@ -1,4 +1,4 @@
-// 도시 파일런(156)과 주둔군 브루들링(40)만 수정합니다.
+// 도시 파일런과 주둔군 Civilian을 수정합니다.
 // 게임 시작 시 cities.init()보다 먼저 실행: 외형/공격 AI 설정 후 비콘을 파일런으로 변환.
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.unit_settings.UpgradeModel as UpgradeModel;
@@ -42,7 +42,7 @@ function init() {
     Weapon(117).icon = AttackIcon.general;
     Weapon(117).targetFlags = 2;                // Ground targets
 
-    // ---- 주둔군: 유닛 ID는 브루들링, 외형은 마린 ----
+    // ---- 주둔군: 유닛 ID는 Civilian, 외형은 마린 ----
     UnitModel.defender.flingy = 78;                    // 마린 외형 공유. 실제 마린 DAT는 수정하지 않음
     UnitModel.defender.portrait = 0;                   // Marine portrait
     UnitModel.defender.groupFlags.Zerg = false;
