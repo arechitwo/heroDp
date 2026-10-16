@@ -1,4 +1,5 @@
 {
+  "spearman_speed": {"minerals": 500, "gas": 0, "time": 1440},
   "infantry_speed": {"minerals": 400, "gas": 0, "time": 1440},
   "infantry_range": {"minerals": 400, "gas": 0, "time": 1440},
   "longbow_range": {"minerals": 600, "gas": 0, "time": 1920},

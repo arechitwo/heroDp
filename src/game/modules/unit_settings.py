@@ -7,6 +7,7 @@ class TechModel:
 
 
 class UpgradeModel:
+    spearman_speed = Upgrade("Leg Enhancements")
     infantry_speed = Upgrade("Muscular Augments")
     infantry_range = Upgrade("Grooved Spines")
     longbow_range = Upgrade("Singularity Charge")
