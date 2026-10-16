@@ -3,7 +3,7 @@
     "name": "\u0004창병",
     "graphics": {
       "look": "broodling",
-      "copy_from": "Protoss Zealot",
+      "copy_from": "Zerg Broodling",
       "wireframe_from": "Zerg Broodling"
     },
     "size": {

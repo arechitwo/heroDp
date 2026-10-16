@@ -8,6 +8,7 @@ import modules.damage_types.AttackLabel as AttackLabel;
 import modules.damage_types.AttackIcon as AttackIcon;
 function init() {
     // ---- 도시: 프로토스 파일런 ----
+    UnitModel.small_city.nameString = "\x04도시";
     UnitModel.small_city.flingy = 62;                    // 원본 파일런 외형
     UnitModel.small_city.buildingDimensions = 1 + (1 << 16); // One-tile placement box
     UnitModel.small_city.unitBoundsL = 15;

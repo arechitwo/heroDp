@@ -11,8 +11,6 @@ import modules.player_settings as playerSettings;
 import modules.unit_data as unitData;
 import modules.nexus as nexus;
 import modules.damage_types as damageTypes;
-import modules.engineer_data as engineerData;
-import modules.infantry_data as infantryData;
 import modules.army_camp as armyCamp;
 import modules.tactics_school_data as tacticsSchoolData;
 import modules.knight_hall_data as knightHallData;
@@ -22,8 +20,6 @@ function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
     unitData.init(); // 기본 병종 JSON 적용. 특수 유닛은 아직 설정하지 않음.
-    engineerData.init();
-    infantryData.init();
     damageTypes.init();
     debug.init();
     cities.init();

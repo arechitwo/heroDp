@@ -1,14 +1,12 @@
 """Native training queue as a persistent, free-to-edit automatic recruitment list."""
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
-from .unit_data import APPEARANCE, RECRUITMENT, PROPERTIES
+from .unit_data import RECRUITMENT, TRAINING_RESET_TIME
 from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN
 
 SPEARMAN_COST = RECRUITMENT['spearman'][0]
 INFANTRY_COST = RECRUITMENT['light_infantry'][0]
 LONGBOW_COST = RECRUITMENT['longbowman'][0]
-TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
-                          for key in ('spearman', 'light_infantry', 'longbowman'))
 
 
 def _train_button(position, unit, tooltip, *, icon=None):
@@ -32,15 +30,6 @@ ARMY_BUTTONS = Db(b''.join([
 
 @EUDFunc
 def f_init():
-    # 대기열에는 외형 ID를 기록하고, 실제 병종은 army_camp.recruit에서 생성합니다.
-    for role, marker in (('spearman', UnitModel.spearman_icon),
-                         ('light_infantry', UnitModel.light_infantry_icon),
-                         ('longbowman', UnitModel.longbowman_icon)):
-        marker.nameString = APPEARANCE[role]['name']
-        marker.mineralCost = 0
-        marker.gasCost = 0
-        marker.supplyUsed = 0
-        marker.timeCost = TRAINING_RESET_TIME
     address = BUTTON_TABLE + EncodeUnit(UnitModel.army_camp) * 12
     DoActions([
         SetMemory(address, SetTo, 6),

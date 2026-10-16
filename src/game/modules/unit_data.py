@@ -1,12 +1,38 @@
 """Nested JSON resources and runtime DAT initialization for normal troops."""
 import json
+import struct
 from pathlib import Path
-from eudplib import EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
 from .unit_settings import Looks, UnitModel
 from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
+BUTTON_ALWAYS = 0x4282D0
+BUTTON_CAN_BUILD = 0x428E60
+BUTTON_TERRAN_BUILD = 0x423EB0
+
+
+def _button(position, icon, action, tooltip, *, condition=BUTTON_ALWAYS,
+            parameter=0, disabled=0):
+    return struct.pack('<HHIIHHHH', position, EncodeIcon(icon), condition, action,
+                       parameter, parameter, tooltip, disabled)
+
+
+BASIC_COMMANDS = b''.join([
+    _button(1, 'Move', 0x424440, 1568),
+    _button(2, 'Stop', 0x4233F0, 1569),
+    _button(3, 'Attack', 0x424380, 1570),
+    _button(4, 'Patrol', 0x424140, 1571),
+    _button(5, 'Hold Position', 0x423370, 1572),
+])
+INFANTRY_BUTTONS = Db(BASIC_COMMANDS)
+ENGINEER_BUTTONS = Db(BASIC_COMMANDS + b''.join([
+    _button(6, 'Repair', 0x423BD0, 1573),
+    _button(7, EncodeUnit(UnitModel.siege_turret), BUTTON_TERRAN_BUILD, 1566,
+            condition=BUTTON_CAN_BUILD, parameter=EncodeUnit(UnitModel.siege_turret),
+            disabled=1567),
+]))
 
 
 def _read_json(filename):
@@ -24,10 +50,13 @@ for key, appearance in APPEARANCE.items():
     source = graphics.get('wireframe_from') or graphics.get('copy_from')
     if source:
         InitialWireframe.wireframes(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
+InitialWireframe.wireframes(EncodeUnit(UnitModel.defender), EncodeUnit(UnitModel.light_infantry_icon))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
                for key, row in PROPERTIES.items()}
+TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
+                         for key in ('spearman', 'light_infantry', 'longbowman'))
 
 COMBAT_FIELDS = {
     'defense.armor': 'armor', 'defense.size_type': 'sizeType',
@@ -198,3 +227,23 @@ def f_init():
             address = BUTTON_TABLE + EncodeUnit(unit) * 12
             SetMemory(address, SetTo, 0)
             SetMemory(address + 4, SetTo, 0)
+
+    # 모든 기본 보병에 같은 한글 명령 설명과 버튼을 적용합니다.
+    for unit in (UnitModel.spearman, UnitModel.light_infantry,
+                 UnitModel.longbowman, UnitModel.light_cavalry, UnitModel.knight):
+        unit.baseProperty.Burrowable = False
+        address = BUTTON_TABLE + EncodeUnit(unit) * 12
+        DoActions([SetMemory(address, SetTo, 5),
+                   SetMemory(address + 4, SetTo, INFANTRY_BUTTONS)])
+    address = BUTTON_TABLE + EncodeUnit(UnitModel.engineer) * 12
+    DoActions([SetMemory(address, SetTo, 7),
+               SetMemory(address + 4, SetTo, ENGINEER_BUTTONS)])
+    # 외형 ID로 표시되는 훈련 목록도 실제 병종과 같은 한글 이름을 사용합니다.
+    for role, marker in (('spearman', UnitModel.spearman_icon),
+                         ('light_infantry', UnitModel.light_infantry_icon),
+                         ('longbowman', UnitModel.longbowman_icon)):
+        marker.nameString = APPEARANCE[role]['name']
+        marker.mineralCost = 0
+        marker.gasCost = 0
+        marker.supplyUsed = 0
+        marker.timeCost = TRAINING_RESET_TIME
