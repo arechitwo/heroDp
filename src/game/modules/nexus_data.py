@@ -114,6 +114,7 @@ def f_init():
 
     metropolis = UnitModel.metropolis
     metropolis.mineralCost = cfg.METROPOLIS_COST
+    metropolis.gasCost = 0
     metropolis.timeCost = cfg.METROPOLIS_BUILD_FRAMES
     metropolis.supplyProvided = 0
     metropolis.sizeType = DefenseType.armored
