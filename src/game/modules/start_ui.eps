@@ -5,6 +5,7 @@ import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.map_data as mapData;
 import modules.nexus as nexus;
+import modules.heroes as heroes;
 
 const selection = EUDVArray(8)(py_eval('[7] * 8'));
 const taken = EUDVArray(8, TrgPlayer)(py_eval('[7] * 8'));
@@ -47,6 +48,7 @@ function start() {
             capital.setloc(Loc.city_spawn);
             dilateloc(Loc.city_spawn, 96, 96);
             CreateUnit(cfg.START_MARINES, UnitModel.spearman, Loc.city_spawn, cp);
+            heroes.createLord(cp, Loc.city_spawn);
             CenterView(Loc.city_spawn);
             println("\x04시작! 도시 점령으로 세금을 확보하세요. F+우클릭: 전군 이동 / F+좌클릭: 전군 공격");
         }

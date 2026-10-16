@@ -28,6 +28,7 @@ class Looks:
 
 
 class UnitModel:
+    lord = TrgUnit("Gui Montag")
     # 기본 병종. JSON의 최상위 키는 이 속성 이름을 사용합니다.
     spearman = TrgUnit("Protoss Zealot")
     spearman_icon = TrgUnit("Zerg Broodling")
