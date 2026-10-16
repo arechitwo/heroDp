@@ -2,7 +2,8 @@
   "spearman": {
     "name": "\u0004창병",
     "graphics": {
-      "look": "broodling"
+      "look": "broodling",
+      "copy_from": "Protoss Zealot"
     },
     "size": {
       "placement": {},

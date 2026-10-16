@@ -11,6 +11,7 @@
       "time": 720
     },
     "weapons": {
+      "ground": 8,
       "max_ground_hits": 1,
       "max_air_hits": 1,
       "air": 130

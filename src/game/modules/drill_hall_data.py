@@ -1,4 +1,4 @@
-"""포지(연무관): 질럿 ID 창병의 네이티브 Leg Enhancements 연구."""
+"""포지(연무관): 스카웃 ID 창병의 Gravitic Thrusters 연구. 아이콘은 질럿 속업 유지."""
 from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite
 from .unit_settings import UnitModel, UpgradeModel
 from .knight_hall_data import RESEARCH
