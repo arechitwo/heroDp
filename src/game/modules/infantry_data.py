@@ -1,4 +1,4 @@
-"""Marine-looking Hydralisk command card without native burrow/unburrow buttons."""
+"""창병·경보병의 기본 명령: 저그 ID의 버로우·언버로우 버튼 제외."""
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
 from .engineer_data import _button, BUTTON_TABLE
@@ -14,10 +14,10 @@ INFANTRY_BUTTONS = Db(b''.join([
 
 @EUDFunc
 def f_init():
-    unit = UnitModel.light_infantry
-    unit.baseProperty.Burrowable = False
-    address = BUTTON_TABLE + EncodeUnit(unit) * 12
-    DoActions([
-        SetMemory(address, SetTo, 5),
-        SetMemory(address + 4, SetTo, INFANTRY_BUTTONS),
-    ])
+    for unit in (UnitModel.spearman, UnitModel.light_infantry):
+        unit.baseProperty.Burrowable = False
+        address = BUTTON_TABLE + EncodeUnit(unit) * 12
+        DoActions([
+            SetMemory(address, SetTo, 5),
+            SetMemory(address + 4, SetTo, INFANTRY_BUTTONS),
+        ])
