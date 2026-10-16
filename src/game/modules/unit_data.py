@@ -155,6 +155,12 @@ def f_init():
         if detector is not None:
             unit.baseProperty.Detector = detector
 
+        if key != 'siege_turret':
+            # Men 등 다른 그룹 플래그는 유지하고 종족 표시만 통일해 계급을 숨깁니다.
+            unit.groupFlags.Zerg = False
+            unit.groupFlags.Terran = False
+            unit.groupFlags.Protoss = True
+
         # A tank's attack fields belong to its turret, while HP belongs to its body.
         weapons = properties.get('weapons') or {}
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)

@@ -45,6 +45,9 @@ function init() {
     // ---- 주둔군: 유닛 ID는 브루들링, 외형은 마린 ----
     UnitModel.defender.flingy = 78;                    // 마린 외형 공유. 실제 마린 DAT는 수정하지 않음
     UnitModel.defender.portrait = 0;                   // Marine portrait
+    UnitModel.defender.groupFlags.Zerg = false;
+    UnitModel.defender.groupFlags.Terran = false;
+    UnitModel.defender.groupFlags.Protoss = true;
     UnitModel.defender.readySound = 275;
     UnitModel.defender.whatSoundStart = 287;
     UnitModel.defender.whatSoundEnd = 290;

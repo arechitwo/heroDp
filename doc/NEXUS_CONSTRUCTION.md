@@ -22,6 +22,8 @@ require_data.json의 unit_links에서 연무관·군비 공방·병법원은 기
 
 ## 메뉴와 실제 건설의 경계
 
+공병의 터렛 버튼 조건은 Spell Researched(0x4294E0)로 공성 진지술 기술 ID를 직접 검사합니다. 조건 인자는 기술 ID, 건설 동작 인자는 Missile Turret 유닛 ID로 구분합니다. 실제 건설 명령에도 기존 터렛 RequireData의 연구 완료 조건을 유지합니다. 연구 전후 버튼 활성 변화는 이 연구 조건에 따릅니다.
+
 대도시의 배치 크기와 충돌 범위는 Arbiter Tribunal의 기본 DAT 값을 사용합니다. 수도 승계 공간 확보를 위해 추가했던 128×128 확대는 제거했습니다.
 
 `modules/nexus_menu.py`의 `BUILDINGS`에서 역할 이름, 페이지, 버튼 위치, 대상 UnitModel, 표시 이름, TBL ID를 관리합니다.
