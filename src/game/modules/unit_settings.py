@@ -38,6 +38,7 @@ class UnitModel:
     longbowman_icon = TrgUnit("Terran Ghost")
     engineer = TrgUnit("Terran SCV")
     siege_turret = TrgUnit("Terran Missile Turret")
+    siege_requirement = TrgUnit("Map Revealer")  # 공성 진지술 연구 완료 체크용
     knight = TrgUnit("Zerg Ultralisk")
 
     # 도시 마커 → 인게임 도시

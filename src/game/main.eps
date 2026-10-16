@@ -42,6 +42,7 @@ function beforeTriggerExec() {
     debug.tick(); // Consume synchronized debug commands before start UI clears chat.
     ui.tick();
     if (ui.started != 0) {
+        knightHallData.tick();
         commander.trackNewUnits(); // 신규 유닛은 한 번만 순회하고 완성 대도시 승계 전에 등록.
         nexus.tick();
         rules.tick();

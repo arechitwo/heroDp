@@ -1,13 +1,17 @@
 """기사단 회관의 공성 진지술: 미사용 Tank Siege Mode 연구를 재사용."""
 import json
 from pathlib import Path
-from eudplib import Db, DoActions, EUDFunc, EncodeTech, EncodeUnit, SetMemory, SetTo, f_bwrite
+from eudplib import (AtLeast, AtMost, Command, CreateUnit, Db, DoActions,
+                    EUDFunc, EncodeTech, EncodeUnit, MemoryX, SetMemory,
+                    SetTo, Trigger, f_bwrite)
 from .unit_settings import TechModel, UnitModel
+from .map_data import Loc
 from .nexus_data import _button, BUTTON_TABLE
 
 RESEARCH = json.loads((Path(__file__).resolve().parents[3] /
                        'resource/research.json').read_text(encoding='utf-8'))
 TECH_AVAILABLE = 0x58CE24
+TECH_RESEARCHED = 0x58CF44
 SIEGE_TECH = EncodeTech(TechModel.siege_construction)
 
 HALL_BUTTONS = Db(b''.join([
@@ -36,3 +40,16 @@ def f_init():
         SetMemory(address, SetTo, 2),
         SetMemory(address + 4, SetTo, HALL_BUTTONS),
     ])
+
+
+@EUDFunc
+def f_tick():
+    for player in range(7):
+        address = TECH_RESEARCHED + 24 * player + SIEGE_TECH
+        shift = (address % 4) * 8
+        Trigger(conditions=[
+            MemoryX(address - address % 4, AtLeast, 1 << shift, 0xFF << shift),
+            Command(player, AtMost, 0, UnitModel.siege_requirement),
+        ], actions=[
+            CreateUnit(1, UnitModel.siege_requirement, Loc.settings_view, player),
+        ])

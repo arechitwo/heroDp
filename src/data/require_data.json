@@ -22,8 +22,8 @@
   "unit_programs": {
     "siege_turret": {
       "offset": 400,
-      "words": [65295, 5, 65535],
-      "note": "FF0F Tank Siege Mode(TechModel.siege_construction) 연구 완료, 종료. 기존 빈 공간 사용."
+      "words": [101, 65535],
+      "note": "UnitModel.siege_requirement(Map Revealer, 101) 보유, 종료. 연구 완료 시 체크용 유닛 생성. 기존 빈 공간 사용."
     }
   },
   "unit_overrides": {
