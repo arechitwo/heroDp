@@ -43,11 +43,18 @@ function canBuildAt(unit : CUnit) {
                 return false;
             }
             break;
+        case unProxy(UnitModel.tactics_school):
+            const owner = unit.owner;
+            if (!Command(owner, AtLeast, 1, UnitModel.army_camp)) {
+                setcurpl(owner);
+                println("\x08병법원은 군영을 하나 이상 소유해야 건설할 수 있습니다.");
+                return false;
+            }
+            break;
         case unProxy(UnitModel.army_camp):
         case unProxy(UnitModel.drill_hall):
         case unProxy(UnitModel.military_workshop):
         case unProxy(UnitModel.recovery_camp):
-        case unProxy(UnitModel.tactics_school):
         case unProxy(UnitModel.knight_hall):
         case unProxy(UnitModel.magic_laboratory):
             break;
