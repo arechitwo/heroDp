@@ -1,9 +1,9 @@
 """Compile-time registry of player and hero UnitGroups, all serviced every tick."""
 from eudplib import EUDSwitch, EUDSwitchCase, EUDEndSwitch, EUDFunc, UnitGroup, f_bread_epd
 
-DEFAULT_ARMIES = [UnitGroup(1700) for _ in range(7)]
+LORD_ARMIES = [UnitGroup(1700) for _ in range(7)]
 PLAYER_GROUPS = [[group, UnitGroup(1700), UnitGroup(1700), UnitGroup(1700)]
-                 for group in DEFAULT_ARMIES]
+                 for group in LORD_ARMIES]
 REGISTERED_GROUPS = [(player, group, player * 4 + slot)
                      for player, groups in enumerate(PLAYER_GROUPS)
                      for slot, group in enumerate(groups)]
@@ -20,10 +20,10 @@ def f_add_hero_member(slot, unit_epd):
 
 
 @EUDFunc
-def f_add_default(unit_epd):
+def f_add_lord(unit_epd):
     owner = f_bread_epd(unit_epd + 0x4C // 4, 0)
     EUDSwitch(owner)
-    for player, group in enumerate(DEFAULT_ARMIES):
+    for player, group in enumerate(LORD_ARMIES):
         if EUDSwitchCase()(player):
             group.add(unit_epd)
     EUDEndSwitch()

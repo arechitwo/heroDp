@@ -33,7 +33,7 @@ function trackNewUnits() {
             case unProxy(UnitModel.map_revealer):
                 break;
             default:
-                groups.add_default(epd);
+                groups.add_lord(epd);
                 break;
         }
     }
@@ -63,7 +63,7 @@ function tick() {
     foreach (player, army, slot : groups.REGISTERED_GROUPS) {
         const hero = heroState.HEROES[slot];
         const heroCommand = heroState.COMMANDS[slot];
-        const member = heroState.MEMBERS[slot];
+        const member = heroState.MemberFunc.cast(heroState.MEMBERS[slot]);
         foreach (entry : army.cploop) {
             foreach (dead : entry.dying) {
                 // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.

@@ -25,7 +25,7 @@ function tick() {
         }
         if (state.SKILL_PENDING[slot] != 0) {
             state.SKILL_PENDING[slot] = 0;
-            const skill = state.SKILLS[slot];
+            const skill = state.SkillFunc.cast(state.SKILLS[slot]);
             skill(slot, hero, state.SKILL_POSITIONS[slot], state.SKILL_TARGETS[slot]);
         }
     }
