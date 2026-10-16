@@ -25,7 +25,10 @@ def _button(position, icon, condition, action, condition_unit, action_unit,
 
 def _building_buttons(page):
     return b''.join(
-        _button(item.position, EncodeUnit(item.unit), BUTTON_ALWAYS,
+        _button(item.position, EncodeUnit(item.unit),
+                BUTTON_CAN_TRAIN if item.role in (
+                    'tactics_school', 'drill_hall', 'military_workshop', 'knight_hall'
+                ) else BUTTON_ALWAYS,
                 BUTTON_WARP_BUILDING, EncodeUnit(item.unit), EncodeUnit(item.unit),
                 item.tooltip, item.tooltip + 1)
         for item in BUILDINGS if item.page == page

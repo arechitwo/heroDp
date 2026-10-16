@@ -9,12 +9,14 @@
     "engineer": 6,
     "light_cavalry": 6,
     "knight": 6,
-    "tactics_school": 361,
+    "tactics_school": 38,
+    "drill_hall": 38,
+    "knight_hall": 7,
     "siege_turret": 6,
     "spearman": 6,
     "light_infantry": 6,
     "longbowman": 6,
-    "military_workshop": 361,
+    "military_workshop": 38,
     "magic_laboratory": 361
   },
   "unit_overrides": {
