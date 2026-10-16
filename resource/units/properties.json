@@ -140,11 +140,11 @@
   },
   "siege_turret": {
     "recruitment": {
-      "cost": 250,
+      "cost": 150,
       "count": 1
     },
     "production": {
-      "minerals": 250,
+      "minerals": 150,
       "gas": 0,
       "supply": 0,
       "time": 1200

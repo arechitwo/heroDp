@@ -41,7 +41,16 @@ def compile_tbl(config):
 def compile_require(config):
     if config.get('version') != 1 or type(config.get('enabled')) is not bool:
         raise ValueError('RequireData version must be 1; enabled must be boolean')
-    words = config['data_words']
+    words = list(config['data_words'])
+    # 유닛 요구사항의 기존 548-WORD 영역 안에서 예약한 빈 공간만 사용합니다.
+    for program in config.get('unit_programs', {}).values():
+        offset = integer(program['offset'], 547)
+        code = program['words']
+        if offset < 389 or offset + len(code) > 548:
+            raise ValueError('Unit requirement program exceeds reserved padding')
+        if any(words[offset:offset + len(code)]):
+            raise ValueError('Unit requirement program overlaps existing data')
+        words[offset:offset + len(code)] = code
     raw = b''.join(struct.pack('<H', integer(word, 65535)) for word in words)
     if len(raw) > integer(config['copy_capacity_bytes'], 65535):
         raise ValueError('RequireData exceeds its original memory region')
