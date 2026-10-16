@@ -7,7 +7,7 @@ class TechModel:
 
 
 class UpgradeModel:
-    spearman_speed = Upgrade("Gravitic Thrusters")
+    spearman_speed = Upgrade("Metabolic Boost")
     infantry_speed = Upgrade("Muscular Augments")
     infantry_range = Upgrade("Grooved Spines")
     longbow_range = Upgrade("Singularity Charge")
@@ -29,7 +29,7 @@ class Looks:
 
 class UnitModel:
     # 기본 병종. JSON의 최상위 키는 이 속성 이름을 사용합니다.
-    spearman = TrgUnit("Protoss Scout")
+    spearman = TrgUnit("Zerg Zergling")
     spearman_icon = TrgUnit("Zerg Broodling")
     light_infantry = TrgUnit("Zerg Hydralisk")
     light_infantry_icon = TrgUnit("Terran Marine")

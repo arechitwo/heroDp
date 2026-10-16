@@ -7,7 +7,7 @@ from .nexus_data import _button, BUTTON_TABLE
 UPGRADE_LIMITS = 0x58D088
 UPGRADES = (
     ('infantry_range', UpgradeModel.infantry_range, Icon("U-238 Shells"), 1601, 1),
-    ('infantry_speed', UpgradeModel.infantry_speed, Icon("Metabolic Boost"), 1603, 2),
+    ('infantry_speed', UpgradeModel.infantry_speed, Icon("Leg Enhancements"), 1603, 2),
     ('longbow_range', UpgradeModel.longbow_range, Icon("Singularity Charge"), 1605, 3),
 )
 WORKSHOP_BUTTONS = Db(b''.join(

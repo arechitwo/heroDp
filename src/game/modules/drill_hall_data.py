@@ -1,4 +1,4 @@
-"""포지(연무관): 스카웃 ID 창병의 Gravitic Thrusters 연구. 아이콘은 질럿 속업 유지."""
+"""포지(연무관): 저글링 ID 창병의 Metabolic Boost 연구."""
 from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite
 from .unit_settings import UnitModel, UpgradeModel
 from .knight_hall_data import RESEARCH
@@ -6,7 +6,7 @@ from .nexus_data import _button, BUTTON_TABLE
 
 UPGRADE_LIMITS = 0x58D088
 SPEARMAN_SPEED = EncodeUpgrade(UpgradeModel.spearman_speed)
-SPEED_ICON = Icon("Leg Enhancements")
+SPEED_ICON = Icon("Metabolic Boost")
 DRILL_BUTTONS = Db(b''.join([
     _button(1, EncodeIcon(SPEED_ICON), 0x429450, 0x423310,
             SPEARMAN_SPEED, SPEARMAN_SPEED, 1611, 1612),
