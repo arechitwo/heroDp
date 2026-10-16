@@ -7,6 +7,9 @@ class TechModel:
 
 
 class UpgradeModel:
+    infantry_speed = Upgrade("Muscular Augments")
+    infantry_range = Upgrade("Grooved Spines")
+    longbow_range = Upgrade("Singularity Charge")
     infantry_armor = Upgrade("Terran Infantry Armor")
     armored_armor = Upgrade("Terran Vehicle Plating")
     hero_armor = Upgrade("Protoss Armor")
@@ -27,9 +30,11 @@ class UnitModel:
     # 기본 병종. JSON의 최상위 키는 이 속성 이름을 사용합니다.
     spearman = TrgUnit("Protoss Zealot")
     spearman_icon = TrgUnit("Zerg Broodling")
-    light_infantry = TrgUnit("Terran Marine")
+    light_infantry = TrgUnit("Zerg Hydralisk")
+    light_infantry_icon = TrgUnit("Terran Marine")
     light_cavalry = TrgUnit("Terran Vulture")
-    longbowman = TrgUnit("Terran Ghost")
+    longbowman = TrgUnit("Protoss Dragoon")
+    longbowman_icon = TrgUnit("Terran Ghost")
     engineer = TrgUnit("Terran SCV")
     siege_turret = TrgUnit("Terran Missile Turret")
     knight = TrgUnit("Zerg Ultralisk")

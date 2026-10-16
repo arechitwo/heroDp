@@ -16,7 +16,7 @@
   },
   "light_infantry": {
     "name": "\u0004경보병",
-    "graphics": {},
+    "graphics": {"look": "marine", "copy_from": "Terran Marine"},
     "size": {
       "placement": {},
       "bounds": {}
@@ -24,8 +24,8 @@
     "movement": {
       "look": "marine",
       "control": 0,
-      "top_speed": 1245,
-      "acceleration": 1245,
+      "top_speed": 830,
+      "acceleration": 830,
       "halt_distance": 0,
       "turn_speed": 40
     }
@@ -33,7 +33,8 @@
   "longbowman": {
     "name": "\u0004장궁병",
     "graphics": {
-      "look": "ghost"
+      "look": "ghost",
+      "copy_from": "Terran Ghost"
     },
     "size": {
       "placement": {},

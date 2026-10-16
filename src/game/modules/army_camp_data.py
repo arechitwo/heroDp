@@ -20,8 +20,8 @@ def _train_button(position, unit, tooltip, *, icon=None):
 
 ARMY_BUTTONS = Db(b''.join([
     _train_button(1, UnitModel.spearman, 1574, icon=UnitModel.spearman_icon),
-    _train_button(2, UnitModel.light_infantry, 1576),
-    _train_button(3, UnitModel.longbowman, 1578),
+    _train_button(2, UnitModel.light_infantry, 1576, icon=UnitModel.light_infantry_icon),
+    _train_button(3, UnitModel.longbowman, 1578, icon=UnitModel.longbowman_icon),
     # 안내 버튼: 현재 군영 버튼셋으로 돌아가므로 게임 명령은 내리지 않습니다.
     _button(7, EncodeUnit(UnitModel.army_camp), BUTTON_ALWAYS, 0x459AF0,
             0, EncodeUnit(UnitModel.army_camp), 1580, 0),

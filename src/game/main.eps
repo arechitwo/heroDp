@@ -15,6 +15,7 @@ import modules.engineer_data as engineerData;
 import modules.army_camp as armyCamp;
 import modules.tactics_school_data as tacticsSchoolData;
 import modules.knight_hall_data as knightHallData;
+import modules.military_workshop_data as militaryWorkshopData;
 function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
@@ -27,6 +28,7 @@ function onPluginStart() {
     armyCamp.init();
     tacticsSchoolData.init();
     knightHallData.init();
+    militaryWorkshopData.init();
     randomize();
     ui.init();
 }

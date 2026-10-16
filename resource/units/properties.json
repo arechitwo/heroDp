@@ -25,6 +25,33 @@
   },
   "light_infantry": {
     "recruitment": {
+      "cost": 90,
+      "count": 1
+    },
+    "production": {
+      "minerals": 0,
+      "gas": 0,
+      "supply": 0,
+      "time": 720
+    },
+    "weapons": {
+      "max_ground_hits": 1,
+      "max_air_hits": 1,
+      "ground": 0,
+      "air": 0
+    },
+    "flags": {
+      "hero": false
+    },
+    "vision": {
+      "seek_range": 3
+    },
+    "orders": {},
+    "transport": {},
+    "buttons": {}
+  },
+  "longbowman": {
+    "recruitment": {
       "cost": 120,
       "count": 1
     },
@@ -36,35 +63,16 @@
     },
     "weapons": {
       "max_ground_hits": 1,
-      "max_air_hits": 1
+      "max_air_hits": 1,
+      "ground": 2,
+      "air": 2
     },
     "flags": {
       "hero": false
     },
-    "vision": {},
-    "orders": {},
-    "transport": {},
-    "buttons": {}
-  },
-  "longbowman": {
-    "recruitment": {
-      "cost": 160,
-      "count": 1
+    "vision": {
+      "seek_range": 5
     },
-    "production": {
-      "minerals": 0,
-      "gas": 0,
-      "supply": 0,
-      "time": 720
-    },
-    "weapons": {
-      "max_ground_hits": 1,
-      "max_air_hits": 1
-    },
-    "flags": {
-      "hero": false
-    },
-    "vision": {},
     "orders": {},
     "transport": {},
     "buttons": {}

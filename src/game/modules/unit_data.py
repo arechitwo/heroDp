@@ -1,7 +1,7 @@
 """Nested JSON resources and runtime DAT initialization for normal troops."""
 import json
 from pathlib import Path
-from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo, Weapon
+from eudplib import EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
 from .unit_settings import Looks, UnitModel
 from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
@@ -19,6 +19,10 @@ DEBUG_ROSTER = tuple(getattr(UnitModel, key)
                      for key in sorted(COMBAT, key=lambda key: key != 'siege_turret'))
 APPEARANCE = _read_json('appearance.json')
 PROPERTIES = _read_json('properties.json')
+for key, appearance in APPEARANCE.items():
+    source = (appearance.get('graphics') or {}).get('copy_from')
+    if source:
+        InitialWireframe.wirefram(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
@@ -82,6 +86,19 @@ def f_init():
         unit = getattr(UnitModel, key)
         appearance = APPEARANCE[key]
         properties = PROPERTIES[key]
+
+        source = (appearance.get('graphics') or {}).get('copy_from')
+        if source is not None:
+            donor = TrgUnit(source)
+            # 실체 ID는 업그레이드용으로 유지하고 외형·음성·충돌·기본 동작을 복사.
+            for member in ('baseProperty', 'groupFlags', 'availabilityFlags', 'portrait',
+                           'readySound', 'whatSoundStart', 'whatSoundEnd',
+                           'pissedSoundStart', 'pissedSoundEnd', 'yesSoundStart', 'yesSoundEnd',
+                           'unitBoundsL', 'unitBoundsT', 'unitBoundsR', 'unitBoundsB',
+                           'computerIdleOrder', 'humanIdleOrder', 'returnToIdleOrder',
+                           'attackUnitOrder', 'attackMoveOrder', 'rightClickAction'):
+                setattr(unit, member, getattr(donor, member))
+            unit.baseProperty.Spellcaster = False
 
         # TrgUnit syntax: this changes DAT maximum HP, not any live CUnit's HP.
         hp = _value(combat, 'defense.hp')

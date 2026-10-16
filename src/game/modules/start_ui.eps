@@ -46,7 +46,7 @@ function start() {
             const capital = nexus.NEXUS[cp];
             capital.setloc(Loc.city_spawn);
             dilateloc(Loc.city_spawn, 96, 96);
-            CreateUnit(cfg.START_MARINES, UnitModel.marine, Loc.city_spawn, cp);
+            CreateUnit(cfg.START_MARINES, UnitModel.spearman, Loc.city_spawn, cp);
             CenterView(Loc.city_spawn);
             println("\x04시작! 도시 점령으로 세금을 확보하세요. F+우클릭: 전군 이동 / F+좌클릭: 전군 공격");
         }
