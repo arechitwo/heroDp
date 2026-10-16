@@ -20,9 +20,10 @@ DEBUG_ROSTER = tuple(getattr(UnitModel, key)
 APPEARANCE = _read_json('appearance.json')
 PROPERTIES = _read_json('properties.json')
 for key, appearance in APPEARANCE.items():
-    source = (appearance.get('graphics') or {}).get('copy_from')
+    graphics = appearance.get('graphics') or {}
+    source = graphics.get('wireframe_from') or graphics.get('copy_from')
     if source:
-        InitialWireframe.wirefram(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
+        InitialWireframe.wireframes(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
