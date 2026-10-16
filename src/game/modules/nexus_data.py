@@ -1,5 +1,7 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
+import json
+from pathlib import Path
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel, UpgradeModel
 from .damage_types import DefenseType
@@ -15,6 +17,8 @@ BUTTON_CAN_TRAIN = 0x428E60
 BUTTON_TRAIN = 0x4234B0
 BUTTON_WARP_BUILDING = 0x423DD0
 BUTTON_CHANGE_PAGE = 0x459AF0
+BUILDING_COSTS = json.loads((Path(__file__).resolve().parents[3] /
+                            'resource/buildings.json').read_text(encoding='utf-8'))
 
 
 def _button(position, icon, condition, action, condition_unit, action_unit,
@@ -95,8 +99,6 @@ def f_init():
     gate.sizeType = DefenseType.armored
     gate.hasShield = False
     gate.maxShield = 0
-    gate.mineralCost = 100
-    gate.gasCost = 0
     gate.timeCost = 280
     gate.supplyUsed = 0
     gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
@@ -105,9 +107,10 @@ def f_init():
         item.unit.nameString = '\x04' + item.name
         item.unit.sizeType = DefenseType.armored
         item.unit.armorUpgrade = UpgradeModel.armored_armor
-        # 메뉴 틀 단계의 값입니다. 실제 건설비·조건은 요청 처리 쪽에서 결정합니다.
-        item.unit.mineralCost = 0
-        item.unit.gasCost = 0
+        if item.role != 'metropolis':
+            cost = BUILDING_COSTS[item.role]
+            item.unit.mineralCost = cost['minerals']
+            item.unit.gasCost = cost['gas']
 
     metropolis = UnitModel.metropolis
     metropolis.mineralCost = cfg.METROPOLIS_COST
