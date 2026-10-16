@@ -17,6 +17,8 @@ import modules.tactics_school_data as tacticsSchoolData;
 import modules.knight_hall_data as knightHallData;
 import modules.military_workshop_data as militaryWorkshopData;
 import modules.drill_hall_data as drillHallData;
+import modules.hero_data as heroData;
+import modules.heroes as heroes;
 function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
@@ -31,6 +33,7 @@ function onPluginStart() {
     knightHallData.init();
     militaryWorkshopData.init();
     drillHallData.init();
+    heroData.init();
     randomize();
     ui.init();
 }
@@ -46,7 +49,9 @@ function beforeTriggerExec() {
         cities.tick();
         income.tick();
         armyCamp.tick();
+        heroes.tick();
         commander.tick();
+        heroes.finishCommands();
     }
 }
 

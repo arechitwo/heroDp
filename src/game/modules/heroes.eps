@@ -1,0 +1,38 @@
+import modules.hero_state as state;
+import modules.unit_settings.UnitModel as UnitModel;
+
+const NEXT_UNIT = EPD(0x628438);
+
+function createLord(player : TrgPlayer, location : TrgLocation) {
+    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { return; }
+    const lord = CUnit.from_next();
+    CreateUnit(1, UnitModel.lord, location, player);
+    state.bind(player * 4, lord, state.LORD_SKILL, state.COMMAND_MEMBER);
+}
+
+function tick() {
+    for (var slot = 0; slot < state.SLOT_COUNT; slot++) {
+        const hero = state.HEROES[slot];
+        if (hero == 0) { continue; }
+        if (MemoryXEPD(hero + 0x4C / 4, Exactly, 0, 0xFF00)
+            || hero.uniquenessIdentifier != state.GENERATIONS[slot]) {
+            state.HEROES[slot] = 0;
+            state.SKILLS[slot] = 0;
+            state.MEMBERS[slot] = 0;
+            state.SKILL_PENDING[slot] = 0;
+            state.COMMANDS[slot] = 0;
+            continue;
+        }
+        if (state.SKILL_PENDING[slot] != 0) {
+            state.SKILL_PENDING[slot] = 0;
+            const skill = state.SKILLS[slot];
+            skill(slot, hero, state.SKILL_POSITIONS[slot], state.SKILL_TARGETS[slot]);
+        }
+    }
+}
+
+function finishCommands() {
+    for (var slot = 0; slot < state.SLOT_COUNT; slot++) {
+        if (state.COMMANDS[slot] != 0) { state.COMMANDS[slot] = 0; }
+    }
+}
