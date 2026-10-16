@@ -6,13 +6,13 @@ from .unit_orders import f_issue, ORDER_ATTACK_MOVE, ORDER_MOVE
 SLOT_COUNT = 28
 SkillFunc = EUDFuncPtr(4, 0)  # slot, hero EPD, target position, target EPD
 MemberFunc = EUDFuncPtr(2, 0)  # slot, army member EPD
-HEROES = EUDVArray(SLOT_COUNT, CUnit)()
+HEROES = EUDVArray(SLOT_COUNT)()  # EPD 0은 빈 슬롯
 GENERATIONS = EUDVArray(SLOT_COUNT)()
 SKILLS = EUDVArray(SLOT_COUNT)()  # 함수 포인터 값 저장, 호출할 때 SkillFunc.cast
 MEMBERS = EUDVArray(SLOT_COUNT)()  # 함수 포인터 값 저장, 호출할 때 MemberFunc.cast
 SKILL_PENDING = EUDVArray(SLOT_COUNT)()
 SKILL_POSITIONS = EUDVArray(SLOT_COUNT)()
-SKILL_TARGETS = EUDVArray(SLOT_COUNT, CUnit)()
+SKILL_TARGETS = EUDVArray(SLOT_COUNT)()  # 지점형 스킬의 대상 EPD는 0
 COMMANDS = EUDVArray(SLOT_COUNT)()
 COMMAND_POSITIONS = EUDVArray(SLOT_COUNT)()
 

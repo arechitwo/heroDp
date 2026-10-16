@@ -12,8 +12,9 @@ function createLord(player : TrgPlayer, location : TrgLocation) {
 
 function tick() {
     for (var slot = 0; slot < state.SLOT_COUNT; slot++) {
-        const hero = state.HEROES[slot];
-        if (hero == 0) { continue; }
+        const epd = state.HEROES[slot];
+        if (epd == 0) { continue; }
+        const hero = CUnit.cast(epd);
         if (MemoryXEPD(hero + 0x4C / 4, Exactly, 0, 0xFF00)
             || hero.uniquenessIdentifier != state.GENERATIONS[slot]) {
             state.HEROES[slot] = 0;
