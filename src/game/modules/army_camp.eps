@@ -57,13 +57,13 @@ function tick() {
         // 다섯 슬롯은 빌드 때 펼칩니다. 임시 배열이나 대기열 초기화는 필요 없음.
         foreach (slot : py_range(5)) {
             epdswitch(camp + (0x98 + slot * 2) / 4, 0xFF << (16 * (slot % 2))) {
-                case unProxy(UnitModel.spearman) << (16 * (slot % 2)):
+                case unProxy(UnitModel.spearman_icon) << (16 * (slot % 2)):
                     recruit(player, UnitModel.spearman, data.SPEARMAN_COST, rally);
                     break;
-                case unProxy(UnitModel.light_infantry) << (16 * (slot % 2)):
+                case unProxy(UnitModel.light_infantry_icon) << (16 * (slot % 2)):
                     recruit(player, UnitModel.light_infantry, data.INFANTRY_COST, rally);
                     break;
-                case unProxy(UnitModel.longbowman) << (16 * (slot % 2)):
+                case unProxy(UnitModel.longbowman_icon) << (16 * (slot % 2)):
                     recruit(player, UnitModel.longbowman, data.LONGBOW_COST, rally);
                     break;
             }

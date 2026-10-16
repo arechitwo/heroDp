@@ -15,7 +15,7 @@ def _train_button(position, unit, tooltip, *, icon=None):
     kind = EncodeUnit(unit)
     image = kind if icon is None else EncodeUnit(icon)
     return _button(position, image, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
-                   kind, kind, tooltip, tooltip + 1)
+                   kind, image, tooltip, tooltip + 1)
 
 
 ARMY_BUTTONS = Db(b''.join([
@@ -32,6 +32,13 @@ ARMY_BUTTONS = Db(b''.join([
 
 @EUDFunc
 def f_init():
+    # 대기열에는 외형 ID를 기록하고, 실제 병종은 army_camp.recruit에서 생성합니다.
+    for marker in (UnitModel.spearman_icon, UnitModel.light_infantry_icon,
+                   UnitModel.longbowman_icon):
+        marker.mineralCost = 0
+        marker.gasCost = 0
+        marker.supplyUsed = 0
+        marker.timeCost = TRAINING_RESET_TIME
     address = BUTTON_TABLE + EncodeUnit(UnitModel.army_camp) * 12
     DoActions([
         SetMemory(address, SetTo, 6),
