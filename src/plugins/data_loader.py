@@ -10,6 +10,7 @@ manifest = json.loads((DATA / 'manifest.json').read_text(encoding='utf-8'))
 
 def onPluginStart():
     if manifest['custom_tbl_enabled']:
+        # 생성기에서 문자열과 오프셋 표를 DWORD 정렬. armoha처럼 포인터 대상에 한 번 복사.
         raw = (DATA / 'custom_txt.tbl').read_bytes()
         f_repmovsd_epd(f_epdread_epd(EPD(0x6D5A30)), EPD(Db(raw)), len(raw) // 4)
     if manifest['require_data_enabled']:

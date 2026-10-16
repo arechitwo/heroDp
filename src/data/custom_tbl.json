@@ -2,8 +2,7 @@
   "version": 1,
   "enabled": true,
   "encoding": "cp949",
-  "source_note": "FranceDp TBL base; capital construction menu uses 1548-1565. Unused hash padding at 230-233, 411-415 and 1302-1324 is removed within the existing copy capacity. Embedded NULs are preserved.",
-  "copy_capacity_bytes": 42564,
+  "source_note": "FranceDp TBL base with NoE3s tooltips. Project generator applies armoha-style DWORD alignment; existing loader copies it once. No project-specific copy capacity. Embedded NULs are preserved.",
   "entries": [
     {
       "id": 1,

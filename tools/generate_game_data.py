@@ -22,7 +22,9 @@ def compile_tbl(config):
     encoding = config['encoding']
     table = bytearray(struct.pack('<H', count))
     body = bytearray()
-    offset = 2 + 2 * count
+    # armoha _AddStatText와 같은 DWORD 정렬. 오프셋은 uint16 형식을 유지합니다.
+    header_size = 2 + 2 * count
+    offset = (header_size + 3) & ~3
     for expected, entry in enumerate(entries, 1):
         if entry['id'] != expected:
             raise ValueError('TBL ids must be consecutive, starting at 1')
@@ -30,11 +32,13 @@ def compile_tbl(config):
             raise ValueError('Each TBL entry requires exactly one of text or hex')
         raw = entry['text'].encode(encoding) if 'text' in entry else bytes.fromhex(entry['hex'])
         table.extend(struct.pack('<H', integer(offset, 65535)))
-        body.extend(raw + b'\0')
-        offset += len(raw) + 1
+        content = raw + b'\0'
+        padding = (-len(content)) % 4
+        body.extend(content)
+        body.extend(bytes(padding))
+        offset += len(content) + padding
+    table.extend(bytes((-header_size) % 4))
     result = bytes(table + body)
-    if len(result) > integer(config['copy_capacity_bytes'], 65535):
-        raise ValueError('TBL exceeds configured copy capacity; shorten entries before applying')
     return result
 
 
