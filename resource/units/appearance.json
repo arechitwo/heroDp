@@ -21,14 +21,7 @@
       "placement": {},
       "bounds": {}
     },
-    "movement": {
-      "look": "marine",
-      "control": 0,
-      "top_speed": 830,
-      "acceleration": 830,
-      "halt_distance": 0,
-      "turn_speed": 40
-    }
+    "movement": {}
   },
   "longbowman": {
     "name": "\u0004장궁병",
