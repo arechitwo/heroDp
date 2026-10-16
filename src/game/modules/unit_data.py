@@ -1,8 +1,9 @@
 """Nested JSON resources and runtime DAT initialization for normal troops."""
 import json
 from pathlib import Path
-from eudplib import EUDFunc, EncodeUnit, SetMemory, SetTo
-from .unit_settings import UnitModel
+from eudplib import EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
+from .unit_settings import Looks, UnitModel
+from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
@@ -13,8 +14,15 @@ def _read_json(filename):
 
 
 COMBAT = _read_json('combat.json')
+# 건물을 먼저 생성할 수 있도록 빌드 타임에만 순서를 정합니다.
+DEBUG_ROSTER = tuple(getattr(UnitModel, key)
+                     for key in sorted(COMBAT, key=lambda key: key != 'siege_turret'))
 APPEARANCE = _read_json('appearance.json')
 PROPERTIES = _read_json('properties.json')
+for key, appearance in APPEARANCE.items():
+    source = (appearance.get('graphics') or {}).get('copy_from')
+    if source:
+        InitialWireframe.wirefram(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
@@ -50,6 +58,15 @@ PROPERTY_FIELDS = {
 WEAPON_FIELDS = {
     'damage': 'damage', 'bonus': 'damageBonus', 'range': 'maxRange',
     'cooldown': 'cooldown', 'upgrade': 'upgrade',
+    'min_range': 'minRange', 'hits': 'damageFactor', 'targets': 'targetFlags',
+    'splash.explosion': 'explosionType',
+    'splash.inner': 'splashInnerRadius', 'splash.middle': 'splashMiddleRadius',
+    'splash.outer': 'splashOuterRadius',
+}
+MOVEMENT_FIELDS = {
+    'top_speed': 'topSpeed', 'acceleration': 'acceleration',
+    'halt_distance': 'haltDistance', 'turn_speed': 'turnSpeed',
+    'control': 'movementControl',
 }
 
 
@@ -70,6 +87,19 @@ def f_init():
         appearance = APPEARANCE[key]
         properties = PROPERTIES[key]
 
+        source = (appearance.get('graphics') or {}).get('copy_from')
+        if source is not None:
+            donor = TrgUnit(source)
+            # 실체 ID는 업그레이드용으로 유지하고 외형·음성·충돌·기본 동작을 복사.
+            for member in ('baseProperty', 'groupFlags', 'availabilityFlags', 'portrait',
+                           'readySound', 'whatSoundStart', 'whatSoundEnd',
+                           'pissedSoundStart', 'pissedSoundEnd', 'yesSoundStart', 'yesSoundEnd',
+                           'unitBoundsL', 'unitBoundsT', 'unitBoundsR', 'unitBoundsB',
+                           'computerIdleOrder', 'humanIdleOrder', 'returnToIdleOrder',
+                           'attackUnitOrder', 'attackMoveOrder', 'rightClickAction'):
+                setattr(unit, member, getattr(donor, member))
+            unit.baseProperty.Spellcaster = False
+
         # TrgUnit syntax: this changes DAT maximum HP, not any live CUnit's HP.
         hp = _value(combat, 'defense.hp')
         shield = _value(combat, 'defense.shield')
@@ -78,6 +108,10 @@ def f_init():
         if shield is not None:
             unit.hasShield = shield > 0
             unit.maxShield = shield
+        defense_type = combat['defense'].get('type')
+        if defense_type is not None:
+            unit.sizeType = getattr(DefenseType, defense_type)
+            unit.armorUpgrade = DEFENSE_UPGRADES[defense_type]
         for field, attribute in COMBAT_FIELDS.items():
             value = _value(combat, field)
             if value is not None:
@@ -90,6 +124,17 @@ def f_init():
             value = _value(appearance, field)
             if value is not None:
                 setattr(unit, attribute, value)
+        look = (appearance.get('graphics') or {}).get('look')
+        if look is not None:
+            unit.flingy = getattr(Looks, look)
+        movement = appearance.get('movement') or {}
+        movement_look = movement.get('look')
+        if movement_look is not None:
+            flingy = getattr(Looks, movement_look)
+            for field, attribute in MOVEMENT_FIELDS.items():
+                value = _value(movement, field)
+                if value is not None:
+                    setattr(flingy, attribute, value)
         width = _value(appearance, 'size.placement.width')
         height = _value(appearance, 'size.placement.height')
         if width is not None and height is not None:
@@ -98,15 +143,40 @@ def f_init():
         for field, attribute in PROPERTY_FIELDS.items():
             value = _value(properties, field)
             if value is not None:
-                setattr(unit, attribute, value)
+                if '.' in attribute:
+                    parent, member = attribute.split('.')
+                    setattr(getattr(unit, parent), member, value)
+                else:
+                    setattr(unit, attribute, value)
         hero = _value(properties, 'flags.hero')
         if hero is not None:
             unit.baseProperty.Hero = hero
+        detector = _value(properties, 'vision.detector')
+        if detector is not None:
+            unit.baseProperty.Detector = detector
 
         # A tank's attack fields belong to its turret, while HP belongs to its body.
         weapons = properties.get('weapons') or {}
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)
         for channel, attribute in (('ground', 'groundWeapon'), ('air', 'airWeapon')):
+            weapon_appearance = (appearance.get('weapons') or {}).get(channel) or {}
+            projectile_look = weapon_appearance.get('look')
+            if projectile_look is not None:
+                getattr(weapon_unit, attribute).flingy = getattr(Looks, projectile_look)
+            delivery_from = weapon_appearance.get('delivery_from')
+            if delivery_from is not None:
+                # 초기화 때만 발사·명중 설정을 복사. 무기 번호와 전투 수치는 유지.
+                source = Weapon(delivery_from)
+                target = getattr(weapon_unit, attribute)
+                for member in ('behavior', 'removeAfter', 'attackAngle',
+                               'launchSpin', 'forwardOffset', 'verticalOffset'):
+                    setattr(target, member, getattr(source, member))
+            attack_type = (combat['attack'].get(channel) or {}).get('type')
+            if attack_type is not None:
+                weapon = getattr(weapon_unit, attribute)
+                weapon.damageType = getattr(AttackType, attack_type)
+                weapon.label = getattr(AttackLabel, attack_type)
+                weapon.icon = getattr(AttackIcon, attack_type)
             fields = [(target, _value(combat, f'attack.{channel}.{field}'))
                       for field, target in WEAPON_FIELDS.items()
                       if _value(combat, f'attack.{channel}.{field}') is not None]

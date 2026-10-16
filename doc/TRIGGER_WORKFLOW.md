@@ -49,19 +49,23 @@ JSON을 바꾼 뒤에는 `--prepare`를 다시 실행해야 직접 빌드에 반
 
 ## custom_tbl.json
 
-`src/data/custom_tbl.json`에서 TBL을 편집합니다. 현재 1547개 항목은 FranceDp의 데이터 스냅샷입니다.
-`enabled: false`이므로 신규 맵에 적용되지 않습니다. 적용하려면 `true`로 변경합니다.
+`src/data/custom_tbl.json`에서 TBL을 편집합니다. FranceDp 스냅샷에 현재 맵의 설명문을 추가한 데이터이며 `enabled: true`로 적용합니다. false이면 기존 data_loader가 TBL 복사를 생략합니다.
 
 - `encoding`: 현재 `cp949`.
 - `entries`: 1부터 연속되는 TBL ID. `text` 또는 `hex` 중 하나를 사용합니다.
 - `text`: JSON 표준 제어문자 표기 사용. 색상은 `\u0004`, 줄바꿈은 `\n`, 내부 NUL은 `\u0000`.
+- 활성 버튼 설명은 단축키 뒤에 용도별 한정자를 넣습니다(건설·생산 0x01, 업그레이드 연구 0x02, 기술 연구 0x04). 비활성 버튼 설명은 단축키 바이트·한정자·[Q] 같은 표시를 모두 빼고 제목과 사용 조건만 일반 문자열로 적습니다. 비활성 설명에 활성 형식을 넣으면 q[Q] 등이 그대로 표시됩니다.
+- 활성 설명의 본문은 무엇을 하는지(기능·효과)를 설명하고, 선행 건물·해금 연구·필요 자원 같은 사용 조건은 비활성 설명에만 적습니다. 비활성 설명은 막연히 '조건 충족 필요'라고 하지 않고 필요한 건물·연구·자원·빈 칸을 구체적으로 적습니다.
 - `hex`: CP949로 해석되지 않는 원본 바이트를 그대로 보존합니다. 바꾸려면 `hex`를 삭제하고 `text`를 작성합니다.
-- `copy_capacity_bytes`: 현재 42564. 원본 런타임 버퍼에 복사하는 방식이므로 용량을 임의로 늘리지 않습니다.
+- TBL에는 `copy_capacity_bytes`를 사용하지 않습니다. 원본 파일 크기 42564를 버퍼 한도로 취급했던 프로젝트 자체 제한은 근거가 없어 제거했습니다. uint16 항목 수·오프셋 표현 범위 검사는 유지하며 armoha의 정렬 처리에도 해당 형식 범위가 적용됩니다.
 
 생성물은 `custom_txt.tbl`이며 uint16 항목 수, uint16 오프셋 테이블, NUL로 끝나는 바이트 문자열로 구성합니다.
 내부 NUL도 보존하므로 유닛 이름·툴팁 복합 항목을 손실 없이 재생성합니다.
-런타임에서는 기존 레퍼런스와 같이 `0x6D5A30`의 포인터가 가리키는 버퍼에 복사합니다.
-전체 스냅샷을 켜면 FranceDp 문자열 전체가 적용됩니다. 신규 게임 문자열로 편집한 뒤 켜세요.
+기존 JSON 생성기·data_loader 구조를 유지합니다. tools/generate_game_data.py가 armoha `_AddStatText()`와 같은 방식으로 헤더와 각 문자열을 DWORD 정렬하고, 패딩을 포함한 오프셋을 재계산합니다. 내부 NUL과 단축키 뒤 한정자를 보존합니다. data_loader는 armoha `_f_initstattext()`와 동일하게 `0x6D5A30`의 포인터 대상에 완성 데이터를 한 번 복사합니다. dataDumper 플러그인이나 private 함수 등록 호출은 추가하지 않습니다. F5 빌드는 실행별 생성 파일 경로를, --prepare는 build/generated 경로를 사용합니다.
+
+이는 원래 게임 버퍼의 실제 할당 크기를 측정하거나 버퍼를 재할당하는 구현이 아닙니다. 조사한 armoha 코드도 버퍼 크기를 검사하거나 재할당하지 않습니다. 따라서 원본 파일 크기를 엔진 최대 용량으로 단정하지 않으며, 형식상 uint16 범위와 실게임 동작 한계를 구분합니다.
+
+근거: https://github.com/armoha/euddraft/blob/main/pluginLoader.py 및 https://github.com/armoha/eudplib/blob/main/src/eudplib/string/tblprint.py .
 
 ## require_data.json
 

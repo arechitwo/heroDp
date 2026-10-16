@@ -21,18 +21,28 @@ for location in START_LOCATIONS:
     left, top, right, bottom = struct.unpack_from('<4I', location_data, (location - 1) * 20)
     contained = {i for i, (x, y) in enumerate(marker_positions)
                  if left <= x <= right and top <= y <= bottom}
-    if not 1 <= len(contained) <= 3 or claimed_markers & contained:
-        raise ValueError(f'Start location {location} must contain 1..3 distinct P8 city markers')
+    if not contained or claimed_markers & contained:
+        raise ValueError(f'Start location {location} must contain distinct P8 city markers')
     claimed_markers.update(contained)
     start_counts.append(len(contained))
 for key in ('tax_per_city', 'tax_period_frames', 'garrison_per_city', 'peace_timeout_frames',
-            'starting_minerals', 'starting_marines', 'start_countdown_frames'):
+            'starting_minerals', 'starting_marines', 'start_countdown_frames',
+            'income_period_frames', 'capital_income', 'metropolis_income',
+            'metropolis_cost', 'metropolis_build_frames', 'cities_per_metropolis',
+            'army_period_frames'):
     if type(config[key]) is not int or config[key] <= 0:
         raise ValueError(f'{key} must be a positive integer')
 CITY_COUNT = len(marker_positions)
 START_CITY_COUNTS = EUDArray(start_counts)
 TAX = config['tax_per_city']
 TAX_PERIOD = config['tax_period_frames']
+ARMY_PERIOD = config['army_period_frames']
+INCOME_PERIOD = config['income_period_frames']
+CAPITAL_INCOME = config['capital_income']
+METROPOLIS_INCOME = config['metropolis_income']
+METROPOLIS_COST = config['metropolis_cost']
+METROPOLIS_BUILD_FRAMES = config['metropolis_build_frames']
+CITIES_PER_METROPOLIS = config['cities_per_metropolis']
 GUARDS = config['garrison_per_city']
 PEACE_TIMEOUT = config['peace_timeout_frames']
 START_MINERALS = config['starting_minerals']

@@ -1,6 +1,7 @@
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.map_data.Loc as Loc;
 import modules.nexus_data as data;
+import modules.construction as construction;
 
 const NEXT_UNIT = EPD(0x628438);
 const COMPLETED_UNITS = EPD(0x584DE4);
@@ -11,9 +12,39 @@ const INITIAL_NEXUS = EUDVArray(7, CUnit)();
 const INITIAL_GENERATION = EUDVArray(7)();
 const INITIAL_READY = EUDVArray(7)();
 const PROXIES = UnitGroup(1700);
+const METROPOLISES = UnitGroup(1700);
+const SUCCESSORS = EUDVArray(8, CUnit)();
+const SUCCESSOR_READY = EUDVArray(8)();
+const COMPLETED_METROPOLISES = EUDVArray(8)();
+const INHERIT_PENDING = EUDVArray(8)();
+const INHERIT_POSITIONS = EUDVArray(8)();
+
+function trackMetropolis(epd) {
+    METROPOLISES.add(CUnit.cast(epd));
+}
+
+function findSuccessors() {
+    foreach (player : py_range(7)) {
+        SUCCESSOR_READY[player] = 0;
+        COMPLETED_METROPOLISES[player] = 0;
+    }
+    foreach (entry : METROPOLISES.cploop) {
+        foreach (dead : entry.dying) {}
+        const city = CUnit.cast(entry.epd);
+        const owner = city.owner;
+        if (owner >= 7) { continue; }
+        // statusFlags.Completed: 건설 중인 대도시는 수도 후보가 아닙니다.
+        if (!MemoryXEPD(city + 0xDC / 4, Exactly, 1, 1)) { continue; }
+        COMPLETED_METROPOLISES[owner] += 1;
+        if (SUCCESSOR_READY[owner] == 0) {
+            SUCCESSORS[owner] = city;
+            SUCCESSOR_READY[owner] = 1;
+        }
+    }
+}
 
 function init() {
-    data.init(); // City summon and remote Gateway button sets, after unit_dat.
+    data.init(); // 수도의 두 페이지 건설 메뉴와 일반 도시의 수도 소환 버튼.
     // 파일런 변환과 같은 onPluginStart 단계에서 초기 수도 마커를 변환.
     foreach (index : py_range(7)) {
         const startLoc = Loc.strasbourg + index;
@@ -37,6 +68,7 @@ function createAt(player, loc : TrgLocation) {
     unit.statusFlags.Invincible = false;
     GENERATION[player] = unit.uniquenessIdentifier;
     ACTIVE[player] = 1;
+    construction.INHERITED_METROPOLIS[player] = 0;
     SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 0);
     return true;
 }
@@ -68,10 +100,33 @@ function resetCommand(unit : CUnit, order) {
     unit.orderTimer = 0;
 }
 
+function inheritCapital(player) {
+    if (SUCCESSOR_READY[player] == 0) { return; }
+    const city = SUCCESSORS[player];
+    INHERIT_POSITIONS[player] = maskread_epd(city + 0x28 / 4, 0x1FFF1FFF);
+    INHERIT_PENDING[player] = 1;
+    // 제거한 건물의 충돌 영역은 다음 틱에 비워집니다. 이 틱에는 생성하지 않음.
+    city.remove();
+    COMPLETED_METROPOLISES[player] -= 1;
+    construction.INHERITED_METROPOLIS[player] = 1;
+}
+
+function finishInheritance(player) {
+    if (INHERIT_PENDING[player] == 0) { return; }
+    const position = INHERIT_POSITIONS[player];
+    setloc(Loc.city_point, position & 0x1FFF, position >> 16);
+    if (createAt(player, Loc.city_point)) {
+        INHERIT_PENDING[player] = 0;
+        construction.INHERITED_METROPOLIS[player] = 1;
+        setcurpl(player);
+        println("\x04대도시가 새 수도로 승계되었습니다. 수도 수입은 2초마다 5금입니다.");
+    }
+}
+
 function summonFromCity(city : CUnit, player : TrgPlayer) {
     if (!MemoryXEPD(city + 0x98 / 4, Exactly, UnitModel.nexus_signal, 0xFFFF)) { return; }
     resetCommand(city, 18);
-    if (ACTIVE[player] != 0) { return; }
+    if (ACTIVE[player] != 0 || INHERIT_PENDING[player] != 0) { return; }
     // 버튼을 누른 일반 도시만 재소환 지점으로 사용.
     city.setloc(Loc.city_point);
     if (createAt(player, Loc.city_point)) {
@@ -89,21 +144,18 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
         default:
             return;
     }
-    epdswitch(unit + 0x98 / 4, 0xFF) {
-        case unProxy(UnitModel.barracks):
-            break;
-        default:
-            resetCommand(unit, 23);
-            return;
+    if (!construction.canBuildAt(unit)) {
+        resetCommand(unit, 23);
+        return;
     }
     if (MemoryEPD(NEXT_UNIT, Exactly, 0)) {
         resetCommand(unit, 23);
         return;
     }
-    const x, y = posread_epd(unit + 0x58 / 4);
-    setloc(Loc.city_spawn, x, y);
     const order = maskread_epd(unit + 0x4C / 4, 0xFF00) >> 8;
     if (order != 30 && order != 31) { resetCommand(unit, 23); return; }
+    const x, y = posread_epd(unit + 0x58 / 4);
+    setloc(Loc.city_spawn, x, y);
     const probe = CUnit.from_next();
     if (order == 31) { CreateUnit(1, UnitModel.probe, Loc.city_spawn, player); }
     else { CreateUnit(1, UnitModel.scv, Loc.city_spawn, player); }
@@ -116,21 +168,7 @@ function buildRemote(unit : CUnit, player : TrgPlayer) {
     resetCommand(unit, 23);
 }
 
-function tick() {
-    foreach (player : py_range(7)) {
-        if (ACTIVE[player] != 0) {
-            const unit = NEXUS[player];
-            if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00) ||
-                !MemoryXEPD(unit + 0x64 / 4, Exactly, UnitModel.nexus_unit, 0xFF) ||
-                !MemoryXEPD(unit + 0x4C / 4, Exactly, player, 0xFF) ||
-                unit.uniquenessIdentifier != GENERATION[player]) {
-                ACTIVE[player] = 0;
-            } else {
-                buildRemote(unit, player);
-            }
-        }
-        SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo, 1 - ACTIVE[player]);
-    }
+function tickProxies() {
     foreach (entry : PROXIES.cploop) {
         foreach (dead : entry.dying) {}
         const probe = CUnit.cast(entry.epd);
@@ -144,6 +182,31 @@ function tick() {
                 probe.remove();
                 break;
         }
+    }
+    setcurpl(0);
+}
+
+function tick() {
+    // 이전 틱에 제거한 대도시 자리에서만 승계 생성을 완료합니다.
+    foreach (player : py_range(7)) { finishInheritance(player); }
+    tickProxies();
+    findSuccessors();
+    foreach (player : py_range(7)) {
+        if (ACTIVE[player] != 0) {
+            const unit = NEXUS[player];
+            if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00) ||
+                !MemoryXEPD(unit + 0x64 / 4, Exactly, UnitModel.nexus_unit, 0xFF) ||
+                !MemoryXEPD(unit + 0x4C / 4, Exactly, player, 0xFF) ||
+                unit.uniquenessIdentifier != GENERATION[player]) {
+                ACTIVE[player] = 0;
+                construction.INHERITED_METROPOLIS[player] = 0;
+            } else {
+                buildRemote(unit, player);
+            }
+        }
+        if (ACTIVE[player] == 0 && INHERIT_PENDING[player] == 0) { inheritCapital(player); }
+        SetMemoryEPD(COMPLETED_UNITS + 12 * EncodeUnit(UnitModel.nexus_requirement) + player, SetTo,
+            1 - ACTIVE[player] - INHERIT_PENDING[player]);
     }
     setcurpl(0);
 }

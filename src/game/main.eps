@@ -10,13 +10,27 @@ import modules.debug as debug;
 import modules.player_settings as playerSettings;
 import modules.unit_data as unitData;
 import modules.nexus as nexus;
+import modules.damage_types as damageTypes;
+import modules.engineer_data as engineerData;
+import modules.army_camp as armyCamp;
+import modules.tactics_school_data as tacticsSchoolData;
+import modules.knight_hall_data as knightHallData;
+import modules.military_workshop_data as militaryWorkshopData;
+import modules.drill_hall_data as drillHallData;
 function onPluginStart() {
     playerSettings.SetColor(P8, playerSettings.BLACK);
     unitDat.init(); // Runtime DAT first: city/garrison appearance and attack AI.
     unitData.init(); // 기본 병종 JSON 적용. 특수 유닛은 아직 설정하지 않음.
+    engineerData.init();
+    damageTypes.init();
     debug.init();
     cities.init();
     nexus.init();
+    armyCamp.init();
+    tacticsSchoolData.init();
+    knightHallData.init();
+    militaryWorkshopData.init();
+    drillHallData.init();
     randomize();
     ui.init();
 }
@@ -26,10 +40,12 @@ function beforeTriggerExec() {
     debug.tick(); // Consume synchronized debug commands before start UI clears chat.
     ui.tick();
     if (ui.started != 0) {
+        commander.trackNewUnits(); // 신규 유닛은 한 번만 순회하고 완성 대도시 승계 전에 등록.
         nexus.tick();
         rules.tick();
         cities.tick();
         income.tick();
+        armyCamp.tick();
         commander.tick();
     }
 }

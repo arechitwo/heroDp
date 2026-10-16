@@ -1,0 +1,9 @@
+{
+  "army_camp": {"minerals": 150, "gas": 0},
+  "tactics_school": {"minerals": 200, "gas": 0},
+  "drill_hall": {"minerals": 100, "gas": 0},
+  "military_workshop": {"minerals": 100, "gas": 0},
+  "knight_hall": {"minerals": 100, "gas": 0},
+  "magic_laboratory": {"minerals": 100, "gas": 0},
+  "recovery_camp": {"minerals": 150, "gas": 0}
+}

@@ -1,0 +1,72 @@
+// 넥서스 명령을 감지한 뒤, 대리 건설 일꾼 생성 전에 호출합니다.
+// 영토·거리·건설 한도 등 좌표 기반 거부 조건을 이곳에 추가합니다.
+// false를 반환하면 넥서스 명령만 초기화하고 프로브를 만들지 않습니다.
+import modules.settings as cfg;
+import modules.unit_settings.UnitModel as UnitModel;
+
+const TOTAL_UNITS = EPD(0x582324);
+// 대도시가 수도로 승계되어도 건설 한도에는 포함합니다. 수입은 수도 5금만 지급.
+const INHERITED_METROPOLIS = EUDVArray(8)();
+
+function metropolisLimit(player : TrgPlayer) {
+    const cities = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.small_city) + player, 0x7FF);
+    var limit = cities / cfg.CITIES_PER_METROPOLIS;
+    if (limit == 0) { limit = 1; }
+    return limit;
+}
+
+function acceptNewMetropolis(city : CUnit) {
+    const owner = city.owner;
+    if (owner >= 7) { return true; }
+    const total = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + owner, 0x7FF);
+    const limit = metropolisLimit(owner);
+    if ((total + INHERITED_METROPOLIS[owner]) > limit) {
+        city.remove();
+        SetResources(owner, Add, cfg.METROPOLIS_COST, Ore);
+        setcurpl(owner);
+        println("\x08대도시 한도를 초과한 건설을 취소하고 {}금을 반환했습니다.", cfg.METROPOLIS_COST);
+        return false;
+    }
+    return true;
+}
+
+function canBuildAt(unit : CUnit) {
+    epdswitch(unit + 0x98 / 4, 0xFF) {
+        case unProxy(UnitModel.metropolis):
+            const player = unit.owner;
+            const limit = metropolisLimit(player);
+            // 엔진 전체 유닛 수에는 건설 중인 프로토스 건물도 포함됩니다.
+            const built = maskread_epd(TOTAL_UNITS + 12 * EncodeUnit(UnitModel.metropolis) + player, 0x7FF);
+            if ((built + INHERITED_METROPOLIS[player]) >= limit) {
+                setcurpl(player);
+                println("\x08대도시 건설 한도: {}개 (도시 {}개당 1개, 최소 1개)", limit, cfg.CITIES_PER_METROPOLIS);
+                return false;
+            }
+            break;
+        case unProxy(UnitModel.tactics_school):
+        case unProxy(UnitModel.drill_hall):
+        case unProxy(UnitModel.military_workshop):
+            const owner = unit.owner;
+            if (!Command(owner, AtLeast, 1, UnitModel.army_camp)) {
+                setcurpl(owner);
+                println("\x08이 건물은 군영을 하나 이상 소유해야 건설할 수 있습니다.");
+                return false;
+            }
+            break;
+        case unProxy(UnitModel.knight_hall):
+            const schoolOwner = unit.owner;
+            if (!Command(schoolOwner, AtLeast, 1, UnitModel.tactics_school)) {
+                setcurpl(schoolOwner);
+                println("\x08기사단 회관은 병법원을 하나 이상 소유해야 건설할 수 있습니다.");
+                return false;
+            }
+            break;
+        case unProxy(UnitModel.army_camp):
+        case unProxy(UnitModel.recovery_camp):
+        case unProxy(UnitModel.magic_laboratory):
+            break;
+        default:
+            return false;
+    }
+    return true;
+}

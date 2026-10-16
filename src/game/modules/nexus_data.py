@@ -1,7 +1,12 @@
 """Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
 import struct
+import json
+from pathlib import Path
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
-from .unit_settings import Looks, UnitModel
+from .unit_settings import Looks, UnitModel, UpgradeModel
+from .damage_types import DefenseType
+from . import settings as cfg
+from .nexus_menu import BUILDINGS, PAGE_TWO_UNIT, NEXT_PAGE_TOOLTIP, PREVIOUS_PAGE_TOOLTIP
 
 BUTTON_TABLE = 0x5187E8
 STATUS_TABLE = 0x5193A0
@@ -11,6 +16,9 @@ BUTTON_ALWAYS = 0x4282D0
 BUTTON_CAN_TRAIN = 0x428E60
 BUTTON_TRAIN = 0x4234B0
 BUTTON_WARP_BUILDING = 0x423DD0
+BUTTON_CHANGE_PAGE = 0x459AF0
+BUILDING_COSTS = json.loads((Path(__file__).resolve().parents[3] /
+                            'resource/buildings.json').read_text(encoding='utf-8'))
 
 
 def _button(position, icon, condition, action, condition_unit, action_unit,
@@ -19,9 +27,24 @@ def _button(position, icon, condition, action, condition_unit, action_unit,
                        condition_unit, action_unit, enabled_tooltip, disabled_tooltip)
 
 
-CAPITAL_BUTTONS = Db(_button(5, EncodeUnit(UnitModel.barracks), BUTTON_ALWAYS,
-                            BUTTON_WARP_BUILDING, EncodeUnit(UnitModel.barracks),
-                            EncodeUnit(UnitModel.barracks), 630, 631))
+def _building_buttons(page):
+    return b''.join(
+        _button(item.position, EncodeUnit(item.unit),
+                BUTTON_CAN_TRAIN if item.role in (
+                    'tactics_school', 'drill_hall', 'military_workshop', 'knight_hall'
+                ) else BUTTON_ALWAYS,
+                BUTTON_WARP_BUILDING, EncodeUnit(item.unit), EncodeUnit(item.unit),
+                item.tooltip, item.tooltip + 1)
+        for item in BUILDINGS if item.page == page
+    )
+
+
+CAPITAL_BUTTONS = Db(_building_buttons(1) + _button(
+    9, 370, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(PAGE_TWO_UNIT),
+    NEXT_PAGE_TOOLTIP, 0))
+CAPITAL_PAGE_TWO_BUTTONS = Db(_building_buttons(2) + _button(
+    9, 236, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(UnitModel.nexus_unit),
+    PREVIOUS_PAGE_TOOLTIP, 0))
 CITY_BUTTONS = Db(_button(7, 154, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                          EncodeUnit(UnitModel.nexus_signal),
                          EncodeUnit(UnitModel.nexus_signal), 1049, 1050))
@@ -38,8 +61,10 @@ def f_init():
     capital.hasShield = True
     capital.maxShield = 500
     capital.armor = 50
+    capital.sizeType = DefenseType.armored
+    capital.armorUpgrade = UpgradeModel.armored_armor
     capital.baseProperty = 0x44000800  # FranceDp single-entity remote capital
-    capital.buildingDimensions = 16 + (16 << 16)
+    capital.buildingDimensions = 1 + (1 << 16)
     capital.unitBoundsL = 48
     capital.unitBoundsT = 48
     capital.unitBoundsR = 48
@@ -69,16 +94,32 @@ def f_init():
     ])
 
     gate = UnitModel.barracks
-    gate.nameString = '\x05훈련소'
     gate.maxHp = 4800 * 256
     gate.armor = 50
+    gate.sizeType = DefenseType.armored
     gate.hasShield = False
     gate.maxShield = 0
-    gate.mineralCost = 100
-    gate.gasCost = 0
     gate.timeCost = 280
     gate.supplyUsed = 0
     gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
+
+    for item in BUILDINGS:
+        item.unit.nameString = '\x04' + item.name
+        item.unit.sizeType = DefenseType.armored
+        item.unit.armorUpgrade = UpgradeModel.armored_armor
+        if item.role != 'metropolis':
+            cost = BUILDING_COSTS[item.role]
+            item.unit.mineralCost = cost['minerals']
+            item.unit.gasCost = cost['gas']
+
+    metropolis = UnitModel.metropolis
+    metropolis.mineralCost = cfg.METROPOLIS_COST
+    metropolis.gasCost = 0
+    metropolis.timeCost = cfg.METROPOLIS_BUILD_FRAMES
+    metropolis.supplyProvided = 0
+    metropolis.sizeType = DefenseType.armored
+    metropolis.baseProperty.RequiresPsi = True
+    # 배치 크기와 충돌 범위는 Arbiter Tribunal의 기본 DAT 값을 유지합니다.
 
     signal = UnitModel.nexus_signal
     signal.nameString = '\x04수도 소환'
@@ -88,8 +129,12 @@ def f_init():
     signal.timeCost = 9999  # Queue is consumed by summonFromCity before completion.
 
     DoActions([
-        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 1),
+        SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12, SetTo, 0),
+        SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12 + 4, SetTo, 0),
+        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 6),
         SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12, SetTo, 4),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12 + 4, SetTo, CAPITAL_PAGE_TWO_BUTTONS),
         SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12, SetTo, 1),
         SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12 + 4, SetTo, CITY_BUTTONS),
     ])

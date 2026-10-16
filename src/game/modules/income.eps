@@ -1,17 +1,31 @@
 import modules.settings as cfg;
 import modules.cities as cities;
-
+import modules.nexus as nexus;
 var elapsed = 0;
+var incomeElapsed = 0;
 function tick() {
     elapsed++;
-    if (elapsed < cfg.TAX_PERIOD) { return; }
-    elapsed = 0;
+    incomeElapsed++;
+    var payTax = 0;
+    var payIncome = 0;
+    if (elapsed >= cfg.TAX_PERIOD) { elapsed = 0; payTax = 1; }
+    if (incomeElapsed >= cfg.INCOME_PERIOD) { incomeElapsed = 0; payIncome = 1; }
+    if (!payTax && !payIncome) { return; }
     foreach (cp : EUDLoopPlayer("Human")) {
         if (cp < 7) {
-            const tax = cities.cityCount[cp] * cfg.TAX;
             setcurpl(cp);
-            SetResources(CurrentPlayer, Add, tax, Ore);
-            println("\x04세금: {} 미네랄 | 도시: {}", tax, cities.cityCount[cp]);
+            if (payIncome) {
+                // 저장한 대도시 그룹에서 갱신한 완성 수. 건설 중에는 수입 없음.
+                const completed = nexus.COMPLETED_METROPOLISES[cp];
+                // 승계한 대도시는 수도 수입만 받습니다. 대도시 수입을 중복 가산하지 않음.
+                const amount = nexus.ACTIVE[cp] * cfg.CAPITAL_INCOME + completed * cfg.METROPOLIS_INCOME;
+                SetResources(CurrentPlayer, Add, amount, Ore);
+            }
+            if (payTax) {
+                const tax = cities.cityCount[cp] * cfg.TAX;
+                SetResources(CurrentPlayer, Add, tax, Ore);
+                println("\x04세금: {} 미네랄 | 도시: {}", tax, cities.cityCount[cp]);
+            }
         }
     }
     setcurpl(0);

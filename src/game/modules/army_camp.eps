@@ -1,0 +1,73 @@
+import modules.settings as cfg;
+import modules.army_camp_data as data;
+import modules.unit_settings.UnitModel as UnitModel;
+import modules.unit_orders as orders;
+import modules.map_data.Loc as Loc;
+
+// 군영은 점령 가능하므로 소유자별로 나누지 않습니다.
+const CAMPS = UnitGroup(1700);
+const NEXT_UNIT = EPD(0x628438);
+var elapsed = 0;
+
+function init() {
+    data.init();
+}
+
+function track(epd) {
+    CAMPS.add(CUnit.cast(epd));
+}
+
+function recruit(player : TrgPlayer, kind : TrgUnit, cost, rally) {
+    if (!Accumulate(player, AtLeast, cost, Ore)) { return; }
+    if (MemoryEPD(NEXT_UNIT, Exactly, 0)) { return; }
+    const unit = CUnit.from_next();
+    CreateUnit(1, kind, Loc.city_spawn, player);
+    if (MemoryXEPD(unit + 0x4C / 4, Exactly, 0, 0xFF00)) { return; }
+    SetResources(player, Subtract, cost, Ore);
+    orders.issue(unit, orders.ORDER_ATTACK_MOVE, rally);
+}
+
+function tick() {
+    elapsed++;
+    var produce = 0;
+    if (elapsed >= cfg.ARMY_PERIOD) { elapsed = 0; produce = 1; }
+    foreach (entry : CAMPS.cploop) {
+        foreach (dead : entry.dying) {}
+        const camp = CUnit.cast(entry.epd);
+        // 생산 주기에 게이지를 다시 진행시키고, 그 외에는 자연 완료만 방지.
+        if (!MemoryEPD(camp + 0xEC / 4, Exactly, 0)) {
+            const training = CUnit.cast(cunitepdread_epd(camp + 0xEC / 4)[[1]]);
+            if (produce) {
+                training.remainingBuildTime = data.TRAINING_RESET_TIME;
+            } else if (MemoryXEPD(training + 0xAC / 4, AtMost, 9, 0xFFFF)) {
+                training.remainingBuildTime = 10;
+            }
+        }
+        if (!produce) { continue; }
+        if (!MemoryXEPD(camp + 0xDC / 4, Exactly, 1, 1)) { continue; }
+        if (MemoryXEPD(camp + 0xDC / 4, Exactly, 0x400, 0x400)) { continue; }
+        const player = camp.owner;
+        if (player >= 7) { continue; }
+        const x, y = posread_epd(camp + 0x28 / 4);
+        setloc(Loc.city_spawn, x, y);
+        var rally = x + (y << 16);
+        if (!MemoryXEPD(camp + 0xF8 / 4, Exactly, 0, 0x1FFF1FFF)) {
+            rally = maskread_epd(camp + 0xF8 / 4, 0x1FFF1FFF);
+        }
+        // 다섯 슬롯은 빌드 때 펼칩니다. 임시 배열이나 대기열 초기화는 필요 없음.
+        foreach (slot : py_range(5)) {
+            epdswitch(camp + (0x98 + slot * 2) / 4, 0xFF << (16 * (slot % 2))) {
+                case unProxy(UnitModel.spearman) << (16 * (slot % 2)):
+                    recruit(player, UnitModel.spearman, data.SPEARMAN_COST, rally);
+                    break;
+                case unProxy(UnitModel.light_infantry) << (16 * (slot % 2)):
+                    recruit(player, UnitModel.light_infantry, data.INFANTRY_COST, rally);
+                    break;
+                case unProxy(UnitModel.longbowman) << (16 * (slot % 2)):
+                    recruit(player, UnitModel.longbowman, data.LONGBOW_COST, rally);
+                    break;
+            }
+        }
+    }
+    setcurpl(0);
+}
