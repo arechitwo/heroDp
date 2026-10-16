@@ -53,6 +53,7 @@ SELECTION_TIMEOUT = config['selection_timeout_frames']
 DEBUG_ENABLED = config.get('debug_enabled', False)
 DEBUG_PATTERNS = tuple((command, len(prefix.encode('utf-8'))) for command, prefix in (
     (1, '디버그 돈 '), (2, '디버그 가스 '), (3, '디버그 자원 '),
+    (12, '디버그 미네랄 '),
     (4, '디버그 마린 '), (5, '디버그 SCV '), (6, '디버그 세금타이머 '),
     (7, '디버그 주둔군타이머 '), (8, '디버그 시작타이머 '),
     (9, '디버그 값 '), (10, '디버그 개수 '), (11, '디버그 창병 '),
