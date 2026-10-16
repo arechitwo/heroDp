@@ -221,6 +221,17 @@ function render() {
 
 function tick() {
     if (started != 0) { return; }
+    if (cfg.DEBUG_ENABLED) {
+        // 반복 확인이 쉽도록 슬롯 순서의 거점을 지급하고 설정 UI·대기를 생략합니다.
+        rules.gameType = 0;
+        rules.randomStarts = 0;
+        rules.allianceMode = 1;
+        foreach (cp : EUDLoopPlayer("Human")) {
+            if (cp < 7) { claim(cp, cp); }
+        }
+        start();
+        return;
+    }
     var nextHost = 7;
     foreach (cp : EUDLoopPlayer("Human")) { if (cp < nextHost && cp < 7) { nextHost = cp; } }
     host = nextHost;
