@@ -1,5 +1,5 @@
 """포지(연무관): 질럿 ID 창병의 네이티브 Leg Enhancements 연구."""
-from eudplib import Db, DoActions, EUDFunc, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite, unProxy
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite
 from .unit_settings import UnitModel, UpgradeModel
 from .knight_hall_data import RESEARCH
 from .nexus_data import _button, BUTTON_TABLE
@@ -8,7 +8,7 @@ UPGRADE_LIMITS = 0x58D088
 SPEARMAN_SPEED = EncodeUpgrade(UpgradeModel.spearman_speed)
 SPEED_ICON = Icon("Leg Enhancements")
 DRILL_BUTTONS = Db(b''.join([
-    _button(1, unProxy(SPEED_ICON), 0x429450, 0x423310,
+    _button(1, EncodeIcon(SPEED_ICON), 0x429450, 0x423310,
             SPEARMAN_SPEED, SPEARMAN_SPEED, 1611, 1612),
     _button(9, 236, 0x428900, 0x4232F0, 0, 0, 1607, 0),
 ]))

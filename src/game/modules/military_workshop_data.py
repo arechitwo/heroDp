@@ -1,5 +1,5 @@
 """군비 공방: 실체 유닛 ID에 연결된 네이티브 사거리·이동 업그레이드."""
-from eudplib import Db, DoActions, EUDFunc, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite, unProxy
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, EncodeUpgrade, Icon, SetMemory, SetTo, f_bwrite
 from .unit_settings import UnitModel, UpgradeModel
 from .knight_hall_data import RESEARCH
 from .nexus_data import _button, BUTTON_TABLE
@@ -11,7 +11,7 @@ UPGRADES = (
     ('longbow_range', UpgradeModel.longbow_range, Icon("Singularity Charge"), 1605, 3),
 )
 WORKSHOP_BUTTONS = Db(b''.join(
-    _button(position, unProxy(icon), 0x429450, 0x423310,
+    _button(position, EncodeIcon(icon), 0x429450, 0x423310,
             EncodeUpgrade(upgrade), EncodeUpgrade(upgrade), tooltip, tooltip + 1)
     for role, upgrade, icon, tooltip, position in UPGRADES
 ) + _button(9, 236, 0x428900, 0x4232F0, 0, 0, 1607, 0))
