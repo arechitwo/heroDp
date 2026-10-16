@@ -13,7 +13,7 @@
     "weapons": {
       "ground": 8,
       "max_ground_hits": 1,
-      "max_air_hits": 1,
+      "max_air_hits": 0,
       "air": 130
     },
     "flags": {

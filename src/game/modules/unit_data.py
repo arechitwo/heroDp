@@ -92,6 +92,8 @@ def f_init():
             donor = TrgUnit(source)
             # 실체 ID는 업그레이드용으로 유지하고 외형·음성·충돌·기본 동작을 복사.
             for member in ('baseProperty', 'groupFlags', 'availabilityFlags', 'portrait',
+                           'elevation', 'movementFlags', 'rank', 'buildingDimensions',
+                           'transportSpaceRequired', 'transportSpaceProvided',
                            'readySound', 'whatSoundStart', 'whatSoundEnd',
                            'pissedSoundStart', 'pissedSoundEnd', 'yesSoundStart', 'yesSoundEnd',
                            'unitBoundsL', 'unitBoundsT', 'unitBoundsR', 'unitBoundsB',
