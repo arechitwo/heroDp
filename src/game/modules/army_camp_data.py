@@ -39,6 +39,7 @@ HERO_BUTTONS = Db(b''.join(
     _train_button(position, unit, tooltip)
     for unit, position, tooltip in HERO_CHOICES
 ) + _button(9, 236, 0x428530, 0x423490, 0, 0, 1622, 0))
+# 안내 전용: 자기 버튼셋을 표시하므로 치료·이동 등 게임 명령은 실행하지 않음.
 RECOVERY_BUTTONS = Db(_button(
     1, 308, BUTTON_ALWAYS, 0x459AF0, 0,
     EncodeUnit(UnitModel.recovery_camp), 1623, 0))
