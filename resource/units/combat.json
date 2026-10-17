@@ -9,7 +9,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 160,
+        "damage": 80,
         "bonus": 1,
         "range": 16,
         "min_range": 0,
@@ -34,7 +34,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 80,
+        "damage": 45,
         "bonus": 1,
         "range": 96,
         "min_range": 0,
@@ -45,7 +45,7 @@
       },
       "air": {
         "type": "general",
-        "damage": 80,
+        "damage": 45,
         "bonus": 1,
         "range": 96,
         "min_range": 0,
@@ -69,7 +69,7 @@
     "attack": {
       "ground": {
         "type": "piercing",
-        "damage": 280,
+        "damage": 150,
         "bonus": 1,
         "range": 160,
         "min_range": 0,
@@ -80,7 +80,7 @@
       },
       "air": {
         "type": "piercing",
-        "damage": 280,
+        "damage": 150,
         "bonus": 1,
         "range": 160,
         "min_range": 0,
@@ -104,7 +104,7 @@
     "attack": {
       "ground": {
         "type": "piercing",
-        "damage": 150,
+        "damage": 85,
         "bonus": 1,
         "range": 128,
         "min_range": 0,
@@ -129,7 +129,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 60,
+        "damage": 35,
         "bonus": 1,
         "range": 16,
         "min_range": 0,
@@ -154,7 +154,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 280,
+        "damage": 150,
         "bonus": 1,
         "range": 24,
         "min_range": 0,
@@ -185,7 +185,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 1000,
+        "damage": 520,
         "bonus": 1,
         "range": 320,
         "min_range": 64,
