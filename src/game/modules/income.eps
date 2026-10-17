@@ -1,14 +1,20 @@
 import modules.settings as cfg;
 import modules.cities as cities;
 import modules.nexus as nexus;
-var elapsed = 0;
+var timerStarted = 0;
 var incomeElapsed = 0;
 function tick() {
-    elapsed++;
+    if (!timerStarted) {
+        SetCountdownTimer(SetTo, cfg.TAX_PERIOD / 24);
+        timerStarted = 1;
+    }
     incomeElapsed++;
     var payTax = 0;
     var payIncome = 0;
-    if (elapsed >= cfg.TAX_PERIOD) { elapsed = 0; payTax = 1; }
+    if (CountdownTimer(AtMost, 0)) {
+        payTax = 1;
+        SetCountdownTimer(SetTo, cfg.TAX_PERIOD / 24);
+    }
     if (incomeElapsed >= cfg.INCOME_PERIOD) { incomeElapsed = 0; payIncome = 1; }
     if (!payTax && !payIncome) { return; }
     foreach (cp : EUDLoopPlayer("Human")) {

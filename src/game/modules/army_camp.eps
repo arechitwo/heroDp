@@ -31,17 +31,15 @@ function tick() {
     elapsed++;
     var produce = 0;
     if (elapsed >= cfg.ARMY_PERIOD) { elapsed = 0; produce = 1; }
+    var remaining = cfg.ARMY_PERIOD - elapsed;
+    if (remaining < 10) { remaining = 10; }
     foreach (entry : CAMPS.cploop) {
         foreach (dead : entry.dying) {}
         const camp = CUnit.cast(entry.epd);
-        // 생산 주기에 게이지를 다시 진행시키고, 그 외에는 자연 완료만 방지.
+        // 등록 시점과 무관하게 전역 증원 주기의 남은 시간을 표시. 자연 완료는 방지.
         if (!MemoryEPD(camp + 0xEC / 4, Exactly, 0)) {
             const training = CUnit.cast(cunitepdread_epd(camp + 0xEC / 4)[[1]]);
-            if (produce) {
-                training.remainingBuildTime = data.TRAINING_RESET_TIME;
-            } else if (MemoryXEPD(training + 0xAC / 4, AtMost, 9, 0xFFFF)) {
-                training.remainingBuildTime = 10;
-            }
+            training.remainingBuildTime = remaining;
         }
         if (!produce) { continue; }
         if (!MemoryXEPD(camp + 0xDC / 4, Exactly, 1, 1)) { continue; }
