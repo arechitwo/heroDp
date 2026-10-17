@@ -20,7 +20,7 @@
     "light_infantry": 6,
     "longbowman": 6,
     "military_workshop": 38,
-    "magic_laboratory": 361
+    "hero_hall": 361
   },
   "unit_programs": {
     "siege_turret": {

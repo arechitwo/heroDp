@@ -52,7 +52,7 @@ class UnitModel:
     recovery_camp = TrgUnit("Protoss Shield Battery")
     tactics_school = TrgUnit("Protoss Gateway")
     knight_hall = TrgUnit("Protoss Citadel of Adun")
-    magic_laboratory = TrgUnit("Protoss Templar Archives")
+    hero_hall = TrgUnit("Protoss Templar Archives")
     barracks = tactics_school  # 도시 점령 시 함께 넘기는 기존 역할 이름.
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")

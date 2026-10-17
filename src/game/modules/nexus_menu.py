@@ -21,7 +21,7 @@ BUILDINGS = [
     BuildingButton('recovery_camp', 1, 8, UnitModel.recovery_camp, '회복 군막', 1556),
     BuildingButton('tactics_school', 2, 1, UnitModel.tactics_school, '병법원', 1558),
     BuildingButton('knight_hall', 2, 2, UnitModel.knight_hall, '기사단 회관', 1560),
-    BuildingButton('magic_laboratory', 2, 3, UnitModel.magic_laboratory, '마법 연구소', 1562),
+    BuildingButton('hero_hall', 2, 3, UnitModel.hero_hall, '영웅 소집소', 1562),
 ]
 
 # 시작 시 제거하는 수도 비콘의 버튼셋을 두 번째 페이지 전용으로 예약합니다.
