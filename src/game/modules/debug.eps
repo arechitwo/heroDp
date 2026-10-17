@@ -20,6 +20,14 @@ const LAST_BUILD_ORDER = EUDVArray(8)();
 const LAST_BUILD_UNIT = EUDVArray(8)();
 const unitScreen = StringBuffer(1024);
 
+function checkGroupUnique(unit : CUnit, stored) {
+    const current = unit.uniquenessIdentifier;
+    if (stored != current) {
+        printAll("\x08[UnitGroup 오류] EPD={} 저장 식별자={} 현재 식별자={}",
+                 unit, stored, current);
+    }
+}
+
 // chatEvent가 제공하는 포인터·패턴은 로컬 값. 게임 상태 변경 전에 MSQC로 전송.
 var chatPtr = 0;
 var chatPattern = 0;
