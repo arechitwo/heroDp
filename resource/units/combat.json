@@ -104,7 +104,7 @@
     "attack": {
       "ground": {
         "type": "piercing",
-        "damage": 50,
+        "damage": 120,
         "bonus": 1,
         "range": 128,
         "min_range": 0,
