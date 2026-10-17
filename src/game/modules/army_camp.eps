@@ -31,8 +31,7 @@ function tick() {
     elapsed++;
     var produce = 0;
     if (elapsed >= cfg.ARMY_PERIOD) { elapsed = 0; produce = 1; }
-    var remaining = cfg.ARMY_PERIOD - elapsed;
-    if (remaining < 10) { remaining = 10; }
+    const remaining = cfg.ARMY_PERIOD - elapsed + 10;
     foreach (entry : CAMPS.cploop) {
         foreach (dead : entry.dying) {}
         const camp = CUnit.cast(entry.epd);
