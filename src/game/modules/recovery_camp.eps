@@ -1,9 +1,16 @@
 import modules.unit_settings.UnitModel as UnitModel;
 import modules.army_camp_data as data;
+import modules.unit_data as unitData;
 
 // 건설 명령 시점이 아닌, 새 군막이 실제 생성된 시점에 기존 군막을 교체.
 const CAMPS = EUDVArray(7, CUnit)();
 const GENERATIONS = EUDVArray(7)();
+const READY = EUDVArray(7)();
+const CAMP_X = EUDVArray(7)();
+const CAMP_Y = EUDVArray(7)();
+const healing_debt = EUDVArray(7)(); // 256 = 1금. 차감 후 나머지만 유지.
+const HEAL_AMOUNT = 200; // 메딕: 매 프레임 200/256 HP.
+const HEAL_RANGE = 160; // 주둔군 탐색 영역과 같은 320×320 영역.
 
 function track(unit : CUnit) {
     const owner = unit.owner;
@@ -20,4 +27,68 @@ function track(unit : CUnit) {
     }
     CAMPS[owner] = unit;
     GENERATIONS[owner] = unit.uniquenessIdentifier;
+}
+
+function prepare() {
+    for (var player = 0; player < 7; player++) {
+        READY[player] = 0;
+        const camp = CAMPS[player];
+        if (camp == 0) { continue; }
+        if (!MemoryXEPD(camp + 0x64 / 4, Exactly, UnitModel.recovery_camp, 0xFF) ||
+            !MemoryXEPD(camp + 0x4C / 4, Exactly, player, 0xFF) ||
+            !MemoryXEPD(camp + 0xA4 / 4, Exactly, GENERATIONS[player] << 8, 0xFF00) ||
+            MemoryXEPD(camp + 0x4C / 4, Exactly, 0, 0xFF00)) {
+            CAMPS[player] = 0;
+            continue;
+        }
+        if (!MemoryXEPD(camp + 0xDC / 4, Exactly, 1, 1)) { continue; }
+        if (MemoryXEPD(camp + 0xDC / 4, Exactly, 0x400, 0x400)) { continue; }
+        const x, y = posread_epd(camp + 0x28 / 4);
+        CAMP_X[player] = x;
+        CAMP_Y[player] = y;
+        READY[player] = 1;
+    }
+}
+
+function restore(unit : CUnit, player : TrgPlayer, maxHp, charge) {
+    const hp = maskread_epd(unit + 0x08 / 4, 0x1FFFFF);
+    if (hp == 0 || hp >= maxHp * 256) { return; }
+    var amount = maxHp * 256 - hp;
+    if (amount > HEAL_AMOUNT) { amount = HEAL_AMOUNT; }
+    // 마지막 틱의 남은 체력도 실제 회복량에 비례하여 과금.
+    const added = (charge * amount + HEAL_AMOUNT - 1) / HEAL_AMOUNT;
+    var debt = healing_debt[player] + added;
+    if (debt >= 256) {
+        SetResources(player, Subtract, 1, Ore);
+        debt -= 256;
+    }
+    healing_debt[player] = debt;
+    unit.hp += amount;
+}
+
+function heal(unit : CUnit, player : TrgPlayer) {
+    if (!READY[player]) { return; }
+    // 잔액 0이면 소수 비용 누적도 회복도 금지. 유닛마다 차감 직전 재확인.
+    if (!Accumulate(player, AtLeast, 1, Ore)) { return; }
+    epdswitch(unit + 0x4C / 4, 0xFF00) {
+        case 1 << 8: // Stop
+        case 2 << 8: // Guard
+        case 3 << 8: // Player Guard. 공격·이동·홀드는 제외.
+            break;
+        default: return;
+    }
+    if (!MemoryXEPD(unit + 0xDC / 4, Exactly, 1, 1)) { return; }
+    if (!MemoryXEPD(unit + 0xDC / 4, Exactly, 0, 0x60)) { return; } // 벙커·수송선 내부 제외
+    const x, y = posread_epd(unit + 0x28 / 4);
+    const campX = CAMP_X[player];
+    const campY = CAMP_Y[player];
+    if (x > campX + HEAL_RANGE || campX > x + HEAL_RANGE ||
+        y > campY + HEAL_RANGE || campY > y + HEAL_RANGE) { return; }
+    epdswitch(unit + 0x64 / 4, 0xFF) {
+        foreach (kind, hp, charge : unitData.RECOVERY_TYPES) {
+            case unProxy(kind):
+                restore(unit, player, hp, charge);
+                break;
+        }
+    }
 }

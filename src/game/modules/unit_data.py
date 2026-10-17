@@ -56,6 +56,9 @@ RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
                for key, row in PROPERTIES.items()}
 TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
                          for key in ('spearman', 'light_infantry', 'longbowman'))
+RECOVERY_TYPES = tuple((getattr(UnitModel, role), COMBAT[role]['defense']['hp'],
+                        row['recovery']['debt_per_tick'])
+                       for role, row in PROPERTIES.items() if 'recovery' in row)
 
 COMBAT_FIELDS = {
     'defense.armor': 'armor', 'defense.size_type': 'sizeType',

@@ -32,6 +32,8 @@ function trackNewUnits() {
         if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
         epdswitch(epd + 0x64 / 4, 0xFF) {
             case unProxy(UnitModel.scv):
+                groups.add_default(epd); // 군막 치료를 위해 등록하되 전군 명령에서는 제외.
+                break;
             case unProxy(UnitModel.defender):
             case unProxy(UnitModel.drone):
             case unProxy(UnitModel.probe):
@@ -65,16 +67,19 @@ function tick() {
     }
         // 매 틱 수명 관리. 명령이 있을 때에만 저장된 유닛에 직접 명령을 기록.
     // Registry expands at compile time: each player's default/hero groups get one pass.
+    recoveryCamp.prepare();
     foreach (player, army : groups.REGISTERED_GROUPS) {
         foreach (entry : army.cploop) {
             foreach (dead : entry.dying) {
                 // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.
             }
-            if (!hasCommand) { continue; }
             const unit = CUnit.cast(entry.epd);
             const owner = unit.owner;
             if (owner >= 7) { continue; }
             if (owner != player) { continue; }
+            recoveryCamp.heal(unit, owner);
+            if (!hasCommand) { continue; }
+            if (MemoryXEPD(unit + 0x64 / 4, Exactly, UnitModel.scv, 0xFF)) { continue; }
             const mode = COMMANDS[owner];
             if (mode == 0) { continue; }
             if (mode == 2) { orders.issue(unit, orders.ORDER_ATTACK_MOVE, TARGET_POSITIONS[owner]); }

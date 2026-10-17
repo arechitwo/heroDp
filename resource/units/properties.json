@@ -22,7 +22,10 @@
     "vision": {},
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 4
+    }
   },
   "light_infantry": {
     "recruitment": {
@@ -49,7 +52,10 @@
     },
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 6
+    }
   },
   "longbowman": {
     "recruitment": {
@@ -76,7 +82,10 @@
     },
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 9
+    }
   },
   "light_cavalry": {
     "recruitment": {
@@ -99,7 +108,10 @@
     "vision": {},
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 10
+    }
   },
   "engineer": {
     "recruitment": {
@@ -122,7 +134,10 @@
     "vision": {},
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 6
+    }
   },
   "knight": {
     "recruitment": {
@@ -145,7 +160,10 @@
     "vision": {},
     "orders": {},
     "transport": {},
-    "buttons": {}
+    "buttons": {},
+    "recovery": {
+      "debt_per_tick": 8
+    }
   },
   "siege_turret": {
     "recruitment": {
