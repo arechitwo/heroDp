@@ -164,9 +164,9 @@
         "targets": 2,
         "splash": {
           "explosion": 3,
-          "inner": 16,
-          "middle": 32,
-          "outer": 48
+          "inner": 24,
+          "middle": 48,
+          "outer": 64
         }
       },
       "air": {}
