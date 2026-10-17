@@ -4,7 +4,7 @@
         {
             "label": "맵 빌드",
             "type": "process",
-            "command": "${command:python.interpreterPath}",
+            "command": "C:/Users/shigi/AppData/Local/Programs/Python/Python313/python.exe",
             "args": ["${workspaceFolder}/build_map.py", "--quiet"],
             "options": {
                 "cwd": "${workspaceFolder}"
