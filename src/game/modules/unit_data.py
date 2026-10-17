@@ -56,9 +56,19 @@ RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
                for key, row in PROPERTIES.items()}
 TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
                          for key in ('spearman', 'light_infantry', 'longbowman'))
-RECOVERY_TYPES = tuple((getattr(UnitModel, role), COMBAT[role]['defense']['hp'],
-                        row['recovery']['debt_per_tick'])
-                       for role, row in PROPERTIES.items() if 'recovery' in row)
+class RecoveryStats:
+    spearman_hp = COMBAT['spearman']['defense']['hp']
+    spearman_charge = PROPERTIES['spearman']['recovery']['debt_per_tick']
+    infantry_hp = COMBAT['light_infantry']['defense']['hp']
+    infantry_charge = PROPERTIES['light_infantry']['recovery']['debt_per_tick']
+    longbow_hp = COMBAT['longbowman']['defense']['hp']
+    longbow_charge = PROPERTIES['longbowman']['recovery']['debt_per_tick']
+    cavalry_hp = COMBAT['light_cavalry']['defense']['hp']
+    cavalry_charge = PROPERTIES['light_cavalry']['recovery']['debt_per_tick']
+    engineer_hp = COMBAT['engineer']['defense']['hp']
+    engineer_charge = PROPERTIES['engineer']['recovery']['debt_per_tick']
+    knight_hp = COMBAT['knight']['defense']['hp']
+    knight_charge = PROPERTIES['knight']['recovery']['debt_per_tick']
 
 COMBAT_FIELDS = {
     'defense.armor': 'armor', 'defense.size_type': 'sizeType',
