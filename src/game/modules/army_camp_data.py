@@ -2,11 +2,12 @@
 from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
 from .unit_data import RECRUITMENT, TRAINING_RESET_TIME
-from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN
+from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN, BUILDING_COSTS
 
 SPEARMAN_COST = RECRUITMENT['spearman'][0]
 INFANTRY_COST = RECRUITMENT['light_infantry'][0]
 LONGBOW_COST = RECRUITMENT['longbowman'][0]
+RECOVERY_REFUND = BUILDING_COSTS['recovery_camp']['minerals'] // 2
 
 
 def _train_button(position, unit, tooltip, *, icon=None):
@@ -38,6 +39,9 @@ HERO_BUTTONS = Db(b''.join(
     _train_button(position, unit, tooltip)
     for unit, position, tooltip in HERO_CHOICES
 ) + _button(9, 236, 0x428530, 0x423490, 0, 0, 1622, 0))
+RECOVERY_BUTTONS = Db(_button(
+    1, 308, BUTTON_ALWAYS, 0x459AF0, 0,
+    EncodeUnit(UnitModel.recovery_camp), 1623, 0))
 
 
 @EUDFunc
@@ -56,4 +60,9 @@ def f_init():
     DoActions([
         SetMemory(address, SetTo, 5),
         SetMemory(address + 4, SetTo, HERO_BUTTONS),
+    ])
+    address = BUTTON_TABLE + EncodeUnit(UnitModel.recovery_camp) * 12
+    DoActions([
+        SetMemory(address, SetTo, 1),
+        SetMemory(address + 4, SetTo, RECOVERY_BUTTONS),
     ])

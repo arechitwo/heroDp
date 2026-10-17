@@ -1,0 +1,23 @@
+import modules.unit_settings.UnitModel as UnitModel;
+import modules.army_camp_data as data;
+
+// 건설 명령 시점이 아닌, 새 군막이 실제 생성된 시점에 기존 군막을 교체.
+const CAMPS = EUDVArray(7, CUnit)();
+const GENERATIONS = EUDVArray(7)();
+
+function track(unit : CUnit) {
+    const owner = unit.owner;
+    if (owner >= 7) { return; }
+    const old = CAMPS[owner];
+    if (old != 0 && old != unit) {
+        if (MemoryXEPD(old + 0x64 / 4, Exactly, UnitModel.recovery_camp, 0xFF) &&
+            MemoryXEPD(old + 0x4C / 4, Exactly, owner, 0xFF) &&
+            MemoryXEPD(old + 0xA4 / 4, Exactly, GENERATIONS[owner] << 8, 0xFF00) &&
+            !MemoryXEPD(old + 0x4C / 4, Exactly, 0, 0xFF00)) {
+            old.die();
+            SetResources(owner, Add, data.RECOVERY_REFUND, Ore);
+        }
+    }
+    CAMPS[owner] = unit;
+    GENERATIONS[owner] = unit.uniquenessIdentifier;
+}

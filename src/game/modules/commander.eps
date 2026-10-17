@@ -5,6 +5,7 @@ import modules.map_data.Loc as Loc;
 import modules.nexus as nexus;
 import modules.construction as construction;
 import modules.army_camp as armyCamp;
+import modules.recovery_camp as recoveryCamp;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -18,6 +19,9 @@ function trackNewUnits() {
                 continue;
             case unProxy(UnitModel.hero_hall):
                 armyCamp.trackHeroHall(epd);
+                continue;
+            case unProxy(UnitModel.recovery_camp):
+                recoveryCamp.track(CUnit.cast(epd));
                 continue;
             case unProxy(UnitModel.metropolis):
                 if (!construction.acceptNewMetropolis(CUnit.cast(epd))) { continue; }

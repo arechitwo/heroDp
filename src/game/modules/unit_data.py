@@ -180,6 +180,7 @@ def f_init():
                 else:
                     setattr(unit, attribute, value)
         hero = _value(properties, 'flags.hero')
+        unit.baseProperty.RegeneratesHp = False
         if hero is not None:
             unit.baseProperty.Hero = hero
         detector = _value(properties, 'vision.detector')
