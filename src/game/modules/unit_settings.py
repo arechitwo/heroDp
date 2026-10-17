@@ -14,7 +14,7 @@ class UpgradeModel:
     infantry_armor = Upgrade("Terran Infantry Armor")
     armored_armor = Upgrade("Terran Vehicle Plating")
     hero_armor = Upgrade("Protoss Armor")
-    garrison_armor = Upgrade("Terran Ship Plating")  # 주둔군 전용. 표시는 일반 보병 방어로 통일.
+    garrison_armor = Upgrade("Terran Ship Plating")  # 주둔군 전용. 중갑 방어 아이콘·설명 사용.
 
 
 class Looks:

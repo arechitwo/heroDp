@@ -38,7 +38,7 @@ DEFENSE_DISPLAY = (
     (UpgradeModel.infantry_armor, Icon("Infantry Armor"), 1583),
     (UpgradeModel.armored_armor, Icon("Vehicle Armor"), 1584),
     (UpgradeModel.hero_armor, Icon("Ground Armor"), 1585),
-    (UpgradeModel.garrison_armor, Icon("Infantry Armor"), 1583),
+    (UpgradeModel.garrison_armor, Icon("Vehicle Armor"), 1584),
 )
 
 
