@@ -27,6 +27,18 @@ ARMY_BUTTONS = Db(b''.join([
     _button(9, 236, 0x428530, 0x423490, 0, 0, 1582, 0),  # Cancel last entry
 ]))
 
+# 소집 요청만 대기열에 등록합니다. 영웅 추첨과 실제 생성은 후속 구현.
+HERO_CHOICES = (
+    (UnitModel.hero_warrior_choice, 1, 1614),
+    (UnitModel.hero_archer_choice, 2, 1616),
+    (UnitModel.hero_mage_choice, 3, 1618),
+    (UnitModel.hero_random_choice, 4, 1620),
+)
+HERO_BUTTONS = Db(b''.join(
+    _train_button(position, unit, tooltip)
+    for unit, position, tooltip in HERO_CHOICES
+) + _button(9, 236, 0x428530, 0x423490, 0, 0, 1622, 0))
+
 
 @EUDFunc
 def f_init():
@@ -34,4 +46,14 @@ def f_init():
     DoActions([
         SetMemory(address, SetTo, 6),
         SetMemory(address + 4, SetTo, ARMY_BUTTONS),
+    ])
+    for unit, position, tooltip in HERO_CHOICES:
+        unit.mineralCost = 0
+        unit.gasCost = 0
+        unit.supplyUsed = 0
+        unit.timeCost = TRAINING_RESET_TIME
+    address = BUTTON_TABLE + EncodeUnit(UnitModel.hero_hall) * 12
+    DoActions([
+        SetMemory(address, SetTo, 5),
+        SetMemory(address + 4, SetTo, HERO_BUTTONS),
     ])

@@ -16,6 +16,9 @@ function trackNewUnits() {
             case unProxy(UnitModel.army_camp):
                 armyCamp.track(epd);
                 continue;
+            case unProxy(UnitModel.hero_hall):
+                armyCamp.trackHeroHall(epd);
+                continue;
             case unProxy(UnitModel.metropolis):
                 if (!construction.acceptNewMetropolis(CUnit.cast(epd))) { continue; }
                 nexus.trackMetropolis(epd);

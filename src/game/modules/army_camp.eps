@@ -6,6 +6,7 @@ import modules.map_data.Loc as Loc;
 
 // 군영은 점령 가능하므로 소유자별로 나누지 않습니다.
 const CAMPS = UnitGroup(1700);
+const HERO_HALLS = UnitGroup(1700);
 const NEXT_UNIT = EPD(0x628438);
 var elapsed = 0;
 
@@ -15,6 +16,10 @@ function init() {
 
 function track(epd) {
     CAMPS.add(CUnit.cast(epd));
+}
+
+function trackHeroHall(epd) {
+    HERO_HALLS.add(CUnit.cast(epd));
 }
 
 function recruit(player : TrgPlayer, kind : TrgUnit, cost, rally) {
@@ -28,6 +33,17 @@ function recruit(player : TrgPlayer, kind : TrgUnit, cost, rally) {
 }
 
 function tick() {
+    // 소집 대기열은 요청 표시만 담당하며 엔진 생산을 완료시키지 않습니다.
+    foreach (entry : HERO_HALLS.cploop) {
+        foreach (dead : entry.dying) {}
+        const hall = CUnit.cast(entry.epd);
+        if (!MemoryEPD(hall + 0xEC / 4, Exactly, 0)) {
+            const training = CUnit.cast(cunitepdread_epd(hall + 0xEC / 4)[[1]]);
+            if (MemoryXEPD(training + 0xAC / 4, AtMost, 9, 0xFFFF)) {
+                training.remainingBuildTime = 10;
+            }
+        }
+    }
     elapsed++;
     var produce = 0;
     if (elapsed >= cfg.ARMY_PERIOD) { elapsed = 0; produce = 1; }

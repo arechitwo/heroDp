@@ -20,7 +20,11 @@
     "light_infantry": 6,
     "longbowman": 6,
     "military_workshop": 38,
-    "hero_hall": 361
+    "hero_hall": 361,
+    "hero_warrior_choice": 6,
+    "hero_archer_choice": 6,
+    "hero_mage_choice": 6,
+    "hero_random_choice": 6
   },
   "unit_programs": {
     "siege_turret": {

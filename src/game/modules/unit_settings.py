@@ -53,6 +53,10 @@ class UnitModel:
     tactics_school = TrgUnit("Protoss Gateway")
     knight_hall = TrgUnit("Protoss Citadel of Adun")
     hero_hall = TrgUnit("Protoss Templar Archives")
+    hero_warrior_choice = TrgUnit("Torrasque (Ultralisk)")
+    hero_archer_choice = TrgUnit("Jim Raynor (Marine)")
+    hero_mage_choice = TrgUnit("Tassadar (Templar)")
+    hero_random_choice = TrgUnit("Zerg Larva")
     barracks = tactics_school  # 도시 점령 시 함께 넘기는 기존 역할 이름.
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")
