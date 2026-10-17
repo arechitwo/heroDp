@@ -24,6 +24,8 @@ BUILDINGS = [
     BuildingButton('hero_hall', 2, 3, UnitModel.hero_hall, '영웅 소집소', 1562),
 ]
 
+BUILDING_UNITS = tuple(item.unit for item in BUILDINGS)
+
 # 시작 시 제거하는 도시·수도 비콘의 버튼셋을 건설 페이지용으로 예약합니다.
 # 유닛을 생성하거나 선택한 수도의 종류를 바꾸지 않고 표시할 버튼셋만 전환합니다.
 PAGE_ONE_UNIT = UnitModel.city_marker

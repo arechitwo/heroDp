@@ -9,6 +9,7 @@ import modules.start_ui as ui;
 import modules.income as income;
 import modules.cities as cities;
 import modules.nexus as nexus;
+import modules.nexus_menu as menu;
 
 const NEXT_UNIT = EPD(0x628438);
 const LOCATION_TABLE = EPD(0x58DC60);
@@ -44,6 +45,15 @@ function init() {
     UnitModel.debug_marine.groundWeapon.icon = AttackIcon.general;
     UnitModel.debug_marine.airWeapon.damage = 2000;
     UnitModel.debug_marine.airWeapon.damageBonus = 0;
+}
+
+function setupBuildTimes() {
+    foreach (_ : cfg.DEBUG_ONLY) {
+        foreach (unit : menu.BUILDING_UNITS) {
+            unit.timeCost = 24;
+        }
+        UnitModel.siege_turret.timeCost = 24;
+    }
 }
 
 function captureChat() {

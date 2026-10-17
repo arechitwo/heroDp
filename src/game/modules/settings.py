@@ -26,7 +26,7 @@ for location in START_LOCATIONS:
     claimed_markers.update(contained)
     start_counts.append(len(contained))
 for key in ('tax_per_city', 'tax_period_frames', 'garrison_per_city', 'peace_timeout_frames',
-            'starting_minerals', 'starting_marines', 'start_countdown_frames',
+            'starting_minerals', 'starting_spearman', 'start_countdown_frames',
             'income_period_frames', 'capital_income', 'metropolis_income',
             'metropolis_cost', 'metropolis_build_frames', 'cities_per_metropolis',
             'army_period_frames'):
@@ -46,11 +46,12 @@ CITIES_PER_METROPOLIS = config['cities_per_metropolis']
 GUARDS = config['garrison_per_city']
 PEACE_TIMEOUT = config['peace_timeout_frames']
 START_MINERALS = config['starting_minerals']
-START_MARINES = config['starting_marines']
+START_SPEARMAN = config['starting_spearman']
 START_COUNTDOWN = config['start_countdown_frames']
 INTRO_FRAMES = config['intro_frames']
 SELECTION_TIMEOUT = config['selection_timeout_frames']
 DEBUG_ENABLED = config.get('debug_enabled', False)
+DEBUG_ONLY = (True,) if DEBUG_ENABLED else ()
 DEBUG_PATTERNS = tuple((command, len(prefix.encode('utf-8'))) for command, prefix in (
     (1, '디버그 돈 '), (2, '디버그 가스 '), (3, '디버그 자원 '),
     (4, '디버그 마린 '), (5, '디버그 SCV '), (6, '디버그 세금타이머 '),

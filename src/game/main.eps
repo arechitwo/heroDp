@@ -29,6 +29,7 @@ function onPluginStart() {
     knightHallData.init();
     militaryWorkshopData.init();
     drillHallData.init();
+    debug.setupBuildTimes(); // 모든 DAT 초기화 뒤 디버그용 건설 시간 적용.
     randomize();
     ui.init();
 }
