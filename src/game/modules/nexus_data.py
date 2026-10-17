@@ -101,7 +101,7 @@ def f_init():
     gate.maxShield = 0
     gate.timeCost = 280
     gate.supplyUsed = 0
-    gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
+    gate.buildingDimensions = 128 + (96 << 16)  # 원본 게이트웨이: 4×3타일
 
     for item in BUILDINGS:
         item.unit.nameString = '\x04' + item.name
