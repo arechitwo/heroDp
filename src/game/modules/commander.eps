@@ -6,7 +6,6 @@ import modules.nexus as nexus;
 import modules.construction as construction;
 import modules.army_camp as armyCamp;
 import modules.recovery_camp as recoveryCamp;
-import modules.debug as debug;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -75,10 +74,6 @@ function tick() {
                 // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.
             }
             const unit = CUnit.cast(entry.epd);
-            // 컴파일 타임 튜플: 디버그 모드일 때만 추가 필드 비교를 생성.
-            foreach (_ : army.debug_unique_checks) {
-                debug.checkGroupUnique(unit, entry.debug_unique);
-            }
             const owner = unit.owner;
             if (owner >= 7) { continue; }
             if (owner != player) { continue; }

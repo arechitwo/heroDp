@@ -23,6 +23,10 @@ function track(unit : CUnit) {
             !MemoryXEPD(old + 0x4C / 4, Exactly, 0, 0xFF00)) {
             old.die();
             SetResources(owner, Add, data.RECOVERY_REFUND, Ore);
+            const previousPlayer = getcurpl();
+            setcurpl(owner);
+            println("\x04새 회복 군막을 건설하여 기존 군막을 철거하고 {}금을 돌려받았습니다.", data.RECOVERY_REFUND);
+            setcurpl(previousPlayer);
         }
     }
     CAMPS[owner] = unit;
