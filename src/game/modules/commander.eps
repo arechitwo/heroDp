@@ -32,7 +32,7 @@ function trackNewUnits() {
         if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
         epdswitch(epd + 0x64 / 4, 0xFF) {
             case unProxy(UnitModel.scv):
-                groups.add_default(epd); // 군막 치료를 위해 등록하되 전군 명령에서는 제외.
+                groups.add_default(epd); // 공병도 일반 군사로 등록.
                 break;
             case unProxy(UnitModel.defender):
             case unProxy(UnitModel.drone):
@@ -79,7 +79,6 @@ function tick() {
             if (owner != player) { continue; }
             recoveryCamp.heal(unit, owner);
             if (!hasCommand) { continue; }
-            if (MemoryXEPD(unit + 0x64 / 4, Exactly, UnitModel.scv, 0xFF)) { continue; }
             const mode = COMMANDS[owner];
             if (mode == 0) { continue; }
             if (mode == 2) { orders.issue(unit, orders.ORDER_ATTACK_MOVE, TARGET_POSITIONS[owner]); }
