@@ -66,9 +66,9 @@ function help() {
     println("\x06[디버그] 디버그 돈 50000 / 디버그 가스 50000 / 디버그 자원 50000");
     println("\x04생성: 디버그 마린 10 (짐 레이너, 공격력 2000) / 디버그 창병 10 / 디버그 SCV 1");
     println("\x04디버그 병종: 현재 설정한 기본 병종과 공성 터렛을 마우스 위치에 각각 1기 생성");
-    println("\x04타이머: 디버그 세금타이머 720 / 디버그 주둔군타이머 120 / 디버그 시작타이머 120");
+    println("\x04타이머: 디버그 세금타이머 10 / 디버그 주둔군타이머 120 / 디버그 시작타이머 120");
     println("\x04기본값 변경: 디버그 값 10000 / 디버그 개수 10. 숫자 생략 시 기본값 적용.");
-    println("\x04유닛 생성·주둔군 타이머는 내 마우스 위치 기준. 타이머 단위는 트리거 틱.");
+    println("\x04유닛 생성·주둔군 타이머는 내 마우스 위치 기준. 세금은 남은 초, 나머지 타이머는 트리거 틱.");
 }
 
 function inspectSelected(player : TrgPlayer) {
@@ -129,8 +129,9 @@ function spawn(player, unit : TrgUnit, count) {
     CreateUnit(count, unit, Loc.city_spawn, player);
 }
 
-function setTaxTimer(ticks) {
-    income.elapsed = ticks;
+function setTaxTimer(seconds) {
+    SetCountdownTimer(SetTo, seconds);
+    income.timerStarted = 1;
 }
 
 function spawnRoster(player) {
