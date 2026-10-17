@@ -50,7 +50,6 @@ for key, appearance in APPEARANCE.items():
     source = graphics.get('wireframe_from') or graphics.get('copy_from')
     if source:
         InitialWireframe.wireframes(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
-InitialWireframe.wireframes(EncodeUnit(UnitModel.defender), EncodeUnit(UnitModel.light_infantry_icon))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
