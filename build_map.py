@@ -46,6 +46,7 @@ def main() -> int:
     parser.add_argument("--input", help="Override base SCX path (relative to project root)")
     parser.add_argument("--output", help="Override output SCX path")
     parser.add_argument("--euddraft", help="Override euddraft executable")
+    parser.add_argument("--quiet", action="store_true", help="Print only the result on successful builds")
     parser.add_argument("--check", action="store_true", help="Validate without compiling")
     parser.add_argument("--prepare", action="store_true", help="Generate data for direct main.eds builds without compiling")
     args = parser.parse_args()
@@ -86,7 +87,8 @@ def main() -> int:
                 executable = str(candidate)
         if not executable:
             raise ValueError("euddraft not found; set --euddraft or EUDDRAFT_PATH")
-        print(f"Input:  {source}\nEntry:  {entry}\nOutput: {output}\nTool:   {executable}", flush=True)
+        if not args.quiet:
+            print(f"Input:  {source}\nEntry:  {entry}\nOutput: {output}\nTool:   {executable}", flush=True)
         if args.check:
             print(f"Configuration and JSON OK: TBL {data_manifest['tbl_bytes']} bytes; RequireData {data_manifest['require_bytes']} bytes (compilation not run).")
             return 0
@@ -123,7 +125,8 @@ def main() -> int:
         logs = ROOT / "build" / "logs"
         logs.mkdir(parents=True, exist_ok=True)
         log_path = logs / f"{stamp}.log"
-        print(f"Log: {log_path}", flush=True)
+        if not args.quiet:
+            print(f"Log: {log_path}", flush=True)
         # .eds compiles once; .edd would enter a persistent watch loop.
         with log_path.open("wb") as log:
             result = subprocess.run(
