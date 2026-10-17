@@ -147,7 +147,7 @@
   "knight": {
     "defense": {
       "type": "armored",
-      "hp": 5600,
+      "hp": 4200,
       "shield": 1,
       "armor": 35
     },
@@ -178,7 +178,7 @@
   "siege_turret": {
     "defense": {
       "type": "armored",
-      "hp": 8000,
+      "hp": 6000,
       "shield": 1,
       "armor": 25
     },
