@@ -129,7 +129,8 @@
       "max_air_hits": 1
     },
     "flags": {
-      "hero": false
+      "hero": false,
+      "worker": false
     },
     "vision": {},
     "orders": {},

@@ -77,6 +77,7 @@ PROPERTY_FIELDS = {
     'production.minerals': 'mineralCost', 'production.gas': 'gasCost',
     'production.supply': 'supplyUsed', 'production.time': 'timeCost',
     'flags.base_property': 'baseProperty',
+    'flags.worker': 'baseProperty.Worker',
     'vision.seek_range': 'seekRange', 'vision.sight_range': 'sightRange',
     'weapons.ground': 'groundWeapon', 'weapons.air': 'airWeapon',
     'orders.computer_idle': 'computerIdleOrder', 'orders.human_idle': 'humanIdleOrder',
