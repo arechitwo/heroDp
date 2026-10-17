@@ -102,8 +102,9 @@ def f_init():
     gate.maxHp = 4800 * 256
     gate.armor = 50
     gate.sizeType = DefenseType.armored
-    gate.hasShield = False
-    gate.maxShield = 0
+    gate.armorUpgrade = UpgradeModel.armored_armor
+    gate.hasShield = True
+    gate.maxShield = 1
     gate.timeCost = 280
     gate.supplyUsed = 0
     gate.buildingDimensions = 128 + (96 << 16)  # 원본 게이트웨이: 4×3타일

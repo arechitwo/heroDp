@@ -1,5 +1,5 @@
 """Native training queue as a persistent, free-to-edit automatic recruitment list."""
-from eudplib import Db, DoActions, EUDFunc, EncodeUnit, SetMemory, SetTo
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, SetMemory, SetTo
 from .unit_settings import UnitModel
 from .unit_data import RECRUITMENT, TRAINING_RESET_TIME
 from .nexus_data import _button, BUTTON_TABLE, BUTTON_ALWAYS, BUTTON_CAN_TRAIN, BUTTON_TRAIN, BUILDING_COSTS
@@ -41,7 +41,7 @@ HERO_BUTTONS = Db(b''.join(
 ) + _button(9, 236, 0x428530, 0x423490, 0, 0, 1622, 0))
 # 안내 전용: 자기 버튼셋을 표시하므로 치료·이동 등 게임 명령은 실행하지 않음.
 RECOVERY_BUTTONS = Db(_button(
-    1, 308, BUTTON_ALWAYS, 0x459AF0, 0,
+    7, EncodeIcon('Heal'), BUTTON_ALWAYS, 0x459AF0, 0,
     EncodeUnit(UnitModel.recovery_camp), 1623, 0))
 
 
