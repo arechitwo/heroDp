@@ -2,7 +2,7 @@
 import json
 import struct
 from pathlib import Path
-from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, Image, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
 from .unit_settings import Looks, UnitModel
 from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
@@ -172,6 +172,12 @@ def f_init():
         look = (appearance.get('graphics') or {}).get('look')
         if look is not None:
             unit.flingy = getattr(Looks, look)
+        shadow = (appearance.get('graphics') or {}).get('shadow')
+        if shadow is not None:
+            image = Image(shadow['image'])
+            # 그림자도 공격 애니메이션 명령을 받아 투사체를 발사합니다.
+            image.iscript = Image(shadow['script_from']).iscript
+            image.useFullIscript = True
         movement = appearance.get('movement') or {}
         movement_look = movement.get('look')
         if movement_look is not None:
@@ -212,6 +218,7 @@ def f_init():
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)
         for channel, attribute in (('ground', 'groundWeapon'), ('air', 'airWeapon')):
             weapon_appearance = (appearance.get('weapons') or {}).get(channel) or {}
+            label = (combat['attack'].get(channel) or {}).get('label')
             projectile_look = weapon_appearance.get('look')
             if projectile_look is not None:
                 getattr(weapon_unit, attribute).flingy = getattr(Looks, projectile_look)
@@ -229,6 +236,8 @@ def f_init():
                 weapon.damageType = getattr(AttackType, attack_type)
                 weapon.label = getattr(AttackLabel, attack_type)
                 weapon.icon = getattr(AttackIcon, attack_type)
+            if label is not None:
+                getattr(weapon_unit, attribute).label = label
             fields = [(target, _value(combat, f'attack.{channel}.{field}'))
                       for field, target in WEAPON_FIELDS.items()
                       if _value(combat, f'attack.{channel}.{field}') is not None]

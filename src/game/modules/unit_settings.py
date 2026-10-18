@@ -25,6 +25,7 @@ class Looks:
     ultralisk = Flingy("Ultralisk")
     scv = Flingy("SCV")
     siege_hit = Flingy("Arclite Shock Cannon Hit")
+    knight_hit = Flingy("Psionic Shockwave Hit")
 
 
 class UnitModel:

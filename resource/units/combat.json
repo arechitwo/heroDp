@@ -154,6 +154,7 @@
     "attack": {
       "ground": {
         "type": "general",
+        "label": 1625,
         "damage": 160,
         "bonus": 1,
         "range": 24,
