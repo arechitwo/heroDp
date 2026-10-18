@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "맵 빌드",
+            "type": "process",
+            "command": "C:/Users/shigi/AppData/Local/Programs/Python/Python313/python.exe",
+            "args": ["${workspaceFolder}/build_map.py", "--quiet"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "clear": true,
+                "showReuseMessage": false
+            }
+        }
+    ]
+}

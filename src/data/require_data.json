@@ -14,16 +14,23 @@
     "knight_hall": 7,
     "siege_turret": 400,
     "spearman": 6,
+    "spearman_icon": 6,
+    "light_infantry_icon": 6,
+    "longbowman_icon": 6,
     "light_infantry": 6,
     "longbowman": 6,
     "military_workshop": 38,
-    "magic_laboratory": 361
+    "hero_hall": 361,
+    "hero_warrior_choice": 6,
+    "hero_archer_choice": 6,
+    "hero_mage_choice": 6,
+    "hero_random_choice": 6
   },
   "unit_programs": {
     "siege_turret": {
       "offset": 400,
-      "words": [65295, 5, 65535],
-      "note": "FF0F Tank Siege Mode(TechModel.siege_construction) 연구 완료, 종료. 기존 빈 공간 사용."
+      "words": [101, 65535],
+      "note": "UnitModel.siege_requirement(Map Revealer, 101) 보유, 종료. 연구 완료 시 체크용 유닛 생성. 기존 빈 공간 사용."
     }
   },
   "unit_overrides": {
@@ -2389,7 +2396,7 @@
       189,
       196,
       203,
-      210,
+      241,
       214,
       221,
       225,

@@ -1,12 +1,13 @@
-"""Capital DAT and two scoped button sets, based on FranceDp's capital flow."""
+"""Capital DAT, main construction menu, and two scoped building pages."""
 import struct
 import json
 from pathlib import Path
-from eudplib import Db, DoActions, EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, InitialWireframe, SetMemory, SetTo
 from .unit_settings import Looks, UnitModel, UpgradeModel
 from .damage_types import DefenseType
 from . import settings as cfg
-from .nexus_menu import BUILDINGS, PAGE_TWO_UNIT, NEXT_PAGE_TOOLTIP, PREVIOUS_PAGE_TOOLTIP
+from .nexus_menu import (BUILDINGS, PAGE_ONE_UNIT, PAGE_TWO_UNIT,
+                         PAGE_ONE_TOOLTIP, PAGE_TWO_TOOLTIP, RETURN_TOOLTIP)
 
 BUTTON_TABLE = 0x5187E8
 STATUS_TABLE = 0x5193A0
@@ -39,12 +40,16 @@ def _building_buttons(page):
     )
 
 
-CAPITAL_BUTTONS = Db(_building_buttons(1) + _button(
-    9, 370, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(PAGE_TWO_UNIT),
-    NEXT_PAGE_TOOLTIP, 0))
-CAPITAL_PAGE_TWO_BUTTONS = Db(_building_buttons(2) + _button(
+CAPITAL_BUTTONS = Db(_button(
+    7, EncodeIcon('Protoss Basic Buildings'), BUTTON_ALWAYS, BUTTON_CHANGE_PAGE,
+    0, EncodeUnit(PAGE_ONE_UNIT), PAGE_ONE_TOOLTIP, 0) + _button(
+    8, EncodeIcon('Protoss Advanced Buildings'), BUTTON_ALWAYS, BUTTON_CHANGE_PAGE,
+    0, EncodeUnit(PAGE_TWO_UNIT), PAGE_TWO_TOOLTIP, 0))
+RETURN_BUTTON = _button(
     9, 236, BUTTON_ALWAYS, BUTTON_CHANGE_PAGE, 0, EncodeUnit(UnitModel.nexus_unit),
-    PREVIOUS_PAGE_TOOLTIP, 0))
+    RETURN_TOOLTIP, 0)
+CAPITAL_PAGE_ONE_BUTTONS = Db(_building_buttons(1) + RETURN_BUTTON)
+CAPITAL_PAGE_TWO_BUTTONS = Db(_building_buttons(2) + RETURN_BUTTON)
 CITY_BUTTONS = Db(_button(7, 154, BUTTON_CAN_TRAIN, BUTTON_TRAIN,
                          EncodeUnit(UnitModel.nexus_signal),
                          EncodeUnit(UnitModel.nexus_signal), 1049, 1050))
@@ -97,11 +102,12 @@ def f_init():
     gate.maxHp = 4800 * 256
     gate.armor = 50
     gate.sizeType = DefenseType.armored
-    gate.hasShield = False
-    gate.maxShield = 0
+    gate.armorUpgrade = UpgradeModel.armored_armor
+    gate.hasShield = True
+    gate.maxShield = 1
     gate.timeCost = 280
     gate.supplyUsed = 0
-    gate.buildingDimensions = 32 + (32 << 16)  # FranceDp 게이트웨이 배치 크기
+    gate.buildingDimensions = 128 + (96 << 16)  # 원본 게이트웨이: 4×3타일
 
     for item in BUILDINGS:
         item.unit.nameString = '\x04' + item.name
@@ -131,8 +137,10 @@ def f_init():
     DoActions([
         SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12, SetTo, 0),
         SetMemory(BUTTON_TABLE + EncodeUnit(metropolis) * 12 + 4, SetTo, 0),
-        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 6),
+        SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12, SetTo, 2),
         SetMemory(BUTTON_TABLE + EncodeUnit(capital) * 12 + 4, SetTo, CAPITAL_BUTTONS),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_ONE_UNIT) * 12, SetTo, 6),
+        SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_ONE_UNIT) * 12 + 4, SetTo, CAPITAL_PAGE_ONE_BUTTONS),
         SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12, SetTo, 4),
         SetMemory(BUTTON_TABLE + EncodeUnit(PAGE_TWO_UNIT) * 12 + 4, SetTo, CAPITAL_PAGE_TWO_BUTTONS),
         SetMemory(BUTTON_TABLE + EncodeUnit(UnitModel.small_city) * 12, SetTo, 1),

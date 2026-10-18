@@ -2,7 +2,9 @@
   "spearman": {
     "name": "\u0004창병",
     "graphics": {
-      "look": "broodling"
+      "look": "broodling",
+      "copy_from": "Zerg Broodling",
+      "wireframe_from": "Zerg Broodling"
     },
     "size": {
       "placement": {},
@@ -68,7 +70,18 @@
   },
   "knight": {
     "name": "\u0004기사",
-    "graphics": {},
+    "graphics": {
+      "shadow": {
+        "image": "Ultralisk Shadow",
+        "script_from": "Wraith"
+      }
+    },
+    "weapons": {
+      "ground": {
+        "look": "knight_hit",
+        "delivery_from": "Psionic Shockwave"
+      }
+    },
     "size": {
       "placement": {},
       "bounds": {}

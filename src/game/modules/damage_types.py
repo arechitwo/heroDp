@@ -38,7 +38,7 @@ DEFENSE_DISPLAY = (
     (UpgradeModel.infantry_armor, Icon("Infantry Armor"), 1583),
     (UpgradeModel.armored_armor, Icon("Vehicle Armor"), 1584),
     (UpgradeModel.hero_armor, Icon("Ground Armor"), 1585),
-    (UpgradeModel.garrison_armor, Icon("Infantry Armor"), 1583),
+    (UpgradeModel.garrison_armor, Icon("Vehicle Armor"), 1584),
 )
 
 
@@ -55,8 +55,9 @@ def f_init():
     actions = []
     for attack, defenses in RATIOS.items():
         for defense, percent in defenses.items():
-            if type(percent) is not int or not 0 <= percent <= 200 or percent * 256 % 100:
-                raise ValueError(f'Invalid exact damage ratio: {attack}/{defense}: {percent}')
+            if type(percent) is not int or not 0 <= percent <= 200:
+                raise ValueError(f'Invalid damage ratio: {attack}/{defense}: {percent}')
             address = DAMAGE_TABLE + getattr(AttackType, attack) * 20 + 4 + getattr(DefenseType, defense) * 4
-            actions.append(SetMemory(address, SetTo, percent * 256 // 100))
+            # 엔진은 1/256 단위이므로 가장 가까운 값으로 반올림합니다.
+            actions.append(SetMemory(address, SetTo, (percent * 256 + 50) // 100))
     DoActions(actions)

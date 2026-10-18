@@ -1,5 +1,5 @@
 {
   "general": {"infantry": 100, "armored": 100, "hero": 100},
-  "piercing": {"infantry": 100, "armored": 50, "hero": 75},
+  "piercing": {"infantry": 100, "armored": 50, "hero": 50},
   "duel": {"infantry": 100, "armored": 100, "hero": 200}
 }

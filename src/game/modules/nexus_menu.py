@@ -21,11 +21,15 @@ BUILDINGS = [
     BuildingButton('recovery_camp', 1, 8, UnitModel.recovery_camp, '회복 군막', 1556),
     BuildingButton('tactics_school', 2, 1, UnitModel.tactics_school, '병법원', 1558),
     BuildingButton('knight_hall', 2, 2, UnitModel.knight_hall, '기사단 회관', 1560),
-    BuildingButton('magic_laboratory', 2, 3, UnitModel.magic_laboratory, '마법 연구소', 1562),
+    BuildingButton('hero_hall', 2, 3, UnitModel.hero_hall, '영웅 소집소', 1562),
 ]
 
-# 시작 시 제거하는 수도 비콘의 버튼셋을 두 번째 페이지 전용으로 예약합니다.
+BUILDING_UNITS = tuple(item.unit for item in BUILDINGS)
+
+# 시작 시 제거하는 도시·수도 비콘의 버튼셋을 건설 페이지용으로 예약합니다.
 # 유닛을 생성하거나 선택한 수도의 종류를 바꾸지 않고 표시할 버튼셋만 전환합니다.
+PAGE_ONE_UNIT = UnitModel.city_marker
 PAGE_TWO_UNIT = UnitModel.nexus_marker
-NEXT_PAGE_TOOLTIP = 1564
-PREVIOUS_PAGE_TOOLTIP = 1565
+PAGE_ONE_TOOLTIP = 1564
+PAGE_TWO_TOOLTIP = 1565
+RETURN_TOOLTIP = 1624

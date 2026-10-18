@@ -1,12 +1,38 @@
 """Nested JSON resources and runtime DAT initialization for normal troops."""
 import json
+import struct
 from pathlib import Path
-from eudplib import EUDFunc, EncodeUnit, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
+from eudplib import Db, DoActions, EUDFunc, EncodeIcon, EncodeUnit, Image, InitialWireframe, SetMemory, SetTo, TrgUnit, Weapon
 from .unit_settings import Looks, UnitModel
 from .damage_types import AttackType, DefenseType, AttackLabel, AttackIcon, DEFENSE_UPGRADES
 
 RESOURCE_DIR = Path(__file__).resolve().parents[3] / 'resource/units'
 BUTTON_TABLE = 0x5187E8
+BUTTON_ALWAYS = 0x4282D0
+BUTTON_CAN_BUILD = 0x428E60
+BUTTON_TERRAN_BUILD = 0x423EB0
+
+
+def _button(position, icon, action, tooltip, *, condition=BUTTON_ALWAYS,
+            parameter=0, disabled=0):
+    return struct.pack('<HHIIHHHH', position, EncodeIcon(icon), condition, action,
+                       parameter, parameter, tooltip, disabled)
+
+
+BASIC_COMMANDS = b''.join([
+    _button(1, 'Move', 0x424440, 1568),
+    _button(2, 'Stop', 0x4233F0, 1569),
+    _button(3, 'Attack', 0x424380, 1570),
+    _button(4, 'Patrol', 0x424140, 1571),
+    _button(5, 'Hold Position', 0x423370, 1572),
+])
+INFANTRY_BUTTONS = Db(BASIC_COMMANDS)
+ENGINEER_BUTTONS = Db(BASIC_COMMANDS + b''.join([
+    _button(6, 'Repair', 0x423BD0, 1573),
+    _button(7, EncodeUnit(UnitModel.siege_turret), BUTTON_TERRAN_BUILD, 1566,
+            condition=BUTTON_CAN_BUILD, parameter=EncodeUnit(UnitModel.siege_turret),
+            disabled=1567),
+]))
 
 
 def _read_json(filename):
@@ -20,13 +46,29 @@ DEBUG_ROSTER = tuple(getattr(UnitModel, key)
 APPEARANCE = _read_json('appearance.json')
 PROPERTIES = _read_json('properties.json')
 for key, appearance in APPEARANCE.items():
-    source = (appearance.get('graphics') or {}).get('copy_from')
+    graphics = appearance.get('graphics') or {}
+    source = graphics.get('wireframe_from') or graphics.get('copy_from')
     if source:
-        InitialWireframe.wirefram(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
+        InitialWireframe.wireframes(EncodeUnit(getattr(UnitModel, key)), EncodeUnit(source))
 
 # These are gameplay values, separate from the DAT mineralCost production field.
 RECRUITMENT = {key: (row['recruitment']['cost'], row['recruitment']['count'])
                for key, row in PROPERTIES.items()}
+TRAINING_RESET_TIME = min(PROPERTIES[key]['production']['time']
+                         for key in ('spearman', 'light_infantry', 'longbowman'))
+class RecoveryStats:
+    spearman_hp = COMBAT['spearman']['defense']['hp']
+    spearman_charge = PROPERTIES['spearman']['recovery']['debt_per_tick']
+    infantry_hp = COMBAT['light_infantry']['defense']['hp']
+    infantry_charge = PROPERTIES['light_infantry']['recovery']['debt_per_tick']
+    longbow_hp = COMBAT['longbowman']['defense']['hp']
+    longbow_charge = PROPERTIES['longbowman']['recovery']['debt_per_tick']
+    cavalry_hp = COMBAT['light_cavalry']['defense']['hp']
+    cavalry_charge = PROPERTIES['light_cavalry']['recovery']['debt_per_tick']
+    engineer_hp = COMBAT['engineer']['defense']['hp']
+    engineer_charge = PROPERTIES['engineer']['recovery']['debt_per_tick']
+    knight_hp = COMBAT['knight']['defense']['hp']
+    knight_charge = PROPERTIES['knight']['recovery']['debt_per_tick']
 
 COMBAT_FIELDS = {
     'defense.armor': 'armor', 'defense.size_type': 'sizeType',
@@ -45,6 +87,7 @@ PROPERTY_FIELDS = {
     'production.minerals': 'mineralCost', 'production.gas': 'gasCost',
     'production.supply': 'supplyUsed', 'production.time': 'timeCost',
     'flags.base_property': 'baseProperty',
+    'flags.worker': 'baseProperty.Worker',
     'vision.seek_range': 'seekRange', 'vision.sight_range': 'sightRange',
     'weapons.ground': 'groundWeapon', 'weapons.air': 'airWeapon',
     'orders.computer_idle': 'computerIdleOrder', 'orders.human_idle': 'humanIdleOrder',
@@ -92,6 +135,8 @@ def f_init():
             donor = TrgUnit(source)
             # 실체 ID는 업그레이드용으로 유지하고 외형·음성·충돌·기본 동작을 복사.
             for member in ('baseProperty', 'groupFlags', 'availabilityFlags', 'portrait',
+                           'elevation', 'movementFlags', 'rank', 'buildingDimensions',
+                           'transportSpaceRequired', 'transportSpaceProvided',
                            'readySound', 'whatSoundStart', 'whatSoundEnd',
                            'pissedSoundStart', 'pissedSoundEnd', 'yesSoundStart', 'yesSoundEnd',
                            'unitBoundsL', 'unitBoundsT', 'unitBoundsR', 'unitBoundsB',
@@ -127,6 +172,12 @@ def f_init():
         look = (appearance.get('graphics') or {}).get('look')
         if look is not None:
             unit.flingy = getattr(Looks, look)
+        shadow = (appearance.get('graphics') or {}).get('shadow')
+        if shadow is not None:
+            image = Image(shadow['image'])
+            # 그림자도 공격 애니메이션 명령을 받아 투사체를 발사합니다.
+            image.iscript = Image(shadow['script_from']).iscript
+            image.useFullIscript = True
         movement = appearance.get('movement') or {}
         movement_look = movement.get('look')
         if movement_look is not None:
@@ -149,17 +200,25 @@ def f_init():
                 else:
                     setattr(unit, attribute, value)
         hero = _value(properties, 'flags.hero')
+        unit.baseProperty.RegeneratesHp = False
         if hero is not None:
             unit.baseProperty.Hero = hero
         detector = _value(properties, 'vision.detector')
         if detector is not None:
             unit.baseProperty.Detector = detector
 
+        if key != 'siege_turret':
+            # Men 등 다른 그룹 플래그는 유지하고 종족 표시만 통일해 계급을 숨깁니다.
+            unit.groupFlags.Zerg = False
+            unit.groupFlags.Terran = False
+            unit.groupFlags.Protoss = True
+
         # A tank's attack fields belong to its turret, while HP belongs to its body.
         weapons = properties.get('weapons') or {}
         weapon_unit = getattr(UnitModel, weapons.get('unit') or key)
         for channel, attribute in (('ground', 'groundWeapon'), ('air', 'airWeapon')):
             weapon_appearance = (appearance.get('weapons') or {}).get(channel) or {}
+            label = (combat['attack'].get(channel) or {}).get('label')
             projectile_look = weapon_appearance.get('look')
             if projectile_look is not None:
                 getattr(weapon_unit, attribute).flingy = getattr(Looks, projectile_look)
@@ -177,6 +236,8 @@ def f_init():
                 weapon.damageType = getattr(AttackType, attack_type)
                 weapon.label = getattr(AttackLabel, attack_type)
                 weapon.icon = getattr(AttackIcon, attack_type)
+            if label is not None:
+                getattr(weapon_unit, attribute).label = label
             fields = [(target, _value(combat, f'attack.{channel}.{field}'))
                       for field, target in WEAPON_FIELDS.items()
                       if _value(combat, f'attack.{channel}.{field}') is not None]
@@ -189,3 +250,23 @@ def f_init():
             address = BUTTON_TABLE + EncodeUnit(unit) * 12
             SetMemory(address, SetTo, 0)
             SetMemory(address + 4, SetTo, 0)
+
+    # 모든 기본 보병에 같은 한글 명령 설명과 버튼을 적용합니다.
+    for unit in (UnitModel.spearman, UnitModel.light_infantry,
+                 UnitModel.longbowman, UnitModel.light_cavalry, UnitModel.knight):
+        unit.baseProperty.Burrowable = False
+        address = BUTTON_TABLE + EncodeUnit(unit) * 12
+        DoActions([SetMemory(address, SetTo, 5),
+                   SetMemory(address + 4, SetTo, INFANTRY_BUTTONS)])
+    address = BUTTON_TABLE + EncodeUnit(UnitModel.engineer) * 12
+    DoActions([SetMemory(address, SetTo, 7),
+               SetMemory(address + 4, SetTo, ENGINEER_BUTTONS)])
+    # 외형 ID로 표시되는 훈련 목록도 실제 병종과 같은 한글 이름을 사용합니다.
+    for role, marker in (('spearman', UnitModel.spearman_icon),
+                         ('light_infantry', UnitModel.light_infantry_icon),
+                         ('longbowman', UnitModel.longbowman_icon)):
+        marker.nameString = APPEARANCE[role]['name']
+        marker.mineralCost = 0
+        marker.gasCost = 0
+        marker.supplyUsed = 0
+        marker.timeCost = TRAINING_RESET_TIME

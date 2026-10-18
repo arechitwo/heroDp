@@ -7,14 +7,14 @@ class TechModel:
 
 
 class UpgradeModel:
-    spearman_speed = Upgrade("Leg Enhancements")
+    spearman_speed = Upgrade("Metabolic Boost")
     infantry_speed = Upgrade("Muscular Augments")
     infantry_range = Upgrade("Grooved Spines")
     longbow_range = Upgrade("Singularity Charge")
     infantry_armor = Upgrade("Terran Infantry Armor")
     armored_armor = Upgrade("Terran Vehicle Plating")
     hero_armor = Upgrade("Protoss Armor")
-    garrison_armor = Upgrade("Unused60")
+    garrison_armor = Upgrade("Terran Ship Plating")  # 주둔군 전용. 중갑 방어 아이콘·설명 사용.
 
 
 class Looks:
@@ -25,11 +25,12 @@ class Looks:
     ultralisk = Flingy("Ultralisk")
     scv = Flingy("SCV")
     siege_hit = Flingy("Arclite Shock Cannon Hit")
+    knight_hit = Flingy("Psionic Shockwave Hit")
 
 
 class UnitModel:
     # 기본 병종. JSON의 최상위 키는 이 속성 이름을 사용합니다.
-    spearman = TrgUnit("Protoss Zealot")
+    spearman = TrgUnit("Zerg Zergling")
     spearman_icon = TrgUnit("Zerg Broodling")
     light_infantry = TrgUnit("Zerg Hydralisk")
     light_infantry_icon = TrgUnit("Terran Marine")
@@ -38,6 +39,7 @@ class UnitModel:
     longbowman_icon = TrgUnit("Terran Ghost")
     engineer = TrgUnit("Terran SCV")
     siege_turret = TrgUnit("Terran Missile Turret")
+    siege_requirement = TrgUnit("Map Revealer")  # 공성 진지술 연구 완료 체크용
     knight = TrgUnit("Zerg Ultralisk")
 
     # 도시 마커 → 인게임 도시
@@ -51,7 +53,11 @@ class UnitModel:
     recovery_camp = TrgUnit("Protoss Shield Battery")
     tactics_school = TrgUnit("Protoss Gateway")
     knight_hall = TrgUnit("Protoss Citadel of Adun")
-    magic_laboratory = TrgUnit("Protoss Templar Archives")
+    hero_hall = TrgUnit("Protoss Templar Archives")
+    hero_warrior_choice = TrgUnit("Torrasque (Ultralisk)")
+    hero_archer_choice = TrgUnit("Jim Raynor (Marine)")
+    hero_mage_choice = TrgUnit("Tassadar (Templar)")
+    hero_random_choice = TrgUnit("Zerg Larva")
     barracks = tactics_school  # 도시 점령 시 함께 넘기는 기존 역할 이름.
     nexus_marker = TrgUnit("Protoss Beacon")
     nexus_unit = TrgUnit("Khaydarin Crystal Formation")
@@ -60,7 +66,7 @@ class UnitModel:
     nexus_requirement = TrgUnit("Mineral Field (Type 1)")
 
     # 마린 외형을 적용하는 주둔군. 실제 Marine과 다른 유닛입니다.
-    defender = TrgUnit("Zerg Broodling")
+    defender = TrgUnit("Terran Civilian")
     marine = light_infantry
     debug_marine = TrgUnit("Jim Raynor (Marine)")
 

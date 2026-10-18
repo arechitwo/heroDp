@@ -9,7 +9,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 160,
+        "damage": 80,
         "bonus": 1,
         "range": 16,
         "min_range": 0,
@@ -34,7 +34,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 80,
+        "damage": 40,
         "bonus": 1,
         "range": 96,
         "min_range": 0,
@@ -45,7 +45,7 @@
       },
       "air": {
         "type": "general",
-        "damage": 80,
+        "damage": 40,
         "bonus": 1,
         "range": 96,
         "min_range": 0,
@@ -69,7 +69,7 @@
     "attack": {
       "ground": {
         "type": "piercing",
-        "damage": 280,
+        "damage": 120,
         "bonus": 1,
         "range": 160,
         "min_range": 0,
@@ -80,7 +80,7 @@
       },
       "air": {
         "type": "piercing",
-        "damage": 280,
+        "damage": 120,
         "bonus": 1,
         "range": 160,
         "min_range": 0,
@@ -104,7 +104,7 @@
     "attack": {
       "ground": {
         "type": "piercing",
-        "damage": 150,
+        "damage": 120,
         "bonus": 1,
         "range": 128,
         "min_range": 0,
@@ -129,7 +129,7 @@
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 60,
+        "damage": 35,
         "bonus": 1,
         "range": 16,
         "min_range": 0,
@@ -147,14 +147,15 @@
   "knight": {
     "defense": {
       "type": "armored",
-      "hp": 5600,
+      "hp": 4200,
       "shield": 1,
       "armor": 35
     },
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 280,
+        "label": 1625,
+        "damage": 160,
         "bonus": 1,
         "range": 24,
         "min_range": 0,
@@ -164,9 +165,9 @@
         "targets": 2,
         "splash": {
           "explosion": 3,
-          "inner": 16,
-          "middle": 32,
-          "outer": 48
+          "inner": 24,
+          "middle": 48,
+          "outer": 64
         }
       },
       "air": {}
@@ -178,14 +179,14 @@
   "siege_turret": {
     "defense": {
       "type": "armored",
-      "hp": 8000,
+      "hp": 6000,
       "shield": 1,
       "armor": 25
     },
     "attack": {
       "ground": {
         "type": "general",
-        "damage": 1000,
+        "damage": 600,
         "bonus": 1,
         "range": 320,
         "min_range": 64,

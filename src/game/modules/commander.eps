@@ -5,6 +5,7 @@ import modules.map_data.Loc as Loc;
 import modules.nexus as nexus;
 import modules.construction as construction;
 import modules.army_camp as armyCamp;
+import modules.recovery_camp as recoveryCamp;
 
 const COMMANDS = EUDVArray(8)();
 const TARGET_POSITIONS = EUDVArray(8)();
@@ -16,6 +17,12 @@ function trackNewUnits() {
             case unProxy(UnitModel.army_camp):
                 armyCamp.track(epd);
                 continue;
+            case unProxy(UnitModel.hero_hall):
+                armyCamp.trackHeroHall(epd);
+                continue;
+            case unProxy(UnitModel.recovery_camp):
+                recoveryCamp.track(CUnit.cast(epd));
+                continue;
             case unProxy(UnitModel.metropolis):
                 if (!construction.acceptNewMetropolis(CUnit.cast(epd))) { continue; }
                 nexus.trackMetropolis(epd);
@@ -25,6 +32,8 @@ function trackNewUnits() {
         if (MemoryXEPD(epd + 0x64 / 4, AtLeast, 106, 0xFF)) { continue; }
         epdswitch(epd + 0x64 / 4, 0xFF) {
             case unProxy(UnitModel.scv):
+                groups.add_default(epd); // 공병도 일반 군사로 등록.
+                break;
             case unProxy(UnitModel.defender):
             case unProxy(UnitModel.drone):
             case unProxy(UnitModel.probe):
@@ -58,16 +67,18 @@ function tick() {
     }
         // 매 틱 수명 관리. 명령이 있을 때에만 저장된 유닛에 직접 명령을 기록.
     // Registry expands at compile time: each player's default/hero groups get one pass.
+    recoveryCamp.prepare();
     foreach (player, army : groups.REGISTERED_GROUPS) {
         foreach (entry : army.cploop) {
             foreach (dead : entry.dying) {
                 // UnitGroup이 이 블록 끝에서 죽은 항목을 제거합니다.
             }
-            if (!hasCommand) { continue; }
             const unit = CUnit.cast(entry.epd);
             const owner = unit.owner;
             if (owner >= 7) { continue; }
             if (owner != player) { continue; }
+            recoveryCamp.heal(unit, owner);
+            if (!hasCommand) { continue; }
             const mode = COMMANDS[owner];
             if (mode == 0) { continue; }
             if (mode == 2) { orders.issue(unit, orders.ORDER_ATTACK_MOVE, TARGET_POSITIONS[owner]); }
